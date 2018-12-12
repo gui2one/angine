@@ -58,8 +58,7 @@ int main(){
 
 
 	ObjLoader loader;
-	//~  // add object
-	
+	//~  // add object	
 	//~ obj1.mesh = loader.assimp_load("../src/res/obj/sphere_normals_uvs.obj");
 	
 	sphere.generate(obj1.mesh,20,100);
