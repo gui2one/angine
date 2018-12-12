@@ -17,7 +17,7 @@ class Application
 		Window  window;
 
 		void printObjectsInfos();
-		std::vector<Object> objects;
+		std::vector<Object*> objects;
 	private:
 		
 		/* add your private declarations */

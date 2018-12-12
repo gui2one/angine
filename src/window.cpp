@@ -69,8 +69,8 @@ void Window::renderObjects(){
 		for (int i = 0; i < objects.size(); i++)
 		{	
 		
-			Object& curObj = objects[i];
-			curObj.shader.useProgram();	
+			Object* curObj = objects[i];
+			curObj->shader.useProgram();	
 			
 				
 					//~ glLoadIdentity();
@@ -113,31 +113,31 @@ void Window::renderObjects(){
 					//~ glm::mat4 ModelMatrix = glm::mat4(1.0f);
 
 					
-					model = glm::translate(model, *curObj.position);
+					model = glm::translate(model, *curObj->position);
 					
-					model = glm::rotate(model, curObj.rotation->x ,glm::vec3(1.0f,0.0f, 0.0f));
-					model = glm::rotate(model, curObj.rotation->y ,glm::vec3(0.0f,1.0f, 0.0f));
-					model = glm::rotate(model, curObj.rotation->z ,glm::vec3(0.0f,0.0f, 1.0f));
+					model = glm::rotate(model, curObj->rotation->x ,glm::vec3(1.0f,0.0f, 0.0f));
+					model = glm::rotate(model, curObj->rotation->y ,glm::vec3(0.0f,1.0f, 0.0f));
+					model = glm::rotate(model, curObj->rotation->z ,glm::vec3(0.0f,0.0f, 1.0f));
 					
-					model = glm::scale(model, *curObj.scale);
+					model = glm::scale(model, *curObj->scale);
 
 								
 								
 					// create and upload modelviewprojection matrix				 
 					//~ ModelViewProjectionMatrix = projection * ModelViewMatrix * ModelMatrix;		
 					
-					glUniformMatrix4fv(glGetUniformLocation(curObj.shader.m_id,"projection"), 1, GL_FALSE, glm::value_ptr(projection));	
-					glUniformMatrix4fv(glGetUniformLocation(curObj.shader.m_id,"model"), 1, GL_FALSE, glm::value_ptr(model));	
-					glUniformMatrix4fv(glGetUniformLocation(curObj.shader.m_id,"view"), 1, GL_FALSE, glm::value_ptr(view));	
+					glUniformMatrix4fv(glGetUniformLocation(curObj->shader.m_id,"projection"), 1, GL_FALSE, glm::value_ptr(projection));	
+					glUniformMatrix4fv(glGetUniformLocation(curObj->shader.m_id,"model"), 1, GL_FALSE, glm::value_ptr(model));	
+					glUniformMatrix4fv(glGetUniformLocation(curObj->shader.m_id,"view"), 1, GL_FALSE, glm::value_ptr(view));	
 											
 											
-					GLuint COLOR_LOC = glGetUniformLocation(curObj.shader.m_id,"u_color");
-					glUniform4f(COLOR_LOC, curObj.color->x, curObj.color->y, curObj.color->z, curObj.color->w);
+					GLuint COLOR_LOC = glGetUniformLocation(curObj->shader.m_id,"u_color");
+					glUniform4f(COLOR_LOC, curObj->color->x, curObj->color->y, curObj->color->z, curObj->color->w);
 					
 					
-					//~ glBindTexture(GL_TEXTURE_2D,curObj.texture_id);
-					curObj.texture->bind();
-					glUniform1i(glGetUniformLocation(curObj.shader.m_id, "u_tex"),0);
+					//~ glBindTexture(GL_TEXTURE_2D,curObj->texture_id);
+					curObj->texture->bind();
+					glUniform1i(glGetUniformLocation(curObj->shader.m_id, "u_tex"),0);
 
 							
 			
@@ -146,13 +146,13 @@ void Window::renderObjects(){
 
 			
 			
-			curObj.draw();
+			curObj->draw();
 			
 			
 											
-			COLOR_LOC = glGetUniformLocation(curObj.shader.m_id,"u_color");
+			COLOR_LOC = glGetUniformLocation(curObj->shader.m_id,"u_color");
 			glUniform4f(COLOR_LOC, 1.0,0.0,0.0,1.0);			
-			curObj.drawNormals();
+			curObj->drawNormals();
 
 
 			

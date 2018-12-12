@@ -27,6 +27,7 @@ class Object{
 		
 		void printMeshData();
 		Mesh mesh;
+		std::vector<float> vertex_data;
 		std::vector<float> normals_data;
 		Shader shader;
 		GLint texture_id;

@@ -23,7 +23,7 @@ class Window
 		int width, height;
 		bool shouldClose();
 		
-		std::vector<Object> objects;
+		std::vector<Object*> objects;
 		void renderObjects();
 		
 		unsigned int shader_id;

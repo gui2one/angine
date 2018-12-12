@@ -16,7 +16,7 @@ class Shader
 		void loadFragmentShaderSource(std::string filePath);
 
 		unsigned int compileShader(unsigned int type, const std::string& source);	
-		unsigned int createShader( );
+		unsigned int createShader();
 		unsigned int createShader( const std::string& vertexShader, const std::string& fragmentShader);
 		std::string getVertexShaderSource();
 		std::string getFragmentShaderSource();

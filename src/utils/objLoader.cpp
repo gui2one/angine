@@ -75,6 +75,12 @@ Mesh ObjLoader::assimp_load(std::string file_path){
 		Mesh mesh;
 		
 		mesh.vertices = vertices;
+		
+		delete scene;
+		vertices.clear();
+		positions.clear();
+		normals.clear();
+		
 		return mesh;
 	}else{
 		Mesh empty_mesh;

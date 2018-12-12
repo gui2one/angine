@@ -1,7 +1,7 @@
 #include "mesh.h"
 
 Mesh::Mesh(){
-	std::cout << "Mesh instance Created" << std::endl;
+	std::cout << "Mesh instance Created\n";
 }
 
 
@@ -19,5 +19,5 @@ Mesh::~Mesh(){
 		normals.clear(); // 3 floats per vertex
 		t_coords.clear(); // 2 floats per vertex
 		indices.clear();
-	std::cout << "--- Mesh instance Deleted ----" << std::endl;
+	std::cout << "--- Mesh instance Deleted ----\n";
 }

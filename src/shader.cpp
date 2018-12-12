@@ -13,7 +13,7 @@ std::string loadShaderFile(std::string path){
         std::ifstream input(path);
         std::string output = "";
         for( std::string line; std::getline(input, line);){
-                        //~ std::cout << line << std::endl;
+                        
                         output += line;
                         output += "\n";
         }
@@ -56,9 +56,9 @@ unsigned int Shader::compileShader(unsigned int type, const std::string& source)
                 glGetShaderiv(id, GL_INFO_LOG_LENGTH, &length);
                 char* message = (char*)alloca(length * sizeof(char));
                 glGetShaderInfoLog(id, length, &length, message);
-                std::cout << "Shader compile failure !!!!!"  << std::endl;
-                std::cout << "in " << (type == GL_VERTEX_SHADER ? "vertex shader" : "fragment shader") << std::endl;
-                std::cout << message << std::endl;
+                std::cout << "Shader compile failure !!!!!\n";
+                std::cout << "in " << (type == GL_VERTEX_SHADER ? "vertex shader\n" : "fragment shader\n");
+                std::cout << message << "\n";
 
         }
 
