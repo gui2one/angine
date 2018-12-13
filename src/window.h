@@ -2,15 +2,10 @@
 #define WINDOW_H
 
 #include "pch.h"
-//~ #include <GL/glew.h>
-//~ #include <GLFW/glfw3.h>
-//~ 
-//~ #include "vendor/glm/glm.hpp"
-//~ #include "vendor/glm/gtc/matrix_transform.hpp"
-//~ #include "vendor/glm/gtc/type_ptr.hpp"
 
 #include "object.h"
 #include "shader.h"
+#include "camera.h"
 class Window
 {
 	public:
@@ -19,6 +14,7 @@ class Window
 		void refresh();
 		
 		GLFWwindow * win;
+		Camera camera;
 		
 		int width, height;
 		bool shouldClose();

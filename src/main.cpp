@@ -29,20 +29,26 @@ Mesh loadNewObject(){
 	
 	return mesh;
 }
-
+void scroll_callback(GLFWwindow* window, double xoffset, double yoffset)
+{
+	//~ std::cout << "X offset :" << xoffset << "| ";
+	//~ std::cout << " Y offset :" << yoffset << "\n";
+	
+	obj1->scale *= 1.0 + (float)yoffset*0.1;
+}
 void key_callback(GLFWwindow* window, int key, int scancode, int action, int mods)
 {
-	std::cout << "key ->" << key << ", scancode --> "<< scancode << "\n";
+	//~ std::cout << "key ->" << key << ", scancode --> "<< scancode << "\n";
     if (key == GLFW_KEY_UP && action == GLFW_PRESS){
     
         nCols +=3;
         //~ Mesh emptyMesh;
         obj1->mesh.clearAll();
         
-        SphereMesh* sphere = new SphereMesh();
-        sphere->generate(obj1->mesh,20,nCols);
+        SphereMesh sphere{};
+        sphere.generate(obj1->mesh,20,nCols);
         
-        delete sphere;
+        
         
         std::cout << nCols << "\n";
         obj1->buildVbo();
@@ -50,11 +56,8 @@ void key_callback(GLFWwindow* window, int key, int scancode, int action, int mod
 		if( nCols > 4){
 			nCols -=3;
 			obj1->mesh.clearAll();
-			
-			SphereMesh* sphere = new SphereMesh();
-			sphere->generate(obj1->mesh,20,nCols);
-			
-			delete sphere;
+			SphereMesh sphere{};
+			sphere.generate(obj1->mesh,20,nCols);
 			std::cout << nCols << "\n";
 			obj1->buildVbo();
 
@@ -88,12 +91,12 @@ int main(){
 	
 	
 
-	obj1->color->x = 0.9;
-	obj1->color->y = 0.8;
-	obj1->color->z = 0.5;
-	obj1->color->w = 1.0;
+	obj1->color.x = 0.9;
+	obj1->color.y = 0.8;
+	obj1->color.z = 0.5;
+	obj1->color.w = 1.0;
 	
-	obj1->position->x = 1.2f;
+	obj1->position.x = 1.2f;
 	
 	obj1->shader.loadVertexShaderSource("../src/res/shaders/basic_shader.vert");
 	obj1->shader.loadFragmentShaderSource("../src/res/shaders/basic_shader.frag");	
@@ -103,24 +106,22 @@ int main(){
 	obj1->shader.createShader();
 
 	
-	app.objects.push_back(obj1);
-	
-	
-
-	
+	app.objects.push_back(obj1);	
 	app.window.objects = app.objects;
 //~ 
 	//~ Mesh testMesh;
 	//~ testMesh = loader.load2("../src/res/obj/sphere_normals.obj");
 
 	glfwSetKeyCallback(app.window.win, key_callback);
+	glfwSetScrollCallback(app.window.win, scroll_callback);
+	
 	while(!app.window.shouldClose()){
 		
 		app.window.refresh();
 		
-		obj1->rotation->x = glfwGetTime()*0.2;
-		obj1->rotation->y = glfwGetTime()*0.13;
-		obj1->rotation->z = glfwGetTime()*0.11;
+		obj1->rotation.x = glfwGetTime()*0.2;
+		obj1->rotation.y = glfwGetTime()*0.13;
+		obj1->rotation.z = glfwGetTime()*0.11;
 		
 	
 	}

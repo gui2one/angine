@@ -150,6 +150,33 @@ home/pi/projects/angine/src/application.cpp.s:
 	$(MAKE) -f CMakeFiles/angine.dir/build.make CMakeFiles/angine.dir/home/pi/projects/angine/src/application.cpp.s
 .PHONY : home/pi/projects/angine/src/application.cpp.s
 
+home/pi/projects/angine/src/camera.o: home/pi/projects/angine/src/camera.cpp.o
+
+.PHONY : home/pi/projects/angine/src/camera.o
+
+# target to build an object file
+home/pi/projects/angine/src/camera.cpp.o:
+	$(MAKE) -f CMakeFiles/angine.dir/build.make CMakeFiles/angine.dir/home/pi/projects/angine/src/camera.cpp.o
+.PHONY : home/pi/projects/angine/src/camera.cpp.o
+
+home/pi/projects/angine/src/camera.i: home/pi/projects/angine/src/camera.cpp.i
+
+.PHONY : home/pi/projects/angine/src/camera.i
+
+# target to preprocess a source file
+home/pi/projects/angine/src/camera.cpp.i:
+	$(MAKE) -f CMakeFiles/angine.dir/build.make CMakeFiles/angine.dir/home/pi/projects/angine/src/camera.cpp.i
+.PHONY : home/pi/projects/angine/src/camera.cpp.i
+
+home/pi/projects/angine/src/camera.s: home/pi/projects/angine/src/camera.cpp.s
+
+.PHONY : home/pi/projects/angine/src/camera.s
+
+# target to generate assembly for a file
+home/pi/projects/angine/src/camera.cpp.s:
+	$(MAKE) -f CMakeFiles/angine.dir/build.make CMakeFiles/angine.dir/home/pi/projects/angine/src/camera.cpp.s
+.PHONY : home/pi/projects/angine/src/camera.cpp.s
+
 home/pi/projects/angine/src/generators/gridmesh.o: home/pi/projects/angine/src/generators/gridmesh.cpp.o
 
 .PHONY : home/pi/projects/angine/src/generators/gridmesh.o
@@ -405,6 +432,9 @@ help:
 	@echo "... home/pi/projects/angine/src/application.o"
 	@echo "... home/pi/projects/angine/src/application.i"
 	@echo "... home/pi/projects/angine/src/application.s"
+	@echo "... home/pi/projects/angine/src/camera.o"
+	@echo "... home/pi/projects/angine/src/camera.i"
+	@echo "... home/pi/projects/angine/src/camera.s"
 	@echo "... home/pi/projects/angine/src/generators/gridmesh.o"
 	@echo "... home/pi/projects/angine/src/generators/gridmesh.i"
 	@echo "... home/pi/projects/angine/src/generators/gridmesh.s"

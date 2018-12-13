@@ -158,6 +158,14 @@ shader.h
 utils/objLoader.h
 /home/pi/projects/angine/src/utils/objLoader.h
 
+/home/pi/projects/angine/src/camera.cpp
+camera.h
+/home/pi/projects/angine/src/camera.h
+
+/home/pi/projects/angine/src/camera.h
+pch.h
+/home/pi/projects/angine/src/pch.h
+
 /home/pi/projects/angine/src/generators/gridmesh.cpp
 gridmesh.h
 /home/pi/projects/angine/src/generators/gridmesh.h
@@ -423,20 +431,12 @@ stdio.h
 -
 ../mesh.h
 /home/pi/projects/angine/src/mesh.h
-../vector3.h
-/home/pi/projects/angine/src/vector3.h
 ../include/assimp/cimport.h
 /home/pi/projects/angine/src/include/assimp/cimport.h
 ../include/assimp/scene.h
 /home/pi/projects/angine/src/include/assimp/scene.h
 ../include/assimp/postprocess.h
 /home/pi/projects/angine/src/include/assimp/postprocess.h
-
-/home/pi/projects/angine/src/vector3.h
-string
--
-sstream
--
 
 /home/pi/projects/angine/src/vendor/glm/./detail/setup.hpp
 cassert
@@ -1879,4 +1879,6 @@ object.h
 /home/pi/projects/angine/src/object.h
 shader.h
 /home/pi/projects/angine/src/shader.h
+camera.h
+/home/pi/projects/angine/src/camera.h
 

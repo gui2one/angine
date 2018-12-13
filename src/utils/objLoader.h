@@ -7,7 +7,7 @@
 #include <stdio.h>
 
 #include "../mesh.h"
-#include "../vector3.h"
+
 
 #include "../include/assimp/cimport.h"
 #include "../include/assimp/scene.h"
@@ -15,6 +15,8 @@
 
 class ObjLoader{
 	public:
+		ObjLoader();
+		~ObjLoader();
 		Mesh assimp_load(std::string file_path);
 
 };

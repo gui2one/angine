@@ -31,17 +31,13 @@ class Object{
 		std::vector<float> normals_data;
 		Shader shader;
 		GLint texture_id;
-		Texture* texture;
+		Texture texture;
 		//~ std::string texture_path = "";
 		
-		glm::vec3* position;
-		glm::vec3* scale;
-		glm::vec3* rotation;
-		glm::vec4* color;
-		
-		
-		
-	
+		glm::vec3 position;
+		glm::vec3 scale;
+		glm::vec3 rotation;
+		glm::vec4 color;
 };
 
 #endif

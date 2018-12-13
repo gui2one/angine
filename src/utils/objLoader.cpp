@@ -1,6 +1,14 @@
 #include "objLoader.h"
 
 
+ObjLoader::ObjLoader(){
+	std::cout << "ObjLoader initiatied ----\n";
+}
+
+ObjLoader::~ObjLoader(){
+	std::cout << "ObjLoader DELETED ----\n";
+}
+
 // unused now, but handy function
 std::vector<std::string> split(const std::string& str, std::string delimiter = " "){
 	
@@ -66,9 +74,9 @@ Mesh ObjLoader::assimp_load(std::string file_path){
 					
 					vertices.push_back(vertex);
 					
-					positions.push_back(scene->mMeshes[0]->mVertices[index].x);
-					positions.push_back(scene->mMeshes[0]->mVertices[index].y);
-					positions.push_back(scene->mMeshes[0]->mVertices[index].z);
+					//~ positions.push_back(scene->mMeshes[0]->mVertices[index].x);
+					//~ positions.push_back(scene->mMeshes[0]->mVertices[index].y);
+					//~ positions.push_back(scene->mMeshes[0]->mVertices[index].z);
 			}
 			
 		}

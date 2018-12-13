@@ -11,6 +11,7 @@ add_executable(angine
 	../src/main.cpp
 	../src/application.cpp
 	../src/window.cpp
+	../src/camera.cpp
 	../src/utils/objLoader.cpp
 	../src/mesh.cpp
 	../src/generators/gridmesh.cpp

@@ -2,6 +2,7 @@ file(REMOVE_RECURSE
   "CMakeFiles/angine.dir/home/pi/projects/angine/src/main.cpp.o"
   "CMakeFiles/angine.dir/home/pi/projects/angine/src/application.cpp.o"
   "CMakeFiles/angine.dir/home/pi/projects/angine/src/window.cpp.o"
+  "CMakeFiles/angine.dir/home/pi/projects/angine/src/camera.cpp.o"
   "CMakeFiles/angine.dir/home/pi/projects/angine/src/utils/objLoader.cpp.o"
   "CMakeFiles/angine.dir/home/pi/projects/angine/src/mesh.cpp.o"
   "CMakeFiles/angine.dir/home/pi/projects/angine/src/generators/gridmesh.cpp.o"

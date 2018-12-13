@@ -84,22 +84,22 @@ void Window::renderObjects(){
 					// setup modelview matrix 		
 					
 					
-					float camAngle = glfwGetTime() * 1.0;		 
 					
-					//~ glm::vec3 eye_pos =	glm::vec3(0.0f, sin(camAngle)*3.0f, cos(camAngle)*3.0f);
-					glm::vec3 eye_pos =	glm::vec3(0.0f, -2.0f, 3.0f);
-					glm::vec3 target_pos =	glm::vec3(0.0f,0.0f,0.0f);
+					
+					
+					//~ glm::vec3 eye_pos =	glm::vec3(0.0f, -2.0f, 3.0f);
+					//~ glm::vec3 target_pos =	glm::vec3(0.0f,0.0f,0.0f);
 					
 					glm::vec3 up_vector;
-					if( target_pos.z > eye_pos.z){						
+					if( camera.target_position.z > camera.position.z){						
 						up_vector =	glm::vec3(0.0f,-1.0f,0.0f);
 					}else{
 						up_vector =	glm::vec3(0.0f,1.0f,0.0f);
 					}
 					//~ glm::mat4 ModelViewMatrix = glm::mat4(1.0f); 
 					view *= glm::lookAt(
-											eye_pos, 
-											target_pos, 
+											camera.position, 
+											camera.target_position, 
 											glm::normalize(up_vector)
 										);			
 		
@@ -113,13 +113,13 @@ void Window::renderObjects(){
 					//~ glm::mat4 ModelMatrix = glm::mat4(1.0f);
 
 					
-					model = glm::translate(model, *curObj->position);
+					model = glm::translate(model, curObj->position);
 					
-					model = glm::rotate(model, curObj->rotation->x ,glm::vec3(1.0f,0.0f, 0.0f));
-					model = glm::rotate(model, curObj->rotation->y ,glm::vec3(0.0f,1.0f, 0.0f));
-					model = glm::rotate(model, curObj->rotation->z ,glm::vec3(0.0f,0.0f, 1.0f));
+					model = glm::rotate(model, curObj->rotation.x ,glm::vec3(1.0f,0.0f, 0.0f));
+					model = glm::rotate(model, curObj->rotation.y ,glm::vec3(0.0f,1.0f, 0.0f));
+					model = glm::rotate(model, curObj->rotation.z ,glm::vec3(0.0f,0.0f, 1.0f));
 					
-					model = glm::scale(model, *curObj->scale);
+					model = glm::scale(model, curObj->scale);
 
 								
 								
@@ -132,11 +132,11 @@ void Window::renderObjects(){
 											
 											
 					GLuint COLOR_LOC = glGetUniformLocation(curObj->shader.m_id,"u_color");
-					glUniform4f(COLOR_LOC, curObj->color->x, curObj->color->y, curObj->color->z, curObj->color->w);
+					glUniform4f(COLOR_LOC, curObj->color.x, curObj->color.y, curObj->color.z, curObj->color.w);
 					
 					
 					//~ glBindTexture(GL_TEXTURE_2D,curObj->texture_id);
-					curObj->texture->bind();
+					curObj->texture.bind();
 					glUniform1i(glGetUniformLocation(curObj->shader.m_id, "u_tex"),0);
 
 							
@@ -148,12 +148,12 @@ void Window::renderObjects(){
 			
 			curObj->draw();
 			
-			
+			if(curObj->bDisplayNormals){
 											
-			COLOR_LOC = glGetUniformLocation(curObj->shader.m_id,"u_color");
-			glUniform4f(COLOR_LOC, 1.0,0.0,0.0,1.0);			
-			curObj->drawNormals();
-
+				COLOR_LOC = glGetUniformLocation(curObj->shader.m_id,"u_color");
+				glUniform4f(COLOR_LOC, 1.0,0.0,0.0,1.0);			
+				curObj->drawNormals();
+			}
 
 			
 		}

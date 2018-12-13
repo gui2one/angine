@@ -4,20 +4,17 @@
 Object::Object(){
 	std::cout << "--- Object CREATED ---\n";
 	
-	position = new glm::vec3(0.0f,0.0f,0.0f);
-	rotation = new glm::vec3(0.0f,0.0f,0.0f);
-	scale = new glm::vec3(1.0f,1.0f,1.0f);	
-	color = new glm::vec4(1.0f,1.0f,1.0f,1.0f);
-	texture = new Texture();
-	
+	position = glm::vec3(0.0f,0.0f,0.0f);
+	rotation = glm::vec3(0.0f,0.0f,0.0f);
+	scale = glm::vec3(1.0f,1.0f,1.0f);	
+	color = glm::vec4(1.0f,1.0f,1.0f,1.0f);
 	
 }
 
-void Object::buildTexture(){
-	
-	
-	texture->load("../src/res/textures/uvgrid.jpg");
-	texture->bind();	
+void Object::buildTexture()
+{	
+	texture.load("../src/res/textures/uvgrid.jpg");
+	texture.bind();	
 }
 
 void Object::buildVbo()
@@ -132,7 +129,7 @@ void Object::draw(){
 		
 		//~ glEnable(GL_TEXTURE_2D);
 		glDisable(GL_TEXTURE_2D);
-		texture->bind();
+		texture.bind();
 		glUniform1i(glGetUniformLocation(shader.m_id,"u_tex"), 0);
 		
 		
@@ -144,7 +141,7 @@ void Object::draw(){
 		glEnableVertexAttribArray(1);// normals
 		glEnableVertexAttribArray(2);//t_coords
 		
-			glPointSize(3);
+			//~ glPointSize(3);
 			glDrawArrays(GL_TRIANGLES,0, mesh.vertices.size()*8);
 		
 		glDisableVertexAttribArray(0);
@@ -156,7 +153,7 @@ void Object::draw(){
 		
 		glUseProgram(0);
 		glDisable(GL_TEXTURE_2D);
-		texture->unbind();
+		texture.unbind();
 	
 		
 }
@@ -179,9 +176,7 @@ void Object::drawNormals(){
 
 Object::~Object(){
 	
-	delete position;
-	delete rotation;
-	delete scale;
-	delete texture;
+
+	
 	std::cout << "--- Object DELETED  --- \n";
 }
