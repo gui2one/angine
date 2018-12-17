@@ -4,6 +4,10 @@ set(CMAKE_DEPENDS_LANGUAGES
   )
 # The set of files for implicit dependencies of each language:
 set(CMAKE_DEPENDS_CHECK_CXX
+  "/home/pi/projects/angine/src/UI/bitmap_string.cpp" "/home/pi/projects/angine/build/CMakeFiles/angine.dir/home/pi/projects/angine/src/UI/bitmap_string.cpp.o"
+  "/home/pi/projects/angine/src/UI/ui_base.cpp" "/home/pi/projects/angine/build/CMakeFiles/angine.dir/home/pi/projects/angine/src/UI/ui_base.cpp.o"
+  "/home/pi/projects/angine/src/UI/ui_base_item.cpp" "/home/pi/projects/angine/build/CMakeFiles/angine.dir/home/pi/projects/angine/src/UI/ui_base_item.cpp.o"
+  "/home/pi/projects/angine/src/UI/ui_button.cpp" "/home/pi/projects/angine/build/CMakeFiles/angine.dir/home/pi/projects/angine/src/UI/ui_button.cpp.o"
   "/home/pi/projects/angine/src/application.cpp" "/home/pi/projects/angine/build/CMakeFiles/angine.dir/home/pi/projects/angine/src/application.cpp.o"
   "/home/pi/projects/angine/src/camera.cpp" "/home/pi/projects/angine/build/CMakeFiles/angine.dir/home/pi/projects/angine/src/camera.cpp.o"
   "/home/pi/projects/angine/src/generators/gridmesh.cpp" "/home/pi/projects/angine/build/CMakeFiles/angine.dir/home/pi/projects/angine/src/generators/gridmesh.cpp.o"
@@ -14,6 +18,7 @@ set(CMAKE_DEPENDS_CHECK_CXX
   "/home/pi/projects/angine/src/shader.cpp" "/home/pi/projects/angine/build/CMakeFiles/angine.dir/home/pi/projects/angine/src/shader.cpp.o"
   "/home/pi/projects/angine/src/texture.cpp" "/home/pi/projects/angine/build/CMakeFiles/angine.dir/home/pi/projects/angine/src/texture.cpp.o"
   "/home/pi/projects/angine/src/utils/objLoader.cpp" "/home/pi/projects/angine/build/CMakeFiles/angine.dir/home/pi/projects/angine/src/utils/objLoader.cpp.o"
+  "/home/pi/projects/angine/src/vendor/stb_image.cpp" "/home/pi/projects/angine/build/CMakeFiles/angine.dir/home/pi/projects/angine/src/vendor/stb_image.cpp.o"
   "/home/pi/projects/angine/src/window.cpp" "/home/pi/projects/angine/build/CMakeFiles/angine.dir/home/pi/projects/angine/src/window.cpp.o"
   )
 set(CMAKE_CXX_COMPILER_ID "GNU")

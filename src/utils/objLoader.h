@@ -18,6 +18,7 @@ class ObjLoader{
 		ObjLoader();
 		~ObjLoader();
 		Mesh assimp_load(std::string file_path);
+		
 
 };
 

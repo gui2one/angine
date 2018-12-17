@@ -123,6 +123,114 @@ angine/fast:
 	$(MAKE) -f CMakeFiles/angine.dir/build.make CMakeFiles/angine.dir/build
 .PHONY : angine/fast
 
+home/pi/projects/angine/src/UI/bitmap_string.o: home/pi/projects/angine/src/UI/bitmap_string.cpp.o
+
+.PHONY : home/pi/projects/angine/src/UI/bitmap_string.o
+
+# target to build an object file
+home/pi/projects/angine/src/UI/bitmap_string.cpp.o:
+	$(MAKE) -f CMakeFiles/angine.dir/build.make CMakeFiles/angine.dir/home/pi/projects/angine/src/UI/bitmap_string.cpp.o
+.PHONY : home/pi/projects/angine/src/UI/bitmap_string.cpp.o
+
+home/pi/projects/angine/src/UI/bitmap_string.i: home/pi/projects/angine/src/UI/bitmap_string.cpp.i
+
+.PHONY : home/pi/projects/angine/src/UI/bitmap_string.i
+
+# target to preprocess a source file
+home/pi/projects/angine/src/UI/bitmap_string.cpp.i:
+	$(MAKE) -f CMakeFiles/angine.dir/build.make CMakeFiles/angine.dir/home/pi/projects/angine/src/UI/bitmap_string.cpp.i
+.PHONY : home/pi/projects/angine/src/UI/bitmap_string.cpp.i
+
+home/pi/projects/angine/src/UI/bitmap_string.s: home/pi/projects/angine/src/UI/bitmap_string.cpp.s
+
+.PHONY : home/pi/projects/angine/src/UI/bitmap_string.s
+
+# target to generate assembly for a file
+home/pi/projects/angine/src/UI/bitmap_string.cpp.s:
+	$(MAKE) -f CMakeFiles/angine.dir/build.make CMakeFiles/angine.dir/home/pi/projects/angine/src/UI/bitmap_string.cpp.s
+.PHONY : home/pi/projects/angine/src/UI/bitmap_string.cpp.s
+
+home/pi/projects/angine/src/UI/ui_base.o: home/pi/projects/angine/src/UI/ui_base.cpp.o
+
+.PHONY : home/pi/projects/angine/src/UI/ui_base.o
+
+# target to build an object file
+home/pi/projects/angine/src/UI/ui_base.cpp.o:
+	$(MAKE) -f CMakeFiles/angine.dir/build.make CMakeFiles/angine.dir/home/pi/projects/angine/src/UI/ui_base.cpp.o
+.PHONY : home/pi/projects/angine/src/UI/ui_base.cpp.o
+
+home/pi/projects/angine/src/UI/ui_base.i: home/pi/projects/angine/src/UI/ui_base.cpp.i
+
+.PHONY : home/pi/projects/angine/src/UI/ui_base.i
+
+# target to preprocess a source file
+home/pi/projects/angine/src/UI/ui_base.cpp.i:
+	$(MAKE) -f CMakeFiles/angine.dir/build.make CMakeFiles/angine.dir/home/pi/projects/angine/src/UI/ui_base.cpp.i
+.PHONY : home/pi/projects/angine/src/UI/ui_base.cpp.i
+
+home/pi/projects/angine/src/UI/ui_base.s: home/pi/projects/angine/src/UI/ui_base.cpp.s
+
+.PHONY : home/pi/projects/angine/src/UI/ui_base.s
+
+# target to generate assembly for a file
+home/pi/projects/angine/src/UI/ui_base.cpp.s:
+	$(MAKE) -f CMakeFiles/angine.dir/build.make CMakeFiles/angine.dir/home/pi/projects/angine/src/UI/ui_base.cpp.s
+.PHONY : home/pi/projects/angine/src/UI/ui_base.cpp.s
+
+home/pi/projects/angine/src/UI/ui_base_item.o: home/pi/projects/angine/src/UI/ui_base_item.cpp.o
+
+.PHONY : home/pi/projects/angine/src/UI/ui_base_item.o
+
+# target to build an object file
+home/pi/projects/angine/src/UI/ui_base_item.cpp.o:
+	$(MAKE) -f CMakeFiles/angine.dir/build.make CMakeFiles/angine.dir/home/pi/projects/angine/src/UI/ui_base_item.cpp.o
+.PHONY : home/pi/projects/angine/src/UI/ui_base_item.cpp.o
+
+home/pi/projects/angine/src/UI/ui_base_item.i: home/pi/projects/angine/src/UI/ui_base_item.cpp.i
+
+.PHONY : home/pi/projects/angine/src/UI/ui_base_item.i
+
+# target to preprocess a source file
+home/pi/projects/angine/src/UI/ui_base_item.cpp.i:
+	$(MAKE) -f CMakeFiles/angine.dir/build.make CMakeFiles/angine.dir/home/pi/projects/angine/src/UI/ui_base_item.cpp.i
+.PHONY : home/pi/projects/angine/src/UI/ui_base_item.cpp.i
+
+home/pi/projects/angine/src/UI/ui_base_item.s: home/pi/projects/angine/src/UI/ui_base_item.cpp.s
+
+.PHONY : home/pi/projects/angine/src/UI/ui_base_item.s
+
+# target to generate assembly for a file
+home/pi/projects/angine/src/UI/ui_base_item.cpp.s:
+	$(MAKE) -f CMakeFiles/angine.dir/build.make CMakeFiles/angine.dir/home/pi/projects/angine/src/UI/ui_base_item.cpp.s
+.PHONY : home/pi/projects/angine/src/UI/ui_base_item.cpp.s
+
+home/pi/projects/angine/src/UI/ui_button.o: home/pi/projects/angine/src/UI/ui_button.cpp.o
+
+.PHONY : home/pi/projects/angine/src/UI/ui_button.o
+
+# target to build an object file
+home/pi/projects/angine/src/UI/ui_button.cpp.o:
+	$(MAKE) -f CMakeFiles/angine.dir/build.make CMakeFiles/angine.dir/home/pi/projects/angine/src/UI/ui_button.cpp.o
+.PHONY : home/pi/projects/angine/src/UI/ui_button.cpp.o
+
+home/pi/projects/angine/src/UI/ui_button.i: home/pi/projects/angine/src/UI/ui_button.cpp.i
+
+.PHONY : home/pi/projects/angine/src/UI/ui_button.i
+
+# target to preprocess a source file
+home/pi/projects/angine/src/UI/ui_button.cpp.i:
+	$(MAKE) -f CMakeFiles/angine.dir/build.make CMakeFiles/angine.dir/home/pi/projects/angine/src/UI/ui_button.cpp.i
+.PHONY : home/pi/projects/angine/src/UI/ui_button.cpp.i
+
+home/pi/projects/angine/src/UI/ui_button.s: home/pi/projects/angine/src/UI/ui_button.cpp.s
+
+.PHONY : home/pi/projects/angine/src/UI/ui_button.s
+
+# target to generate assembly for a file
+home/pi/projects/angine/src/UI/ui_button.cpp.s:
+	$(MAKE) -f CMakeFiles/angine.dir/build.make CMakeFiles/angine.dir/home/pi/projects/angine/src/UI/ui_button.cpp.s
+.PHONY : home/pi/projects/angine/src/UI/ui_button.cpp.s
+
 home/pi/projects/angine/src/application.o: home/pi/projects/angine/src/application.cpp.o
 
 .PHONY : home/pi/projects/angine/src/application.o
@@ -393,6 +501,33 @@ home/pi/projects/angine/src/utils/objLoader.cpp.s:
 	$(MAKE) -f CMakeFiles/angine.dir/build.make CMakeFiles/angine.dir/home/pi/projects/angine/src/utils/objLoader.cpp.s
 .PHONY : home/pi/projects/angine/src/utils/objLoader.cpp.s
 
+home/pi/projects/angine/src/vendor/stb_image.o: home/pi/projects/angine/src/vendor/stb_image.cpp.o
+
+.PHONY : home/pi/projects/angine/src/vendor/stb_image.o
+
+# target to build an object file
+home/pi/projects/angine/src/vendor/stb_image.cpp.o:
+	$(MAKE) -f CMakeFiles/angine.dir/build.make CMakeFiles/angine.dir/home/pi/projects/angine/src/vendor/stb_image.cpp.o
+.PHONY : home/pi/projects/angine/src/vendor/stb_image.cpp.o
+
+home/pi/projects/angine/src/vendor/stb_image.i: home/pi/projects/angine/src/vendor/stb_image.cpp.i
+
+.PHONY : home/pi/projects/angine/src/vendor/stb_image.i
+
+# target to preprocess a source file
+home/pi/projects/angine/src/vendor/stb_image.cpp.i:
+	$(MAKE) -f CMakeFiles/angine.dir/build.make CMakeFiles/angine.dir/home/pi/projects/angine/src/vendor/stb_image.cpp.i
+.PHONY : home/pi/projects/angine/src/vendor/stb_image.cpp.i
+
+home/pi/projects/angine/src/vendor/stb_image.s: home/pi/projects/angine/src/vendor/stb_image.cpp.s
+
+.PHONY : home/pi/projects/angine/src/vendor/stb_image.s
+
+# target to generate assembly for a file
+home/pi/projects/angine/src/vendor/stb_image.cpp.s:
+	$(MAKE) -f CMakeFiles/angine.dir/build.make CMakeFiles/angine.dir/home/pi/projects/angine/src/vendor/stb_image.cpp.s
+.PHONY : home/pi/projects/angine/src/vendor/stb_image.cpp.s
+
 home/pi/projects/angine/src/window.o: home/pi/projects/angine/src/window.cpp.o
 
 .PHONY : home/pi/projects/angine/src/window.o
@@ -429,6 +564,18 @@ help:
 	@echo "... edit_cache"
 	@echo "... rebuild_cache"
 	@echo "... angine"
+	@echo "... home/pi/projects/angine/src/UI/bitmap_string.o"
+	@echo "... home/pi/projects/angine/src/UI/bitmap_string.i"
+	@echo "... home/pi/projects/angine/src/UI/bitmap_string.s"
+	@echo "... home/pi/projects/angine/src/UI/ui_base.o"
+	@echo "... home/pi/projects/angine/src/UI/ui_base.i"
+	@echo "... home/pi/projects/angine/src/UI/ui_base.s"
+	@echo "... home/pi/projects/angine/src/UI/ui_base_item.o"
+	@echo "... home/pi/projects/angine/src/UI/ui_base_item.i"
+	@echo "... home/pi/projects/angine/src/UI/ui_base_item.s"
+	@echo "... home/pi/projects/angine/src/UI/ui_button.o"
+	@echo "... home/pi/projects/angine/src/UI/ui_button.i"
+	@echo "... home/pi/projects/angine/src/UI/ui_button.s"
 	@echo "... home/pi/projects/angine/src/application.o"
 	@echo "... home/pi/projects/angine/src/application.i"
 	@echo "... home/pi/projects/angine/src/application.s"
@@ -459,6 +606,9 @@ help:
 	@echo "... home/pi/projects/angine/src/utils/objLoader.o"
 	@echo "... home/pi/projects/angine/src/utils/objLoader.i"
 	@echo "... home/pi/projects/angine/src/utils/objLoader.s"
+	@echo "... home/pi/projects/angine/src/vendor/stb_image.o"
+	@echo "... home/pi/projects/angine/src/vendor/stb_image.i"
+	@echo "... home/pi/projects/angine/src/vendor/stb_image.s"
 	@echo "... home/pi/projects/angine/src/window.o"
 	@echo "... home/pi/projects/angine/src/window.i"
 	@echo "... home/pi/projects/angine/src/window.s"

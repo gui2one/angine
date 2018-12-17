@@ -6,9 +6,11 @@
 #include "generators/spheremesh.h"
 
 Object* obj1 = new Object();
-//~ Object obj2;
+Object* obj2 = new Object();
 
+int nRows = 8;
 int nCols = 4;
+
 Application app ;
 
 
@@ -24,7 +26,7 @@ Mesh loadNewObject(){
 	std::string str(file);
 	
 	str.erase(std::remove(str.begin(), str.end(), '\n'), str.end());
-	//~ mesh = loader.assimp_load("../src/res/obj/sphere_normals.obj");
+	
 	mesh = loader.assimp_load(str);
 	
 	return mesh;
@@ -33,20 +35,20 @@ void scroll_callback(GLFWwindow* window, double xoffset, double yoffset)
 {
 	//~ std::cout << "X offset :" << xoffset << "| ";
 	//~ std::cout << " Y offset :" << yoffset << "\n";
-	
+
 	obj1->scale *= 1.0 + (float)yoffset*0.1;
 }
 void key_callback(GLFWwindow* window, int key, int scancode, int action, int mods)
 {
-	//~ std::cout << "key ->" << key << ", scancode --> "<< scancode << "\n";
+	std::cout << "key ->" << key << ", scancode --> "<< scancode << "\n";
     if (key == GLFW_KEY_UP && action == GLFW_PRESS){
     
         nCols +=3;
-        //~ Mesh emptyMesh;
         obj1->mesh.clearAll();
         
         SphereMesh sphere{};
-        sphere.generate(obj1->mesh,20,nCols);
+        //~ sphere.generate(obj1->mesh,nCols*1.5,nCols);
+        obj1->mesh = sphere.generate2(nRows,nCols);
         
         
         
@@ -57,18 +59,24 @@ void key_callback(GLFWwindow* window, int key, int scancode, int action, int mod
 			nCols -=3;
 			obj1->mesh.clearAll();
 			SphereMesh sphere{};
-			sphere.generate(obj1->mesh,20,nCols);
+			//~ sphere.generate(obj1->mesh,nCols*1.5,nCols);
+			obj1->mesh = sphere.generate2(nRows,nCols);
 			std::cout << nCols << "\n";
 			obj1->buildVbo();
 
 		}
 	}else if (key == 79 /* letter o*/ && action == GLFW_PRESS){
 		
-		nCols -=3;
+		
 		obj1->mesh.clearAll();
 		obj1->mesh = loadNewObject();
+		
 		std::cout << nCols << "\n";
+		//~ obj1->buildTexture();
+		//~ obj1->texture.load("../src/res/textures/Basketball.png");	
+		//~ obj1->texture.bind();	
 		obj1->buildVbo();
+
 	}
 }
 
@@ -77,40 +85,51 @@ int main(){
 	
 
 	std::cout << "angine PROJECT\n";
-	
-    //obj1->mesh = loadNewObject();
-	
 
 	
+	//~ ObjLoader loader2;
+	//~ obj1->mesh = loader2.assimp_load("../src/res/obj/sphere_normals_uvs.obj");
 
-	
-	
-        SphereMesh* sphere = new SphereMesh();
-        sphere->generate(obj1->mesh,20,nCols);        
-        delete sphere;
-	
-	
 
-	obj1->color.x = 0.9;
-	obj1->color.y = 0.8;
-	obj1->color.z = 0.5;
-	obj1->color.w = 1.0;
+	SphereMesh sphere{};	
+	obj1->mesh = sphere.generate2(nRows,nCols);
+	//~ obj1->printMeshData();
+
 	
 	obj1->position.x = 1.2f;
 	
 	obj1->shader.loadVertexShaderSource("../src/res/shaders/basic_shader.vert");
 	obj1->shader.loadFragmentShaderSource("../src/res/shaders/basic_shader.frag");	
-	
-	obj1->buildVbo();
 	obj1->buildTexture();
 	obj1->shader.createShader();
+	
+	obj1->buildVbo();
+
+	//~ obj1->setRenderMode(GL_POINTS);
 
 	
 	app.objects.push_back(obj1);	
+
+	GridMesh grid{};
+	
+	
+	obj2->mesh = grid.generate(2,2,3,3);
+	
+	//~ obj2->buildTexture();
+	obj2->texture.load("../src/res/fonts/samplefont.gif");
+	obj2->texture.bind();
+	obj2->shader.loadVertexShaderSource("../src/res/shaders/basic_shader.vert");
+	obj2->shader.loadFragmentShaderSource("../src/res/shaders/basic_shader.frag");		
+	obj2->shader.createShader();
+	
+	obj2->buildVbo();
+	
+	obj2->position.x = -2.0;
+	app.objects.push_back(obj2);
+	
+	
 	app.window.objects = app.objects;
-//~ 
-	//~ Mesh testMesh;
-	//~ testMesh = loader.load2("../src/res/obj/sphere_normals.obj");
+
 
 	glfwSetKeyCallback(app.window.win, key_callback);
 	glfwSetScrollCallback(app.window.win, scroll_callback);
@@ -122,6 +141,10 @@ int main(){
 		obj1->rotation.x = glfwGetTime()*0.2;
 		obj1->rotation.y = glfwGetTime()*0.13;
 		obj1->rotation.z = glfwGetTime()*0.11;
+		
+		obj2->rotation.x = glfwGetTime()*0.15;
+		obj2->rotation.y = glfwGetTime()*0.19;
+		obj2->rotation.z = glfwGetTime()*0.21;		
 		
 	
 	}

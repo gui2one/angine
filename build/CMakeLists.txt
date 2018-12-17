@@ -9,16 +9,26 @@ link_directories(../src/libs/)
 
 add_executable(angine
 	../src/main.cpp
+	../src/vendor/stb_image.cpp
+	
+	../src/UI/ui_base.cpp
+	../src/UI/ui_base_item.cpp
+	../src/UI/ui_button.cpp
+	
+	../src/UI/bitmap_string.cpp
+	
 	../src/application.cpp
 	../src/window.cpp
 	../src/camera.cpp
+	../src/shader.cpp
+	../src/texture.cpp
+	../src/object.cpp
+	
 	../src/utils/objLoader.cpp
 	../src/mesh.cpp
 	../src/generators/gridmesh.cpp
 	../src/generators/spheremesh.cpp
-	../src/shader.cpp
-	../src/texture.cpp
-	../src/object.cpp
+	
 )
 
 

@@ -140,6 +140,56 @@ vector3.h
 cmath
 -
 
+/home/pi/projects/angine/src/UI/bitmap_string.cpp
+bitmap_string.h
+/home/pi/projects/angine/src/UI/bitmap_string.h
+
+/home/pi/projects/angine/src/UI/bitmap_string.h
+../pch.h
+/home/pi/projects/angine/src/pch.h
+../texture.h
+/home/pi/projects/angine/src/texture.h
+../shader.h
+/home/pi/projects/angine/src/shader.h
+
+/home/pi/projects/angine/src/UI/ui_base.cpp
+ui_base.h
+/home/pi/projects/angine/src/UI/ui_base.h
+
+/home/pi/projects/angine/src/UI/ui_base.h
+../pch.h
+/home/pi/projects/angine/src/pch.h
+../texture.h
+/home/pi/projects/angine/src/texture.h
+../shader.h
+/home/pi/projects/angine/src/shader.h
+bitmap_string.h
+/home/pi/projects/angine/src/UI/bitmap_string.h
+ui_base_item.h
+/home/pi/projects/angine/src/UI/ui_base_item.h
+ui_button.h
+/home/pi/projects/angine/src/UI/ui_button.h
+
+/home/pi/projects/angine/src/UI/ui_base_item.cpp
+ui_base_item.h
+/home/pi/projects/angine/src/UI/ui_base_item.h
+
+/home/pi/projects/angine/src/UI/ui_base_item.h
+../pch.h
+/home/pi/projects/angine/src/pch.h
+bitmap_string.h
+/home/pi/projects/angine/src/UI/bitmap_string.h
+
+/home/pi/projects/angine/src/UI/ui_button.cpp
+ui_button.h
+/home/pi/projects/angine/src/UI/ui_button.h
+
+/home/pi/projects/angine/src/UI/ui_button.h
+../pch.h
+/home/pi/projects/angine/src/pch.h
+ui_base_item.h
+/home/pi/projects/angine/src/UI/ui_base_item.h
+
 /home/pi/projects/angine/src/application.cpp
 application.h
 /home/pi/projects/angine/src/application.h
@@ -373,10 +423,14 @@ texture.h
 /home/pi/projects/angine/src/pch.h
 string
 -
+vector
+-
 GL/glew.h
 -
 GLFW/glfw3.h
 -
+vendor/stb_image.h
+/home/pi/projects/angine/src/vendor/stb_image.h
 vendor/glm/glm.hpp
 /home/pi/projects/angine/src/vendor/glm/glm.hpp
 vendor/glm/gtc/matrix_transform.hpp
@@ -403,14 +457,10 @@ iostream
 /home/pi/projects/angine/src/texture.cpp
 texture.h
 /home/pi/projects/angine/src/texture.h
-vendor/stb_image.h
-/home/pi/projects/angine/src/vendor/stb_image.h
 
 /home/pi/projects/angine/src/texture.h
-string
--
-GLFW/glfw3.h
--
+pch.h
+/home/pi/projects/angine/src/pch.h
 iostream
 -
 
@@ -1832,6 +1882,10 @@ detail/setup.hpp
 detail/func_vector_relational.inl
 /home/pi/projects/angine/src/vendor/glm/detail/func_vector_relational.inl
 
+/home/pi/projects/angine/src/vendor/stb_image.cpp
+stb_image.h
+/home/pi/projects/angine/src/vendor/stb_image.h
+
 /home/pi/projects/angine/src/vendor/stb_image.h
 stb_image.h
 /home/pi/projects/angine/src/vendor/stb_image.h
@@ -1881,4 +1935,6 @@ shader.h
 /home/pi/projects/angine/src/shader.h
 camera.h
 /home/pi/projects/angine/src/camera.h
+UI/ui_base.h
+/home/pi/projects/angine/src/UI/ui_base.h
 

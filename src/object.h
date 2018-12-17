@@ -7,20 +7,29 @@
 #include "shader.h"
 #include "texture.h"
 
+struct uniform{
+	std::string uniform_name;
+	GLsizei length;
+	GLint size;
+	GLenum type;	
+};
 
 class Object{
 	public :
 		Object();
 		~Object();
 
+		std::vector<uniform> getShaderUniforms();
 		void buildVbo();
 		
-		unsigned int m_vbo;
-		unsigned int m_normals_vbo;
+		unsigned int m_vbo, m_ibo, m_normals_vbo;
+		
 		
 		void buildTexture();
 		
-		void draw();
+		inline void setRenderMode(GLuint mode){ renderMode = mode;}
+		inline GLuint getRenderMode(){ return renderMode;}
+		void draw(GLuint mode=GL_TRIANGLES);
 		
 		void drawNormals();
 		bool bDisplayNormals = false;
@@ -38,6 +47,9 @@ class Object{
 		glm::vec3 scale;
 		glm::vec3 rotation;
 		glm::vec4 color;
+		
+		private:
+			GLuint renderMode = GL_TRIANGLES;
 };
 
 #endif

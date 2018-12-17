@@ -22,7 +22,7 @@ void main()
 	vec4 tempnormal = projection * view * vec4(normal,1.0);
 	f_color = vec4(tempnormal.x*0.5+0.5 , tempnormal.y*0.5+0.5, tempnormal.z*0.5+0.5 , 1.0);
 	
-	//~ f_color = u_color;
+	f_color *= u_color;
 	
 	f_t_coords = t_coords;
 	//~ f_color = u_color;

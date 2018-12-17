@@ -6,6 +6,7 @@
 #include "object.h"
 #include "shader.h"
 #include "camera.h"
+#include "UI/ui_base.h"
 class Window
 {
 	public:
@@ -21,6 +22,8 @@ class Window
 		
 		std::vector<Object*> objects;
 		void renderObjects();
+		UIBase UI;
+		void renderUI();
 		
 		unsigned int shader_id;
 		

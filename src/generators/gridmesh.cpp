@@ -6,74 +6,56 @@ GridMesh::GridMesh()
 	
 }
 
-Mesh GridMesh::generate(int rows, int cols, float width, float length){
+
+Mesh GridMesh::generate(int rows, int cols, float width, float length)
+{
 	
-	
-	
-	Mesh mesh;
 	std::vector<Vertex> vertices;
+	std::vector<unsigned int> indices;
+	Mesh mesh;
 	
-	
-	for (int x = 0; x < cols-1; x++)
+	for (int y = 0; y < rows; y++)
 	{
-		for (int y = 0; y < rows-1; y++)
+		for (int x = 0; x < cols; x++)
 		{
+			Vertex vert;
+			float posx = 1.0/(cols-1) * x;
+			float posy = 1.0/(rows-1) * y;			
 			
-			//// first triangle
-			float xpos = (float)((1.0/(cols-1)) * x - 0.5 ) * width;
-			float ypos = (float)((1.0/(rows-1)) * y - 0.5) * length;
-			vertices.push_back({
-						glm::vec3(xpos,ypos,0.0),
-						glm::vec3(0.0,1.0,0.0), 
-						glm::vec2((float)(1.0/(cols-1)) * x,(float)(1.0/(rows-1)) * y)
-					});
-			xpos = (float)((1.0/(cols-1)) * x + (1.0/(cols-1)) - 0.5 )  * width;
-			ypos = (float)((1.0/(rows-1)) * y - 0.5 )  * length;
-			vertices.push_back({
-						glm::vec3(xpos,ypos,0.0),
-						glm::vec3(0.0,1.0,0.0),
-						glm::vec2((float)(1.0/(cols-1)) * x + (1.0/(cols-1)),(float)(1.0/(rows-1)) * y)
-					});
-			xpos = (float)((1.0/(cols-1)) * x  - 0.5 )  * width;
-			ypos = (float)((1.0/(rows-1)) * y + (1.0/(rows-1)) - 0.5 ) * length;	
-			vertices.push_back({
-						glm::vec3(xpos, ypos, 0.0),
-						glm::vec3(0.0,1.0,0.0),
-						glm::vec2((float)(1.0/(cols-1)) * x,(float)(1.0/(rows-1)) * y + (1.0/(rows-1)))
-					});
-					
-			//~ //second triangle
-			xpos = ((float)(1.0/(cols-1)) * x + (1.0/(cols-1))-0.5) * width ;
-			ypos = ((float)(1.0/(rows-1)) * y -0.5) * length;			
-			vertices.push_back({
-						glm::vec3(xpos, ypos,0.0),
-						glm::vec3(0.0,1.0,0.0), 
-						glm::vec2((float)(1.0/(cols-1)) * x + (1.0/(cols-1)),(float)(1.0/(rows-1)) * y)
-					});							
-			xpos = ((float)(1.0/(cols-1)) * x + (1.0/(cols-1))-0.5) * width;
-			ypos = ((float)(1.0/(rows-1)) * y + (1.0/(rows-1))-0.5) * length;		
-			vertices.push_back({
-						glm::vec3(xpos, ypos,0.0),
-						glm::vec3(0.0,1.0,0.0), 
-						glm::vec2((float)(1.0/(cols-1)) * x + (1.0/(cols-1)),(float)(1.0/(rows-1)) * y + (1.0/(rows-1)))
-					});	
-			xpos = ((float)(1.0/(cols-1)) * x-0.5) * width;
-			ypos = ((float)(1.0/(rows-1)) * y + (1.0/(rows-1))-0.5) * length;
-			vertices.push_back({
-						glm::vec3(xpos, ypos,0.0),
-						glm::vec3(0.0,1.0,0.0), 
-						glm::vec2((float)(1.0/(cols-1)) * x,(float)(1.0/(rows-1)) * y + (1.0/(rows-1)))
-					});						
+			vert.position.x = (posx - 0.5) * width;
+			vert.position.y = (posy - 0.5) * length;
+			vert.position.z = 0.0;
+			
+			vert.t_coords.x = posx;
+			vert.t_coords.y = posy;
+			
+			vert.normal.x = 0.0;
+			vert.normal.y = 0.0;
+			vert.normal.z = 1.0;			
+			
+			vertices.push_back(vert);
 		}
-		
 	}
 	
-	//~ vertices.push_back({glm::vec3(-0.5,-0.5,0.0), glm::vec3(0.0,1.0,0.0), glm::vec2(0.0,0.0)});
-	//~ vertices.push_back({glm::vec3(0.5,-0.5,0.0), glm::vec3(0.0,1.0,0.0), glm::vec2(1.0,0.0)});
-	//~ vertices.push_back({glm::vec3(0.0,0.5,0.0), glm::vec3(0.0,1.0,0.0), glm::vec2(0.5,1.0)});
-	
+	for (unsigned int y = 0; y < rows-1; y++)
+	{
+		for (unsigned int x = 0; x < cols-1; x++)
+		{
+			unsigned int curIndex = x + y * cols;
+			indices.push_back(curIndex);
+			indices.push_back(curIndex+cols);
+			indices.push_back(curIndex+cols+1);
+			
+			indices.push_back(curIndex+cols+1);
+			indices.push_back(curIndex+1);
+			indices.push_back(curIndex);			
+		}		
+	}	
 	
 	mesh.vertices = vertices;
+	mesh.indices = indices;
+	
+	
 	return mesh;
 }
 

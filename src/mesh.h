@@ -12,14 +12,11 @@
 class Mesh{
 	public :
 		Mesh();
-		~Mesh();
+		//~ ~Mesh();
 		
 		void clearAll();
 		std::vector<Vertex> vertices;
-		std::vector<float> positions; // 3 floats per vertex
-		std::vector<float> normals; // 3 floats per vertex
-		std::vector<float> t_coords; // 2 floats per vertex
-		std::vector<int> indices;
+		std::vector<unsigned int> indices;
 };
 
 #endif

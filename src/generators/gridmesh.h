@@ -9,6 +9,7 @@ class GridMesh
 		GridMesh();
 		virtual ~GridMesh();
 		Mesh generate(int rows, int cols, float width= 1.0, float length = 1.0);
+		
 	private:
 		/* add your private declarations */
 };
