@@ -59,6 +59,8 @@ class Object{
 		glm::vec3 rotation;
 		glm::vec4 color;
 		
+		char name[100] = {'a','b','c'};
+		
 		private:
 			GLuint renderMode = GL_TRIANGLES;
 			BoundingBox boundingBox;

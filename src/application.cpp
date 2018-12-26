@@ -38,6 +38,27 @@ Application::Application()
 }
 
 
+void Application::addObject(Object* obj)
+{
+	
+	for (int i = 0; i < objects.size(); i++)
+	{
+		std::cout << "OLD NAME : "<<objects[i]->name <<"\n";
+		if(strcmp(obj->name, objects[i]->name) == 0) // if equal to zero means strings are equal
+		{
+			std::cout << "changing name \n";
+			std::string newName = "New Name";
+			strcpy(obj->name, newName.c_str());
+			
+		}
+		
+	}
+	
+	
+	objects.push_back(obj);
+	
+}
+
 Application::~Application()
 {	
 	std::cout <<  "Deleting Application\n";

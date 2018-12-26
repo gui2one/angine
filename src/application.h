@@ -19,6 +19,8 @@ class Application
 		Window  window;
 
 		void printObjectsInfos();
+		
+		void addObject(Object* obj);
 		std::vector<Object*> objects;
 		
 		static void key_callback(GLFWwindow* window, int key, int scancode, int action, int mods);

@@ -63,49 +63,55 @@ void Window::addDialog(){
 	ImGui::Begin("Properties");
 	
 	static int listbox_item_current = 0;
-
-	//~ const char * names[] = {"aaa", "bbb", "cccc"};
 	
 	
-	std::array<const char*, (constexpr)(objects.size())> names_array;
-	for (int i = 0; i < names_array.size(); i++)
+	if(ImGui::ListBoxHeader("new List box", 5))
 	{
-		std::string name = "Object ";
-		name += std::to_string(i);
-		
-		names_array[i] = name.c_str();
-	}
-	
-	
-	//~ for (size_t j = 0; j < names_array.size(); j++)
-	//~ {
-		//~ std::cout << names_array[(int)j] << "\n";
-	//~ }
-	
-	std::cout<< "------- " << names_array[0] << "\n";
-	
-	ImGui::ListBox("listbox\n(single select)", &listbox_item_current, names_array.data(), IM_ARRAYSIZE(names_array.data()), 4);
-	for (int i = 0; i < objects.size(); i++)
-	{
-		char text[500];
-		sprintf(text, "object %d", i);
-		if (ImGui::CollapsingHeader(text))
-		{				
-			sprintf(text, "btn %d", i);
-			if(ImGui::Button(text))
+		for (int i = 0; i < objects.size(); i++)
+		{
+			char text[500];
+			sprintf(text, "Object %d", i);
+			if(ImGui::Selectable(objects[i]->name, i == listbox_item_current))
 			{
-				std::cout << "btn test\n";
+				//~ std::cout << "press item " << i << "\n";
+				listbox_item_current = i;
 			}
-			sprintf(text, "Display Bbox %d", i);
-			ImGui::CheckboxFlags(text, (unsigned int*)&objects[i]->bDisplayBoundingBox, 1);
-
 			
-			
-			//~ float& tx = objects[i]->position.x;
-			sprintf(text, ":X %d", i);
-			ImGui::SliderFloat(text, &objects[i]->position.x, 0.0f, 10.0f, "%.3f");
 		}
+		
+		ImGui::ListBoxFooter();
 	}
+	
+	Object* curObj = objects[listbox_item_current];
+	char text[500];
+	sprintf(text, "object %d", listbox_item_current);
+	if (ImGui::CollapsingHeader(text))
+	{				
+		
+		
+		
+		
+		//~ static char buf[100] = curObj->name;
+		ImGui::InputText("name :" , curObj->name, IM_ARRAYSIZE(curObj->name)); 
+		sprintf(text, "btn", listbox_item_current);
+		if(ImGui::Button(text))
+		{
+			std::cout << "btn test\n";
+		}
+		sprintf(text, "Display Bbox", listbox_item_current);
+		ImGui::CheckboxFlags(text, (unsigned int*)&objects[listbox_item_current]->bDisplayBoundingBox, 1);
+
+		
+		
+		//~ float& tx = objects[i]->position.x;
+		ImGui::Columns(3,"columns");
+		ImGui::InputFloat(":X", &objects[listbox_item_current]->position.x, 0.0f, 1.0f, "%.3f");
+		ImGui::NextColumn();
+		ImGui::InputFloat(":Y", &objects[listbox_item_current]->position.y, 0.0f, 10.0f, "%.3f");
+		ImGui::NextColumn();
+		ImGui::InputFloat(":Z", &objects[listbox_item_current]->position.z, 0.0f, 10.0f, "%.3f");
+	}
+	
 	
 
 	ImGui::End();

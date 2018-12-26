@@ -82,8 +82,8 @@ int main()
 	BoundingBox bbox = obj2->getBoundingBox();
 	printf("bbox data : \n\tposition x: %f, y: %f, z: %f\n", bbox.position.x, bbox.position.y, bbox.position.z);	
 	obj2->position.x = -2.0;
-	app.objects.push_back(obj2);	
-	
+	//~ app.objects.push_back(obj2);	
+	app.addObject(obj2);
 	app.window.objects = app.objects;
 
 
