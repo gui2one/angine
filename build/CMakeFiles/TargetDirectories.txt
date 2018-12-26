@@ -1,3 +1,4 @@
 /home/pi/projects/angine/build/CMakeFiles/edit_cache.dir
 /home/pi/projects/angine/build/CMakeFiles/rebuild_cache.dir
 /home/pi/projects/angine/build/CMakeFiles/angine.dir
+/home/pi/projects/angine/build/CMakeFiles/PCHLib.dir

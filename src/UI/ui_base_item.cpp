@@ -3,15 +3,14 @@
 
 UIBaseItem::UIBaseItem()
 {
-	setPosition(0.0,0.0);
+	setPosition(glm::vec2(0.0,0.0));
+	setSize(glm::vec2(50.0,50.0));
 }
 
-void UIBaseItem::setPosition(float x, float y){
-	position = glm::vec2(x,y);
-}
 
-glm::vec2 UIBaseItem::getPosition(){
-	return position;
-}
 
+void UIBaseItem::draw(){
+	//~ std::cout << "TYPE : "<<typeid(this).name() << "\n";
+	//~ printf("Base item draw function\n");
+}
 

@@ -11,6 +11,23 @@ Object::Object(){
 	scale = glm::vec3(1.0f,1.0f,1.0f);	
 	color = glm::vec4(1.0f,1.0f,1.0f,1.0f);
 	
+
+	
+
+}
+
+void Object::init(){
+	shader.loadVertexShaderSource("../src/res/shaders/basic_shader.vert");
+	shader.loadFragmentShaderSource("../src/res/shaders/basic_shader.frag");	
+	buildTexture();
+	shader.createShader();
+	
+	// program crashes when I try to create shader in the constructor ... to investigate 
+	lineShader.loadVertexShaderSource("../src/res/shaders/line_shader.vert");
+	lineShader.loadFragmentShaderSource("../src/res/shaders/line_shader.frag");		
+	lineShader.createShader();		
+	
+	buildVbo();	
 }
 
 void Object::buildTexture()
@@ -53,6 +70,10 @@ std::vector<uniform> Object::getShaderUniforms()
 
 void Object::buildVbo()
 {
+	
+	
+	
+	
 	
 	//~ std::vector<uniform> us;
 	//~ us = getShaderUniforms();
@@ -115,7 +136,7 @@ void Object::buildVbo()
 	glDeleteBuffers(1, &m_vbo);
 	glGenBuffers(1, &m_vbo);
 	glBindBuffer(GL_ARRAY_BUFFER, m_vbo);
-	glBufferData(GL_ARRAY_BUFFER, sizeof(float) * vertex_data.size(), vertex_data.data() ,GL_STATIC_DRAW);
+	glBufferData(GL_ARRAY_BUFFER, sizeof(float) * vertex_data.size(), vertex_data.data() ,GL_DYNAMIC_DRAW);
 	
 	vertex_data.clear();	
 	
@@ -124,7 +145,7 @@ void Object::buildVbo()
 	glDeleteBuffers(1, &m_ibo);
 	glGenBuffers(1, &m_ibo);	
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, m_ibo);
-	glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(unsigned int) * mesh.indices.size(), mesh.indices.data() ,GL_STATIC_DRAW);
+	glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(unsigned int) * mesh.indices.size(), mesh.indices.data() ,GL_DYNAMIC_DRAW);
 		
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
 	
@@ -149,16 +170,105 @@ void Object::buildVbo()
 	glDeleteBuffers(1, &m_normals_vbo);
 	glGenBuffers(1,&m_normals_vbo);	
 	glBindBuffer(GL_ARRAY_BUFFER, m_normals_vbo);
-	glBufferData(GL_ARRAY_BUFFER, sizeof(float) * normals_data.size(), normals_data.data() ,GL_STATIC_DRAW);
+	glBufferData(GL_ARRAY_BUFFER, sizeof(float) * normals_data.size(), normals_data.data() ,GL_DYNAMIC_DRAW);
 	normals_data.clear();
 
 	
 	glBindBuffer(GL_ARRAY_BUFFER,0);
 	
+	// BBOX
+	computeBoundingBox();
 	
-
+	glm::vec3 bbpos = boundingBox.position;
+	glm::vec3 bbsize = boundingBox.size;
+	
+	float bbox_data[] = 
+	{
+		
+		// xy square
+		bbpos.x, bbpos.y, bbpos.z,
+		bbpos.x + bbsize.x, bbpos.y, bbpos.z,
+		
+		bbpos.x, bbpos.y, bbpos.z,
+		bbpos.x, bbpos.y + bbsize.y, bbpos.z,
+		
+		bbpos.x, bbpos.y + bbsize.y, bbpos.z,
+		bbpos.x + bbsize.x, bbpos.y + bbsize.y, bbpos.z,		
+		
+		bbpos.x + bbsize.x, bbpos.y, bbpos.z,
+		bbpos.x + bbsize.x, bbpos.y + bbsize.y, bbpos.z,		
+		
+		// xy square offset by z
+		bbpos.x, bbpos.y, bbpos.z + bbsize.z,
+		bbpos.x + bbsize.x, bbpos.y, bbpos.z + bbsize.z,
+		
+		bbpos.x, bbpos.y, bbpos.z + bbsize.z,
+		bbpos.x, bbpos.y + bbsize.y, bbpos.z + bbsize.z,
+		
+		bbpos.x, bbpos.y + bbsize.y, bbpos.z + bbsize.z,
+		bbpos.x + bbsize.x, bbpos.y + bbsize.y, bbpos.z + bbsize.z,		
+		
+		bbpos.x + bbsize.x, bbpos.y, bbpos.z + bbsize.z,
+		bbpos.x + bbsize.x, bbpos.y + bbsize.y, bbpos.z + bbsize.z,
+		
+		// connecting lines
+		bbpos.x, bbpos.y, bbpos.z,
+		bbpos.x, bbpos.y, bbpos.z + bbsize.z,
+		
+		bbpos.x + bbsize.x, bbpos.y, bbpos.z,
+		bbpos.x + bbsize.x, bbpos.y, bbpos.z + bbsize.z,
+		
+		bbpos.x , bbpos.y + bbsize.y, bbpos.z,
+		bbpos.x, bbpos.y + bbsize.y, bbpos.z + bbsize.z,	
+			
+		bbpos.x + bbsize.x, bbpos.y + bbsize.y, bbpos.z,
+		bbpos.x + bbsize.x, bbpos.y + bbsize.y, bbpos.z + bbsize.z
+	};
+	
+	glDeleteBuffers(1, &m_bbox_vbo);
+	glGenBuffers(1,&m_bbox_vbo);	
+	glBindBuffer(GL_ARRAY_BUFFER, m_bbox_vbo);
+	glBufferData(GL_ARRAY_BUFFER, sizeof(float) * 3*12*2, bbox_data ,GL_DYNAMIC_DRAW);
+	
 	
 }
+
+
+BoundingBox Object::getBoundingBox(){
+	return boundingBox;
+}
+
+void Object::computeBoundingBox()
+{
+	
+	std::cout << "Computing BBOX\n";
+	float minx, miny, minz = 1000000.0;
+	float maxx, maxy, maxz = -1000000.0;
+	for (int i = 0; i < mesh.vertices.size(); i++)
+	{
+		glm::vec3 vpos = mesh.vertices[i].position;
+		if(vpos.x < minx)
+			minx = vpos.x;
+		else if(vpos.x > maxx)
+			maxx = vpos.x;
+		if( vpos.y < miny)
+			miny = vpos.y;
+		else if(vpos.y > maxy)
+			maxy = vpos.y;
+		if( vpos.z < minz)
+			minz = vpos.z;
+		else if(vpos.z > maxz)
+			maxz = vpos.z;			
+
+	}
+	
+	boundingBox.position = glm::vec3(minx, miny, minz);
+	boundingBox.size = glm::vec3(maxx-minx, maxy-miny, maxz-minz);
+	
+	
+	
+}
+
 void Object::printMeshData(){
 	
 	
@@ -229,6 +339,22 @@ void Object::draw(GLuint mode){
 		
 }
 
+
+void Object::drawBoundingBox()
+{
+		lineShader.useProgram();
+		glUniform4f(glGetUniformLocation(lineShader.m_id,"u_color"), 1.0,1.0,0.5,1.0);
+		glBindBuffer(GL_ARRAY_BUFFER, m_bbox_vbo);
+		glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(float) * 3, 0); 					
+		glEnableVertexAttribArray(0);		
+		
+			glDrawArrays(GL_LINES,0, 2*12);
+		
+		glDisableVertexAttribArray(0);		
+		glBindBuffer(GL_ARRAY_BUFFER, 0);	
+		
+		glUseProgram(0);	
+}
 void Object::drawNormals(){
 			
 		shader.useProgram();

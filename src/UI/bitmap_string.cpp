@@ -3,21 +3,23 @@
 
 BitmapString::BitmapString()
 {
-	m_str_value = "default text";
+	m_str_value = "default string";
 }
 
 void BitmapString::init(unsigned char* _font_buffer)
 {
-
-	font_buffer = _font_buffer;	
-		
+	font_buffer = _font_buffer;			
 	createStringTexture();
 }
 
-void BitmapString::update(){
-	if( m_str_old_value != m_str_value){
+void BitmapString::update()
+{
+	if( m_str_old_value != m_str_value)
+	{
 		createStringTexture();
 		m_str_old_value = m_str_value;
+		
+		//~ std::cout << "Updated bitmap string\n";
 	}
 }
 

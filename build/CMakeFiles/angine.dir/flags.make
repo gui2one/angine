@@ -6,5 +6,5 @@ CXX_FLAGS = -std=c++11 -O3 -DNDEBUG
 
 CXX_DEFINES = 
 
-CXX_INCLUDES = -I/home/pi/projects/angine/build/../src/include 
+CXX_INCLUDES = -I/home/pi/projects/angine/build/../src/include -I/usr/local/include -I/home/pi/projects/angine/build/../src/vendor/imgui 
 

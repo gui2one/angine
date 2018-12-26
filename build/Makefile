@@ -123,113 +123,18 @@ angine/fast:
 	$(MAKE) -f CMakeFiles/angine.dir/build.make CMakeFiles/angine.dir/build
 .PHONY : angine/fast
 
-home/pi/projects/angine/src/UI/bitmap_string.o: home/pi/projects/angine/src/UI/bitmap_string.cpp.o
+#=============================================================================
+# Target rules for targets named PCHLib
 
-.PHONY : home/pi/projects/angine/src/UI/bitmap_string.o
+# Build rule for target.
+PCHLib: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 PCHLib
+.PHONY : PCHLib
 
-# target to build an object file
-home/pi/projects/angine/src/UI/bitmap_string.cpp.o:
-	$(MAKE) -f CMakeFiles/angine.dir/build.make CMakeFiles/angine.dir/home/pi/projects/angine/src/UI/bitmap_string.cpp.o
-.PHONY : home/pi/projects/angine/src/UI/bitmap_string.cpp.o
-
-home/pi/projects/angine/src/UI/bitmap_string.i: home/pi/projects/angine/src/UI/bitmap_string.cpp.i
-
-.PHONY : home/pi/projects/angine/src/UI/bitmap_string.i
-
-# target to preprocess a source file
-home/pi/projects/angine/src/UI/bitmap_string.cpp.i:
-	$(MAKE) -f CMakeFiles/angine.dir/build.make CMakeFiles/angine.dir/home/pi/projects/angine/src/UI/bitmap_string.cpp.i
-.PHONY : home/pi/projects/angine/src/UI/bitmap_string.cpp.i
-
-home/pi/projects/angine/src/UI/bitmap_string.s: home/pi/projects/angine/src/UI/bitmap_string.cpp.s
-
-.PHONY : home/pi/projects/angine/src/UI/bitmap_string.s
-
-# target to generate assembly for a file
-home/pi/projects/angine/src/UI/bitmap_string.cpp.s:
-	$(MAKE) -f CMakeFiles/angine.dir/build.make CMakeFiles/angine.dir/home/pi/projects/angine/src/UI/bitmap_string.cpp.s
-.PHONY : home/pi/projects/angine/src/UI/bitmap_string.cpp.s
-
-home/pi/projects/angine/src/UI/ui_base.o: home/pi/projects/angine/src/UI/ui_base.cpp.o
-
-.PHONY : home/pi/projects/angine/src/UI/ui_base.o
-
-# target to build an object file
-home/pi/projects/angine/src/UI/ui_base.cpp.o:
-	$(MAKE) -f CMakeFiles/angine.dir/build.make CMakeFiles/angine.dir/home/pi/projects/angine/src/UI/ui_base.cpp.o
-.PHONY : home/pi/projects/angine/src/UI/ui_base.cpp.o
-
-home/pi/projects/angine/src/UI/ui_base.i: home/pi/projects/angine/src/UI/ui_base.cpp.i
-
-.PHONY : home/pi/projects/angine/src/UI/ui_base.i
-
-# target to preprocess a source file
-home/pi/projects/angine/src/UI/ui_base.cpp.i:
-	$(MAKE) -f CMakeFiles/angine.dir/build.make CMakeFiles/angine.dir/home/pi/projects/angine/src/UI/ui_base.cpp.i
-.PHONY : home/pi/projects/angine/src/UI/ui_base.cpp.i
-
-home/pi/projects/angine/src/UI/ui_base.s: home/pi/projects/angine/src/UI/ui_base.cpp.s
-
-.PHONY : home/pi/projects/angine/src/UI/ui_base.s
-
-# target to generate assembly for a file
-home/pi/projects/angine/src/UI/ui_base.cpp.s:
-	$(MAKE) -f CMakeFiles/angine.dir/build.make CMakeFiles/angine.dir/home/pi/projects/angine/src/UI/ui_base.cpp.s
-.PHONY : home/pi/projects/angine/src/UI/ui_base.cpp.s
-
-home/pi/projects/angine/src/UI/ui_base_item.o: home/pi/projects/angine/src/UI/ui_base_item.cpp.o
-
-.PHONY : home/pi/projects/angine/src/UI/ui_base_item.o
-
-# target to build an object file
-home/pi/projects/angine/src/UI/ui_base_item.cpp.o:
-	$(MAKE) -f CMakeFiles/angine.dir/build.make CMakeFiles/angine.dir/home/pi/projects/angine/src/UI/ui_base_item.cpp.o
-.PHONY : home/pi/projects/angine/src/UI/ui_base_item.cpp.o
-
-home/pi/projects/angine/src/UI/ui_base_item.i: home/pi/projects/angine/src/UI/ui_base_item.cpp.i
-
-.PHONY : home/pi/projects/angine/src/UI/ui_base_item.i
-
-# target to preprocess a source file
-home/pi/projects/angine/src/UI/ui_base_item.cpp.i:
-	$(MAKE) -f CMakeFiles/angine.dir/build.make CMakeFiles/angine.dir/home/pi/projects/angine/src/UI/ui_base_item.cpp.i
-.PHONY : home/pi/projects/angine/src/UI/ui_base_item.cpp.i
-
-home/pi/projects/angine/src/UI/ui_base_item.s: home/pi/projects/angine/src/UI/ui_base_item.cpp.s
-
-.PHONY : home/pi/projects/angine/src/UI/ui_base_item.s
-
-# target to generate assembly for a file
-home/pi/projects/angine/src/UI/ui_base_item.cpp.s:
-	$(MAKE) -f CMakeFiles/angine.dir/build.make CMakeFiles/angine.dir/home/pi/projects/angine/src/UI/ui_base_item.cpp.s
-.PHONY : home/pi/projects/angine/src/UI/ui_base_item.cpp.s
-
-home/pi/projects/angine/src/UI/ui_button.o: home/pi/projects/angine/src/UI/ui_button.cpp.o
-
-.PHONY : home/pi/projects/angine/src/UI/ui_button.o
-
-# target to build an object file
-home/pi/projects/angine/src/UI/ui_button.cpp.o:
-	$(MAKE) -f CMakeFiles/angine.dir/build.make CMakeFiles/angine.dir/home/pi/projects/angine/src/UI/ui_button.cpp.o
-.PHONY : home/pi/projects/angine/src/UI/ui_button.cpp.o
-
-home/pi/projects/angine/src/UI/ui_button.i: home/pi/projects/angine/src/UI/ui_button.cpp.i
-
-.PHONY : home/pi/projects/angine/src/UI/ui_button.i
-
-# target to preprocess a source file
-home/pi/projects/angine/src/UI/ui_button.cpp.i:
-	$(MAKE) -f CMakeFiles/angine.dir/build.make CMakeFiles/angine.dir/home/pi/projects/angine/src/UI/ui_button.cpp.i
-.PHONY : home/pi/projects/angine/src/UI/ui_button.cpp.i
-
-home/pi/projects/angine/src/UI/ui_button.s: home/pi/projects/angine/src/UI/ui_button.cpp.s
-
-.PHONY : home/pi/projects/angine/src/UI/ui_button.s
-
-# target to generate assembly for a file
-home/pi/projects/angine/src/UI/ui_button.cpp.s:
-	$(MAKE) -f CMakeFiles/angine.dir/build.make CMakeFiles/angine.dir/home/pi/projects/angine/src/UI/ui_button.cpp.s
-.PHONY : home/pi/projects/angine/src/UI/ui_button.cpp.s
+# fast build rule for target.
+PCHLib/fast:
+	$(MAKE) -f CMakeFiles/PCHLib.dir/build.make CMakeFiles/PCHLib.dir/build
+.PHONY : PCHLib/fast
 
 home/pi/projects/angine/src/application.o: home/pi/projects/angine/src/application.cpp.o
 
@@ -420,6 +325,33 @@ home/pi/projects/angine/src/object.cpp.s:
 	$(MAKE) -f CMakeFiles/angine.dir/build.make CMakeFiles/angine.dir/home/pi/projects/angine/src/object.cpp.s
 .PHONY : home/pi/projects/angine/src/object.cpp.s
 
+home/pi/projects/angine/src/pch.o: home/pi/projects/angine/src/pch.cpp.o
+
+.PHONY : home/pi/projects/angine/src/pch.o
+
+# target to build an object file
+home/pi/projects/angine/src/pch.cpp.o:
+	$(MAKE) -f CMakeFiles/PCHLib.dir/build.make CMakeFiles/PCHLib.dir/home/pi/projects/angine/src/pch.cpp.o
+.PHONY : home/pi/projects/angine/src/pch.cpp.o
+
+home/pi/projects/angine/src/pch.i: home/pi/projects/angine/src/pch.cpp.i
+
+.PHONY : home/pi/projects/angine/src/pch.i
+
+# target to preprocess a source file
+home/pi/projects/angine/src/pch.cpp.i:
+	$(MAKE) -f CMakeFiles/PCHLib.dir/build.make CMakeFiles/PCHLib.dir/home/pi/projects/angine/src/pch.cpp.i
+.PHONY : home/pi/projects/angine/src/pch.cpp.i
+
+home/pi/projects/angine/src/pch.s: home/pi/projects/angine/src/pch.cpp.s
+
+.PHONY : home/pi/projects/angine/src/pch.s
+
+# target to generate assembly for a file
+home/pi/projects/angine/src/pch.cpp.s:
+	$(MAKE) -f CMakeFiles/PCHLib.dir/build.make CMakeFiles/PCHLib.dir/home/pi/projects/angine/src/pch.cpp.s
+.PHONY : home/pi/projects/angine/src/pch.cpp.s
+
 home/pi/projects/angine/src/shader.o: home/pi/projects/angine/src/shader.cpp.o
 
 .PHONY : home/pi/projects/angine/src/shader.o
@@ -501,6 +433,168 @@ home/pi/projects/angine/src/utils/objLoader.cpp.s:
 	$(MAKE) -f CMakeFiles/angine.dir/build.make CMakeFiles/angine.dir/home/pi/projects/angine/src/utils/objLoader.cpp.s
 .PHONY : home/pi/projects/angine/src/utils/objLoader.cpp.s
 
+home/pi/projects/angine/src/vendor/imgui/imgui.o: home/pi/projects/angine/src/vendor/imgui/imgui.cpp.o
+
+.PHONY : home/pi/projects/angine/src/vendor/imgui/imgui.o
+
+# target to build an object file
+home/pi/projects/angine/src/vendor/imgui/imgui.cpp.o:
+	$(MAKE) -f CMakeFiles/angine.dir/build.make CMakeFiles/angine.dir/home/pi/projects/angine/src/vendor/imgui/imgui.cpp.o
+.PHONY : home/pi/projects/angine/src/vendor/imgui/imgui.cpp.o
+
+home/pi/projects/angine/src/vendor/imgui/imgui.i: home/pi/projects/angine/src/vendor/imgui/imgui.cpp.i
+
+.PHONY : home/pi/projects/angine/src/vendor/imgui/imgui.i
+
+# target to preprocess a source file
+home/pi/projects/angine/src/vendor/imgui/imgui.cpp.i:
+	$(MAKE) -f CMakeFiles/angine.dir/build.make CMakeFiles/angine.dir/home/pi/projects/angine/src/vendor/imgui/imgui.cpp.i
+.PHONY : home/pi/projects/angine/src/vendor/imgui/imgui.cpp.i
+
+home/pi/projects/angine/src/vendor/imgui/imgui.s: home/pi/projects/angine/src/vendor/imgui/imgui.cpp.s
+
+.PHONY : home/pi/projects/angine/src/vendor/imgui/imgui.s
+
+# target to generate assembly for a file
+home/pi/projects/angine/src/vendor/imgui/imgui.cpp.s:
+	$(MAKE) -f CMakeFiles/angine.dir/build.make CMakeFiles/angine.dir/home/pi/projects/angine/src/vendor/imgui/imgui.cpp.s
+.PHONY : home/pi/projects/angine/src/vendor/imgui/imgui.cpp.s
+
+home/pi/projects/angine/src/vendor/imgui/imgui_demo.o: home/pi/projects/angine/src/vendor/imgui/imgui_demo.cpp.o
+
+.PHONY : home/pi/projects/angine/src/vendor/imgui/imgui_demo.o
+
+# target to build an object file
+home/pi/projects/angine/src/vendor/imgui/imgui_demo.cpp.o:
+	$(MAKE) -f CMakeFiles/angine.dir/build.make CMakeFiles/angine.dir/home/pi/projects/angine/src/vendor/imgui/imgui_demo.cpp.o
+.PHONY : home/pi/projects/angine/src/vendor/imgui/imgui_demo.cpp.o
+
+home/pi/projects/angine/src/vendor/imgui/imgui_demo.i: home/pi/projects/angine/src/vendor/imgui/imgui_demo.cpp.i
+
+.PHONY : home/pi/projects/angine/src/vendor/imgui/imgui_demo.i
+
+# target to preprocess a source file
+home/pi/projects/angine/src/vendor/imgui/imgui_demo.cpp.i:
+	$(MAKE) -f CMakeFiles/angine.dir/build.make CMakeFiles/angine.dir/home/pi/projects/angine/src/vendor/imgui/imgui_demo.cpp.i
+.PHONY : home/pi/projects/angine/src/vendor/imgui/imgui_demo.cpp.i
+
+home/pi/projects/angine/src/vendor/imgui/imgui_demo.s: home/pi/projects/angine/src/vendor/imgui/imgui_demo.cpp.s
+
+.PHONY : home/pi/projects/angine/src/vendor/imgui/imgui_demo.s
+
+# target to generate assembly for a file
+home/pi/projects/angine/src/vendor/imgui/imgui_demo.cpp.s:
+	$(MAKE) -f CMakeFiles/angine.dir/build.make CMakeFiles/angine.dir/home/pi/projects/angine/src/vendor/imgui/imgui_demo.cpp.s
+.PHONY : home/pi/projects/angine/src/vendor/imgui/imgui_demo.cpp.s
+
+home/pi/projects/angine/src/vendor/imgui/imgui_draw.o: home/pi/projects/angine/src/vendor/imgui/imgui_draw.cpp.o
+
+.PHONY : home/pi/projects/angine/src/vendor/imgui/imgui_draw.o
+
+# target to build an object file
+home/pi/projects/angine/src/vendor/imgui/imgui_draw.cpp.o:
+	$(MAKE) -f CMakeFiles/angine.dir/build.make CMakeFiles/angine.dir/home/pi/projects/angine/src/vendor/imgui/imgui_draw.cpp.o
+.PHONY : home/pi/projects/angine/src/vendor/imgui/imgui_draw.cpp.o
+
+home/pi/projects/angine/src/vendor/imgui/imgui_draw.i: home/pi/projects/angine/src/vendor/imgui/imgui_draw.cpp.i
+
+.PHONY : home/pi/projects/angine/src/vendor/imgui/imgui_draw.i
+
+# target to preprocess a source file
+home/pi/projects/angine/src/vendor/imgui/imgui_draw.cpp.i:
+	$(MAKE) -f CMakeFiles/angine.dir/build.make CMakeFiles/angine.dir/home/pi/projects/angine/src/vendor/imgui/imgui_draw.cpp.i
+.PHONY : home/pi/projects/angine/src/vendor/imgui/imgui_draw.cpp.i
+
+home/pi/projects/angine/src/vendor/imgui/imgui_draw.s: home/pi/projects/angine/src/vendor/imgui/imgui_draw.cpp.s
+
+.PHONY : home/pi/projects/angine/src/vendor/imgui/imgui_draw.s
+
+# target to generate assembly for a file
+home/pi/projects/angine/src/vendor/imgui/imgui_draw.cpp.s:
+	$(MAKE) -f CMakeFiles/angine.dir/build.make CMakeFiles/angine.dir/home/pi/projects/angine/src/vendor/imgui/imgui_draw.cpp.s
+.PHONY : home/pi/projects/angine/src/vendor/imgui/imgui_draw.cpp.s
+
+home/pi/projects/angine/src/vendor/imgui/imgui_impl_glfw.o: home/pi/projects/angine/src/vendor/imgui/imgui_impl_glfw.cpp.o
+
+.PHONY : home/pi/projects/angine/src/vendor/imgui/imgui_impl_glfw.o
+
+# target to build an object file
+home/pi/projects/angine/src/vendor/imgui/imgui_impl_glfw.cpp.o:
+	$(MAKE) -f CMakeFiles/angine.dir/build.make CMakeFiles/angine.dir/home/pi/projects/angine/src/vendor/imgui/imgui_impl_glfw.cpp.o
+.PHONY : home/pi/projects/angine/src/vendor/imgui/imgui_impl_glfw.cpp.o
+
+home/pi/projects/angine/src/vendor/imgui/imgui_impl_glfw.i: home/pi/projects/angine/src/vendor/imgui/imgui_impl_glfw.cpp.i
+
+.PHONY : home/pi/projects/angine/src/vendor/imgui/imgui_impl_glfw.i
+
+# target to preprocess a source file
+home/pi/projects/angine/src/vendor/imgui/imgui_impl_glfw.cpp.i:
+	$(MAKE) -f CMakeFiles/angine.dir/build.make CMakeFiles/angine.dir/home/pi/projects/angine/src/vendor/imgui/imgui_impl_glfw.cpp.i
+.PHONY : home/pi/projects/angine/src/vendor/imgui/imgui_impl_glfw.cpp.i
+
+home/pi/projects/angine/src/vendor/imgui/imgui_impl_glfw.s: home/pi/projects/angine/src/vendor/imgui/imgui_impl_glfw.cpp.s
+
+.PHONY : home/pi/projects/angine/src/vendor/imgui/imgui_impl_glfw.s
+
+# target to generate assembly for a file
+home/pi/projects/angine/src/vendor/imgui/imgui_impl_glfw.cpp.s:
+	$(MAKE) -f CMakeFiles/angine.dir/build.make CMakeFiles/angine.dir/home/pi/projects/angine/src/vendor/imgui/imgui_impl_glfw.cpp.s
+.PHONY : home/pi/projects/angine/src/vendor/imgui/imgui_impl_glfw.cpp.s
+
+home/pi/projects/angine/src/vendor/imgui/imgui_impl_opengl3.o: home/pi/projects/angine/src/vendor/imgui/imgui_impl_opengl3.cpp.o
+
+.PHONY : home/pi/projects/angine/src/vendor/imgui/imgui_impl_opengl3.o
+
+# target to build an object file
+home/pi/projects/angine/src/vendor/imgui/imgui_impl_opengl3.cpp.o:
+	$(MAKE) -f CMakeFiles/angine.dir/build.make CMakeFiles/angine.dir/home/pi/projects/angine/src/vendor/imgui/imgui_impl_opengl3.cpp.o
+.PHONY : home/pi/projects/angine/src/vendor/imgui/imgui_impl_opengl3.cpp.o
+
+home/pi/projects/angine/src/vendor/imgui/imgui_impl_opengl3.i: home/pi/projects/angine/src/vendor/imgui/imgui_impl_opengl3.cpp.i
+
+.PHONY : home/pi/projects/angine/src/vendor/imgui/imgui_impl_opengl3.i
+
+# target to preprocess a source file
+home/pi/projects/angine/src/vendor/imgui/imgui_impl_opengl3.cpp.i:
+	$(MAKE) -f CMakeFiles/angine.dir/build.make CMakeFiles/angine.dir/home/pi/projects/angine/src/vendor/imgui/imgui_impl_opengl3.cpp.i
+.PHONY : home/pi/projects/angine/src/vendor/imgui/imgui_impl_opengl3.cpp.i
+
+home/pi/projects/angine/src/vendor/imgui/imgui_impl_opengl3.s: home/pi/projects/angine/src/vendor/imgui/imgui_impl_opengl3.cpp.s
+
+.PHONY : home/pi/projects/angine/src/vendor/imgui/imgui_impl_opengl3.s
+
+# target to generate assembly for a file
+home/pi/projects/angine/src/vendor/imgui/imgui_impl_opengl3.cpp.s:
+	$(MAKE) -f CMakeFiles/angine.dir/build.make CMakeFiles/angine.dir/home/pi/projects/angine/src/vendor/imgui/imgui_impl_opengl3.cpp.s
+.PHONY : home/pi/projects/angine/src/vendor/imgui/imgui_impl_opengl3.cpp.s
+
+home/pi/projects/angine/src/vendor/imgui/imgui_widgets.o: home/pi/projects/angine/src/vendor/imgui/imgui_widgets.cpp.o
+
+.PHONY : home/pi/projects/angine/src/vendor/imgui/imgui_widgets.o
+
+# target to build an object file
+home/pi/projects/angine/src/vendor/imgui/imgui_widgets.cpp.o:
+	$(MAKE) -f CMakeFiles/angine.dir/build.make CMakeFiles/angine.dir/home/pi/projects/angine/src/vendor/imgui/imgui_widgets.cpp.o
+.PHONY : home/pi/projects/angine/src/vendor/imgui/imgui_widgets.cpp.o
+
+home/pi/projects/angine/src/vendor/imgui/imgui_widgets.i: home/pi/projects/angine/src/vendor/imgui/imgui_widgets.cpp.i
+
+.PHONY : home/pi/projects/angine/src/vendor/imgui/imgui_widgets.i
+
+# target to preprocess a source file
+home/pi/projects/angine/src/vendor/imgui/imgui_widgets.cpp.i:
+	$(MAKE) -f CMakeFiles/angine.dir/build.make CMakeFiles/angine.dir/home/pi/projects/angine/src/vendor/imgui/imgui_widgets.cpp.i
+.PHONY : home/pi/projects/angine/src/vendor/imgui/imgui_widgets.cpp.i
+
+home/pi/projects/angine/src/vendor/imgui/imgui_widgets.s: home/pi/projects/angine/src/vendor/imgui/imgui_widgets.cpp.s
+
+.PHONY : home/pi/projects/angine/src/vendor/imgui/imgui_widgets.s
+
+# target to generate assembly for a file
+home/pi/projects/angine/src/vendor/imgui/imgui_widgets.cpp.s:
+	$(MAKE) -f CMakeFiles/angine.dir/build.make CMakeFiles/angine.dir/home/pi/projects/angine/src/vendor/imgui/imgui_widgets.cpp.s
+.PHONY : home/pi/projects/angine/src/vendor/imgui/imgui_widgets.cpp.s
+
 home/pi/projects/angine/src/vendor/stb_image.o: home/pi/projects/angine/src/vendor/stb_image.cpp.o
 
 .PHONY : home/pi/projects/angine/src/vendor/stb_image.o
@@ -564,18 +658,7 @@ help:
 	@echo "... edit_cache"
 	@echo "... rebuild_cache"
 	@echo "... angine"
-	@echo "... home/pi/projects/angine/src/UI/bitmap_string.o"
-	@echo "... home/pi/projects/angine/src/UI/bitmap_string.i"
-	@echo "... home/pi/projects/angine/src/UI/bitmap_string.s"
-	@echo "... home/pi/projects/angine/src/UI/ui_base.o"
-	@echo "... home/pi/projects/angine/src/UI/ui_base.i"
-	@echo "... home/pi/projects/angine/src/UI/ui_base.s"
-	@echo "... home/pi/projects/angine/src/UI/ui_base_item.o"
-	@echo "... home/pi/projects/angine/src/UI/ui_base_item.i"
-	@echo "... home/pi/projects/angine/src/UI/ui_base_item.s"
-	@echo "... home/pi/projects/angine/src/UI/ui_button.o"
-	@echo "... home/pi/projects/angine/src/UI/ui_button.i"
-	@echo "... home/pi/projects/angine/src/UI/ui_button.s"
+	@echo "... PCHLib"
 	@echo "... home/pi/projects/angine/src/application.o"
 	@echo "... home/pi/projects/angine/src/application.i"
 	@echo "... home/pi/projects/angine/src/application.s"
@@ -597,6 +680,9 @@ help:
 	@echo "... home/pi/projects/angine/src/object.o"
 	@echo "... home/pi/projects/angine/src/object.i"
 	@echo "... home/pi/projects/angine/src/object.s"
+	@echo "... home/pi/projects/angine/src/pch.o"
+	@echo "... home/pi/projects/angine/src/pch.i"
+	@echo "... home/pi/projects/angine/src/pch.s"
 	@echo "... home/pi/projects/angine/src/shader.o"
 	@echo "... home/pi/projects/angine/src/shader.i"
 	@echo "... home/pi/projects/angine/src/shader.s"
@@ -606,6 +692,24 @@ help:
 	@echo "... home/pi/projects/angine/src/utils/objLoader.o"
 	@echo "... home/pi/projects/angine/src/utils/objLoader.i"
 	@echo "... home/pi/projects/angine/src/utils/objLoader.s"
+	@echo "... home/pi/projects/angine/src/vendor/imgui/imgui.o"
+	@echo "... home/pi/projects/angine/src/vendor/imgui/imgui.i"
+	@echo "... home/pi/projects/angine/src/vendor/imgui/imgui.s"
+	@echo "... home/pi/projects/angine/src/vendor/imgui/imgui_demo.o"
+	@echo "... home/pi/projects/angine/src/vendor/imgui/imgui_demo.i"
+	@echo "... home/pi/projects/angine/src/vendor/imgui/imgui_demo.s"
+	@echo "... home/pi/projects/angine/src/vendor/imgui/imgui_draw.o"
+	@echo "... home/pi/projects/angine/src/vendor/imgui/imgui_draw.i"
+	@echo "... home/pi/projects/angine/src/vendor/imgui/imgui_draw.s"
+	@echo "... home/pi/projects/angine/src/vendor/imgui/imgui_impl_glfw.o"
+	@echo "... home/pi/projects/angine/src/vendor/imgui/imgui_impl_glfw.i"
+	@echo "... home/pi/projects/angine/src/vendor/imgui/imgui_impl_glfw.s"
+	@echo "... home/pi/projects/angine/src/vendor/imgui/imgui_impl_opengl3.o"
+	@echo "... home/pi/projects/angine/src/vendor/imgui/imgui_impl_opengl3.i"
+	@echo "... home/pi/projects/angine/src/vendor/imgui/imgui_impl_opengl3.s"
+	@echo "... home/pi/projects/angine/src/vendor/imgui/imgui_widgets.o"
+	@echo "... home/pi/projects/angine/src/vendor/imgui/imgui_widgets.i"
+	@echo "... home/pi/projects/angine/src/vendor/imgui/imgui_widgets.s"
 	@echo "... home/pi/projects/angine/src/vendor/stb_image.o"
 	@echo "... home/pi/projects/angine/src/vendor/stb_image.i"
 	@echo "... home/pi/projects/angine/src/vendor/stb_image.s"

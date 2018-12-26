@@ -6,14 +6,19 @@
 #include "object.h"
 #include "shader.h"
 #include "camera.h"
-#include "UI/ui_base.h"
+
+#define IMGUI_IMPL_OPENGL_LOADER_GLEW
+#include "imgui.h"
+#include "imgui_impl_glfw.h"
+#include "imgui_impl_opengl3.h"
+
 class Window
 {
 	public:
 		Window();
 		virtual ~Window();
 		void refresh();
-		
+		void addDialog();
 		GLFWwindow * win;
 		Camera camera;
 		
@@ -22,8 +27,7 @@ class Window
 		
 		std::vector<Object*> objects;
 		void renderObjects();
-		UIBase UI;
-		void renderUI();
+
 		
 		unsigned int shader_id;
 		
