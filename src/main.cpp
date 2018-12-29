@@ -47,7 +47,7 @@ int main()
 
 
 	SphereMesh sphere{};	
-	obj1->mesh = sphere.generate2(nRows,nCols);
+	//~ obj1->mesh = sphere.generate(nRows,nCols);
 	//~ obj1->printMeshData();
 	
 
@@ -65,8 +65,8 @@ int main()
 	app.objects.push_back(obj1);	
 	
 	
-	GridMesh grid{};
-	obj2->mesh = grid.generate(2,2,3,3);
+	//~ GridMesh grid{};
+	//~ obj2->mesh = grid.generate(2,2,3,3);
 	
 	//~ obj2->buildTexture();
 	//~ obj2->texture.load("../src/res/fonts/samplefont.gif");
@@ -84,7 +84,7 @@ int main()
 	obj2->position.x = -2.0;
 	//~ app.objects.push_back(obj2);	
 	app.addObject(obj2);
-	app.window.objects = app.objects;
+	//~ app.window.objects = app.objects;
 
 
 
@@ -94,18 +94,18 @@ int main()
 	
 	while(!app.window.shouldClose())
 	{		
-		obj1->rotation.x = glfwGetTime()*0.2;
-		obj1->rotation.y = glfwGetTime()*0.13;
-		obj1->rotation.z = glfwGetTime()*0.11;
+		//~ obj1->rotation.x = glfwGetTime()*0.2;
+		//~ obj1->rotation.y = glfwGetTime()*0.13;
+		//~ obj1->rotation.z = glfwGetTime()*0.11;
 		
-		obj2->rotation.x = glfwGetTime()*0.15;
-		obj2->rotation.y = glfwGetTime()*0.19;
-		obj2->rotation.z = glfwGetTime()*0.21;	
+		//~ obj2->rotation.x = glfwGetTime()*1.5;
+		//~ obj2->rotation.y = glfwGetTime()*1.9;
+		//~ obj2->rotation.z = glfwGetTime()*2.1;	
 				
 		app.window.refresh();
 		
 	
-		usleep(1000000/60);
+		//~ usleep(1000000/60);
 	
 	}
 	

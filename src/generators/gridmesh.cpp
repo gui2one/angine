@@ -3,11 +3,21 @@
 
 GridMesh::GridMesh()
 {
+	Param<int> param1{"rows", 5};
+	paramsInt.push_back(param1);
 	
+	Param<int> param2{"cols", 5};
+	paramsInt.push_back(param2);	
+	
+	Param<float> param3{"width", 3.0};
+	paramsFloat.push_back(param3);
+
+	Param<float> param4{"length", 3.0};
+	paramsFloat.push_back(param4);	
 }
 
 
-Mesh GridMesh::generate(int rows, int cols, float width, float length)
+Mesh GridMesh::generateGrid(int rows, int cols, float width, float length)
 {
 	
 	std::vector<Vertex> vertices;

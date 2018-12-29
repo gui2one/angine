@@ -6,8 +6,45 @@
 
 #include <array>
 
+// for explorer
+#include <dirent.h>
+#include <linux/limits.h>
+#include <unistd.h>
+#include <sys/stat.h>
+#include <algorithm>
+////
+
+std::vector<std::string> split(const std::string& str, std::string delimiter = " "){
+	
+	std::vector<std::string> tokens;
+	std::string tmp = str;
+	std::string::size_type start = 0;
+	while(true)
+	{
+		std::string::size_type found = tmp.find_first_of(delimiter);
+		if( found == std::string::npos )
+		{
+			//std::cout << " reached end ------------------------------- " << std::endl;	
+			tokens.push_back(tmp);
+			break;
+		}else{
+			std::string cut = tmp.substr(0, found);
+			tokens.push_back(cut);
+			tmp = tmp.substr(found+1, tmp.size() - (found-1));
+			//std::cout << tmp << std::endl;
+			start = found;
+		}
+	}
+	
+	//std::cout << " ------------------------------- " << std::endl;	
+	
+	return tokens;
+}
+
+
 Window::Window()
 {
+	
 	
 	
 	if(!glfwInit()){
@@ -17,7 +54,7 @@ Window::Window()
 	}
 
 	std::cout<<"initializing GLFW\n";
-	win = glfwCreateWindow(640,480, "angine", NULL, NULL);
+	win = glfwCreateWindow(1024,576, "angine", NULL, NULL);
 
 
 	if(!win){
@@ -30,11 +67,15 @@ Window::Window()
 	glfwMakeContextCurrent(win);			
 	glewInit();
 	
+	pointShader.loadVertexShaderSource("../src/res/shaders/line_shader.vert");
+	pointShader.loadFragmentShaderSource("../src/res/shaders/line_shader.frag");		
+	pointShader.createShader();	
+	
 	glfwSwapInterval(1);
 	glEnable(GL_DEPTH_TEST);
 	
-	//~ glEnable(GL_LINE_SMOOTH);
-	//~ glEnable(GL_POLYGON_SMOOTH);
+	glEnable(GL_LINE_SMOOTH);
+	glEnable(GL_POLYGON_SMOOTH);
 	
 	glEnable(GL_BLEND);	
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
@@ -56,25 +97,161 @@ Window::Window()
 
 }
 
-void Window::addDialog(){
+
+int Window::explorer(){
+	
+	using namespace std;
+	DIR* dir;
+	struct dirent *sd;
+	
+	struct stat st_buf;
+	int status;
+	//~ char currentpath[FILENAME_MAX];
+	if((dir = opendir(current_explorer_path.c_str())) == NULL){ /*Opens directory*/
+		return errno;
+	}
+	//~ if(getcwd(currentpath, FILENAME_MAX) == NULL){
+		//~ return errno;
+	//~ }	
+  
+	//~ status = stat (current_explorer_path.c_str(), &st_buf);
+    //~ if (S_ISREG (st_buf.st_mode)) {
+        //~ printf ("%s is a regular file.\n", current_explorer_path.c_str());
+    //~ }
+    //~ if (S_ISDIR (st_buf.st_mode)) {
+        //~ printf ("%s is a directory.\n", current_explorer_path.c_str());
+    //~ }	
 	
 
 
-	ImGui::Begin("Properties");
+
+	std::vector<std::string> dir_names;
+	std::vector<std::string> file_names;
 	
-	static int listbox_item_current = 0;
+	// collect files and dirs names
+	while ((sd= readdir(dir)) != NULL){ /*starts directory stream*/
+		if(strcmp(sd -> d_name,".") == 0 || strcmp(sd -> d_name,"..") == 0){
+			continue;
+		}else{			
+			std::string check_path = current_explorer_path;
+			check_path += sd->d_name;	
+				
+			status = stat (check_path.c_str(), &st_buf);
+				
+			if (!S_ISREG(st_buf.st_mode)) 
+			{		
+				if(sd->d_name[0] != '.')	
+					dir_names.push_back(sd->d_name);
+			}else{
+				if(sd->d_name[0] != '.')	
+					file_names.push_back(sd->d_name);
+			}
+
+		}
+		
+	}  
 	
 	
-	if(ImGui::ListBoxHeader("new List box", 5))
+	closedir(dir); /* important !!!! */
+	
+	// sort names vectors
+	sort(dir_names.begin(), dir_names.end(), 
+	[](std::string& str1, std::string& str2)
+	{ 
+		std::string lower1 = str1;
+		std::string lower2 = str2;
+		std::transform(lower1.begin(), lower1.end(), lower1.begin(), ::tolower);
+		std::transform(lower2.begin(), lower2.end(), lower2.begin(), ::tolower);
+		return lower1 < lower2;
+	});
+	sort(file_names.begin(), file_names.end(), 
+	[](std::string& str1, std::string& str2)
+	{ 
+		std::string lower1 = str1;
+		std::string lower2 = str2;
+		std::transform(lower1.begin(), lower1.end(), lower1.begin(), ::tolower);
+		std::transform(lower2.begin(), lower2.end(), lower2.begin(), ::tolower);
+		return lower1 < lower2;
+	});	
+	
+	
+	ImGui::Begin("File explorer");
+		
+	// make directories a different color
+	ImVec4 color = ImColor(1.0f, 1.0f, 0.2f, 1.0f);
+	ImGui::PushStyleColor(ImGuiCol_Text, color);
+	
+	if(ImGui::Selectable("..", false))
+	{
+		
+		if( current_explorer_path != "/")
+		{
+			std::string new_path;
+			new_path = "";
+			
+			std::vector<std::string> splitted = split(current_explorer_path, "/");
+			
+			for (int i = 0; i < splitted.size()-2; i++)
+			{
+				new_path += splitted[i];
+				new_path += "/";
+			}
+			
+			//~ std::cout << "\n";
+				
+			current_explorer_path = new_path;		
+		}
+	}
+	for (int i = 0; i < dir_names.size(); i++)
+	{
+			if(ImGui::Selectable(dir_names[i].c_str(), false)){
+				
+				current_explorer_path += dir_names[i];	
+				current_explorer_path += "/";				
+				
+
+				//~ 
+				//~ std::cout << "Going up ?!! "<<current_explorer_path<< "\n";
+			}	
+	}
+	// revert back to default color
+	ImGui::PopStyleColor();
+	
+	for (int i = 0; i < file_names.size(); i++)
+	{
+			if(ImGui::Selectable(file_names[i].c_str(), false)){
+				
+				std::string selected_file_path = current_explorer_path + file_names[i];
+
+				printf("Selected File is : %s\n", selected_file_path.c_str());
+
+			}	
+	}	
+	
+	
+	
+	
+	ImGui::End();
+	
+	dir_names.clear();
+	file_names.clear();
+}
+
+void Window::addObjectListDialog()
+{
+	ImGui::Begin("Object List");
+	
+	//~ static int listbox_item_current = 0;
+	if(ImGui::ListBoxHeader("", 5))
 	{
 		for (int i = 0; i < objects.size(); i++)
 		{
 			char text[500];
 			sprintf(text, "Object %d", i);
-			if(ImGui::Selectable(objects[i]->name, i == listbox_item_current))
+			if(ImGui::Selectable(objects[i]->name, i == cur_object_selected))
 			{
 				//~ std::cout << "press item " << i << "\n";
-				listbox_item_current = i;
+				cur_object_selected = i;
 			}
 			
 		}
@@ -82,39 +259,201 @@ void Window::addDialog(){
 		ImGui::ListBoxFooter();
 	}
 	
-	Object* curObj = objects[listbox_item_current];
-	char text[500];
-	sprintf(text, "object %d", listbox_item_current);
-	if (ImGui::CollapsingHeader(text))
-	{				
-		
-		
-		
-		
-		//~ static char buf[100] = curObj->name;
-		ImGui::InputText("name :" , curObj->name, IM_ARRAYSIZE(curObj->name)); 
-		sprintf(text, "btn", listbox_item_current);
-		if(ImGui::Button(text))
-		{
-			std::cout << "btn test\n";
-		}
-		sprintf(text, "Display Bbox", listbox_item_current);
-		ImGui::CheckboxFlags(text, (unsigned int*)&objects[listbox_item_current]->bDisplayBoundingBox, 1);
-
-		
-		
-		//~ float& tx = objects[i]->position.x;
-		ImGui::Columns(3,"columns");
-		ImGui::InputFloat(":X", &objects[listbox_item_current]->position.x, 0.0f, 1.0f, "%.3f");
-		ImGui::NextColumn();
-		ImGui::InputFloat(":Y", &objects[listbox_item_current]->position.y, 0.0f, 10.0f, "%.3f");
-		ImGui::NextColumn();
-		ImGui::InputFloat(":Z", &objects[listbox_item_current]->position.z, 0.0f, 10.0f, "%.3f");
+	
+	if(ImGui::Button("Add Object"))
+	{
+		Object* obj = new Object();
+		//~ obj->setRenderMode(GL_POINTS);
+		obj->init();
+		addObject(obj);
+		//~ objects.push_back(obj);
 	}
-	
-	
-
 	ImGui::End();
+}
+
+
+void Window::addPropertiesDialog()
+{	
+	ImGui::Begin("Properties");
+	
+	if( objects.size() == 0){
+		ImGui::Text("No Object");
+		ImGui::End();		
+		
+	}else{
+
+		char text[500];
+		sprintf(text, "object %d", cur_object_selected);
+		Object* curObj = objects[cur_object_selected];
+		
+		if (ImGui::CollapsingHeader("Options"))
+		{	
+			if( ImGui::InputText("name :" , curObj->name,IM_ARRAYSIZE(curObj->name)))
+			{
+				std::cout << "edited name\n";
+			} 
+			sprintf(text, "btn", cur_object_selected);
+			if(ImGui::Button(text))
+			{
+				std::cout << "btn test\n";
+			}
+			sprintf(text, "Display Bbox", cur_object_selected);
+			ImGui::CheckboxFlags(text, (unsigned int*)&objects[cur_object_selected]->bDisplayBoundingBox, 1);
+			
+			
+			ImGui::CheckboxFlags("Display Points", (unsigned int*)&objects[cur_object_selected]->bDisplayPoints, 1);
+			ImGui::CheckboxFlags("Display Wireframe", (unsigned int*)&objects[cur_object_selected]->bDisplayWireframe, 1);
+
+		}
+		
+		ImGui::Columns(1);
+		if( ImGui::BeginTabBar("main_tabs"))
+		{			
+			if( ImGui::BeginTabItem("Transform"))
+			{
+				ImGui::LabelText("", "Position");
+				ImGui::Columns(3,"columns");
+				ImGui::InputFloat(":tx", &objects[cur_object_selected]->position.x, 0.0f, 1.0f, "%.3f");
+				ImGui::NextColumn();
+				ImGui::InputFloat(":ty", &objects[cur_object_selected]->position.y, 0.0f, 10.0f, "%.3f");
+				ImGui::NextColumn();
+				ImGui::InputFloat(":tz", &objects[cur_object_selected]->position.z, 0.0f, 10.0f, "%.3f");
+				
+				ImGui::Separator();
+				
+				ImGui::Columns(1);			
+				ImGui::LabelText("", "Rotation");
+				ImGui::Columns(3,"columns");
+				ImGui::InputFloat(":rx", &objects[cur_object_selected]->rotation.x, 0.0f, 360.0f, "%.3f");
+				ImGui::NextColumn();
+				ImGui::InputFloat(":ry", &objects[cur_object_selected]->rotation.y, 0.0f, 360.0f, "%.3f");
+				ImGui::NextColumn();
+				ImGui::InputFloat(":rz", &objects[cur_object_selected]->rotation.z, 0.0f, 360.0f, "%.3f");
+				
+				ImGui::Separator();		
+				
+				ImGui::Columns(1);			
+				ImGui::LabelText("", "Scale");
+				ImGui::Columns(3,"columns");
+				ImGui::InputFloat(":sx", &objects[cur_object_selected]->scale.x, 0.0f, 360.0f, "%.3f");
+				ImGui::NextColumn();
+				ImGui::InputFloat(":sy", &objects[cur_object_selected]->scale.y, 0.0f, 360.0f, "%.3f");
+				ImGui::NextColumn();
+				ImGui::InputFloat(":sz", &objects[cur_object_selected]->scale.z, 0.0f, 360.0f, "%.3f");
+				
+				ImGui::Separator();	
+				ImGui::EndTabItem();
+			}
+			
+			ImGui::Columns(1);
+			if( ImGui::BeginTabItem("Mesh"))
+			{				
+				if(ImGui::BeginTabBar("mesh_tabs"))
+				{
+					if( ImGui::BeginTabItem("Generator"))
+					{		
+						static bool need_update = false;
+						
+						static int choice = 0;
+						
+						
+						const char* items[] = {"Make a choice ","Sphere Mesh", "Geo Sphere Mesh",  "Grid Mesh"};
+						
+						static int combo_current_item = 0;
+						
+						if(curObj->has_generator){
+							combo_current_item = curObj->generator_type;
+						}else{
+							combo_current_item = choice;
+						}
+						
+						if(ImGui::BeginCombo("Generators",items[combo_current_item],0))
+						{
+														
+							if(ImGui::Selectable("Sphere Mesh", choice == 1))
+							{
+								choice = 1;
+								std::cout << "Choice " << choice << "\n";
+								curObj->generator_type = 1;								
+							}
+							if(ImGui::Selectable("Geo Sphere Mesh", choice == 2))
+							{
+								choice = 2;
+								std::cout << "Choice " << choice << "\n";
+								curObj->generator_type = 2;								
+							}							
+							if(ImGui::Selectable("Grid Mesh", choice == 3))
+							{
+								choice = 3;
+								std::cout << "Choice " << choice << "\n";
+								curObj->generator_type = 3;
+								
+							}
+							
+							
+							ImGui::EndCombo();
+						}	
+							
+						if(ImGui::Button("set"))
+						{
+							if(choice == 1)
+								curObj->setGenerator<SphereMesh>();
+							else if(choice == 2)
+								curObj->setGenerator<GeoSphereMesh>();
+							else if(choice == 3)
+								curObj->setGenerator<GridMesh>();								
+						}
+						
+						if(curObj->has_generator)
+						{
+							for (int i = 0; i < curObj->mesh_generator->paramsInt.size(); i++)
+							{
+								static int* test_int = &curObj->mesh_generator->paramsInt[i].value;
+								if(ImGui::InputInt(curObj->mesh_generator->paramsInt[i].name.c_str(), &curObj->mesh_generator->paramsInt[i].value ))
+								{
+									//~ std::cout << curObj->mesh_generator->paramsInt[i].value << "\n";									
+									need_update = true;									
+								}
+							}
+							
+							for (int i = 0; i < curObj->mesh_generator->paramsFloat.size(); i++)
+							{
+								static float* test_int = &curObj->mesh_generator->paramsFloat[i].value;
+								if(ImGui::InputFloat(curObj->mesh_generator->paramsFloat[i].name.c_str(), &curObj->mesh_generator->paramsFloat[i].value ))
+								{
+									//~ std::cout << curObj->mesh_generator->paramsFloat[i].value << "\n";									
+									need_update = true;									
+								}
+							}	
+													
+							if(need_update){
+								
+									std::cout << "update object mesh\n";
+									curObj->mesh = curObj->mesh_generator->generate();
+									curObj->buildVbo();
+									need_update = false;
+							}
+						}
+						ImGui::EndTabItem();
+					}
+					
+					if( ImGui::BeginTabItem("Filters"))
+					{				
+						ImGui::EndTabItem();
+					}
+					
+					ImGui::EndTabBar();
+				}
+				
+				ImGui::Separator();
+				ImGui::EndTabItem();
+			}		
+			
+			ImGui::EndTabBar();
+		}
+			
+		ImGui::End();
+	}
 }
 
 void Window::refresh(){
@@ -127,7 +466,11 @@ void Window::refresh(){
 
 	//~ ImGui::ShowDemoWindow(&show_demo_window);
 
-	addDialog();
+		//~ int ex = explorer();
+		
+		addObjectListDialog();
+		addPropertiesDialog();
+
 	
 	ImGui::Render();
 
@@ -164,11 +507,30 @@ bool Window::shouldClose(){
 	return glfwWindowShouldClose(win);
 }
 
+void Window::addObject(Object* obj)
+{
+	
+	for (int i = 0; i < objects.size(); i++)
+	{
+		std::cout << "OLD NAME : "<<objects[i]->name <<"\n";
+		if(strcmp(obj->name, objects[i]->name) == 0) // if equal to zero means strings are equal
+		{
+			std::cout << "changing name \n";
+			std::string newName = objects[i]->name;
+			newName += "_";
+			strcpy(obj->name, newName.c_str());
+			
+		}
+		
+	}
+	
+	
+	objects.push_back(obj);
+	
+}
 
 void Window::renderObjects(){
-
-	 
-		
+	
 		for (int i = 0; i < objects.size(); i++)
 		{	
 		
@@ -218,9 +580,9 @@ void Window::renderObjects(){
 			
 			model = glm::translate(model, curObj->position);
 			
-			model = glm::rotate(model, curObj->rotation.x ,glm::vec3(1.0f,0.0f, 0.0f));
-			model = glm::rotate(model, curObj->rotation.y ,glm::vec3(0.0f,1.0f, 0.0f));
-			model = glm::rotate(model, curObj->rotation.z ,glm::vec3(0.0f,0.0f, 1.0f));
+			model = glm::rotate(model, glm::radians(curObj->rotation.x) ,glm::vec3(1.0f,0.0f, 0.0f));
+			model = glm::rotate(model, glm::radians(curObj->rotation.y) ,glm::vec3(0.0f,1.0f, 0.0f));
+			model = glm::rotate(model, glm::radians(curObj->rotation.z) ,glm::vec3(0.0f,0.0f, 1.0f));
 			
 			model = glm::scale(model, curObj->scale);
 
@@ -242,14 +604,41 @@ void Window::renderObjects(){
 			curObj->texture.bind();
 			glUniform1i(glGetUniformLocation(curObj->shader.m_id, "u_tex"),0);
 
-							
-			
-
 			//~ glLoadIdentity();
 
-			
-			glPointSize(5);
+			//~ glPointSize(5);
+			//~ glPolygonMode( GL_FRONT_AND_BACK, GL_LINE );
+			glPolygonMode( GL_FRONT_AND_BACK, GL_FILL );
 			curObj->draw(curObj->getRenderMode());
+				
+			if(curObj->bDisplayWireframe){
+				curObj->lineShader.useProgram();
+				glUniformMatrix4fv(glGetUniformLocation(curObj->lineShader.m_id,"projection"), 1, GL_FALSE, glm::value_ptr(projection));	
+				glUniformMatrix4fv(glGetUniformLocation(curObj->lineShader.m_id,"model"), 1, GL_FALSE, glm::value_ptr(model));	
+				glUniformMatrix4fv(glGetUniformLocation(curObj->lineShader.m_id,"view"), 1, GL_FALSE, glm::value_ptr(view));					
+
+				COLOR_LOC = glGetUniformLocation(curObj->lineShader.m_id,"u_color");
+				glPointSize(5);
+				glUniform4f(COLOR_LOC, 0.0,0.0,1.0,1.0);
+				
+				glPolygonMode( GL_FRONT_AND_BACK, GL_LINE );
+				
+					curObj->draw(curObj->getRenderMode());				
+					
+				glPolygonMode( GL_FRONT_AND_BACK, GL_FILL );
+			}
+			
+			if(curObj->bDisplayPoints){
+				curObj->lineShader.useProgram();
+				glUniformMatrix4fv(glGetUniformLocation(curObj->lineShader.m_id,"projection"), 1, GL_FALSE, glm::value_ptr(projection));	
+				glUniformMatrix4fv(glGetUniformLocation(curObj->lineShader.m_id,"model"), 1, GL_FALSE, glm::value_ptr(model));	
+				glUniformMatrix4fv(glGetUniformLocation(curObj->lineShader.m_id,"view"), 1, GL_FALSE, glm::value_ptr(view));					
+											
+				COLOR_LOC = glGetUniformLocation(curObj->lineShader.m_id,"u_color");
+				glUniform4f(COLOR_LOC, 1.0,0.0,0.0,1.0);			
+				curObj->drawPoints();
+			}			
+			
 			
 			if(curObj->bDisplayNormals){
 											
@@ -262,6 +651,9 @@ void Window::renderObjects(){
 			{
 				//~ glUseProgram(0);
 				curObj->lineShader.useProgram();
+				COLOR_LOC = glGetUniformLocation(curObj->lineShader.m_id,"u_color");
+				glPointSize(5);
+				glUniform4f(COLOR_LOC, 1.0,1.0,0.0,1.0);				
 				glUniformMatrix4fv(glGetUniformLocation(curObj->lineShader.m_id,"projection"), 1, GL_FALSE, glm::value_ptr(projection));	
 				glUniformMatrix4fv(glGetUniformLocation(curObj->lineShader.m_id,"model"), 1, GL_FALSE, glm::value_ptr(model));	
 				glUniformMatrix4fv(glGetUniformLocation(curObj->lineShader.m_id,"view"), 1, GL_FALSE, glm::value_ptr(view));				

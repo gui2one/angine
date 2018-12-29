@@ -7,6 +7,13 @@
 #include "shader.h"
 #include "texture.h"
 
+#include "generators/gridmesh.h"
+#include "generators/spheremesh.h"
+#include "generators/geosphere_mesh.h"
+
+#include <typeinfo>
+
+
 struct uniform{
 	std::string uniform_name;
 	GLsizei length;
@@ -42,8 +49,37 @@ class Object{
 		void drawNormals();
 		bool bDisplayNormals = false;
 		
+		void drawPoints();
+		bool bDisplayPoints = false;
+		bool bDisplayWireframe = false;
+		
 		void computeBoundingBox();
 		BoundingBox getBoundingBox();
+		
+		
+		bool has_generator = false;
+		int generator_type = -1;
+		MeshGenerator* mesh_generator;
+		
+		template<typename T> 
+		inline void setGenerator(){
+			
+			
+			std::cout << typeid(T).name() << "\n";
+			
+			T* generator = new T();
+			
+			mesh.vertices.clear();
+			mesh.indices.clear();
+			mesh = generator->generate();
+			buildVbo();
+			computeBoundingBox();
+			
+			mesh_generator = generator;
+			has_generator = true;
+			
+		}
+		
 		
 		void printMeshData();
 		Mesh mesh;
@@ -60,10 +96,10 @@ class Object{
 		glm::vec4 color;
 		
 		char name[100] = {'a','b','c'};
-		
+		BoundingBox boundingBox;
 		private:
 			GLuint renderMode = GL_TRIANGLES;
-			BoundingBox boundingBox;
+			
 };
 
 #endif

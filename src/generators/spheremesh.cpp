@@ -3,7 +3,18 @@
 #define PI 3.14159265359
 SphereMesh::SphereMesh()
 {
+	Param<int> param1{"cols", 42};
+	paramsInt.push_back(param1);	
+
+	//~ param_cols = param1.value;
 	
+	Param<int> param2{"rows", 12};
+	paramsInt.push_back(param2);	
+	
+	//~ param_rows = param2.value;
+	
+	Param<float> param3{"radius", 1.0};
+	paramsFloat.push_back(param3);		
 }
 
 
@@ -12,120 +23,11 @@ SphereMesh::~SphereMesh()
 	
 }
 
-void SphereMesh::generate(Mesh& mesh, int rows, int cols, float radius /*= 0.5*/, float u_ratio, float v_ratio){
-		
-		
-		std::vector<Vertex> vertices;
-		
-		for (int j = 0; j < rows-1; j++)
-		{
-			
-			for (int i = 0; i < cols-1; i++)
-			{
-
-				// start at (0, radius , O)
-				
-				
-				Vertex vert;
-				float ratio_cols = 1.0/((float)cols-1) * (float)i * u_ratio;
-				float ratio_rows = 1.0/((float)rows-1) * (float)j * v_ratio;
-				vert.position.x = sin( ratio_cols * PI *2.0 ) * sin(ratio_rows * PI);
-				vert.position.y = cos( ratio_cols * PI *2.0 ) * sin(ratio_rows * PI);
-				vert.position.z = cos(ratio_rows * PI);
-
-				vert.normal = glm::normalize(vert.position);
-				vert.t_coords = glm::vec2(ratio_cols,ratio_rows);			
-				
-				vertices.push_back(vert);		
 
 
-				ratio_cols = 1.0/((float)cols-1) * ((float)i+1) * u_ratio;
-				ratio_rows = 1.0/((float)rows-1) * ((float)j+1) * v_ratio;
-				vert.position.x = sin( ratio_cols * PI *2.0) * sin(ratio_rows * PI);
-				vert.position.y = cos( ratio_cols * PI *2.0) * sin(ratio_rows * PI);
-				vert.position.z = cos(ratio_rows * PI);
-				
-				vert.normal = glm::normalize(vert.position);
-				vert.t_coords = glm::vec2(ratio_cols,ratio_rows);	
-				
-				vertices.push_back(vert);					
-				
-				
-				ratio_cols = 1.0/((float)cols-1) * (float)i * u_ratio;
-				ratio_rows = 1.0/((float)rows-1) * ((float)j+1) * v_ratio;
-				vert.position.x = sin( ratio_cols * PI *2.0) * sin(ratio_rows * PI);
-				vert.position.y = cos( ratio_cols * PI *2.0) * sin(ratio_rows * PI);
-				vert.position.z = cos(ratio_rows * PI);
-				
-				vert.normal = glm::normalize(vert.position);
-				vert.t_coords = glm::vec2(ratio_cols,ratio_rows);	
-								
-				vertices.push_back(vert);	
-				
-				
-					
-
-				
-				
-				
-				
-				//// second triangle	
-				
-				ratio_cols = 1.0/((float)cols-1) * (float)i * u_ratio;
-				ratio_rows = 1.0/((float)rows-1) * (float)j * v_ratio;
-				vert.position.x = sin( ratio_cols * PI *2.0) * sin(ratio_rows * PI);
-				vert.position.y = cos( ratio_cols * PI *2.0) * sin(ratio_rows * PI);
-				vert.position.z = cos(ratio_rows * PI);
-
-				vert.normal = glm::normalize(vert.position);
-				vert.t_coords = glm::vec2(ratio_cols,ratio_rows);			
-				
-				vertices.push_back(vert);		
-
-
-				ratio_cols = 1.0/((float)cols-1) * ((float)i+1) * u_ratio;
-				ratio_rows = 1.0/((float)rows-1) * ((float)j) * v_ratio;
-				vert.position.x = sin( ratio_cols * PI *2.0) * sin(ratio_rows * PI);
-				vert.position.y = cos( ratio_cols * PI *2.0) * sin(ratio_rows * PI);
-				vert.position.z = cos(ratio_rows * PI);
-				
-				vert.normal = glm::normalize(vert.position);
-				vert.t_coords = glm::vec2(ratio_cols,ratio_rows);	
-				
-				vertices.push_back(vert);
-				
-								
-				ratio_cols = 1.0/((float)cols-1) * ((float)i+1) * u_ratio;
-				ratio_rows = 1.0/((float)rows-1) * ((float)j+1) * v_ratio;
-				vert.position.x = sin( ratio_cols * PI *2.0) * sin(ratio_rows * PI);
-				vert.position.y = cos( ratio_cols * PI *2.0) * sin(ratio_rows * PI);
-				vert.position.z = cos(ratio_rows * PI);
-				
-				vert.normal = glm::normalize(vert.position);
-				vert.t_coords = glm::vec2(ratio_cols,ratio_rows);	
-								
-				vertices.push_back(vert);	
-					
-												
-				
-				//~ std::cout <<  "row ratio : " << sin(ratio_rows * PI) << "\n";
-				//~ std::cout <<  "Z pos : " << cos(ratio_rows * PI) << "\n";
-				//~ std::cout << "vertex : \n\tX : " <<  vert.position.x;
-				//~ std::cout << " , Y : " <<  vert.position.y;
-				//~ std::cout << " , Z : " <<  vert.position.z << "\n";
-			}
-			
-		}
-		
-		mesh.vertices = vertices;
-		vertices.clear();
-
-}
-
-
-Mesh SphereMesh::generate2(int rows, int cols, float radius, float u_ratio, float v_ratio)
+Mesh SphereMesh::generateSphere(int rows, int cols, float radius, float u_ratio, float v_ratio)
 {
-	
+
 	std::vector<Vertex> vertices;
 	std::vector<unsigned int> indices;
 	
@@ -150,7 +52,7 @@ Mesh SphereMesh::generate2(int rows, int cols, float radius, float u_ratio, floa
 	
 	for (int i = 1; i < rows; i++)
 	{
-		//~ std::cout << "Row " << i << "\n";
+		
 		for (int j = 0; j < cols+1; j++)
 		{
 				float ratio_cols = 1.0/((float)cols) * (float)j * u_ratio;
@@ -159,10 +61,6 @@ Mesh SphereMesh::generate2(int rows, int cols, float radius, float u_ratio, floa
 				vert.position.y = cos( ratio_cols * PI *2.0 ) * sin(ratio_rows * PI) * radius;
 				vert.position.z = cos(ratio_rows * PI) * radius;
 				
-				//~ std::cout << "col : " << j << " --> ";
-				//~ std::cout << vert.position.x;
-				//~ std::cout << " , " << vert.position.y;
-				//~ std::cout << " , " << vert.position.z << "\n";
 				
 				vert.normal = glm::normalize(vert.position);	
 
@@ -235,5 +133,8 @@ Mesh SphereMesh::generate2(int rows, int cols, float radius, float u_ratio, floa
 	mesh.vertices = vertices;
 	mesh.indices = indices;
 	
+	
+	indices.clear();
+	vertices.clear();
 	return mesh;
 } 

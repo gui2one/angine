@@ -3,7 +3,8 @@
 
 
 
-Object::Object(){
+Object::Object()
+{
 	//~ std::cout << "--- Object CREATED ---\n";
 	
 	position = glm::vec3(0.0f,0.0f,0.0f);
@@ -11,22 +12,19 @@ Object::Object(){
 	scale = glm::vec3(1.0f,1.0f,1.0f);	
 	color = glm::vec4(1.0f,1.0f,1.0f,1.0f);
 	
-
-	
-
 }
 
-void Object::init(){
+void Object::init()
+{
 	shader.loadVertexShaderSource("../src/res/shaders/basic_shader.vert");
 	shader.loadFragmentShaderSource("../src/res/shaders/basic_shader.frag");	
 	buildTexture();
-	shader.createShader();
-	
-	// program crashes when I try to create shader in the constructor ... to investigate 
+	shader.createShader();	
+
 	lineShader.loadVertexShaderSource("../src/res/shaders/line_shader.vert");
 	lineShader.loadFragmentShaderSource("../src/res/shaders/line_shader.frag");		
 	lineShader.createShader();		
-	
+		
 	buildVbo();	
 }
 
@@ -234,30 +232,37 @@ void Object::buildVbo()
 }
 
 
-BoundingBox Object::getBoundingBox(){
+BoundingBox Object::getBoundingBox()
+{
 	return boundingBox;
 }
 
 void Object::computeBoundingBox()
 {
 	
-	std::cout << "Computing BBOX\n";
-	float minx, miny, minz = 1000000.0;
-	float maxx, maxy, maxz = -1000000.0;
+	//~ std::cout << "Computing BBOX\n";
+	float minx = 100000.0;
+	float miny = 100000.0;
+	float minz = 100000.0;
+	float maxx = -100000.0;
+	float maxy = -100000.0;
+	float maxz = -100000.0;
 	for (int i = 0; i < mesh.vertices.size(); i++)
 	{
 		glm::vec3 vpos = mesh.vertices[i].position;
+		
+		//~ printf("Vertex %d : %.3f, %.3f, %.3f \n", i, vpos.x, vpos.y, vpos.z);
 		if(vpos.x < minx)
 			minx = vpos.x;
-		else if(vpos.x > maxx)
+		if(vpos.x > maxx)
 			maxx = vpos.x;
 		if( vpos.y < miny)
 			miny = vpos.y;
-		else if(vpos.y > maxy)
+		if(vpos.y > maxy)
 			maxy = vpos.y;
 		if( vpos.z < minz)
 			minz = vpos.z;
-		else if(vpos.z > maxz)
+		if(vpos.z > maxz)
 			maxz = vpos.z;			
 
 	}
@@ -265,11 +270,18 @@ void Object::computeBoundingBox()
 	boundingBox.position = glm::vec3(minx, miny, minz);
 	boundingBox.size = glm::vec3(maxx-minx, maxy-miny, maxz-minz);
 	
+	//~ printf("---------------------------\n");
+	//~ printf("minx : %.3f, miny : %.3f, minz : %.3f\n", minx, miny, minz);
+	//~ printf("maxx : %.3f, maxy : %.3f, maxz : %.3f\n", maxx, maxy, maxz);
+	//~ printf("BBOX position : %.3f, %.3f, %.3f\n", boundingBox.position.x , boundingBox.position.y, boundingBox.position.z);
+	//~ printf("BBOX size : %.3f, %.3f, %.3f\n", boundingBox.size.x , boundingBox.size.y, boundingBox.size.z);
+	
 	
 	
 }
 
-void Object::printMeshData(){
+void Object::printMeshData()
+{
 	
 	
 	for (int i = 0; i < mesh.vertices.size(); i++)
@@ -292,10 +304,11 @@ void Object::printMeshData(){
 }
 
 
-void Object::draw(GLuint mode){
+void Object::draw(GLuint mode)
+{
 		
 
-		shader.useProgram();
+		//~ shader.useProgram();
 		
 		//~ glEnable(GL_TEXTURE_2D);
 		glDisable(GL_TEXTURE_2D);
@@ -321,8 +334,14 @@ void Object::draw(GLuint mode){
 			glDrawArrays(mode,0, mesh.vertices.size());		
 				
 		}else if( mode == GL_TRIANGLES){
+
+
 			glBindBuffer(GL_ELEMENT_ARRAY_BUFFER,m_ibo);
 			glDrawElements(mode, mesh.indices.size(), GL_UNSIGNED_INT, nullptr);
+			
+			//~ glPointSize(10);
+			//~ glDrawArrays(GL_POINTS,0, mesh.vertices.size());					
+			
 		}
 		
 		glDisableVertexAttribArray(0);
@@ -342,8 +361,8 @@ void Object::draw(GLuint mode){
 
 void Object::drawBoundingBox()
 {
-		lineShader.useProgram();
-		glUniform4f(glGetUniformLocation(lineShader.m_id,"u_color"), 1.0,1.0,0.5,1.0);
+		//~ lineShader.useProgram();
+		//~ glUniform4f(glGetUniformLocation(lineShader.m_id,"u_color"), 1.0,1.0,0.5,1.0);
 		glBindBuffer(GL_ARRAY_BUFFER, m_bbox_vbo);
 		glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(float) * 3, 0); 					
 		glEnableVertexAttribArray(0);		
@@ -355,7 +374,9 @@ void Object::drawBoundingBox()
 		
 		glUseProgram(0);	
 }
-void Object::drawNormals(){
+
+void Object::drawNormals()
+{
 			
 		shader.useProgram();
 		glUniform4f(glGetUniformLocation(shader.m_id,"u_color"), 0.0,1.0,0.5,1.0);
@@ -371,7 +392,23 @@ void Object::drawNormals(){
 		glUseProgram(0);
 }
 
-Object::~Object(){
+void Object::drawPoints(){
+		lineShader.useProgram();
+		//~ glUniform4f(glGetUniformLocation(shader.m_id,"u_color"), 0.0,1.0,0.5,1.0);
+		glBindBuffer(GL_ARRAY_BUFFER, m_vbo);
+		glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(float) * 8, 0); 					
+		glEnableVertexAttribArray(0);		
+			glPointSize(4);
+			glDrawArrays(GL_POINTS,0, mesh.vertices.size());
+		
+		glDisableVertexAttribArray(0);		
+		glBindBuffer(GL_ARRAY_BUFFER, 0);	
+		
+		glUseProgram(0);	
+}
+
+Object::~Object()
+{
 	
 
 	

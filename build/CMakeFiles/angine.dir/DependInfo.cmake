@@ -6,7 +6,9 @@ set(CMAKE_DEPENDS_LANGUAGES
 set(CMAKE_DEPENDS_CHECK_CXX
   "/home/pi/projects/angine/src/application.cpp" "/home/pi/projects/angine/build/CMakeFiles/angine.dir/home/pi/projects/angine/src/application.cpp.o"
   "/home/pi/projects/angine/src/camera.cpp" "/home/pi/projects/angine/build/CMakeFiles/angine.dir/home/pi/projects/angine/src/camera.cpp.o"
+  "/home/pi/projects/angine/src/generators/geosphere_mesh.cpp" "/home/pi/projects/angine/build/CMakeFiles/angine.dir/home/pi/projects/angine/src/generators/geosphere_mesh.cpp.o"
   "/home/pi/projects/angine/src/generators/gridmesh.cpp" "/home/pi/projects/angine/build/CMakeFiles/angine.dir/home/pi/projects/angine/src/generators/gridmesh.cpp.o"
+  "/home/pi/projects/angine/src/generators/mesh_generator.cpp" "/home/pi/projects/angine/build/CMakeFiles/angine.dir/home/pi/projects/angine/src/generators/mesh_generator.cpp.o"
   "/home/pi/projects/angine/src/generators/spheremesh.cpp" "/home/pi/projects/angine/build/CMakeFiles/angine.dir/home/pi/projects/angine/src/generators/spheremesh.cpp.o"
   "/home/pi/projects/angine/src/main.cpp" "/home/pi/projects/angine/build/CMakeFiles/angine.dir/home/pi/projects/angine/src/main.cpp.o"
   "/home/pi/projects/angine/src/mesh.cpp" "/home/pi/projects/angine/build/CMakeFiles/angine.dir/home/pi/projects/angine/src/mesh.cpp.o"

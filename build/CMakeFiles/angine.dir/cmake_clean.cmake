@@ -15,8 +15,10 @@ file(REMOVE_RECURSE
   "CMakeFiles/angine.dir/home/pi/projects/angine/src/object.cpp.o"
   "CMakeFiles/angine.dir/home/pi/projects/angine/src/utils/objLoader.cpp.o"
   "CMakeFiles/angine.dir/home/pi/projects/angine/src/mesh.cpp.o"
+  "CMakeFiles/angine.dir/home/pi/projects/angine/src/generators/mesh_generator.cpp.o"
   "CMakeFiles/angine.dir/home/pi/projects/angine/src/generators/gridmesh.cpp.o"
   "CMakeFiles/angine.dir/home/pi/projects/angine/src/generators/spheremesh.cpp.o"
+  "CMakeFiles/angine.dir/home/pi/projects/angine/src/generators/geosphere_mesh.cpp.o"
   "angine.pdb"
   "angine"
 )

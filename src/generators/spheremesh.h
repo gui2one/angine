@@ -3,15 +3,26 @@
 
 #include "../pch.h"
 #include "../mesh.h"
-class SphereMesh
+#include "mesh_generator.h"
+class SphereMesh : public MeshGenerator
 {
 	public:
 		SphereMesh();
 		virtual ~SphereMesh();
 		
-		void generate(Mesh& mesh, int rows=5, int cols=5, float radius = 0.5, float u_ratio = 1.0, float v_ratio = 0.6);
-		Mesh generate2(int rows=5, int cols=5, float radius = 0.5, float u_ratio = 1.0, float v_ratio = 1.0);
+		inline Mesh generate() override
+		{
+			Mesh mesh;
+			mesh = generateSphere(paramsInt[0].value, paramsInt[1].value, paramsFloat[0].value, 1.0, 1.0);
+			
+			return mesh;
+		};
+		
+		Mesh generateSphere(int rows, int cols, float radius = 0.5, float u_ratio = 1.0, float v_ratio = 1.0);
+		
+
 	private:
+	
 		/* add your private declarations */
 };
 

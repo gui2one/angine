@@ -190,6 +190,33 @@ home/pi/projects/angine/src/camera.cpp.s:
 	$(MAKE) -f CMakeFiles/angine.dir/build.make CMakeFiles/angine.dir/home/pi/projects/angine/src/camera.cpp.s
 .PHONY : home/pi/projects/angine/src/camera.cpp.s
 
+home/pi/projects/angine/src/generators/geosphere_mesh.o: home/pi/projects/angine/src/generators/geosphere_mesh.cpp.o
+
+.PHONY : home/pi/projects/angine/src/generators/geosphere_mesh.o
+
+# target to build an object file
+home/pi/projects/angine/src/generators/geosphere_mesh.cpp.o:
+	$(MAKE) -f CMakeFiles/angine.dir/build.make CMakeFiles/angine.dir/home/pi/projects/angine/src/generators/geosphere_mesh.cpp.o
+.PHONY : home/pi/projects/angine/src/generators/geosphere_mesh.cpp.o
+
+home/pi/projects/angine/src/generators/geosphere_mesh.i: home/pi/projects/angine/src/generators/geosphere_mesh.cpp.i
+
+.PHONY : home/pi/projects/angine/src/generators/geosphere_mesh.i
+
+# target to preprocess a source file
+home/pi/projects/angine/src/generators/geosphere_mesh.cpp.i:
+	$(MAKE) -f CMakeFiles/angine.dir/build.make CMakeFiles/angine.dir/home/pi/projects/angine/src/generators/geosphere_mesh.cpp.i
+.PHONY : home/pi/projects/angine/src/generators/geosphere_mesh.cpp.i
+
+home/pi/projects/angine/src/generators/geosphere_mesh.s: home/pi/projects/angine/src/generators/geosphere_mesh.cpp.s
+
+.PHONY : home/pi/projects/angine/src/generators/geosphere_mesh.s
+
+# target to generate assembly for a file
+home/pi/projects/angine/src/generators/geosphere_mesh.cpp.s:
+	$(MAKE) -f CMakeFiles/angine.dir/build.make CMakeFiles/angine.dir/home/pi/projects/angine/src/generators/geosphere_mesh.cpp.s
+.PHONY : home/pi/projects/angine/src/generators/geosphere_mesh.cpp.s
+
 home/pi/projects/angine/src/generators/gridmesh.o: home/pi/projects/angine/src/generators/gridmesh.cpp.o
 
 .PHONY : home/pi/projects/angine/src/generators/gridmesh.o
@@ -216,6 +243,33 @@ home/pi/projects/angine/src/generators/gridmesh.s: home/pi/projects/angine/src/g
 home/pi/projects/angine/src/generators/gridmesh.cpp.s:
 	$(MAKE) -f CMakeFiles/angine.dir/build.make CMakeFiles/angine.dir/home/pi/projects/angine/src/generators/gridmesh.cpp.s
 .PHONY : home/pi/projects/angine/src/generators/gridmesh.cpp.s
+
+home/pi/projects/angine/src/generators/mesh_generator.o: home/pi/projects/angine/src/generators/mesh_generator.cpp.o
+
+.PHONY : home/pi/projects/angine/src/generators/mesh_generator.o
+
+# target to build an object file
+home/pi/projects/angine/src/generators/mesh_generator.cpp.o:
+	$(MAKE) -f CMakeFiles/angine.dir/build.make CMakeFiles/angine.dir/home/pi/projects/angine/src/generators/mesh_generator.cpp.o
+.PHONY : home/pi/projects/angine/src/generators/mesh_generator.cpp.o
+
+home/pi/projects/angine/src/generators/mesh_generator.i: home/pi/projects/angine/src/generators/mesh_generator.cpp.i
+
+.PHONY : home/pi/projects/angine/src/generators/mesh_generator.i
+
+# target to preprocess a source file
+home/pi/projects/angine/src/generators/mesh_generator.cpp.i:
+	$(MAKE) -f CMakeFiles/angine.dir/build.make CMakeFiles/angine.dir/home/pi/projects/angine/src/generators/mesh_generator.cpp.i
+.PHONY : home/pi/projects/angine/src/generators/mesh_generator.cpp.i
+
+home/pi/projects/angine/src/generators/mesh_generator.s: home/pi/projects/angine/src/generators/mesh_generator.cpp.s
+
+.PHONY : home/pi/projects/angine/src/generators/mesh_generator.s
+
+# target to generate assembly for a file
+home/pi/projects/angine/src/generators/mesh_generator.cpp.s:
+	$(MAKE) -f CMakeFiles/angine.dir/build.make CMakeFiles/angine.dir/home/pi/projects/angine/src/generators/mesh_generator.cpp.s
+.PHONY : home/pi/projects/angine/src/generators/mesh_generator.cpp.s
 
 home/pi/projects/angine/src/generators/spheremesh.o: home/pi/projects/angine/src/generators/spheremesh.cpp.o
 
@@ -665,9 +719,15 @@ help:
 	@echo "... home/pi/projects/angine/src/camera.o"
 	@echo "... home/pi/projects/angine/src/camera.i"
 	@echo "... home/pi/projects/angine/src/camera.s"
+	@echo "... home/pi/projects/angine/src/generators/geosphere_mesh.o"
+	@echo "... home/pi/projects/angine/src/generators/geosphere_mesh.i"
+	@echo "... home/pi/projects/angine/src/generators/geosphere_mesh.s"
 	@echo "... home/pi/projects/angine/src/generators/gridmesh.o"
 	@echo "... home/pi/projects/angine/src/generators/gridmesh.i"
 	@echo "... home/pi/projects/angine/src/generators/gridmesh.s"
+	@echo "... home/pi/projects/angine/src/generators/mesh_generator.o"
+	@echo "... home/pi/projects/angine/src/generators/mesh_generator.i"
+	@echo "... home/pi/projects/angine/src/generators/mesh_generator.s"
 	@echo "... home/pi/projects/angine/src/generators/spheremesh.o"
 	@echo "... home/pi/projects/angine/src/generators/spheremesh.i"
 	@echo "... home/pi/projects/angine/src/generators/spheremesh.s"

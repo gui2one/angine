@@ -441,9 +441,33 @@ CMakeFiles/angine.dir/home/pi/projects/angine/src/mesh.cpp.o.provides: CMakeFile
 CMakeFiles/angine.dir/home/pi/projects/angine/src/mesh.cpp.o.provides.build: CMakeFiles/angine.dir/home/pi/projects/angine/src/mesh.cpp.o
 
 
+CMakeFiles/angine.dir/home/pi/projects/angine/src/generators/mesh_generator.cpp.o: CMakeFiles/angine.dir/flags.make
+CMakeFiles/angine.dir/home/pi/projects/angine/src/generators/mesh_generator.cpp.o: /home/pi/projects/angine/src/generators/mesh_generator.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/pi/projects/angine/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_17) "Building CXX object CMakeFiles/angine.dir/home/pi/projects/angine/src/generators/mesh_generator.cpp.o"
+	/usr/bin/c++   $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/angine.dir/home/pi/projects/angine/src/generators/mesh_generator.cpp.o -c /home/pi/projects/angine/src/generators/mesh_generator.cpp
+
+CMakeFiles/angine.dir/home/pi/projects/angine/src/generators/mesh_generator.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/angine.dir/home/pi/projects/angine/src/generators/mesh_generator.cpp.i"
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/pi/projects/angine/src/generators/mesh_generator.cpp > CMakeFiles/angine.dir/home/pi/projects/angine/src/generators/mesh_generator.cpp.i
+
+CMakeFiles/angine.dir/home/pi/projects/angine/src/generators/mesh_generator.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/angine.dir/home/pi/projects/angine/src/generators/mesh_generator.cpp.s"
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/pi/projects/angine/src/generators/mesh_generator.cpp -o CMakeFiles/angine.dir/home/pi/projects/angine/src/generators/mesh_generator.cpp.s
+
+CMakeFiles/angine.dir/home/pi/projects/angine/src/generators/mesh_generator.cpp.o.requires:
+
+.PHONY : CMakeFiles/angine.dir/home/pi/projects/angine/src/generators/mesh_generator.cpp.o.requires
+
+CMakeFiles/angine.dir/home/pi/projects/angine/src/generators/mesh_generator.cpp.o.provides: CMakeFiles/angine.dir/home/pi/projects/angine/src/generators/mesh_generator.cpp.o.requires
+	$(MAKE) -f CMakeFiles/angine.dir/build.make CMakeFiles/angine.dir/home/pi/projects/angine/src/generators/mesh_generator.cpp.o.provides.build
+.PHONY : CMakeFiles/angine.dir/home/pi/projects/angine/src/generators/mesh_generator.cpp.o.provides
+
+CMakeFiles/angine.dir/home/pi/projects/angine/src/generators/mesh_generator.cpp.o.provides.build: CMakeFiles/angine.dir/home/pi/projects/angine/src/generators/mesh_generator.cpp.o
+
+
 CMakeFiles/angine.dir/home/pi/projects/angine/src/generators/gridmesh.cpp.o: CMakeFiles/angine.dir/flags.make
 CMakeFiles/angine.dir/home/pi/projects/angine/src/generators/gridmesh.cpp.o: /home/pi/projects/angine/src/generators/gridmesh.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/pi/projects/angine/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_17) "Building CXX object CMakeFiles/angine.dir/home/pi/projects/angine/src/generators/gridmesh.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/pi/projects/angine/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_18) "Building CXX object CMakeFiles/angine.dir/home/pi/projects/angine/src/generators/gridmesh.cpp.o"
 	/usr/bin/c++   $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/angine.dir/home/pi/projects/angine/src/generators/gridmesh.cpp.o -c /home/pi/projects/angine/src/generators/gridmesh.cpp
 
 CMakeFiles/angine.dir/home/pi/projects/angine/src/generators/gridmesh.cpp.i: cmake_force
@@ -467,7 +491,7 @@ CMakeFiles/angine.dir/home/pi/projects/angine/src/generators/gridmesh.cpp.o.prov
 
 CMakeFiles/angine.dir/home/pi/projects/angine/src/generators/spheremesh.cpp.o: CMakeFiles/angine.dir/flags.make
 CMakeFiles/angine.dir/home/pi/projects/angine/src/generators/spheremesh.cpp.o: /home/pi/projects/angine/src/generators/spheremesh.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/pi/projects/angine/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_18) "Building CXX object CMakeFiles/angine.dir/home/pi/projects/angine/src/generators/spheremesh.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/pi/projects/angine/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_19) "Building CXX object CMakeFiles/angine.dir/home/pi/projects/angine/src/generators/spheremesh.cpp.o"
 	/usr/bin/c++   $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/angine.dir/home/pi/projects/angine/src/generators/spheremesh.cpp.o -c /home/pi/projects/angine/src/generators/spheremesh.cpp
 
 CMakeFiles/angine.dir/home/pi/projects/angine/src/generators/spheremesh.cpp.i: cmake_force
@@ -489,6 +513,30 @@ CMakeFiles/angine.dir/home/pi/projects/angine/src/generators/spheremesh.cpp.o.pr
 CMakeFiles/angine.dir/home/pi/projects/angine/src/generators/spheremesh.cpp.o.provides.build: CMakeFiles/angine.dir/home/pi/projects/angine/src/generators/spheremesh.cpp.o
 
 
+CMakeFiles/angine.dir/home/pi/projects/angine/src/generators/geosphere_mesh.cpp.o: CMakeFiles/angine.dir/flags.make
+CMakeFiles/angine.dir/home/pi/projects/angine/src/generators/geosphere_mesh.cpp.o: /home/pi/projects/angine/src/generators/geosphere_mesh.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/pi/projects/angine/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_20) "Building CXX object CMakeFiles/angine.dir/home/pi/projects/angine/src/generators/geosphere_mesh.cpp.o"
+	/usr/bin/c++   $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/angine.dir/home/pi/projects/angine/src/generators/geosphere_mesh.cpp.o -c /home/pi/projects/angine/src/generators/geosphere_mesh.cpp
+
+CMakeFiles/angine.dir/home/pi/projects/angine/src/generators/geosphere_mesh.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/angine.dir/home/pi/projects/angine/src/generators/geosphere_mesh.cpp.i"
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/pi/projects/angine/src/generators/geosphere_mesh.cpp > CMakeFiles/angine.dir/home/pi/projects/angine/src/generators/geosphere_mesh.cpp.i
+
+CMakeFiles/angine.dir/home/pi/projects/angine/src/generators/geosphere_mesh.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/angine.dir/home/pi/projects/angine/src/generators/geosphere_mesh.cpp.s"
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/pi/projects/angine/src/generators/geosphere_mesh.cpp -o CMakeFiles/angine.dir/home/pi/projects/angine/src/generators/geosphere_mesh.cpp.s
+
+CMakeFiles/angine.dir/home/pi/projects/angine/src/generators/geosphere_mesh.cpp.o.requires:
+
+.PHONY : CMakeFiles/angine.dir/home/pi/projects/angine/src/generators/geosphere_mesh.cpp.o.requires
+
+CMakeFiles/angine.dir/home/pi/projects/angine/src/generators/geosphere_mesh.cpp.o.provides: CMakeFiles/angine.dir/home/pi/projects/angine/src/generators/geosphere_mesh.cpp.o.requires
+	$(MAKE) -f CMakeFiles/angine.dir/build.make CMakeFiles/angine.dir/home/pi/projects/angine/src/generators/geosphere_mesh.cpp.o.provides.build
+.PHONY : CMakeFiles/angine.dir/home/pi/projects/angine/src/generators/geosphere_mesh.cpp.o.provides
+
+CMakeFiles/angine.dir/home/pi/projects/angine/src/generators/geosphere_mesh.cpp.o.provides.build: CMakeFiles/angine.dir/home/pi/projects/angine/src/generators/geosphere_mesh.cpp.o
+
+
 # Object files for target angine
 angine_OBJECTS = \
 "CMakeFiles/angine.dir/home/pi/projects/angine/src/main.cpp.o" \
@@ -507,8 +555,10 @@ angine_OBJECTS = \
 "CMakeFiles/angine.dir/home/pi/projects/angine/src/object.cpp.o" \
 "CMakeFiles/angine.dir/home/pi/projects/angine/src/utils/objLoader.cpp.o" \
 "CMakeFiles/angine.dir/home/pi/projects/angine/src/mesh.cpp.o" \
+"CMakeFiles/angine.dir/home/pi/projects/angine/src/generators/mesh_generator.cpp.o" \
 "CMakeFiles/angine.dir/home/pi/projects/angine/src/generators/gridmesh.cpp.o" \
-"CMakeFiles/angine.dir/home/pi/projects/angine/src/generators/spheremesh.cpp.o"
+"CMakeFiles/angine.dir/home/pi/projects/angine/src/generators/spheremesh.cpp.o" \
+"CMakeFiles/angine.dir/home/pi/projects/angine/src/generators/geosphere_mesh.cpp.o"
 
 # External object files for target angine
 angine_EXTERNAL_OBJECTS =
@@ -529,12 +579,14 @@ angine: CMakeFiles/angine.dir/home/pi/projects/angine/src/texture.cpp.o
 angine: CMakeFiles/angine.dir/home/pi/projects/angine/src/object.cpp.o
 angine: CMakeFiles/angine.dir/home/pi/projects/angine/src/utils/objLoader.cpp.o
 angine: CMakeFiles/angine.dir/home/pi/projects/angine/src/mesh.cpp.o
+angine: CMakeFiles/angine.dir/home/pi/projects/angine/src/generators/mesh_generator.cpp.o
 angine: CMakeFiles/angine.dir/home/pi/projects/angine/src/generators/gridmesh.cpp.o
 angine: CMakeFiles/angine.dir/home/pi/projects/angine/src/generators/spheremesh.cpp.o
+angine: CMakeFiles/angine.dir/home/pi/projects/angine/src/generators/geosphere_mesh.cpp.o
 angine: CMakeFiles/angine.dir/build.make
 angine: libPCHLib.a
 angine: CMakeFiles/angine.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/pi/projects/angine/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_19) "Linking CXX executable angine"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/pi/projects/angine/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_21) "Linking CXX executable angine"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/angine.dir/link.txt --verbose=$(VERBOSE)
 
 # Rule to build all files generated by this target.
@@ -558,8 +610,10 @@ CMakeFiles/angine.dir/requires: CMakeFiles/angine.dir/home/pi/projects/angine/sr
 CMakeFiles/angine.dir/requires: CMakeFiles/angine.dir/home/pi/projects/angine/src/object.cpp.o.requires
 CMakeFiles/angine.dir/requires: CMakeFiles/angine.dir/home/pi/projects/angine/src/utils/objLoader.cpp.o.requires
 CMakeFiles/angine.dir/requires: CMakeFiles/angine.dir/home/pi/projects/angine/src/mesh.cpp.o.requires
+CMakeFiles/angine.dir/requires: CMakeFiles/angine.dir/home/pi/projects/angine/src/generators/mesh_generator.cpp.o.requires
 CMakeFiles/angine.dir/requires: CMakeFiles/angine.dir/home/pi/projects/angine/src/generators/gridmesh.cpp.o.requires
 CMakeFiles/angine.dir/requires: CMakeFiles/angine.dir/home/pi/projects/angine/src/generators/spheremesh.cpp.o.requires
+CMakeFiles/angine.dir/requires: CMakeFiles/angine.dir/home/pi/projects/angine/src/generators/geosphere_mesh.cpp.o.requires
 
 .PHONY : CMakeFiles/angine.dir/requires
 

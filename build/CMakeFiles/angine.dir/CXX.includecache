@@ -192,11 +192,35 @@ camera.h
 pch.h
 /home/pi/projects/angine/src/pch.h
 
+/home/pi/projects/angine/src/generators/geosphere_mesh.cpp
+geosphere_mesh.h
+/home/pi/projects/angine/src/generators/geosphere_mesh.h
+
+/home/pi/projects/angine/src/generators/geosphere_mesh.h
+../pch.h
+/home/pi/projects/angine/src/pch.h
+../mesh.h
+/home/pi/projects/angine/src/mesh.h
+mesh_generator.h
+/home/pi/projects/angine/src/generators/mesh_generator.h
+
 /home/pi/projects/angine/src/generators/gridmesh.cpp
 gridmesh.h
 /home/pi/projects/angine/src/generators/gridmesh.h
 
 /home/pi/projects/angine/src/generators/gridmesh.h
+../pch.h
+/home/pi/projects/angine/src/pch.h
+../mesh.h
+/home/pi/projects/angine/src/mesh.h
+mesh_generator.h
+/home/pi/projects/angine/src/generators/mesh_generator.h
+
+/home/pi/projects/angine/src/generators/mesh_generator.cpp
+mesh_generator.h
+/home/pi/projects/angine/src/generators/mesh_generator.h
+
+/home/pi/projects/angine/src/generators/mesh_generator.h
 ../pch.h
 /home/pi/projects/angine/src/pch.h
 ../mesh.h
@@ -211,6 +235,8 @@ spheremesh.h
 /home/pi/projects/angine/src/pch.h
 ../mesh.h
 /home/pi/projects/angine/src/mesh.h
+mesh_generator.h
+/home/pi/projects/angine/src/generators/mesh_generator.h
 
 /home/pi/projects/angine/src/include/assimp/./Compiler/poppack1.h
 
@@ -395,6 +421,14 @@ shader.h
 /home/pi/projects/angine/src/shader.h
 texture.h
 /home/pi/projects/angine/src/texture.h
+generators/gridmesh.h
+/home/pi/projects/angine/src/generators/gridmesh.h
+generators/spheremesh.h
+/home/pi/projects/angine/src/generators/spheremesh.h
+generators/geosphere_mesh.h
+/home/pi/projects/angine/src/generators/geosphere_mesh.h
+typeinfo
+-
 
 /home/pi/projects/angine/src/pch.h
 string
@@ -2083,6 +2117,16 @@ sstream
 -
 array
 -
+dirent.h
+-
+linux/limits.h
+-
+unistd.h
+-
+sys/stat.h
+-
+algorithm
+-
 
 /home/pi/projects/angine/src/window.h
 pch.h
@@ -2093,6 +2137,8 @@ shader.h
 /home/pi/projects/angine/src/shader.h
 camera.h
 /home/pi/projects/angine/src/camera.h
+generators/mesh_generator.h
+/home/pi/projects/angine/src/generators/mesh_generator.h
 imgui.h
 /home/pi/projects/angine/src/imgui.h
 imgui_impl_glfw.h

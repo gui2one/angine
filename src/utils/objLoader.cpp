@@ -10,30 +10,30 @@ ObjLoader::~ObjLoader(){
 }
 
 // unused now, but handy function
-std::vector<std::string> split(const std::string& str, std::string delimiter = " "){
-	
-	std::vector<std::string> tokens;
-	std::string tmp = str;
-	std::string::size_type start = 0;
-	while(true ){
-		std::string::size_type found = tmp.find_first_of(delimiter);
-		if( found == std::string::npos){
-			//std::cout << " reached end ------------------------------- " << std::endl;	
-			tokens.push_back(tmp);
-			break;
-		}else{
-			std::string cut = tmp.substr(0, found);
-			tokens.push_back(cut);
-			tmp = tmp.substr(found+1, tmp.size() - (found-1));
-			//std::cout << tmp << std::endl;
-			start = found;
-		}
-	}
-	
-	//std::cout << " ------------------------------- " << std::endl;	
-	
-	return tokens;
-}
+//~ std::vector<std::string> split(const std::string& str, std::string delimiter = " "){
+	//~ 
+	//~ std::vector<std::string> tokens;
+	//~ std::string tmp = str;
+	//~ std::string::size_type start = 0;
+	//~ while(true ){
+		//~ std::string::size_type found = tmp.find_first_of(delimiter);
+		//~ if( found == std::string::npos){
+			//~ //std::cout << " reached end ------------------------------- " << std::endl;	
+			//~ tokens.push_back(tmp);
+			//~ break;
+		//~ }else{
+			//~ std::string cut = tmp.substr(0, found);
+			//~ tokens.push_back(cut);
+			//~ tmp = tmp.substr(found+1, tmp.size() - (found-1));
+			//~ //std::cout << tmp << std::endl;
+			//~ start = found;
+		//~ }
+	//~ }
+	//~ 
+	//~ //std::cout << " ------------------------------- " << std::endl;	
+	//~ 
+	//~ return tokens;
+//~ }
 
 
 Mesh ObjLoader::assimp_load(std::string file_path){
