@@ -3,22 +3,14 @@
 
 FileMesh::FileMesh()
 {
-	Param<int> param1{"rows", 5};
-	paramsInt.push_back(param1);
-	
-	Param<int> param2{"cols", 5};
-	paramsInt.push_back(param2);	
-	
-	Param<float> param3{"width", 3.0};
-	paramsFloat.push_back(param3);
 
-	Param<float> param4{"length", 3.0};
-	paramsFloat.push_back(param4);	
+	Param<std::string> file_path{"path ", "/home/pi/"};	
+	paramsString.push_back(file_path);
 	
-	Param<void(*)()> param5{"load file", [](){ 
+	Param<void(*)()> loadAction{"load file", [](){ 
 		std::cout << "cool or what ?\n";
 	}};
-	paramsAction.push_back(param5);
+	paramsAction.push_back(loadAction);
 }
 
 

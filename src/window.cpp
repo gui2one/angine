@@ -425,6 +425,16 @@ void Window::addPropertiesDialog()
 								}
 							}
 							
+							for (int i = 0; i < curObj->mesh_generator->paramsString.size(); i++)
+							{
+								//~ static std::string* test_int = &curObj->mesh_generator->paramsString[i].value;
+								if(ImGui::InputText(curObj->mesh_generator->paramsString[i].name.c_str(), (char*)curObj->mesh_generator->paramsString[i].value.c_str(),200))
+								{
+																
+									//~ need_update = true;									
+								}
+							}							
+							
 							for (int i = 0; i < curObj->mesh_generator->paramsAction.size(); i++)
 							{
 								

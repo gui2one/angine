@@ -204,6 +204,18 @@ box_mesh.h
 mesh_generator.h
 /home/pi/projects/angine/src/generators/mesh_generator.h
 
+/home/pi/projects/angine/src/generators/file_mesh.cpp
+file_mesh.h
+/home/pi/projects/angine/src/generators/file_mesh.h
+
+/home/pi/projects/angine/src/generators/file_mesh.h
+../pch.h
+/home/pi/projects/angine/src/pch.h
+../mesh.h
+/home/pi/projects/angine/src/mesh.h
+mesh_generator.h
+/home/pi/projects/angine/src/generators/mesh_generator.h
+
 /home/pi/projects/angine/src/generators/geosphere_mesh.cpp
 geosphere_mesh.h
 /home/pi/projects/angine/src/generators/geosphere_mesh.h
@@ -237,6 +249,8 @@ mesh_generator.h
 /home/pi/projects/angine/src/pch.h
 ../mesh.h
 /home/pi/projects/angine/src/mesh.h
+functional
+-
 
 /home/pi/projects/angine/src/generators/spheremesh.cpp
 spheremesh.h
@@ -439,6 +453,8 @@ generators/spheremesh.h
 /home/pi/projects/angine/src/generators/spheremesh.h
 generators/box_mesh.h
 /home/pi/projects/angine/src/generators/box_mesh.h
+generators/file_mesh.h
+/home/pi/projects/angine/src/generators/file_mesh.h
 generators/geosphere_mesh.h
 /home/pi/projects/angine/src/generators/geosphere_mesh.h
 typeinfo

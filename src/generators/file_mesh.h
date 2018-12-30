@@ -12,7 +12,7 @@ class FileMesh : public MeshGenerator
 		
 		inline Mesh generate() override{
 			Mesh mesh;
-			mesh = generateGrid(paramsInt[0].value, paramsInt[1].value, paramsFloat[0].value, paramsFloat[1].value );
+			//~ mesh = generateGrid(paramsInt[0].value, paramsInt[1].value, paramsFloat[0].value, paramsFloat[1].value );
 			
 			return mesh;
 		};
