@@ -363,7 +363,7 @@ void Window::addPropertiesDialog()
 						static int choice = 0;
 						
 						
-						const char* items[] = {"Make a choice ","Sphere Mesh", "Geo Sphere Mesh",  "Grid Mesh", "Box Mesh"};
+						const char* items[] = {"Make a choice ","Sphere Mesh", "Geo Sphere Mesh",  "Grid Mesh", "Box Mesh", "File Mesh"};
 						
 						static int combo_current_item = 0;
 						
@@ -373,7 +373,7 @@ void Window::addPropertiesDialog()
 							combo_current_item = choice;
 						}
 						
-						const int items_length = 5;
+						const int items_length = 6;
 						
 						if(ImGui::BeginCombo("Generators",items[combo_current_item],0))
 						{
@@ -399,6 +399,8 @@ void Window::addPropertiesDialog()
 								curObj->setGenerator<GridMesh>();	
 							else if(choice == 4)
 								curObj->setGenerator<BoxMesh>();
+							else if(choice == 5)
+								curObj->setGenerator<FileMesh>();								
 						}
 						
 						if(curObj->has_generator)
@@ -421,7 +423,17 @@ void Window::addPropertiesDialog()
 																
 									need_update = true;									
 								}
-							}	
+							}
+							
+							for (int i = 0; i < curObj->mesh_generator->paramsAction.size(); i++)
+							{
+								
+								if(ImGui::Button(curObj->mesh_generator->paramsAction[i].name.c_str()))
+								{
+									curObj->mesh_generator->paramsAction[i].value();							
+									need_update = true;									
+								}
+							}								
 													
 							if(need_update){
 								

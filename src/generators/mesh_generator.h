@@ -3,6 +3,7 @@
 
 #include "../pch.h"
 #include "../mesh.h"
+#include <functional>
 //~ #include "spheremesh.h"
 //~ #include "gridmesh.h"
 
@@ -21,8 +22,10 @@ class MeshGenerator
 		
 		std::vector<Param<int>> paramsInt;
 		std::vector<Param<float>> paramsFloat;
+		std::vector<Param<std::string>> paramsString;
+		std::vector<Param<void (*)()>> paramsAction;
 		inline virtual Mesh generate(){}; 
-		inline virtual Mesh generate(int rows, int cols, float radius = 0.5, float u_ratio = 1.0, float v_ratio = 1.0){}; 
+		
 	private:
 		/* add your private declarations */
 };

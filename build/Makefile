@@ -217,6 +217,33 @@ home/pi/projects/angine/src/generators/box_mesh.cpp.s:
 	$(MAKE) -f CMakeFiles/angine.dir/build.make CMakeFiles/angine.dir/home/pi/projects/angine/src/generators/box_mesh.cpp.s
 .PHONY : home/pi/projects/angine/src/generators/box_mesh.cpp.s
 
+home/pi/projects/angine/src/generators/file_mesh.o: home/pi/projects/angine/src/generators/file_mesh.cpp.o
+
+.PHONY : home/pi/projects/angine/src/generators/file_mesh.o
+
+# target to build an object file
+home/pi/projects/angine/src/generators/file_mesh.cpp.o:
+	$(MAKE) -f CMakeFiles/angine.dir/build.make CMakeFiles/angine.dir/home/pi/projects/angine/src/generators/file_mesh.cpp.o
+.PHONY : home/pi/projects/angine/src/generators/file_mesh.cpp.o
+
+home/pi/projects/angine/src/generators/file_mesh.i: home/pi/projects/angine/src/generators/file_mesh.cpp.i
+
+.PHONY : home/pi/projects/angine/src/generators/file_mesh.i
+
+# target to preprocess a source file
+home/pi/projects/angine/src/generators/file_mesh.cpp.i:
+	$(MAKE) -f CMakeFiles/angine.dir/build.make CMakeFiles/angine.dir/home/pi/projects/angine/src/generators/file_mesh.cpp.i
+.PHONY : home/pi/projects/angine/src/generators/file_mesh.cpp.i
+
+home/pi/projects/angine/src/generators/file_mesh.s: home/pi/projects/angine/src/generators/file_mesh.cpp.s
+
+.PHONY : home/pi/projects/angine/src/generators/file_mesh.s
+
+# target to generate assembly for a file
+home/pi/projects/angine/src/generators/file_mesh.cpp.s:
+	$(MAKE) -f CMakeFiles/angine.dir/build.make CMakeFiles/angine.dir/home/pi/projects/angine/src/generators/file_mesh.cpp.s
+.PHONY : home/pi/projects/angine/src/generators/file_mesh.cpp.s
+
 home/pi/projects/angine/src/generators/geosphere_mesh.o: home/pi/projects/angine/src/generators/geosphere_mesh.cpp.o
 
 .PHONY : home/pi/projects/angine/src/generators/geosphere_mesh.o
@@ -749,6 +776,9 @@ help:
 	@echo "... home/pi/projects/angine/src/generators/box_mesh.o"
 	@echo "... home/pi/projects/angine/src/generators/box_mesh.i"
 	@echo "... home/pi/projects/angine/src/generators/box_mesh.s"
+	@echo "... home/pi/projects/angine/src/generators/file_mesh.o"
+	@echo "... home/pi/projects/angine/src/generators/file_mesh.i"
+	@echo "... home/pi/projects/angine/src/generators/file_mesh.s"
 	@echo "... home/pi/projects/angine/src/generators/geosphere_mesh.o"
 	@echo "... home/pi/projects/angine/src/generators/geosphere_mesh.i"
 	@echo "... home/pi/projects/angine/src/generators/geosphere_mesh.s"

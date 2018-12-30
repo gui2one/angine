@@ -10,6 +10,7 @@
 #include "generators/gridmesh.h"
 #include "generators/spheremesh.h"
 #include "generators/box_mesh.h"
+#include "generators/file_mesh.h"
 #include "generators/geosphere_mesh.h"
 
 #include <typeinfo>
