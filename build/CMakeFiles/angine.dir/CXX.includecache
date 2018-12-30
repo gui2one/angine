@@ -192,6 +192,18 @@ camera.h
 pch.h
 /home/pi/projects/angine/src/pch.h
 
+/home/pi/projects/angine/src/generators/box_mesh.cpp
+box_mesh.h
+/home/pi/projects/angine/src/generators/box_mesh.h
+
+/home/pi/projects/angine/src/generators/box_mesh.h
+../pch.h
+/home/pi/projects/angine/src/pch.h
+../mesh.h
+/home/pi/projects/angine/src/mesh.h
+mesh_generator.h
+/home/pi/projects/angine/src/generators/mesh_generator.h
+
 /home/pi/projects/angine/src/generators/geosphere_mesh.cpp
 geosphere_mesh.h
 /home/pi/projects/angine/src/generators/geosphere_mesh.h
@@ -425,6 +437,8 @@ generators/gridmesh.h
 /home/pi/projects/angine/src/generators/gridmesh.h
 generators/spheremesh.h
 /home/pi/projects/angine/src/generators/spheremesh.h
+generators/box_mesh.h
+/home/pi/projects/angine/src/generators/box_mesh.h
 generators/geosphere_mesh.h
 /home/pi/projects/angine/src/generators/geosphere_mesh.h
 typeinfo

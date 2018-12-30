@@ -74,8 +74,8 @@ Window::Window()
 	glfwSwapInterval(1);
 	glEnable(GL_DEPTH_TEST);
 	
-	glEnable(GL_LINE_SMOOTH);
-	glEnable(GL_POLYGON_SMOOTH);
+	//~ glEnable(GL_LINE_SMOOTH);
+	//~ glEnable(GL_POLYGON_SMOOTH);
 	
 	glEnable(GL_BLEND);	
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
@@ -268,6 +268,12 @@ void Window::addObjectListDialog()
 		addObject(obj);
 		//~ objects.push_back(obj);
 	}
+	
+	if(ImGui::Button("Delete Object"))
+	{
+		delete objects[cur_object_selected];
+		objects.erase(objects.begin() + cur_object_selected);
+	}
 	ImGui::End();
 }
 
@@ -313,33 +319,33 @@ void Window::addPropertiesDialog()
 			{
 				ImGui::LabelText("", "Position");
 				ImGui::Columns(3,"columns");
-				ImGui::InputFloat(":tx", &objects[cur_object_selected]->position.x, 0.0f, 1.0f, "%.3f");
+				ImGui::DragFloat(":tx", &objects[cur_object_selected]->position.x);
 				ImGui::NextColumn();
-				ImGui::InputFloat(":ty", &objects[cur_object_selected]->position.y, 0.0f, 10.0f, "%.3f");
+				ImGui::DragFloat(":ty", &objects[cur_object_selected]->position.y);
 				ImGui::NextColumn();
-				ImGui::InputFloat(":tz", &objects[cur_object_selected]->position.z, 0.0f, 10.0f, "%.3f");
+				ImGui::DragFloat(":tz", &objects[cur_object_selected]->position.z);
 				
 				ImGui::Separator();
 				
 				ImGui::Columns(1);			
 				ImGui::LabelText("", "Rotation");
 				ImGui::Columns(3,"columns");
-				ImGui::InputFloat(":rx", &objects[cur_object_selected]->rotation.x, 0.0f, 360.0f, "%.3f");
+				ImGui::DragFloat(":rx", &objects[cur_object_selected]->rotation.x);
 				ImGui::NextColumn();
-				ImGui::InputFloat(":ry", &objects[cur_object_selected]->rotation.y, 0.0f, 360.0f, "%.3f");
+				ImGui::DragFloat(":ry", &objects[cur_object_selected]->rotation.y);
 				ImGui::NextColumn();
-				ImGui::InputFloat(":rz", &objects[cur_object_selected]->rotation.z, 0.0f, 360.0f, "%.3f");
+				ImGui::DragFloat(":rz", &objects[cur_object_selected]->rotation.z);
 				
 				ImGui::Separator();		
 				
 				ImGui::Columns(1);			
 				ImGui::LabelText("", "Scale");
 				ImGui::Columns(3,"columns");
-				ImGui::InputFloat(":sx", &objects[cur_object_selected]->scale.x, 0.0f, 360.0f, "%.3f");
+				ImGui::DragFloat(":sx", &objects[cur_object_selected]->scale.x);
 				ImGui::NextColumn();
-				ImGui::InputFloat(":sy", &objects[cur_object_selected]->scale.y, 0.0f, 360.0f, "%.3f");
+				ImGui::DragFloat(":sy", &objects[cur_object_selected]->scale.y);
 				ImGui::NextColumn();
-				ImGui::InputFloat(":sz", &objects[cur_object_selected]->scale.z, 0.0f, 360.0f, "%.3f");
+				ImGui::DragFloat(":sz", &objects[cur_object_selected]->scale.z);
 				
 				ImGui::Separator();	
 				ImGui::EndTabItem();
@@ -357,7 +363,7 @@ void Window::addPropertiesDialog()
 						static int choice = 0;
 						
 						
-						const char* items[] = {"Make a choice ","Sphere Mesh", "Geo Sphere Mesh",  "Grid Mesh"};
+						const char* items[] = {"Make a choice ","Sphere Mesh", "Geo Sphere Mesh",  "Grid Mesh", "Box Mesh"};
 						
 						static int combo_current_item = 0;
 						
@@ -367,29 +373,18 @@ void Window::addPropertiesDialog()
 							combo_current_item = choice;
 						}
 						
+						const int items_length = 5;
+						
 						if(ImGui::BeginCombo("Generators",items[combo_current_item],0))
 						{
-														
-							if(ImGui::Selectable("Sphere Mesh", choice == 1))
+							for (int i = 1; i < items_length; i++)
 							{
-								choice = 1;
-								std::cout << "Choice " << choice << "\n";
-								curObj->generator_type = 1;								
+								if(ImGui::Selectable(items[i], choice == i))
+								{								
+									choice = i;
+									curObj->generator_type = choice;
+								}
 							}
-							if(ImGui::Selectable("Geo Sphere Mesh", choice == 2))
-							{
-								choice = 2;
-								std::cout << "Choice " << choice << "\n";
-								curObj->generator_type = 2;								
-							}							
-							if(ImGui::Selectable("Grid Mesh", choice == 3))
-							{
-								choice = 3;
-								std::cout << "Choice " << choice << "\n";
-								curObj->generator_type = 3;
-								
-							}
-							
 							
 							ImGui::EndCombo();
 						}	
@@ -401,7 +396,9 @@ void Window::addPropertiesDialog()
 							else if(choice == 2)
 								curObj->setGenerator<GeoSphereMesh>();
 							else if(choice == 3)
-								curObj->setGenerator<GridMesh>();								
+								curObj->setGenerator<GridMesh>();	
+							else if(choice == 4)
+								curObj->setGenerator<BoxMesh>();
 						}
 						
 						if(curObj->has_generator)
@@ -409,9 +406,9 @@ void Window::addPropertiesDialog()
 							for (int i = 0; i < curObj->mesh_generator->paramsInt.size(); i++)
 							{
 								static int* test_int = &curObj->mesh_generator->paramsInt[i].value;
-								if(ImGui::InputInt(curObj->mesh_generator->paramsInt[i].name.c_str(), &curObj->mesh_generator->paramsInt[i].value ))
+								if(ImGui::DragInt(curObj->mesh_generator->paramsInt[i].name.c_str(), &curObj->mesh_generator->paramsInt[i].value ))
 								{
-									//~ std::cout << curObj->mesh_generator->paramsInt[i].value << "\n";									
+									
 									need_update = true;									
 								}
 							}
@@ -419,16 +416,16 @@ void Window::addPropertiesDialog()
 							for (int i = 0; i < curObj->mesh_generator->paramsFloat.size(); i++)
 							{
 								static float* test_int = &curObj->mesh_generator->paramsFloat[i].value;
-								if(ImGui::InputFloat(curObj->mesh_generator->paramsFloat[i].name.c_str(), &curObj->mesh_generator->paramsFloat[i].value ))
+								if(ImGui::DragFloat(curObj->mesh_generator->paramsFloat[i].name.c_str(), &curObj->mesh_generator->paramsFloat[i].value ))
 								{
-									//~ std::cout << curObj->mesh_generator->paramsFloat[i].value << "\n";									
+																
 									need_update = true;									
 								}
 							}	
 													
 							if(need_update){
 								
-									std::cout << "update object mesh\n";
+									
 									curObj->mesh = curObj->mesh_generator->generate();
 									curObj->buildVbo();
 									need_update = false;
@@ -466,7 +463,7 @@ void Window::refresh(){
 
 	//~ ImGui::ShowDemoWindow(&show_demo_window);
 
-		//~ int ex = explorer();
+		int ex = explorer();
 		
 		addObjectListDialog();
 		addPropertiesDialog();

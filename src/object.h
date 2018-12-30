@@ -9,6 +9,7 @@
 
 #include "generators/gridmesh.h"
 #include "generators/spheremesh.h"
+#include "generators/box_mesh.h"
 #include "generators/geosphere_mesh.h"
 
 #include <typeinfo>
@@ -65,7 +66,7 @@ class Object{
 		inline void setGenerator(){
 			
 			
-			std::cout << typeid(T).name() << "\n";
+			//~ std::cout << typeid(T).name() << "\n";
 			
 			T* generator = new T();
 			

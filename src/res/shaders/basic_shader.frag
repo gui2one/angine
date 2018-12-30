@@ -10,7 +10,7 @@ void main()
 	//~ color = vec4(1.0,0.8,0.5,1.0);  
 	color = f_color;
 	//~ color = f_color * texture2D(u_tex,f_t_coords);
-	//~ color = texture2D(u_tex,f_t_coords);
+	color = texture2D(u_tex,f_t_coords);
 }
 
 

@@ -51,6 +51,7 @@ add_executable(angine
 	../src/mesh.cpp
 	../src/generators/mesh_generator.cpp
 	../src/generators/gridmesh.cpp
+	../src/generators/box_mesh.cpp
 	../src/generators/spheremesh.cpp
 	../src/generators/geosphere_mesh.cpp
 	

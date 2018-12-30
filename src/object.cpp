@@ -409,8 +409,6 @@ void Object::drawPoints(){
 
 Object::~Object()
 {
-	
-
-	
+		
 	std::cout << "--- Object DELETED  --- \n";
 }
