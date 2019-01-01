@@ -13,16 +13,13 @@ uniform mat4 projection;
 uniform mat4 model;
 uniform mat4 view;
 
-
-
 void main()
 {           
 	gl_Position =  projection * view * model *vec4(position, 1.0) ;
 	
-	vec4 tempnormal = projection * view * vec4(normal,1.0);
-	f_color = vec4(tempnormal.x*0.5+0.5 , tempnormal.y*0.5+0.5, tempnormal.z*0.5+0.5 , 1.0);
-	//~ f_color = vec4(1.0,1.0,1.0,1.0);
-	//~ f_color *= u_color;
+	vec4 tempnormal = projection * vec4(normal,1.0);
+	f_color = u_color;
+	//~ f_color = vec4(tempnormal.x*0.5+0.5 , tempnormal.y*0.5+0.5, tempnormal.z*0.5+0.5 , 1.0);
 	
 	f_t_coords = t_coords;
 	

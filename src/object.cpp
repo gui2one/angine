@@ -16,16 +16,20 @@ Object::Object()
 
 void Object::init()
 {
+	initShader();
+	buildTexture();	
+	buildVbo();	
+}
+
+void Object::initShader(){
 	shader.loadVertexShaderSource("../src/res/shaders/basic_shader.vert");
 	shader.loadFragmentShaderSource("../src/res/shaders/basic_shader.frag");	
-	buildTexture();
+	
 	shader.createShader();	
 
 	lineShader.loadVertexShaderSource("../src/res/shaders/line_shader.vert");
 	lineShader.loadFragmentShaderSource("../src/res/shaders/line_shader.frag");		
-	lineShader.createShader();		
-		
-	buildVbo();	
+	lineShader.createShader();			
 }
 
 void Object::buildTexture()

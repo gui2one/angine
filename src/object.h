@@ -19,6 +19,7 @@
 #include "mesh_filters/transform_mesh_filter.h"
 #include "mesh_filters/inflate_mesh_filter.h"
 #include "mesh_filters/twist_mesh_filter.h"
+#include "mesh_filters/compute_normals_mesh_filter.h"
 
 #include <typeinfo>
 
@@ -47,6 +48,8 @@ class Object{
 		unsigned int m_vbo, m_ibo, m_normals_vbo, m_bbox_vbo;
 		
 		void init();
+		void initShader();
+		
 		void buildTexture();
 		
 		inline void setRenderMode(GLuint mode){ renderMode = mode;}
@@ -181,8 +184,11 @@ class Object{
 		glm::vec3 rotation;
 		glm::vec4 color;
 		
-		char name[100] = {'a','b','c'};
+		char name[100] = {'n','e','w','_','o','b','j','e','c','t'};
 		BoundingBox boundingBox;
+		
+		
+		
 		private:
 			GLuint renderMode = GL_TRIANGLES;
 			

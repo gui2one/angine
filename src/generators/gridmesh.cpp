@@ -3,10 +3,10 @@
 
 GridMesh::GridMesh()
 {
-	Param<int> param1{"rows", 5};
+	Param<int> param1{"rows", 2};
 	paramsInt.push_back(param1);
 	
-	Param<int> param2{"cols", 5};
+	Param<int> param2{"cols", 2};
 	paramsInt.push_back(param2);	
 	
 	Param<float> param3{"width", 3.0};
@@ -53,12 +53,12 @@ Mesh GridMesh::generateGrid(int rows, int cols, float width, float length)
 		{
 			unsigned int curIndex = x + y * cols;
 			indices.push_back(curIndex);
-			indices.push_back(curIndex+cols);
 			indices.push_back(curIndex+cols+1);
+			indices.push_back(curIndex+cols);
 			
 			indices.push_back(curIndex+cols+1);
-			indices.push_back(curIndex+1);
-			indices.push_back(curIndex);			
+			indices.push_back(curIndex);
+			indices.push_back(curIndex+1);			
 		}		
 	}	
 	

@@ -422,6 +422,20 @@ vector
 vertex.h
 /home/pi/projects/angine/src/vertex.h
 
+/home/pi/projects/angine/src/mesh_filters/compute_normals_mesh_filter.cpp
+compute_normals_mesh_filter.h
+/home/pi/projects/angine/src/mesh_filters/compute_normals_mesh_filter.h
+
+/home/pi/projects/angine/src/mesh_filters/compute_normals_mesh_filter.h
+../pch.h
+/home/pi/projects/angine/src/pch.h
+algorithm
+-
+iterator
+-
+mesh_filter.h
+/home/pi/projects/angine/src/mesh_filters/mesh_filter.h
+
 /home/pi/projects/angine/src/mesh_filters/inflate_mesh_filter.cpp
 inflate_mesh_filter.h
 /home/pi/projects/angine/src/mesh_filters/inflate_mesh_filter.h
@@ -499,6 +513,8 @@ mesh_filters/inflate_mesh_filter.h
 /home/pi/projects/angine/src/mesh_filters/inflate_mesh_filter.h
 mesh_filters/twist_mesh_filter.h
 /home/pi/projects/angine/src/mesh_filters/twist_mesh_filter.h
+mesh_filters/compute_normals_mesh_filter.h
+/home/pi/projects/angine/src/mesh_filters/compute_normals_mesh_filter.h
 typeinfo
 -
 

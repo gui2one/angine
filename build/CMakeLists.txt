@@ -53,9 +53,10 @@ add_executable(angine
 	../src/generators/geosphere_mesh.cpp
 	
 	../src/mesh_filters/mesh_filter.cpp
-	../src/mesh_filters/transform_mesh_filter.cpp
+	../src/mesh_filters/transform_mesh_filter.cpp	
 	../src/mesh_filters/inflate_mesh_filter.cpp
 	../src/mesh_filters/twist_mesh_filter.cpp
+	../src/mesh_filters/compute_normals_mesh_filter.cpp
 	
 )
 

@@ -23,118 +23,77 @@ SphereMesh::~SphereMesh()
 	
 }
 
+static glm::vec3 fromPolar(float u, float v, float radius){
+	glm::vec3 temp;
+	
+	temp.x = radius * sin(u) * cos(v);
+	temp.y = radius * sin(u) * sin(v);
+	temp.z = radius * cos(u);
+	
+	return temp;
+}
 
-
-Mesh SphereMesh::generateSphere(int rows, int cols, float radius, float u_ratio, float v_ratio)
+static Mesh generateGrid(int rows, int cols, float radius)
 {
-
+	
 	std::vector<Vertex> vertices;
 	std::vector<unsigned int> indices;
-	
-	indices.clear();
-	vertices.clear();
-	
-	Vertex vert;
-	//// top vertex
-	vert.position.x = 0.0;
-	vert.position.y = 0.0;
-	vert.position.z = radius;	
-
-	vert.normal.x = 0.0;
-	vert.normal.y = 0.0;
-	vert.normal.z = 1.0;	
-
-	vert.t_coords.x = 0.5;
-	vert.t_coords.y = 0.0;	
-		
-	vertices.push_back(vert);
-	
-	
-	for (int i = 1; i < rows; i++)
-	{
-		
-		for (int j = 0; j < cols+1; j++)
-		{
-				float ratio_cols = 1.0/((float)cols) * (float)j * u_ratio;
-				float ratio_rows = 1.0/((float)rows-1) * (float)i * v_ratio;
-				vert.position.x = sin( ratio_cols * PI *2.0 ) * sin(ratio_rows * PI) * radius;
-				vert.position.y = cos( ratio_cols * PI *2.0 ) * sin(ratio_rows * PI) * radius;
-				vert.position.z = cos(ratio_rows * PI) * radius;
-				
-				
-				vert.normal = glm::normalize(vert.position);	
-
-				vert.t_coords.x = ratio_rows;
-				vert.t_coords.y = ratio_cols;					
-				
-				vertices.push_back(vert);			
-		}
-		
-	}
-	
-	
-	//// bottom vertex
-	vert.position.x = 0.0;
-	vert.position.y = 0.0;
-	vert.position.z = -radius;	
-	
-	vert.normal.x = 0.0;
-	vert.normal.y = 0.0;
-	vert.normal.z = 1.0;	
-
-	vert.t_coords.x = 0.5;
-	vert.t_coords.y = 1.0;	
-	
-	vertices.push_back(vert);	
-	
-	
-	//// build indices
-
-	//// first row of triangles
-	for (int i = 0; i < cols; i++)
-	{
-		indices.push_back(0);
-		indices.push_back(i+1);
-
-			indices.push_back(i+2);
-		
-	}
-	
-	//// build inside quads ( 2 triangles)
-	for (int i = 0; i < rows-3; i++)
-	{
-		for (int j = 0; j < cols+1; j++)
-		{
-			int first_in_row = (i * (cols + 1));
-			indices.push_back(first_in_row + j);
-			indices.push_back(first_in_row + j + cols+1);
-			indices.push_back(first_in_row + j + 1);		
-			
-			indices.push_back(first_in_row + j + 1);
-			indices.push_back(first_in_row + j + cols+1);
-			indices.push_back(first_in_row + j + cols+2);
-							
-		}		
-	}
-	
-	
-	//// last row of triangles
-	for (int i = 0; i < cols; i++)
-	{		
-		indices.push_back((rows-2) * (cols+1) - (cols) + i);
-		indices.push_back(vertices.size()-1);
-		indices.push_back((rows-2) * (cols+1) - (cols) + i + 1);
-		
-	}	
-	
-	
 	Mesh mesh;
+	
+	for (int y = 0; y < rows; y++)
+	{
+		for (int x = 0; x < cols; x++)
+		{
+			Vertex vert;
+			float posx = 1.0/(cols-1) * x;
+			float posy = 1.0/(rows-1) * y;			
+			
+			
+			vert.position = fromPolar(posx * PI, posy * 2.0 * PI, radius);
+			//~ vert.position.x = (posx );
+			//~ vert.position.y = (posy );
+			//~ vert.position.z = 0.0;
+			
+			vert.t_coords.x = posx;
+			vert.t_coords.y = posy;
+			
+			vert.normal = glm::normalize( vert.position);			
+			
+			vertices.push_back(vert);
+		}
+	}
+	
+	for (unsigned int y = 0; y < rows-1; y++)
+	{
+		for (unsigned int x = 0; x < cols-1; x++)
+		{
+			unsigned int curIndex = x + y * cols;
+			indices.push_back(curIndex);
+			indices.push_back(curIndex+cols+1);
+			indices.push_back(curIndex+cols);
+			
+			indices.push_back(curIndex+cols+1);
+			indices.push_back(curIndex);
+			indices.push_back(curIndex+1);			
+		}		
+	}	
 	
 	mesh.vertices = vertices;
 	mesh.indices = indices;
 	
 	
-	indices.clear();
-	vertices.clear();
+	return mesh;
+}
+
+
+Mesh SphereMesh::generateSphere(int rows, int cols, float radius, float u_ratio, float v_ratio)
+{
+	
+
+	
+	
+	Mesh mesh;
+	
+	mesh = generateGrid(rows, cols, radius);
 	return mesh;
 } 

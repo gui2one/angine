@@ -23,12 +23,17 @@ class MeshFilter{
 		bool need_update = false;
 		bool is_active = true;
 		
+		inline void setName(std::string str){ name = str; }
+		inline std::string getName(){ return name; }
 		
 		
 		std::vector<Param<int>> paramsInt;
 		std::vector<Param<float>> paramsFloat;
 		std::vector<Param<glm::vec3>> paramsVec3;
 		
+		
+	private:
+		std::string name = "Default filter name";
 		
 };
 

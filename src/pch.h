@@ -20,3 +20,4 @@
 #include "vendor/glm/gtc/matrix_transform.hpp"
 #include "vendor/glm/gtc/type_ptr.hpp"
 
+#define PI 3.14159265359

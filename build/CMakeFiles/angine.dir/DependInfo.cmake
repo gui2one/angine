@@ -14,6 +14,7 @@ set(CMAKE_DEPENDS_CHECK_CXX
   "/home/pi/projects/angine/src/generators/spheremesh.cpp" "/home/pi/projects/angine/build/CMakeFiles/angine.dir/home/pi/projects/angine/src/generators/spheremesh.cpp.o"
   "/home/pi/projects/angine/src/main.cpp" "/home/pi/projects/angine/build/CMakeFiles/angine.dir/home/pi/projects/angine/src/main.cpp.o"
   "/home/pi/projects/angine/src/mesh.cpp" "/home/pi/projects/angine/build/CMakeFiles/angine.dir/home/pi/projects/angine/src/mesh.cpp.o"
+  "/home/pi/projects/angine/src/mesh_filters/compute_normals_mesh_filter.cpp" "/home/pi/projects/angine/build/CMakeFiles/angine.dir/home/pi/projects/angine/src/mesh_filters/compute_normals_mesh_filter.cpp.o"
   "/home/pi/projects/angine/src/mesh_filters/inflate_mesh_filter.cpp" "/home/pi/projects/angine/build/CMakeFiles/angine.dir/home/pi/projects/angine/src/mesh_filters/inflate_mesh_filter.cpp.o"
   "/home/pi/projects/angine/src/mesh_filters/mesh_filter.cpp" "/home/pi/projects/angine/build/CMakeFiles/angine.dir/home/pi/projects/angine/src/mesh_filters/mesh_filter.cpp.o"
   "/home/pi/projects/angine/src/mesh_filters/transform_mesh_filter.cpp" "/home/pi/projects/angine/build/CMakeFiles/angine.dir/home/pi/projects/angine/src/mesh_filters/transform_mesh_filter.cpp.o"

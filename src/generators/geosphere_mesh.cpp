@@ -96,7 +96,7 @@ Mesh GeoSphereMesh::generateSphere(int rows, int cols, float radius, float u_rat
 		indices.push_back(0);
 		indices.push_back(i+1);
 
-			indices.push_back(i+2);
+		indices.push_back(i+2);
 		
 	}
 	

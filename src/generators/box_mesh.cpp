@@ -92,12 +92,12 @@ static TRI_PLANE make_plane(int rows, int cols)
 		{
 			unsigned int curIndex = x + y * cols;
 			plane_data.indices.push_back(curIndex);
-			plane_data.indices.push_back(curIndex+cols);
 			plane_data.indices.push_back(curIndex+cols+1);
+			plane_data.indices.push_back(curIndex+cols);
 			
 			plane_data.indices.push_back(curIndex+cols+1);
-			plane_data.indices.push_back(curIndex+1);
-			plane_data.indices.push_back(curIndex);			
+			plane_data.indices.push_back(curIndex);
+			plane_data.indices.push_back(curIndex+1);			
 		}		
 	}		
 	

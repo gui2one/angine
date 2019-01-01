@@ -80,8 +80,8 @@ Window::Window()
 	glEnable(GL_BLEND);	
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 	
-	//~ glEnable(GL_CULL_FACE);
-	//~ glCullFace(GL_BACK);
+	glEnable(GL_CULL_FACE);
+	glCullFace(GL_BACK);
 	
 	IMGUI_CHECKVERSION();
 	ImGui::CreateContext();
@@ -313,7 +313,7 @@ void Window::objectPropertiesDialog()
 			
 			ImGui::CheckboxFlags("Display Points", (unsigned int*)&objects[cur_object_selected]->bDisplayPoints, 1);
 			ImGui::CheckboxFlags("Display Wireframe", (unsigned int*)&objects[cur_object_selected]->bDisplayWireframe, 1);
-
+			ImGui::CheckboxFlags("Display Normals", (unsigned int*)&objects[cur_object_selected]->bDisplayNormals, 1);
 		}
 		
 		ImGui::Columns(1);
@@ -470,7 +470,7 @@ void Window::objectPropertiesDialog()
 					{	
 						
 						static int choice = 0;
-						std::vector<std::string> items = {"...", "Transform", "Inflate", "Twist"};
+						std::vector<std::string> items = {"...", "Transform", "Inflate", "Twist", "Compute Normals"};
 						if(ImGui::BeginCombo("filters", items[choice].c_str(), 0))
 						{
 							for (int i = 1; i < items.size(); i++)
@@ -499,6 +499,9 @@ void Window::objectPropertiesDialog()
 							}else if(choice == 3){
 								curObj->hasFilters = true;
 								curObj->setMeshFilter<TwistMeshFilter>();								
+							}else if(choice == 4){
+								curObj->hasFilters = true;
+								curObj->setMeshFilter<ComputeNormalsMeshFilter>();								
 							}
 						}
 						
@@ -520,7 +523,9 @@ void Window::objectPropertiesDialog()
 							ImGui::ListBoxFooter();
 						}
 						
-						if(curObj->hasFilters)
+						//// params layout 
+						
+						if(curObj->meshFilters.size() > 0)
 						{
 							if(ImGui::CheckboxFlags("is active", (unsigned int*)&curObj->meshFilters[cur_mesh_filter_selected]->is_active, 1))
 							{
@@ -533,6 +538,32 @@ void Window::objectPropertiesDialog()
 										curObj->meshFilters[i]->need_update = true;
 									}
 									
+							}
+							ImGui::SameLine();
+							
+							if(ImGui::Button("delete filter")){
+								printf("delete filter now\n");
+								delete curObj->meshFilters[cur_mesh_filter_selected];
+								curObj->meshFilters.erase(curObj->meshFilters.begin() + cur_mesh_filter_selected);
+								
+								
+								if(cur_mesh_filter_selected > 0)
+									cur_mesh_filter_selected -= 1;								
+									
+
+								// force folowing filters need_update also
+								for (int i = cur_mesh_filter_selected; i < curObj->meshFilters.size(); i++)
+								{
+									curObj->meshFilters[i]->need_update = true;
+								}									
+									
+							}
+							
+							if(curObj->meshFilters.size() > 0)
+							{		
+								if( ImGui::InputText("name", (char *)(curObj->meshFilters[cur_mesh_filter_selected]->getName().c_str()), 200)){
+									std::cout<< curObj->meshFilters[cur_mesh_filter_selected]->getName().c_str() << "\n";
+								}
 							}
 							
 							for (int i = 0; i < curObj->meshFilters[cur_mesh_filter_selected]->paramsFloat.size(); i++)
@@ -618,6 +649,12 @@ void Window::objectPropertiesDialog()
 								{
 									std::cout << curObj->meshFilters[cur_mesh_filter_selected]->paramsInt[i].value << "\n";
 									curObj->meshFilters[cur_mesh_filter_selected]->need_update = true;
+									
+									// force follwing filters need_update also
+									for (int j = cur_mesh_filter_selected+1; j < curObj->meshFilters.size(); j++)
+									{
+										curObj->meshFilters[j]->need_update = true;
+									}										
 								}
 								
 							}
@@ -626,6 +663,12 @@ void Window::objectPropertiesDialog()
 						ImGui::EndTabItem();
 					}
 					
+					if( ImGui::BeginTabItem("Materials")){
+						if( ImGui::Button("Reload Shader")){
+							printf("reloading shader now \n");
+							curObj->initShader();
+						}
+					}
 					ImGui::EndTabBar();
 				}
 				
@@ -648,7 +691,7 @@ void Window::refresh(){
 	ImGui_ImplGlfw_NewFrame();
 	ImGui::NewFrame();
 	
-	glfwPollEvents();
+	
 	
 	//~ ImGui::ShowDemoWindow(&show_demo_window);
 
@@ -669,7 +712,7 @@ void Window::refresh(){
 	glLoadIdentity();
 
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-	glClearColor(0.5,0.5,0.5,1.0);
+	glClearColor(0.2,0.2,0.2,1.0);
 
 	
 	
@@ -685,10 +728,10 @@ void Window::refresh(){
 
 	ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
 	//swap buffers
-	//~ usleep(1);
+	usleep(1);
 	glfwSwapBuffers(win);
 	
-	
+	glfwPollEvents();
 	
 	
 	

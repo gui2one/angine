@@ -406,6 +406,33 @@ home/pi/projects/angine/src/mesh.cpp.s:
 	$(MAKE) -f CMakeFiles/angine.dir/build.make CMakeFiles/angine.dir/home/pi/projects/angine/src/mesh.cpp.s
 .PHONY : home/pi/projects/angine/src/mesh.cpp.s
 
+home/pi/projects/angine/src/mesh_filters/compute_normals_mesh_filter.o: home/pi/projects/angine/src/mesh_filters/compute_normals_mesh_filter.cpp.o
+
+.PHONY : home/pi/projects/angine/src/mesh_filters/compute_normals_mesh_filter.o
+
+# target to build an object file
+home/pi/projects/angine/src/mesh_filters/compute_normals_mesh_filter.cpp.o:
+	$(MAKE) -f CMakeFiles/angine.dir/build.make CMakeFiles/angine.dir/home/pi/projects/angine/src/mesh_filters/compute_normals_mesh_filter.cpp.o
+.PHONY : home/pi/projects/angine/src/mesh_filters/compute_normals_mesh_filter.cpp.o
+
+home/pi/projects/angine/src/mesh_filters/compute_normals_mesh_filter.i: home/pi/projects/angine/src/mesh_filters/compute_normals_mesh_filter.cpp.i
+
+.PHONY : home/pi/projects/angine/src/mesh_filters/compute_normals_mesh_filter.i
+
+# target to preprocess a source file
+home/pi/projects/angine/src/mesh_filters/compute_normals_mesh_filter.cpp.i:
+	$(MAKE) -f CMakeFiles/angine.dir/build.make CMakeFiles/angine.dir/home/pi/projects/angine/src/mesh_filters/compute_normals_mesh_filter.cpp.i
+.PHONY : home/pi/projects/angine/src/mesh_filters/compute_normals_mesh_filter.cpp.i
+
+home/pi/projects/angine/src/mesh_filters/compute_normals_mesh_filter.s: home/pi/projects/angine/src/mesh_filters/compute_normals_mesh_filter.cpp.s
+
+.PHONY : home/pi/projects/angine/src/mesh_filters/compute_normals_mesh_filter.s
+
+# target to generate assembly for a file
+home/pi/projects/angine/src/mesh_filters/compute_normals_mesh_filter.cpp.s:
+	$(MAKE) -f CMakeFiles/angine.dir/build.make CMakeFiles/angine.dir/home/pi/projects/angine/src/mesh_filters/compute_normals_mesh_filter.cpp.s
+.PHONY : home/pi/projects/angine/src/mesh_filters/compute_normals_mesh_filter.cpp.s
+
 home/pi/projects/angine/src/mesh_filters/inflate_mesh_filter.o: home/pi/projects/angine/src/mesh_filters/inflate_mesh_filter.cpp.o
 
 .PHONY : home/pi/projects/angine/src/mesh_filters/inflate_mesh_filter.o
@@ -959,6 +986,9 @@ help:
 	@echo "... home/pi/projects/angine/src/mesh.o"
 	@echo "... home/pi/projects/angine/src/mesh.i"
 	@echo "... home/pi/projects/angine/src/mesh.s"
+	@echo "... home/pi/projects/angine/src/mesh_filters/compute_normals_mesh_filter.o"
+	@echo "... home/pi/projects/angine/src/mesh_filters/compute_normals_mesh_filter.i"
+	@echo "... home/pi/projects/angine/src/mesh_filters/compute_normals_mesh_filter.s"
 	@echo "... home/pi/projects/angine/src/mesh_filters/inflate_mesh_filter.o"
 	@echo "... home/pi/projects/angine/src/mesh_filters/inflate_mesh_filter.i"
 	@echo "... home/pi/projects/angine/src/mesh_filters/inflate_mesh_filter.s"
