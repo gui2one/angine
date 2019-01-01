@@ -14,6 +14,8 @@ class GridMesh : public MeshGenerator
 			Mesh mesh;
 			mesh = generateGrid(paramsInt[0].value, paramsInt[1].value, paramsFloat[0].value, paramsFloat[1].value );
 			
+			mesh_cache = mesh;
+			
 			return mesh;
 		};
 		Mesh generateGrid(int rows, int cols=2, float width= 1.0, float length = 1.0);

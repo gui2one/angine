@@ -409,6 +409,15 @@ void Object::drawPoints(){
 
 Object::~Object()
 {
-		
+	for (int i = 0; i < meshFilters.size(); i++)
+	{
+		delete meshFilters[i];
+	}
+	//~ delete mesh_generator;
+	
+	glDeleteBuffers(1, &m_vbo);
+	glDeleteBuffers(1, &m_ibo);
+	glDeleteBuffers(1, &m_normals_vbo);
+	glDeleteBuffers(1, &m_bbox_vbo);
 	std::cout << "--- Object DELETED  --- \n";
 }

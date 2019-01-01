@@ -406,6 +406,114 @@ home/pi/projects/angine/src/mesh.cpp.s:
 	$(MAKE) -f CMakeFiles/angine.dir/build.make CMakeFiles/angine.dir/home/pi/projects/angine/src/mesh.cpp.s
 .PHONY : home/pi/projects/angine/src/mesh.cpp.s
 
+home/pi/projects/angine/src/mesh_filters/inflate_mesh_filter.o: home/pi/projects/angine/src/mesh_filters/inflate_mesh_filter.cpp.o
+
+.PHONY : home/pi/projects/angine/src/mesh_filters/inflate_mesh_filter.o
+
+# target to build an object file
+home/pi/projects/angine/src/mesh_filters/inflate_mesh_filter.cpp.o:
+	$(MAKE) -f CMakeFiles/angine.dir/build.make CMakeFiles/angine.dir/home/pi/projects/angine/src/mesh_filters/inflate_mesh_filter.cpp.o
+.PHONY : home/pi/projects/angine/src/mesh_filters/inflate_mesh_filter.cpp.o
+
+home/pi/projects/angine/src/mesh_filters/inflate_mesh_filter.i: home/pi/projects/angine/src/mesh_filters/inflate_mesh_filter.cpp.i
+
+.PHONY : home/pi/projects/angine/src/mesh_filters/inflate_mesh_filter.i
+
+# target to preprocess a source file
+home/pi/projects/angine/src/mesh_filters/inflate_mesh_filter.cpp.i:
+	$(MAKE) -f CMakeFiles/angine.dir/build.make CMakeFiles/angine.dir/home/pi/projects/angine/src/mesh_filters/inflate_mesh_filter.cpp.i
+.PHONY : home/pi/projects/angine/src/mesh_filters/inflate_mesh_filter.cpp.i
+
+home/pi/projects/angine/src/mesh_filters/inflate_mesh_filter.s: home/pi/projects/angine/src/mesh_filters/inflate_mesh_filter.cpp.s
+
+.PHONY : home/pi/projects/angine/src/mesh_filters/inflate_mesh_filter.s
+
+# target to generate assembly for a file
+home/pi/projects/angine/src/mesh_filters/inflate_mesh_filter.cpp.s:
+	$(MAKE) -f CMakeFiles/angine.dir/build.make CMakeFiles/angine.dir/home/pi/projects/angine/src/mesh_filters/inflate_mesh_filter.cpp.s
+.PHONY : home/pi/projects/angine/src/mesh_filters/inflate_mesh_filter.cpp.s
+
+home/pi/projects/angine/src/mesh_filters/mesh_filter.o: home/pi/projects/angine/src/mesh_filters/mesh_filter.cpp.o
+
+.PHONY : home/pi/projects/angine/src/mesh_filters/mesh_filter.o
+
+# target to build an object file
+home/pi/projects/angine/src/mesh_filters/mesh_filter.cpp.o:
+	$(MAKE) -f CMakeFiles/angine.dir/build.make CMakeFiles/angine.dir/home/pi/projects/angine/src/mesh_filters/mesh_filter.cpp.o
+.PHONY : home/pi/projects/angine/src/mesh_filters/mesh_filter.cpp.o
+
+home/pi/projects/angine/src/mesh_filters/mesh_filter.i: home/pi/projects/angine/src/mesh_filters/mesh_filter.cpp.i
+
+.PHONY : home/pi/projects/angine/src/mesh_filters/mesh_filter.i
+
+# target to preprocess a source file
+home/pi/projects/angine/src/mesh_filters/mesh_filter.cpp.i:
+	$(MAKE) -f CMakeFiles/angine.dir/build.make CMakeFiles/angine.dir/home/pi/projects/angine/src/mesh_filters/mesh_filter.cpp.i
+.PHONY : home/pi/projects/angine/src/mesh_filters/mesh_filter.cpp.i
+
+home/pi/projects/angine/src/mesh_filters/mesh_filter.s: home/pi/projects/angine/src/mesh_filters/mesh_filter.cpp.s
+
+.PHONY : home/pi/projects/angine/src/mesh_filters/mesh_filter.s
+
+# target to generate assembly for a file
+home/pi/projects/angine/src/mesh_filters/mesh_filter.cpp.s:
+	$(MAKE) -f CMakeFiles/angine.dir/build.make CMakeFiles/angine.dir/home/pi/projects/angine/src/mesh_filters/mesh_filter.cpp.s
+.PHONY : home/pi/projects/angine/src/mesh_filters/mesh_filter.cpp.s
+
+home/pi/projects/angine/src/mesh_filters/transform_mesh_filter.o: home/pi/projects/angine/src/mesh_filters/transform_mesh_filter.cpp.o
+
+.PHONY : home/pi/projects/angine/src/mesh_filters/transform_mesh_filter.o
+
+# target to build an object file
+home/pi/projects/angine/src/mesh_filters/transform_mesh_filter.cpp.o:
+	$(MAKE) -f CMakeFiles/angine.dir/build.make CMakeFiles/angine.dir/home/pi/projects/angine/src/mesh_filters/transform_mesh_filter.cpp.o
+.PHONY : home/pi/projects/angine/src/mesh_filters/transform_mesh_filter.cpp.o
+
+home/pi/projects/angine/src/mesh_filters/transform_mesh_filter.i: home/pi/projects/angine/src/mesh_filters/transform_mesh_filter.cpp.i
+
+.PHONY : home/pi/projects/angine/src/mesh_filters/transform_mesh_filter.i
+
+# target to preprocess a source file
+home/pi/projects/angine/src/mesh_filters/transform_mesh_filter.cpp.i:
+	$(MAKE) -f CMakeFiles/angine.dir/build.make CMakeFiles/angine.dir/home/pi/projects/angine/src/mesh_filters/transform_mesh_filter.cpp.i
+.PHONY : home/pi/projects/angine/src/mesh_filters/transform_mesh_filter.cpp.i
+
+home/pi/projects/angine/src/mesh_filters/transform_mesh_filter.s: home/pi/projects/angine/src/mesh_filters/transform_mesh_filter.cpp.s
+
+.PHONY : home/pi/projects/angine/src/mesh_filters/transform_mesh_filter.s
+
+# target to generate assembly for a file
+home/pi/projects/angine/src/mesh_filters/transform_mesh_filter.cpp.s:
+	$(MAKE) -f CMakeFiles/angine.dir/build.make CMakeFiles/angine.dir/home/pi/projects/angine/src/mesh_filters/transform_mesh_filter.cpp.s
+.PHONY : home/pi/projects/angine/src/mesh_filters/transform_mesh_filter.cpp.s
+
+home/pi/projects/angine/src/mesh_filters/twist_mesh_filter.o: home/pi/projects/angine/src/mesh_filters/twist_mesh_filter.cpp.o
+
+.PHONY : home/pi/projects/angine/src/mesh_filters/twist_mesh_filter.o
+
+# target to build an object file
+home/pi/projects/angine/src/mesh_filters/twist_mesh_filter.cpp.o:
+	$(MAKE) -f CMakeFiles/angine.dir/build.make CMakeFiles/angine.dir/home/pi/projects/angine/src/mesh_filters/twist_mesh_filter.cpp.o
+.PHONY : home/pi/projects/angine/src/mesh_filters/twist_mesh_filter.cpp.o
+
+home/pi/projects/angine/src/mesh_filters/twist_mesh_filter.i: home/pi/projects/angine/src/mesh_filters/twist_mesh_filter.cpp.i
+
+.PHONY : home/pi/projects/angine/src/mesh_filters/twist_mesh_filter.i
+
+# target to preprocess a source file
+home/pi/projects/angine/src/mesh_filters/twist_mesh_filter.cpp.i:
+	$(MAKE) -f CMakeFiles/angine.dir/build.make CMakeFiles/angine.dir/home/pi/projects/angine/src/mesh_filters/twist_mesh_filter.cpp.i
+.PHONY : home/pi/projects/angine/src/mesh_filters/twist_mesh_filter.cpp.i
+
+home/pi/projects/angine/src/mesh_filters/twist_mesh_filter.s: home/pi/projects/angine/src/mesh_filters/twist_mesh_filter.cpp.s
+
+.PHONY : home/pi/projects/angine/src/mesh_filters/twist_mesh_filter.s
+
+# target to generate assembly for a file
+home/pi/projects/angine/src/mesh_filters/twist_mesh_filter.cpp.s:
+	$(MAKE) -f CMakeFiles/angine.dir/build.make CMakeFiles/angine.dir/home/pi/projects/angine/src/mesh_filters/twist_mesh_filter.cpp.s
+.PHONY : home/pi/projects/angine/src/mesh_filters/twist_mesh_filter.cpp.s
+
 home/pi/projects/angine/src/object.o: home/pi/projects/angine/src/object.cpp.o
 
 .PHONY : home/pi/projects/angine/src/object.o
@@ -432,6 +540,60 @@ home/pi/projects/angine/src/object.s: home/pi/projects/angine/src/object.cpp.s
 home/pi/projects/angine/src/object.cpp.s:
 	$(MAKE) -f CMakeFiles/angine.dir/build.make CMakeFiles/angine.dir/home/pi/projects/angine/src/object.cpp.s
 .PHONY : home/pi/projects/angine/src/object.cpp.s
+
+home/pi/projects/angine/src/param.o: home/pi/projects/angine/src/param.cpp.o
+
+.PHONY : home/pi/projects/angine/src/param.o
+
+# target to build an object file
+home/pi/projects/angine/src/param.cpp.o:
+	$(MAKE) -f CMakeFiles/angine.dir/build.make CMakeFiles/angine.dir/home/pi/projects/angine/src/param.cpp.o
+.PHONY : home/pi/projects/angine/src/param.cpp.o
+
+home/pi/projects/angine/src/param.i: home/pi/projects/angine/src/param.cpp.i
+
+.PHONY : home/pi/projects/angine/src/param.i
+
+# target to preprocess a source file
+home/pi/projects/angine/src/param.cpp.i:
+	$(MAKE) -f CMakeFiles/angine.dir/build.make CMakeFiles/angine.dir/home/pi/projects/angine/src/param.cpp.i
+.PHONY : home/pi/projects/angine/src/param.cpp.i
+
+home/pi/projects/angine/src/param.s: home/pi/projects/angine/src/param.cpp.s
+
+.PHONY : home/pi/projects/angine/src/param.s
+
+# target to generate assembly for a file
+home/pi/projects/angine/src/param.cpp.s:
+	$(MAKE) -f CMakeFiles/angine.dir/build.make CMakeFiles/angine.dir/home/pi/projects/angine/src/param.cpp.s
+.PHONY : home/pi/projects/angine/src/param.cpp.s
+
+home/pi/projects/angine/src/param_layout.o: home/pi/projects/angine/src/param_layout.cpp.o
+
+.PHONY : home/pi/projects/angine/src/param_layout.o
+
+# target to build an object file
+home/pi/projects/angine/src/param_layout.cpp.o:
+	$(MAKE) -f CMakeFiles/angine.dir/build.make CMakeFiles/angine.dir/home/pi/projects/angine/src/param_layout.cpp.o
+.PHONY : home/pi/projects/angine/src/param_layout.cpp.o
+
+home/pi/projects/angine/src/param_layout.i: home/pi/projects/angine/src/param_layout.cpp.i
+
+.PHONY : home/pi/projects/angine/src/param_layout.i
+
+# target to preprocess a source file
+home/pi/projects/angine/src/param_layout.cpp.i:
+	$(MAKE) -f CMakeFiles/angine.dir/build.make CMakeFiles/angine.dir/home/pi/projects/angine/src/param_layout.cpp.i
+.PHONY : home/pi/projects/angine/src/param_layout.cpp.i
+
+home/pi/projects/angine/src/param_layout.s: home/pi/projects/angine/src/param_layout.cpp.s
+
+.PHONY : home/pi/projects/angine/src/param_layout.s
+
+# target to generate assembly for a file
+home/pi/projects/angine/src/param_layout.cpp.s:
+	$(MAKE) -f CMakeFiles/angine.dir/build.make CMakeFiles/angine.dir/home/pi/projects/angine/src/param_layout.cpp.s
+.PHONY : home/pi/projects/angine/src/param_layout.cpp.s
 
 home/pi/projects/angine/src/pch.o: home/pi/projects/angine/src/pch.cpp.o
 
@@ -797,9 +959,27 @@ help:
 	@echo "... home/pi/projects/angine/src/mesh.o"
 	@echo "... home/pi/projects/angine/src/mesh.i"
 	@echo "... home/pi/projects/angine/src/mesh.s"
+	@echo "... home/pi/projects/angine/src/mesh_filters/inflate_mesh_filter.o"
+	@echo "... home/pi/projects/angine/src/mesh_filters/inflate_mesh_filter.i"
+	@echo "... home/pi/projects/angine/src/mesh_filters/inflate_mesh_filter.s"
+	@echo "... home/pi/projects/angine/src/mesh_filters/mesh_filter.o"
+	@echo "... home/pi/projects/angine/src/mesh_filters/mesh_filter.i"
+	@echo "... home/pi/projects/angine/src/mesh_filters/mesh_filter.s"
+	@echo "... home/pi/projects/angine/src/mesh_filters/transform_mesh_filter.o"
+	@echo "... home/pi/projects/angine/src/mesh_filters/transform_mesh_filter.i"
+	@echo "... home/pi/projects/angine/src/mesh_filters/transform_mesh_filter.s"
+	@echo "... home/pi/projects/angine/src/mesh_filters/twist_mesh_filter.o"
+	@echo "... home/pi/projects/angine/src/mesh_filters/twist_mesh_filter.i"
+	@echo "... home/pi/projects/angine/src/mesh_filters/twist_mesh_filter.s"
 	@echo "... home/pi/projects/angine/src/object.o"
 	@echo "... home/pi/projects/angine/src/object.i"
 	@echo "... home/pi/projects/angine/src/object.s"
+	@echo "... home/pi/projects/angine/src/param.o"
+	@echo "... home/pi/projects/angine/src/param.i"
+	@echo "... home/pi/projects/angine/src/param.s"
+	@echo "... home/pi/projects/angine/src/param_layout.o"
+	@echo "... home/pi/projects/angine/src/param_layout.i"
+	@echo "... home/pi/projects/angine/src/param_layout.s"
 	@echo "... home/pi/projects/angine/src/pch.o"
 	@echo "... home/pi/projects/angine/src/pch.i"
 	@echo "... home/pi/projects/angine/src/pch.s"

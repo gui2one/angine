@@ -18,7 +18,11 @@ link_directories(../src/libs/)
 
 add_executable(angine
 	../src/main.cpp
+	../src/application.cpp
 	../src/window.cpp
+	
+	../src/param_layout.cpp
+	../src/param.cpp
 	
 	../src/vendor/imgui/imgui_impl_opengl3.cpp
 	../src/vendor/imgui/imgui_impl_glfw.cpp
@@ -30,16 +34,8 @@ add_executable(angine
 	
 	../src/vendor/stb_image.cpp
 
+
 	
-	#~ ../src/UI/ui_base.cpp
-	#~ 
-	#~ ../src/UI/ui_container.cpp
-	#~ ../src/UI/ui_base_item.cpp
-	#~ ../src/UI/ui_button.cpp
-	#~ 
-	#~ ../src/UI/bitmap_string.cpp
-	
-	../src/application.cpp
 	
 	../src/camera.cpp
 	../src/shader.cpp
@@ -55,6 +51,11 @@ add_executable(angine
 	../src/generators/file_mesh.cpp
 	../src/generators/spheremesh.cpp
 	../src/generators/geosphere_mesh.cpp
+	
+	../src/mesh_filters/mesh_filter.cpp
+	../src/mesh_filters/transform_mesh_filter.cpp
+	../src/mesh_filters/inflate_mesh_filter.cpp
+	../src/mesh_filters/twist_mesh_filter.cpp
 	
 )
 

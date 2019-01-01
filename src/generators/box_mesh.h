@@ -18,7 +18,7 @@ class BoxMesh : public MeshGenerator
 		inline Mesh generate() override{
 			Mesh mesh;
 			mesh = generateBox( 
-								paramsFloat[0].value , 
+								paramsFloat[0].value, 
 								paramsFloat[1].value, 
 								paramsFloat[2].value,
 								
@@ -28,6 +28,7 @@ class BoxMesh : public MeshGenerator
 								
 								);
 			
+			mesh_cache = mesh;
 			return mesh;
 		};
 		Mesh generateBox(float width = 1.0, float height = 1.0, float length = 1.0, int segs_width = 2, int segs_height = 2, int segs_length = 2);

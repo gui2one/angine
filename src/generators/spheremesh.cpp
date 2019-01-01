@@ -3,12 +3,12 @@
 #define PI 3.14159265359
 SphereMesh::SphereMesh()
 {
-	Param<int> param1{"cols", 42};
+	Param<int> param1{"cols", 15};
 	paramsInt.push_back(param1);	
 
 	//~ param_cols = param1.value;
 	
-	Param<int> param2{"rows", 12};
+	Param<int> param2{"rows", 20};
 	paramsInt.push_back(param2);	
 	
 	//~ param_rows = param2.value;

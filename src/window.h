@@ -7,6 +7,9 @@
 #include "shader.h"
 #include "camera.h"
 #include "generators/mesh_generator.h"
+#include "mesh_filters/mesh_filter.h"
+
+//~ #include <unistd.h>
 
 #define IMGUI_IMPL_OPENGL_LOADER_GLEW
 #include "imgui.h"
@@ -38,12 +41,13 @@ class Window
 		GLuint PROJECTIONLoc, MODEL_LOC;
 		
 		
-		int explorer();
+		int explorerDialog();
 		std::string current_explorer_path = "/";
 		
-		void addPropertiesDialog();
-		void addObjectListDialog();
+		void objectPropertiesDialog();
+		void objectListDialog();
 		int cur_object_selected = 0;
+		int cur_mesh_filter_selected = 0;
 	private:
 		
 		
