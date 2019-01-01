@@ -106,9 +106,7 @@ static TRI_PLANE make_plane(int rows, int cols)
 
 Mesh BoxMesh::generateBox(float width, float height, float length, int segs_width, int segs_height, int segs_length)
 {
-	//~ int rows = 4;
-	//~ int cols = 4;
-	//~ 
+
 	if(segs_width < 2 ) 
 		segs_width = 2;
 	if(segs_height < 2 ) 

@@ -728,7 +728,7 @@ void Window::refresh(){
 
 	ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
 	//swap buffers
-	usleep(1);
+	//~ usleep(1);
 	glfwSwapBuffers(win);
 	
 	glfwPollEvents();
