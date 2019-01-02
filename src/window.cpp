@@ -6,7 +6,7 @@
 
 #include <array>
 
-// for explorer
+// for explorerDialog
 #include <dirent.h>
 #include <linux/limits.h>
 #include <unistd.h>
@@ -14,7 +14,7 @@
 #include <algorithm>
 ////
 
-std::vector<std::string> split(const std::string& str, std::string delimiter = " "){
+static std::vector<std::string> split(const std::string& str, std::string delimiter = " "){
 	
 	std::vector<std::string> tokens;
 	std::string tmp = str;
@@ -264,9 +264,15 @@ void Window::objectListDialog()
 	if(ImGui::Button("Add Object"))
 	{
 		Object* obj = new Object();
-		//~ obj->setRenderMode(GL_POINTS);
+		
 		obj->init();
+		
 		addObject(obj);
+		//~ cur_object_selected = objects.size();
+		obj->setGenerator<BoxMesh>();
+		obj->generator_type = 3;
+		obj->mesh_generator->need_update = true;
+		
 		//~ objects.push_back(obj);
 	}
 	
