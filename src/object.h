@@ -15,11 +15,13 @@
 #include "generators/box_mesh.h"
 #include "generators/file_mesh.h"
 #include "generators/geosphere_mesh.h"
+#include "generators/cylinder_mesh.h"
 
 #include "mesh_filters/transform_mesh_filter.h"
 #include "mesh_filters/inflate_mesh_filter.h"
 #include "mesh_filters/twist_mesh_filter.h"
 #include "mesh_filters/compute_normals_mesh_filter.h"
+#include "mesh_filters/spherify_mesh_filter.h"
 
 #include <typeinfo>
 
@@ -54,6 +56,8 @@ class Object{
 		
 		inline void setRenderMode(GLuint mode){ renderMode = mode;}
 		inline GLuint getRenderMode(){ return renderMode;}
+		
+		bool bDisplayPolygons = true;
 		void draw(GLuint mode=GL_TRIANGLES);
 		
 		void drawBoundingBox();

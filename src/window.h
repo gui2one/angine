@@ -5,6 +5,7 @@
 
 #include "object.h"
 #include "shader.h"
+#include "texture.h"
 #include "camera.h"
 #include "generators/mesh_generator.h"
 #include "mesh_filters/mesh_filter.h"
@@ -25,6 +26,8 @@ class Window
 		
 		GLFWwindow * win;
 		Camera camera;
+		
+		
 		
 		int width, height;
 		bool shouldClose();

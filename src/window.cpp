@@ -45,12 +45,9 @@ static std::vector<std::string> split(const std::string& str, std::string delimi
 Window::Window()
 {
 	
-	
-	
 	if(!glfwInit()){
 		std::cout<<"Problem with GLFW\n";
-		glfwTerminate();
-		
+		glfwTerminate();		
 	}
 
 	std::cout<<"initializing GLFW\n";
@@ -59,8 +56,7 @@ Window::Window()
 
 	if(!win){
 		std::cout << "Problem with window\n";
-		glfwTerminate();
-		
+		glfwTerminate();		
 	}
 	
 		
@@ -87,12 +83,30 @@ Window::Window()
 	ImGui::CreateContext();
 	ImGuiIO& io = ImGui::GetIO(); (void)io;
 	
+
+	
+	//~ io.Fonts->Build();
+	
+	
 	const char* glsl_version = "#version 130";
 
 	ImGui_ImplGlfw_InitForOpenGL(win, true);
 	ImGui_ImplOpenGL3_Init(glsl_version);
 	
+
 	
+
+
+	// default first object
+	Object* obj = new Object();
+	
+	obj->init();
+	obj->setGenerator<CylinderMesh>();
+	obj->generator_type = 3;
+	obj->mesh_generator->need_update = true;
+	
+	addObject(obj);
+
 
 
 }
@@ -266,14 +280,13 @@ void Window::objectListDialog()
 		Object* obj = new Object();
 		
 		obj->init();
-		
-		addObject(obj);
-		//~ cur_object_selected = objects.size();
 		obj->setGenerator<BoxMesh>();
 		obj->generator_type = 3;
 		obj->mesh_generator->need_update = true;
 		
-		//~ objects.push_back(obj);
+		addObject(obj);
+		
+		cur_object_selected = objects.size()-1;
 	}
 	
 	if(ImGui::Button("Delete Object"))
@@ -302,301 +315,354 @@ void Window::objectPropertiesDialog()
 		sprintf(text, "object %d", cur_object_selected);
 		Object* curObj = objects[cur_object_selected];
 		
-		if (ImGui::CollapsingHeader("Options"))
-		{	
-			if( ImGui::InputText("name :" , curObj->name,IM_ARRAYSIZE(curObj->name)))
-			{
-				std::cout << "edited name\n";
-			} 
-			sprintf(text, "btn", cur_object_selected);
-			if(ImGui::Button(text))
-			{
-				std::cout << "btn test\n";
-			}
-			sprintf(text, "Display Bbox", cur_object_selected);
-			ImGui::CheckboxFlags(text, (unsigned int*)&objects[cur_object_selected]->bDisplayBoundingBox, 1);
-			
-			
-			ImGui::CheckboxFlags("Display Points", (unsigned int*)&objects[cur_object_selected]->bDisplayPoints, 1);
-			ImGui::CheckboxFlags("Display Wireframe", (unsigned int*)&objects[cur_object_selected]->bDisplayWireframe, 1);
-			ImGui::CheckboxFlags("Display Normals", (unsigned int*)&objects[cur_object_selected]->bDisplayNormals, 1);
-		}
+		// current object name
+		if( ImGui::InputText(":name" , curObj->name,IM_ARRAYSIZE(curObj->name)))
+		{
+			std::cout << "edited name\n";
+		} 		
+
 		
 		ImGui::Columns(1);
-		if( ImGui::BeginTabBar("main_tabs"))
-		{			
-			if( ImGui::BeginTabItem("Transform"))
-			{
-				ImGui::LabelText("", "Position");
-				ImGui::Columns(3,"columns");
-				ImGui::DragFloat(":tx", &objects[cur_object_selected]->position.x);
-				ImGui::NextColumn();
-				ImGui::DragFloat(":ty", &objects[cur_object_selected]->position.y);
-				ImGui::NextColumn();
-				ImGui::DragFloat(":tz", &objects[cur_object_selected]->position.z);
-				
-				ImGui::Separator();
-				
-				ImGui::Columns(1);			
-				ImGui::LabelText("", "Rotation");
-				ImGui::Columns(3,"columns");
-				ImGui::DragFloat(":rx", &objects[cur_object_selected]->rotation.x);
-				ImGui::NextColumn();
-				ImGui::DragFloat(":ry", &objects[cur_object_selected]->rotation.y);
-				ImGui::NextColumn();
-				ImGui::DragFloat(":rz", &objects[cur_object_selected]->rotation.z);
-				
-				ImGui::Separator();		
-				
-				ImGui::Columns(1);			
-				ImGui::LabelText("", "Scale");
-				ImGui::Columns(3,"columns");
-				ImGui::DragFloat(":sx", &objects[cur_object_selected]->scale.x);
-				ImGui::NextColumn();
-				ImGui::DragFloat(":sy", &objects[cur_object_selected]->scale.y);
-				ImGui::NextColumn();
-				ImGui::DragFloat(":sz", &objects[cur_object_selected]->scale.z);
-				
-				ImGui::Separator();	
-				ImGui::EndTabItem();
-			}
-			
-			ImGui::Columns(1);
-			if( ImGui::BeginTabItem("Mesh"))
-			{				
-				if(ImGui::BeginTabBar("mesh_tabs"))
+		
+		if( ImGui::CollapsingHeader("Main Properties"))
+		{
+		
+		
+			if( ImGui::BeginTabBar("main_tabs"))
+			{			
+				if( ImGui::BeginTabItem("Transform"))
 				{
-					if( ImGui::BeginTabItem("Generator"))
-					{		
-						static bool need_update = false;
-						
-						static int choice = 0;						
-						
-						const char* items[] = {"Make a choice ","Sphere Mesh", "Geo Sphere Mesh",  "Grid Mesh", "Box Mesh", "File Mesh"};
-						
-						static int combo_current_item = 0;
-						
-						if(curObj->has_generator){
-							combo_current_item = curObj->generator_type;
-						}else{
-							combo_current_item = choice;
-						}
-						
-						const int items_length = 6;
-						
-						if(ImGui::BeginCombo("Generators",items[combo_current_item],0))
-						{
-							for (int i = 1; i < items_length; i++)
-							{
-								if(ImGui::Selectable(items[i], choice == i))
-								{								
-									choice = i;
-									curObj->generator_type = choice;
-								}
-							}
-							
-							ImGui::EndCombo();
-						}	
-							
-						if(ImGui::Button("set"))
-						{
-							if(choice == 1){
-								curObj->setGenerator<SphereMesh>();
-								curObj->mesh_generator->need_update = true;
-							}else if(choice == 2){
-								curObj->setGenerator<GeoSphereMesh>();
-								curObj->mesh_generator->need_update = true;
-							}else if(choice == 3){
-								curObj->setGenerator<GridMesh>();
-								curObj->mesh_generator->need_update = true;
-							}else if(choice == 4){
-								curObj->setGenerator<BoxMesh>();
-								curObj->mesh_generator->need_update = true;
-							}else if(choice == 5){
-								curObj->setGenerator<FileMesh>();
-								curObj->mesh_generator->need_update = true;					
-							}
-						}
-						
-						if(curObj->has_generator)
-						{
-							for (int i = 0; i < curObj->mesh_generator->paramsInt.size(); i++)
-							{
-								static int* test_int = &curObj->mesh_generator->paramsInt[i].value;
-								if(ImGui::DragInt(curObj->mesh_generator->paramsInt[i].name.c_str(), &curObj->mesh_generator->paramsInt[i].value ))
-								{
-									
-									curObj->mesh_generator->need_update = true;									
-								}
-							}
-							
-							for (int i = 0; i < curObj->mesh_generator->paramsFloat.size(); i++)
-							{
-								static float* test_int = &curObj->mesh_generator->paramsFloat[i].value;
-								if(ImGui::DragFloat(curObj->mesh_generator->paramsFloat[i].name.c_str(), &curObj->mesh_generator->paramsFloat[i].value ))
-								{
-																
-									curObj->mesh_generator->need_update = true;																	
-								}
-							}
-							
-							for (int i = 0; i < curObj->mesh_generator->paramsString.size(); i++)
-							{
-								//~ static std::string* test_int = &curObj->mesh_generator->paramsString[i].value;
-								if(ImGui::InputText(curObj->mesh_generator->paramsString[i].name.c_str(), (char*)curObj->mesh_generator->paramsString[i].value.c_str(),200))
-								{
-									
-									printf("%s\n", curObj->mesh_generator->paramsString[i].value.c_str());							
-									//~ need_update = true;									
-								}
-							}							
-							
-							for (int i = 0; i < curObj->mesh_generator->paramsAction.size(); i++)
-							{
-								
-								if(ImGui::Button(curObj->mesh_generator->paramsAction[i].name.c_str()))
-								{
-									curObj->mesh_generator->paramsAction[i].value();							
-									curObj->mesh_generator->need_update = true;																		
-								}
-							}								
-													//~ 
-							//~ if(curObj->mesh_generator->need_update){
-								//~ 
-									//~ 
-									//~ curObj->mesh = curObj->mesh_generator->generate();
-									//~ curObj->buildVbo();
-									//~ curObj->mesh_generator->need_update  = false;
-							//~ }
-						}
-						ImGui::EndTabItem();
-					}
+					ImGui::LabelText("", "Position");
+					ImGui::Columns(3,"columns");
+					ImGui::DragFloat(":tx", &objects[cur_object_selected]->position.x);
+					ImGui::NextColumn();
+					ImGui::DragFloat(":ty", &objects[cur_object_selected]->position.y);
+					ImGui::NextColumn();
+					ImGui::DragFloat(":tz", &objects[cur_object_selected]->position.z);
 					
-					if( ImGui::BeginTabItem("Filters"))
-					{	
-						
-						static int choice = 0;
-						std::vector<std::string> items = {"...", "Transform", "Inflate", "Twist", "Compute Normals"};
-						if(ImGui::BeginCombo("filters", items[choice].c_str(), 0))
-						{
-							for (int i = 1; i < items.size(); i++)
+					ImGui::Separator();
+					
+					ImGui::Columns(1);			
+					ImGui::LabelText("", "Rotation");
+					ImGui::Columns(3,"columns");
+					ImGui::DragFloat(":rx", &objects[cur_object_selected]->rotation.x);
+					ImGui::NextColumn();
+					ImGui::DragFloat(":ry", &objects[cur_object_selected]->rotation.y);
+					ImGui::NextColumn();
+					ImGui::DragFloat(":rz", &objects[cur_object_selected]->rotation.z);
+					
+					ImGui::Separator();		
+					
+					ImGui::Columns(1);			
+					ImGui::LabelText("", "Scale");
+					ImGui::Columns(3,"columns");
+					ImGui::DragFloat(":sx", &objects[cur_object_selected]->scale.x);
+					ImGui::NextColumn();
+					ImGui::DragFloat(":sy", &objects[cur_object_selected]->scale.y);
+					ImGui::NextColumn();
+					ImGui::DragFloat(":sz", &objects[cur_object_selected]->scale.z);
+					
+					ImGui::Separator();	
+					ImGui::EndTabItem();
+				}
+			
+				ImGui::Columns(1);
+				
+				if( ImGui::BeginTabItem("Mesh"))
+				{				
+					if(ImGui::BeginTabBar("mesh_tabs"))
+					{
+						if( ImGui::BeginTabItem("Generator"))
+						{		
+							static bool need_update = false;
+							
+							static int choice = 0;						
+							
+							const char* items[] = {"Make a choice ","Sphere Mesh", "Geo Sphere Mesh",  "Grid Mesh", "Box Mesh", "File Mesh", "Cylinder Mesh"};
+							
+							static int combo_current_item = 0;
+							
+							if(curObj->has_generator){
+								combo_current_item = curObj->generator_type;
+							}else{
+								combo_current_item = choice;
+							}
+							
+							const int items_length = 7;
+							
+							if(ImGui::BeginCombo("Generators",items[combo_current_item],0))
 							{
-								if(ImGui::Selectable(items[i].c_str(), true))
+								for (int i = 1; i < items_length; i++)
 								{
-									choice = i;								
-								}
-							}
-							
-							
-							
-							ImGui::EndCombo();
-						}
-						
-						if(ImGui::Button("add filter"))
-						{
-							if(choice == 1)
-							{
-								curObj->hasFilters = true;
-								curObj->setMeshFilter<TransformMeshFilter>();
-								//~ printf("filters num : %d\n", curObj->meshFilters.size());
-							}else if(choice == 2){
-								curObj->hasFilters = true;
-								curObj->setMeshFilter<InflateMeshFilter>();								
-							}else if(choice == 3){
-								curObj->hasFilters = true;
-								curObj->setMeshFilter<TwistMeshFilter>();								
-							}else if(choice == 4){
-								curObj->hasFilters = true;
-								curObj->setMeshFilter<ComputeNormalsMeshFilter>();								
-							}
-						}
-						
-						ImGui::Separator();
-						
-						if(ImGui::ListBoxHeader("", 5))
-						{
-							for (int i = 0; i < curObj->meshFilters.size(); i++)
-							{
-								char text[500];
-								sprintf(text, "filter %d", i);
-								if(ImGui::Selectable(text, cur_mesh_filter_selected == i))
-								{
-									//~ std::cout << "press item " << i << "\n";
-									cur_mesh_filter_selected = i;
-								}
-							}
-							
-							ImGui::ListBoxFooter();
-						}
-						
-						//// params layout 
-						
-						if(curObj->meshFilters.size() > 0)
-						{
-							if(ImGui::CheckboxFlags("is active", (unsigned int*)&curObj->meshFilters[cur_mesh_filter_selected]->is_active, 1))
-							{
-								//~ if(curObj->meshFilters[cur_mesh_filter_selected]->is_active)
-									curObj->meshFilters[cur_mesh_filter_selected]->need_update = true;
-									
-									// force follwing filters need_update also
-									for (int i = cur_mesh_filter_selected+1; i < curObj->meshFilters.size(); i++)
-									{
-										curObj->meshFilters[i]->need_update = true;
+									if(ImGui::Selectable(items[i], choice == i))
+									{								
+										choice = i;
+										curObj->generator_type = choice;
 									}
-									
+								}
+								
+								ImGui::EndCombo();
+							}	
+								
+							if(ImGui::Button("set"))
+							{
+								if(choice == 1){
+									curObj->setGenerator<SphereMesh>();
+									curObj->mesh_generator->need_update = true;
+								}else if(choice == 2){
+									curObj->setGenerator<GeoSphereMesh>();
+									curObj->mesh_generator->need_update = true;
+								}else if(choice == 3){
+									curObj->setGenerator<GridMesh>();
+									curObj->mesh_generator->need_update = true;
+								}else if(choice == 4){
+									curObj->setGenerator<BoxMesh>();
+									curObj->mesh_generator->need_update = true;
+								}else if(choice == 5){
+									curObj->setGenerator<FileMesh>();
+									curObj->mesh_generator->need_update = true;					
+								}else if(choice == 6){
+									curObj->setGenerator<CylinderMesh>();
+									curObj->mesh_generator->need_update = true;					
+								}
 							}
-							ImGui::SameLine();
 							
-							if(ImGui::Button("delete filter")){
-								printf("delete filter now\n");
-								delete curObj->meshFilters[cur_mesh_filter_selected];
-								curObj->meshFilters.erase(curObj->meshFilters.begin() + cur_mesh_filter_selected);
-								
-								
-								if(cur_mesh_filter_selected > 0)
-									cur_mesh_filter_selected -= 1;								
-									
-
-								// force folowing filters need_update also
-								for (int i = cur_mesh_filter_selected; i < curObj->meshFilters.size(); i++)
+							if(curObj->has_generator)
+							{
+								for (int i = 0; i < curObj->mesh_generator->paramsInt.size(); i++)
 								{
-									curObj->meshFilters[i]->need_update = true;
-								}									
+									static int* test_int = &curObj->mesh_generator->paramsInt[i].value;
+									if(ImGui::DragInt(curObj->mesh_generator->paramsInt[i].name.c_str(), &curObj->mesh_generator->paramsInt[i].value ))
+									{										
+										curObj->mesh_generator->need_update = true;									
+									}
+								}
+								
+								for (int i = 0; i < curObj->mesh_generator->paramsFloat.size(); i++)
+								{
+									static float* test_int = &curObj->mesh_generator->paramsFloat[i].value;
+									if(ImGui::DragFloat(curObj->mesh_generator->paramsFloat[i].name.c_str(), &curObj->mesh_generator->paramsFloat[i].value ))
+									{																	
+										curObj->mesh_generator->need_update = true;																	
+									}
+								}
+								
+								for (int i = 0; i < curObj->mesh_generator->paramsString.size(); i++)
+								{
 									
+									if(ImGui::InputText(curObj->mesh_generator->paramsString[i].name.c_str(), (char*)curObj->mesh_generator->paramsString[i].value.c_str(),200))
+									{
+										printf("%s\n", curObj->mesh_generator->paramsString[i].value.c_str());																
+									}
+								}							
+								
+								for (int i = 0; i < curObj->mesh_generator->paramsAction.size(); i++)
+								{
+									
+									if(ImGui::Button(curObj->mesh_generator->paramsAction[i].name.c_str()))
+									{
+										curObj->mesh_generator->paramsAction[i].value();							
+										curObj->mesh_generator->need_update = true;																		
+									}
+								}								
+
 							}
+							ImGui::EndTabItem();
+						}
+						
+						if( ImGui::BeginTabItem("Filters"))
+						{	
+							
+							static int choice = 0;
+							std::vector<std::string> items = {"...", "Transform", "Inflate", "Twist", "Compute Normals", "Spherify"};
+							if(ImGui::BeginCombo("filters", items[choice].c_str(), 0))
+							{
+								for (int i = 1; i < items.size(); i++)
+								{
+									if(ImGui::Selectable(items[i].c_str(), true))
+									{
+										choice = i;								
+									}
+								}
+								
+								ImGui::EndCombo();
+							}
+							
+							if(ImGui::Button("add filter"))
+							{
+								if(choice == 1)
+								{
+									curObj->hasFilters = true;
+									curObj->setMeshFilter<TransformMeshFilter>();
+									curObj->meshFilters[ curObj->meshFilters.size()-1]->setName("transform");								
+									
+								}else if(choice == 2){
+									curObj->hasFilters = true;
+									curObj->setMeshFilter<InflateMeshFilter>();								
+									curObj->meshFilters[ curObj->meshFilters.size()-1]->setName("inflate");
+									
+								}else if(choice == 3){
+									curObj->hasFilters = true;
+									curObj->setMeshFilter<TwistMeshFilter>();				
+									curObj->meshFilters[ curObj->meshFilters.size()-1]->setName("twist");
+									
+								}else if(choice == 4){
+									curObj->hasFilters = true;
+									curObj->setMeshFilter<ComputeNormalsMeshFilter>();		
+									curObj->meshFilters[ curObj->meshFilters.size()-1]->setName("compute_normals");
+									
+								}else if(choice == 5){
+									curObj->hasFilters = true;
+									curObj->setMeshFilter<SpherifyMeshFilter>();		
+									curObj->meshFilters[ curObj->meshFilters.size()-1]->setName("spherify");
+									
+								}
+								
+							}
+							
+							ImGui::Separator();
+							
+							if(ImGui::ListBoxHeader("", 5))
+							{
+								for (int i = 0; i < curObj->meshFilters.size(); i++)
+								{
+									if(ImGui::Selectable(curObj->meshFilters[i]->getName().c_str(), cur_mesh_filter_selected == i))
+									{
+										cur_mesh_filter_selected = i;
+									}
+								}
+								
+								ImGui::ListBoxFooter();
+							}
+							
+							//// params layout 
 							
 							if(curObj->meshFilters.size() > 0)
-							{		
-								if( ImGui::InputText("name", (char *)(curObj->meshFilters[cur_mesh_filter_selected]->getName().c_str()), 200)){
-									std::cout<< curObj->meshFilters[cur_mesh_filter_selected]->getName().c_str() << "\n";
-								}
-							}
-							
-							for (int i = 0; i < curObj->meshFilters[cur_mesh_filter_selected]->paramsFloat.size(); i++)
-							{		
-								if(ImGui::DragFloat(
-									curObj->meshFilters[cur_mesh_filter_selected]->paramsFloat[i].name.c_str(),
-									&curObj->meshFilters[cur_mesh_filter_selected]->paramsFloat[i].value ))
+							{
+								if(ImGui::CheckboxFlags("is active", (unsigned int*)&curObj->meshFilters[cur_mesh_filter_selected]->is_active, 1))
 								{
-									std::cout << curObj->meshFilters[cur_mesh_filter_selected]->paramsFloat[i].value << "\n";
-									curObj->meshFilters[cur_mesh_filter_selected]->need_update = true;
+									//~ if(curObj->meshFilters[cur_mesh_filter_selected]->is_active)
+										curObj->meshFilters[cur_mesh_filter_selected]->need_update = true;
+										
+										// force follwing filters need_update also
+										for (int i = cur_mesh_filter_selected+1; i < curObj->meshFilters.size(); i++)
+										{
+											curObj->meshFilters[i]->need_update = true;
+										}
+										
+								}
+								ImGui::SameLine();
+								
+								if(ImGui::Button("delete filter"))
+								{
+									printf("delete filter now\n");
+									delete curObj->meshFilters[cur_mesh_filter_selected];
+									curObj->meshFilters.erase(curObj->meshFilters.begin() + cur_mesh_filter_selected);
 									
-									// force follwing filters need_update also
-									for (int j = cur_mesh_filter_selected+1; j < curObj->meshFilters.size(); j++)
+									
+									if(cur_mesh_filter_selected > 0)
+										cur_mesh_filter_selected -= 1;								
+										
+									if( curObj->meshFilters.size() == 0){
+										curObj->mesh = curObj->mesh_generator->mesh_cache;
+									}
+									// force following filters need_update also
+									for (int i = cur_mesh_filter_selected; i < curObj->meshFilters.size(); i++)
 									{
-										curObj->meshFilters[j]->need_update = true;
+										curObj->meshFilters[i]->need_update = true;
 									}									
+										
 								}
 								
-							}	
-							
-							// vec3 params
-							for (int i = 0; i < curObj->meshFilters[cur_mesh_filter_selected]->paramsVec3.size(); i++)
-							{	
+								if(curObj->meshFilters.size() > 0)
+								{		
+									if( ImGui::InputText("name", (char *)(curObj->meshFilters[cur_mesh_filter_selected]->getName().c_str()), 200)){
+										std::cout<< curObj->meshFilters[cur_mesh_filter_selected]->getName().c_str() << "\n";
+									}
+								}
 								
-									ImGui::LabelText("", curObj->meshFilters[cur_mesh_filter_selected]->paramsVec3[i].name.c_str());
-									ImGui::Columns(3,"columns");
-									if(ImGui::DragFloat(":x", &curObj->meshFilters[cur_mesh_filter_selected]->paramsVec3[i].value.x)){
+								for (int i = 0; i < curObj->meshFilters[cur_mesh_filter_selected]->paramsFloat.size(); i++)
+								{		
+									if(ImGui::DragFloat(
+										curObj->meshFilters[cur_mesh_filter_selected]->paramsFloat[i].name.c_str(),
+										&curObj->meshFilters[cur_mesh_filter_selected]->paramsFloat[i].value ))
+									{
+										std::cout << curObj->meshFilters[cur_mesh_filter_selected]->paramsFloat[i].value << "\n";
+										curObj->meshFilters[cur_mesh_filter_selected]->need_update = true;
+										
+										// force follwing filters need_update also
+										for (int j = cur_mesh_filter_selected+1; j < curObj->meshFilters.size(); j++)
+										{
+											curObj->meshFilters[j]->need_update = true;
+										}									
+									}
+									
+								}	
+								
+								// vec3 params
+								for (int i = 0; i < curObj->meshFilters[cur_mesh_filter_selected]->paramsVec3.size(); i++)
+								{	
+									
+										ImGui::LabelText("", curObj->meshFilters[cur_mesh_filter_selected]->paramsVec3[i].name.c_str());
+										ImGui::Columns(3,"columns");
+										if(ImGui::DragFloat(":x", &curObj->meshFilters[cur_mesh_filter_selected]->paramsVec3[i].value.x)){
+											curObj->meshFilters[cur_mesh_filter_selected]->need_update = true;
+											
+											// force follwing filters need_update also
+											for (int j = cur_mesh_filter_selected+1; j < curObj->meshFilters.size(); j++)
+											{
+												curObj->meshFilters[j]->need_update = true;
+											}										
+										}
+										ImGui::NextColumn();
+										if(ImGui::DragFloat(":y", &curObj->meshFilters[cur_mesh_filter_selected]->paramsVec3[i].value.y)){
+											curObj->meshFilters[cur_mesh_filter_selected]->need_update = true;
+											
+											// force follwing filters need_update also
+											for (int j = cur_mesh_filter_selected+1; j < curObj->meshFilters.size(); j++)
+											{
+												curObj->meshFilters[j]->need_update = true;
+											}																				
+										}
+										ImGui::NextColumn();
+										if(ImGui::DragFloat(":z", &curObj->meshFilters[cur_mesh_filter_selected]->paramsVec3[i].value.z)){
+											curObj->meshFilters[cur_mesh_filter_selected]->need_update = true;
+											
+											// force follwing filters need_update also
+											for (int j = cur_mesh_filter_selected+1; j < curObj->meshFilters.size(); j++)
+											{
+												curObj->meshFilters[j]->need_update = true;
+											}																				
+										}
+										
+										ImGui::Separator();								
+										ImGui::Columns(1);	
+										
+									if(ImGui::DragFloat(
+										curObj->meshFilters[cur_mesh_filter_selected]->paramsVec3[i].name.c_str(),
+										&curObj->meshFilters[cur_mesh_filter_selected]->paramsVec3[i].value.x ))
+									{
+										std::cout << curObj->meshFilters[cur_mesh_filter_selected]->paramsVec3[i].value.x << "\n";
+										curObj->meshFilters[cur_mesh_filter_selected]->need_update = true;
+										
+										// force follwing filters need_update also
+										for (int j = cur_mesh_filter_selected+1; j < curObj->meshFilters.size(); j++)
+										{
+											curObj->meshFilters[j]->need_update = true;
+										}									
+									}
+									
+								}														
+								
+								for (int i = 0; i < curObj->meshFilters[cur_mesh_filter_selected]->paramsInt.size(); i++)
+								{
+									static bool need_update = false;
+									
+									if(ImGui::DragInt(
+										curObj->meshFilters[cur_mesh_filter_selected]->paramsInt[i].name.c_str(),
+										&curObj->meshFilters[cur_mesh_filter_selected]->paramsInt[i].value ))
+									{
+										std::cout << curObj->meshFilters[cur_mesh_filter_selected]->paramsInt[i].value << "\n";
 										curObj->meshFilters[cur_mesh_filter_selected]->need_update = true;
 										
 										// force follwing filters need_update also
@@ -605,85 +671,63 @@ void Window::objectPropertiesDialog()
 											curObj->meshFilters[j]->need_update = true;
 										}										
 									}
-									ImGui::NextColumn();
-									if(ImGui::DragFloat(":y", &curObj->meshFilters[cur_mesh_filter_selected]->paramsVec3[i].value.y)){
-										curObj->meshFilters[cur_mesh_filter_selected]->need_update = true;
-										
-										// force follwing filters need_update also
-										for (int j = cur_mesh_filter_selected+1; j < curObj->meshFilters.size(); j++)
-										{
-											curObj->meshFilters[j]->need_update = true;
-										}																				
-									}
-									ImGui::NextColumn();
-									if(ImGui::DragFloat(":z", &curObj->meshFilters[cur_mesh_filter_selected]->paramsVec3[i].value.z)){
-										curObj->meshFilters[cur_mesh_filter_selected]->need_update = true;
-										
-										// force follwing filters need_update also
-										for (int j = cur_mesh_filter_selected+1; j < curObj->meshFilters.size(); j++)
-										{
-											curObj->meshFilters[j]->need_update = true;
-										}																				
-									}
 									
-									ImGui::Separator();								
-									ImGui::Columns(1);	
-									
-								if(ImGui::DragFloat(
-									curObj->meshFilters[cur_mesh_filter_selected]->paramsVec3[i].name.c_str(),
-									&curObj->meshFilters[cur_mesh_filter_selected]->paramsVec3[i].value.x ))
-								{
-									std::cout << curObj->meshFilters[cur_mesh_filter_selected]->paramsVec3[i].value.x << "\n";
-									curObj->meshFilters[cur_mesh_filter_selected]->need_update = true;
-									
-									// force follwing filters need_update also
-									for (int j = cur_mesh_filter_selected+1; j < curObj->meshFilters.size(); j++)
-									{
-										curObj->meshFilters[j]->need_update = true;
-									}									
 								}
-								
-							}														
-							
-							for (int i = 0; i < curObj->meshFilters[cur_mesh_filter_selected]->paramsInt.size(); i++)
-							{
-								static bool need_update = false;
-								
-								if(ImGui::DragInt(
-									curObj->meshFilters[cur_mesh_filter_selected]->paramsInt[i].name.c_str(),
-									&curObj->meshFilters[cur_mesh_filter_selected]->paramsInt[i].value ))
+
+								for (int i = 0; i < curObj->meshFilters[cur_mesh_filter_selected]->paramsBool.size(); i++)
 								{
-									std::cout << curObj->meshFilters[cur_mesh_filter_selected]->paramsInt[i].value << "\n";
-									curObj->meshFilters[cur_mesh_filter_selected]->need_update = true;
 									
-									// force follwing filters need_update also
-									for (int j = cur_mesh_filter_selected+1; j < curObj->meshFilters.size(); j++)
+									if(ImGui::CheckboxFlags("Invert Normals", (unsigned int*)&curObj->meshFilters[cur_mesh_filter_selected]->paramsBool[i].value, 1))
 									{
-										curObj->meshFilters[j]->need_update = true;
-									}										
+										curObj->meshFilters[cur_mesh_filter_selected]->need_update = true;
+										
+										// force follwing filters need_update also
+										for (int j = cur_mesh_filter_selected+1; j < curObj->meshFilters.size(); j++)
+										{
+											curObj->meshFilters[j]->need_update = true;
+										}									
+									}
 								}
 								
 							}
-												
+							ImGui::EndTabItem();
 						}
-						ImGui::EndTabItem();
+						
+
+						ImGui::EndTabBar();
 					}
 					
-					if( ImGui::BeginTabItem("Materials")){
-						if( ImGui::Button("Reload Shader")){
-							printf("reloading shader now \n");
-							curObj->initShader();
-						}
-					}
-					ImGui::EndTabBar();
-				}
-				
-				ImGui::Separator();
-				ImGui::EndTabItem();
-			}		
+					ImGui::Separator();
+					ImGui::EndTabItem();
+					
+					
 			
-			ImGui::EndTabBar();
+				}		
+				
+				if( ImGui::BeginTabItem("Materials"))
+				{
+					if( ImGui::Button("Reload Shader"))
+					{
+						printf("reloading shader now \n");
+						curObj->initShader();
+					}
+					ImGui::EndTabItem();
+				}	
+					
+									
+				
+				ImGui::EndTabBar();
+			}
+		
 		}
+		if (ImGui::CollapsingHeader("Display Options"))
+		{	
+			ImGui::CheckboxFlags("Display Polygons", (unsigned int*)&objects[cur_object_selected]->bDisplayPolygons, 1);
+			ImGui::CheckboxFlags("Display Bbox", (unsigned int*)&objects[cur_object_selected]->bDisplayBoundingBox, 1);
+			ImGui::CheckboxFlags("Display Points", (unsigned int*)&objects[cur_object_selected]->bDisplayPoints, 1);
+			ImGui::CheckboxFlags("Display Wireframe", (unsigned int*)&objects[cur_object_selected]->bDisplayWireframe, 1);
+			ImGui::CheckboxFlags("Display Normals", (unsigned int*)&objects[cur_object_selected]->bDisplayNormals, 1);
+		}		
 			
 		ImGui::End();
 	}
@@ -692,19 +736,18 @@ void Window::objectPropertiesDialog()
 void Window::refresh(){
 	
 
-	bool show_demo_window = true;
+
 	ImGui_ImplOpenGL3_NewFrame();
 	ImGui_ImplGlfw_NewFrame();
 	ImGui::NewFrame();
-	
-	
-	
-	//~ ImGui::ShowDemoWindow(&show_demo_window);
 
-		//~ int ex = explorerDialog();
+	
+	
+	
+	//~ int ex = explorerDialog();
 		
-		objectListDialog();
-		objectPropertiesDialog();
+	objectListDialog();
+	objectPropertiesDialog();
 
 	
 	ImGui::Render();
@@ -734,12 +777,10 @@ void Window::refresh(){
 
 	ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
 	//swap buffers
-	//~ usleep(1);
+	
 	glfwSwapBuffers(win);
 	
 	glfwPollEvents();
-	
-	
 	
 	
 }
@@ -835,6 +876,11 @@ void Window::renderObjects(){
 			glUniformMatrix4fv(glGetUniformLocation(curObj->shader.m_id,"projection"), 1, GL_FALSE, glm::value_ptr(projection));	
 			glUniformMatrix4fv(glGetUniformLocation(curObj->shader.m_id,"model"), 1, GL_FALSE, glm::value_ptr(model));	
 			glUniformMatrix4fv(glGetUniformLocation(curObj->shader.m_id,"view"), 1, GL_FALSE, glm::value_ptr(view));	
+			
+			
+			
+			
+			
 									
 									
 			GLuint COLOR_LOC = glGetUniformLocation(curObj->shader.m_id,"u_color");
@@ -849,8 +895,11 @@ void Window::renderObjects(){
 
 			//~ glPointSize(5);
 			//~ glPolygonMode( GL_FRONT_AND_BACK, GL_LINE );
-			glPolygonMode( GL_FRONT_AND_BACK, GL_FILL );
-			curObj->draw(curObj->getRenderMode());
+			
+			if(curObj->bDisplayPolygons){			
+				glPolygonMode( GL_FRONT_AND_BACK, GL_FILL );
+				curObj->draw(curObj->getRenderMode());
+			}
 				
 			if(curObj->bDisplayWireframe){
 				curObj->lineShader.useProgram();
@@ -858,6 +907,7 @@ void Window::renderObjects(){
 				glUniformMatrix4fv(glGetUniformLocation(curObj->lineShader.m_id,"model"), 1, GL_FALSE, glm::value_ptr(model));	
 				glUniformMatrix4fv(glGetUniformLocation(curObj->lineShader.m_id,"view"), 1, GL_FALSE, glm::value_ptr(view));					
 
+				glUniform3f(glGetUniformLocation(curObj->lineShader.m_id,"u_camera_pos"), camera.position.x, camera.position.y, camera.position.z);	
 				COLOR_LOC = glGetUniformLocation(curObj->lineShader.m_id,"u_color");
 				glPointSize(5);
 				glUniform4f(COLOR_LOC, 0.0,0.0,1.0,1.0);

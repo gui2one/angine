@@ -51,12 +51,14 @@ add_executable(angine
 	../src/generators/file_mesh.cpp
 	../src/generators/spheremesh.cpp
 	../src/generators/geosphere_mesh.cpp
+	../src/generators/cylinder_mesh.cpp
 	
 	../src/mesh_filters/mesh_filter.cpp
 	../src/mesh_filters/transform_mesh_filter.cpp	
 	../src/mesh_filters/inflate_mesh_filter.cpp
 	../src/mesh_filters/twist_mesh_filter.cpp
 	../src/mesh_filters/compute_normals_mesh_filter.cpp
+	../src/mesh_filters/spherify_mesh_filter.cpp
 	
 )
 

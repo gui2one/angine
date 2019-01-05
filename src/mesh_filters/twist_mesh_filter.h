@@ -14,6 +14,7 @@ class TwistMeshFilter: public MeshFilter
 		Mesh applyFilter(Mesh & source_mesh) override;
 			
 	private:
+		
 		/* add your private declarations */
 };
 

@@ -217,6 +217,33 @@ home/pi/projects/angine/src/generators/box_mesh.cpp.s:
 	$(MAKE) -f CMakeFiles/angine.dir/build.make CMakeFiles/angine.dir/home/pi/projects/angine/src/generators/box_mesh.cpp.s
 .PHONY : home/pi/projects/angine/src/generators/box_mesh.cpp.s
 
+home/pi/projects/angine/src/generators/cylinder_mesh.o: home/pi/projects/angine/src/generators/cylinder_mesh.cpp.o
+
+.PHONY : home/pi/projects/angine/src/generators/cylinder_mesh.o
+
+# target to build an object file
+home/pi/projects/angine/src/generators/cylinder_mesh.cpp.o:
+	$(MAKE) -f CMakeFiles/angine.dir/build.make CMakeFiles/angine.dir/home/pi/projects/angine/src/generators/cylinder_mesh.cpp.o
+.PHONY : home/pi/projects/angine/src/generators/cylinder_mesh.cpp.o
+
+home/pi/projects/angine/src/generators/cylinder_mesh.i: home/pi/projects/angine/src/generators/cylinder_mesh.cpp.i
+
+.PHONY : home/pi/projects/angine/src/generators/cylinder_mesh.i
+
+# target to preprocess a source file
+home/pi/projects/angine/src/generators/cylinder_mesh.cpp.i:
+	$(MAKE) -f CMakeFiles/angine.dir/build.make CMakeFiles/angine.dir/home/pi/projects/angine/src/generators/cylinder_mesh.cpp.i
+.PHONY : home/pi/projects/angine/src/generators/cylinder_mesh.cpp.i
+
+home/pi/projects/angine/src/generators/cylinder_mesh.s: home/pi/projects/angine/src/generators/cylinder_mesh.cpp.s
+
+.PHONY : home/pi/projects/angine/src/generators/cylinder_mesh.s
+
+# target to generate assembly for a file
+home/pi/projects/angine/src/generators/cylinder_mesh.cpp.s:
+	$(MAKE) -f CMakeFiles/angine.dir/build.make CMakeFiles/angine.dir/home/pi/projects/angine/src/generators/cylinder_mesh.cpp.s
+.PHONY : home/pi/projects/angine/src/generators/cylinder_mesh.cpp.s
+
 home/pi/projects/angine/src/generators/file_mesh.o: home/pi/projects/angine/src/generators/file_mesh.cpp.o
 
 .PHONY : home/pi/projects/angine/src/generators/file_mesh.o
@@ -486,6 +513,33 @@ home/pi/projects/angine/src/mesh_filters/mesh_filter.s: home/pi/projects/angine/
 home/pi/projects/angine/src/mesh_filters/mesh_filter.cpp.s:
 	$(MAKE) -f CMakeFiles/angine.dir/build.make CMakeFiles/angine.dir/home/pi/projects/angine/src/mesh_filters/mesh_filter.cpp.s
 .PHONY : home/pi/projects/angine/src/mesh_filters/mesh_filter.cpp.s
+
+home/pi/projects/angine/src/mesh_filters/spherify_mesh_filter.o: home/pi/projects/angine/src/mesh_filters/spherify_mesh_filter.cpp.o
+
+.PHONY : home/pi/projects/angine/src/mesh_filters/spherify_mesh_filter.o
+
+# target to build an object file
+home/pi/projects/angine/src/mesh_filters/spherify_mesh_filter.cpp.o:
+	$(MAKE) -f CMakeFiles/angine.dir/build.make CMakeFiles/angine.dir/home/pi/projects/angine/src/mesh_filters/spherify_mesh_filter.cpp.o
+.PHONY : home/pi/projects/angine/src/mesh_filters/spherify_mesh_filter.cpp.o
+
+home/pi/projects/angine/src/mesh_filters/spherify_mesh_filter.i: home/pi/projects/angine/src/mesh_filters/spherify_mesh_filter.cpp.i
+
+.PHONY : home/pi/projects/angine/src/mesh_filters/spherify_mesh_filter.i
+
+# target to preprocess a source file
+home/pi/projects/angine/src/mesh_filters/spherify_mesh_filter.cpp.i:
+	$(MAKE) -f CMakeFiles/angine.dir/build.make CMakeFiles/angine.dir/home/pi/projects/angine/src/mesh_filters/spherify_mesh_filter.cpp.i
+.PHONY : home/pi/projects/angine/src/mesh_filters/spherify_mesh_filter.cpp.i
+
+home/pi/projects/angine/src/mesh_filters/spherify_mesh_filter.s: home/pi/projects/angine/src/mesh_filters/spherify_mesh_filter.cpp.s
+
+.PHONY : home/pi/projects/angine/src/mesh_filters/spherify_mesh_filter.s
+
+# target to generate assembly for a file
+home/pi/projects/angine/src/mesh_filters/spherify_mesh_filter.cpp.s:
+	$(MAKE) -f CMakeFiles/angine.dir/build.make CMakeFiles/angine.dir/home/pi/projects/angine/src/mesh_filters/spherify_mesh_filter.cpp.s
+.PHONY : home/pi/projects/angine/src/mesh_filters/spherify_mesh_filter.cpp.s
 
 home/pi/projects/angine/src/mesh_filters/transform_mesh_filter.o: home/pi/projects/angine/src/mesh_filters/transform_mesh_filter.cpp.o
 
@@ -965,6 +1019,9 @@ help:
 	@echo "... home/pi/projects/angine/src/generators/box_mesh.o"
 	@echo "... home/pi/projects/angine/src/generators/box_mesh.i"
 	@echo "... home/pi/projects/angine/src/generators/box_mesh.s"
+	@echo "... home/pi/projects/angine/src/generators/cylinder_mesh.o"
+	@echo "... home/pi/projects/angine/src/generators/cylinder_mesh.i"
+	@echo "... home/pi/projects/angine/src/generators/cylinder_mesh.s"
 	@echo "... home/pi/projects/angine/src/generators/file_mesh.o"
 	@echo "... home/pi/projects/angine/src/generators/file_mesh.i"
 	@echo "... home/pi/projects/angine/src/generators/file_mesh.s"
@@ -995,6 +1052,9 @@ help:
 	@echo "... home/pi/projects/angine/src/mesh_filters/mesh_filter.o"
 	@echo "... home/pi/projects/angine/src/mesh_filters/mesh_filter.i"
 	@echo "... home/pi/projects/angine/src/mesh_filters/mesh_filter.s"
+	@echo "... home/pi/projects/angine/src/mesh_filters/spherify_mesh_filter.o"
+	@echo "... home/pi/projects/angine/src/mesh_filters/spherify_mesh_filter.i"
+	@echo "... home/pi/projects/angine/src/mesh_filters/spherify_mesh_filter.s"
 	@echo "... home/pi/projects/angine/src/mesh_filters/transform_mesh_filter.o"
 	@echo "... home/pi/projects/angine/src/mesh_filters/transform_mesh_filter.i"
 	@echo "... home/pi/projects/angine/src/mesh_filters/transform_mesh_filter.s"

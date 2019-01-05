@@ -6,6 +6,9 @@ ComputeNormalsMeshFilter::ComputeNormalsMeshFilter()
 {
 	Param<float> param1{"tx",0.0};
 	paramsFloat.push_back(param1);	
+	
+	Param<bool> param2{"invert normals", false};
+	paramsBool.push_back(param2);
 }
 
 Mesh ComputeNormalsMeshFilter::applyFilter(Mesh & source_mesh)
@@ -46,7 +49,7 @@ Mesh ComputeNormalsMeshFilter::applyFilter(Mesh & source_mesh)
 					
 				num_normals[mesh.indices[i]] += 1;
 				
-				glm::vec3 n_normal = glm::normalize(glm::cross(glm::normalize(AB),glm::normalize(AC)));
+				glm::vec3 n_normal = glm::cross(glm::normalize(AB),glm::normalize(AC));
 				
 				temp_normals[mesh.indices[i]] += n_normal;
 
@@ -54,10 +57,10 @@ Mesh ComputeNormalsMeshFilter::applyFilter(Mesh & source_mesh)
 			
 			for (int i = 0; i < mesh.vertices.size(); i++)
 			{
-				//~ printf("Vertex %d : \n", i);
-				//~ printf("\tnum normals %d : \n", num_normals[i]);
-				//~ printf("\taccu normal %.3f, %.3f, %.3f : \n", temp_normals[i].x, temp_normals[i].y, temp_normals[i].z);
-				mesh.vertices[i].normal = glm::normalize(temp_normals[i] / (float)(num_normals[i]));
+				if(paramsBool[0].value == false)
+					mesh.vertices[i].normal = glm::normalize(temp_normals[i]);
+				else
+					mesh.vertices[i].normal = glm::normalize(temp_normals[i]) * -1.0f;
 			}
 			
 			

@@ -29,6 +29,7 @@ class InflateMeshFilter: public MeshFilter
 		};
 			
 	private:
+		std::string name = "inflate";
 		/* add your private declarations */
 };
 

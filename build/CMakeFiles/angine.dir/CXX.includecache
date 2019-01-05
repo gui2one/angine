@@ -196,6 +196,18 @@ box_mesh.h
 mesh_generator.h
 /home/pi/projects/angine/src/generators/mesh_generator.h
 
+/home/pi/projects/angine/src/generators/cylinder_mesh.cpp
+cylinder_mesh.h
+/home/pi/projects/angine/src/generators/cylinder_mesh.h
+
+/home/pi/projects/angine/src/generators/cylinder_mesh.h
+../pch.h
+/home/pi/projects/angine/src/pch.h
+../mesh.h
+/home/pi/projects/angine/src/mesh.h
+mesh_generator.h
+/home/pi/projects/angine/src/generators/mesh_generator.h
+
 /home/pi/projects/angine/src/generators/file_mesh.cpp
 file_mesh.h
 /home/pi/projects/angine/src/generators/file_mesh.h
@@ -458,6 +470,16 @@ mesh_filter.h
 ../param.h
 /home/pi/projects/angine/src/param.h
 
+/home/pi/projects/angine/src/mesh_filters/spherify_mesh_filter.cpp
+spherify_mesh_filter.h
+/home/pi/projects/angine/src/mesh_filters/spherify_mesh_filter.h
+
+/home/pi/projects/angine/src/mesh_filters/spherify_mesh_filter.h
+../pch.h
+/home/pi/projects/angine/src/pch.h
+mesh_filter.h
+/home/pi/projects/angine/src/mesh_filters/mesh_filter.h
+
 /home/pi/projects/angine/src/mesh_filters/transform_mesh_filter.cpp
 transform_mesh_filter.h
 /home/pi/projects/angine/src/mesh_filters/transform_mesh_filter.h
@@ -507,6 +529,8 @@ generators/file_mesh.h
 /home/pi/projects/angine/src/generators/file_mesh.h
 generators/geosphere_mesh.h
 /home/pi/projects/angine/src/generators/geosphere_mesh.h
+generators/cylinder_mesh.h
+/home/pi/projects/angine/src/generators/cylinder_mesh.h
 mesh_filters/transform_mesh_filter.h
 /home/pi/projects/angine/src/mesh_filters/transform_mesh_filter.h
 mesh_filters/inflate_mesh_filter.h
@@ -515,6 +539,8 @@ mesh_filters/twist_mesh_filter.h
 /home/pi/projects/angine/src/mesh_filters/twist_mesh_filter.h
 mesh_filters/compute_normals_mesh_filter.h
 /home/pi/projects/angine/src/mesh_filters/compute_normals_mesh_filter.h
+mesh_filters/spherify_mesh_filter.h
+/home/pi/projects/angine/src/mesh_filters/spherify_mesh_filter.h
 typeinfo
 -
 
@@ -2245,6 +2271,8 @@ object.h
 /home/pi/projects/angine/src/object.h
 shader.h
 /home/pi/projects/angine/src/shader.h
+texture.h
+/home/pi/projects/angine/src/texture.h
 camera.h
 /home/pi/projects/angine/src/camera.h
 generators/mesh_generator.h

@@ -23,11 +23,13 @@ file(REMOVE_RECURSE
   "CMakeFiles/angine.dir/home/pi/projects/angine/src/generators/file_mesh.cpp.o"
   "CMakeFiles/angine.dir/home/pi/projects/angine/src/generators/spheremesh.cpp.o"
   "CMakeFiles/angine.dir/home/pi/projects/angine/src/generators/geosphere_mesh.cpp.o"
+  "CMakeFiles/angine.dir/home/pi/projects/angine/src/generators/cylinder_mesh.cpp.o"
   "CMakeFiles/angine.dir/home/pi/projects/angine/src/mesh_filters/mesh_filter.cpp.o"
   "CMakeFiles/angine.dir/home/pi/projects/angine/src/mesh_filters/transform_mesh_filter.cpp.o"
   "CMakeFiles/angine.dir/home/pi/projects/angine/src/mesh_filters/inflate_mesh_filter.cpp.o"
   "CMakeFiles/angine.dir/home/pi/projects/angine/src/mesh_filters/twist_mesh_filter.cpp.o"
   "CMakeFiles/angine.dir/home/pi/projects/angine/src/mesh_filters/compute_normals_mesh_filter.cpp.o"
+  "CMakeFiles/angine.dir/home/pi/projects/angine/src/mesh_filters/spherify_mesh_filter.cpp.o"
   "angine.pdb"
   "angine"
 )

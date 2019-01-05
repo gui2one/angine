@@ -4,12 +4,7 @@
 #include "../pch.h"
 #include "../mesh.h"
 #include "../param.h"
-//~ template<typename T>
-//~ struct MeshFilterParam{
-	//~ std::string name;
-	//~ T value;
-	//~ 
-//~ };
+
 
 class MeshFilter{
 	
@@ -30,6 +25,7 @@ class MeshFilter{
 		std::vector<Param<int>> paramsInt;
 		std::vector<Param<float>> paramsFloat;
 		std::vector<Param<glm::vec3>> paramsVec3;
+		std::vector<Param<bool>> paramsBool;
 		
 		
 	private:

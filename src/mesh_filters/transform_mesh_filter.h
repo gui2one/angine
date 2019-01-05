@@ -39,6 +39,7 @@ class TransformMeshFilter: public MeshFilter
 		};
 			
 	private:
+		std::string name = "transform";
 		/* add your private declarations */
 };
 
