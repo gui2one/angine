@@ -711,6 +711,9 @@ void Window::objectPropertiesDialog()
 						printf("reloading shader now \n");
 						curObj->initShader();
 					}
+					
+					
+					ImGui::ColorEdit3("u_color", (float*)&curObj->color);
 					ImGui::EndTabItem();
 				}	
 					

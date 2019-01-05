@@ -21,7 +21,7 @@ void main()
 	
 	mediump float diff = max(dot(norm, lightDir), 0.0);
 	
-	color = vec4(diff, diff, diff,1.0);
+	color = vec4(diff, diff, diff,1.0) * f_color;
 	//~ color = f_color * texture2D(u_tex,f_t_coords);
 	//~ color = texture2D(u_tex,f_t_coords);
 }
