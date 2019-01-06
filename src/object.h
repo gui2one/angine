@@ -7,7 +7,7 @@
 #include "shader.h"
 #include "texture.h"
 
-#include "param_layout.h"
+
 
 
 #include "generators/gridmesh.h"
@@ -178,6 +178,7 @@ class Object{
 		Mesh mesh;
 		std::vector<float> vertex_data;
 		std::vector<float> normals_data;
+		
 		Shader shader, lineShader;
 		GLint texture_id;
 		Texture texture;

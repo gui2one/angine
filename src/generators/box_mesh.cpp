@@ -3,24 +3,28 @@
 
 BoxMesh::BoxMesh()
 {
-	Param<float> param1{"width", 1.0};
-	paramsFloat.push_back(param1);
-	
-	Param<float> param2{"height", 1.0};
-	paramsFloat.push_back(param2);	
-	
-	Param<float> param3{"length", 1.0};
-	paramsFloat.push_back(param3);
 
+	p_width = new ParamFloat("width",1.0);
+	param_layout.push(p_width);
 
-	Param<int> param4{"segs width", 2};
-	paramsInt.push_back(param4);
+	p_height = new ParamFloat("height",1.0);
+	param_layout.push(p_height);	
 	
-	Param<int> param5{"segs height", 2};
-	paramsInt.push_back(param5);
+	p_length = new ParamFloat("length",1.0);
+	param_layout.push(p_length);		
 	
-	Param<int> param6{"segs length", 2};
-	paramsInt.push_back(param6);	
+	
+	p_segs_width = new ParamInt("segs_width",4);
+	param_layout.push(p_segs_width);
+
+	p_segs_height = new ParamInt("segs_height",4);
+	param_layout.push(p_segs_height);	
+	
+	p_segs_length = new ParamInt("segs_length",4);
+	param_layout.push(p_segs_length);			
+	
+	ParamBool* test = new ParamBool("test",true);
+	param_layout.push(test);
 }
 
 static void rotate_vertices(std::vector<Vertex> & verts, float angle, glm::vec3 axis)

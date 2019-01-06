@@ -175,6 +175,8 @@ pch.h
 /home/pi/projects/angine/src/pch.h
 window.h
 /home/pi/projects/angine/src/window.h
+imgui_impl_glfw.h
+/home/pi/projects/angine/src/imgui_impl_glfw.h
 
 /home/pi/projects/angine/src/camera.cpp
 camera.h
@@ -259,6 +261,8 @@ mesh_generator.h
 /home/pi/projects/angine/src/param.h
 functional
 -
+../param_layout.h
+/home/pi/projects/angine/src/param_layout.h
 
 /home/pi/projects/angine/src/generators/spheremesh.cpp
 spheremesh.h
@@ -469,6 +473,8 @@ mesh_filter.h
 /home/pi/projects/angine/src/mesh.h
 ../param.h
 /home/pi/projects/angine/src/param.h
+../param_layout.h
+/home/pi/projects/angine/src/param_layout.h
 
 /home/pi/projects/angine/src/mesh_filters/spherify_mesh_filter.cpp
 spherify_mesh_filter.h
@@ -517,8 +523,6 @@ shader.h
 /home/pi/projects/angine/src/shader.h
 texture.h
 /home/pi/projects/angine/src/texture.h
-param_layout.h
-/home/pi/projects/angine/src/param_layout.h
 generators/gridmesh.h
 /home/pi/projects/angine/src/generators/gridmesh.h
 generators/spheremesh.h
@@ -552,6 +556,16 @@ param.h
 pch.h
 /home/pi/projects/angine/src/pch.h
 
+/home/pi/projects/angine/src/param2.cpp
+param2.h
+/home/pi/projects/angine/src/param2.h
+
+/home/pi/projects/angine/src/param2.h
+pch.h
+/home/pi/projects/angine/src/pch.h
+functional
+-
+
 /home/pi/projects/angine/src/param_layout.cpp
 param_layout.h
 /home/pi/projects/angine/src/param_layout.h
@@ -559,8 +573,8 @@ param_layout.h
 /home/pi/projects/angine/src/param_layout.h
 pch.h
 /home/pi/projects/angine/src/pch.h
-param.h
-/home/pi/projects/angine/src/param.h
+param2.h
+/home/pi/projects/angine/src/param2.h
 functional
 -
 
@@ -2275,10 +2289,6 @@ texture.h
 /home/pi/projects/angine/src/texture.h
 camera.h
 /home/pi/projects/angine/src/camera.h
-generators/mesh_generator.h
-/home/pi/projects/angine/src/generators/mesh_generator.h
-mesh_filters/mesh_filter.h
-/home/pi/projects/angine/src/mesh_filters/mesh_filter.h
 imgui.h
 /home/pi/projects/angine/src/imgui.h
 imgui_impl_glfw.h

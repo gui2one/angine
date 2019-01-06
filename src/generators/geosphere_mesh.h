@@ -13,17 +13,21 @@ class GeoSphereMesh : public MeshGenerator
 		inline Mesh generate() override
 		{
 			Mesh mesh;
-			//~ mesh = generateSphere(paramsInt[0].value, paramsInt[1].value, paramsFloat[0].value, 1.0, 1.0);
-			mesh = generateGeoSphere();
+			
+			mesh = generateGeoSphere(p_radius->getValue());
 			
 			mesh_cache = mesh;
 			
 			return mesh;
 		};
 		
-		Mesh generateSphere(int rows, int cols, float radius = 0.5, float u_ratio = 1.0, float v_ratio = 1.0);
-		Mesh generateGeoSphere();
+		
+		Mesh generateGeoSphere(float radius);
 
+
+		
+		ParamFloat* p_radius;
+		
 	private:
 	
 		/* add your private declarations */

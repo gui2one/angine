@@ -4,23 +4,24 @@
 FileMesh::FileMesh()
 {
 
-	Param<std::string> file_path_param{"path ", file_path.c_str()};	
-	paramsString.push_back(file_path_param);
+
 	
+	p_file_path = new ParamString("file_path", "/home/pi/projects/angine/src/res/obj/monkey.obj");
+	param_layout.push(p_file_path);
 	
-	Param<std::function<void()>> loadAction{"load file", [this](){ 
-		printf("---- %s , %s \n", "hello", this->file_path.c_str());
-		
-	}};
+	p_load_action = new ParamAction("Load File", [this](){
+		this->generate();
+		printf("Action !!!!\n");
+	});
 	
-	paramsAction.push_back(loadAction);
+	param_layout.push(p_load_action);
 }
 
 Mesh FileMesh::generate(){
 	Mesh mesh;
 	
 	ObjLoader loader;
-	mesh = loader.assimp_load(paramsString[0].value);
+	mesh = loader.assimp_load(p_file_path->getValue());
 	
 	mesh_cache = mesh;
 	return mesh;

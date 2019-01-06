@@ -2,7 +2,7 @@
 
 //~ #define STB_IMAGE_IMPLEMENTATION
 //~ #include "vendor/stb_image.h"
-Texture::Texture():id(0),width(0), height(0), buffer(nullptr), bpp(0)
+Texture::Texture():id(0),width(0), height(0), bpp(0)
 {	
 	//~ std::cout << "creating texture object... " << "\n";	
 }
@@ -13,7 +13,7 @@ void Texture::load(std::string path){
 	glBindTexture(GL_TEXTURE_2D, id);
 	
 	stbi_set_flip_vertically_on_load(1);
-	buffer = stbi_load(path.c_str(), &width, &height, &bpp, 4);
+	unsigned char* buffer = stbi_load(path.c_str(), &width, &height, &bpp, 4);
 	
 	
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
@@ -67,7 +67,9 @@ void Texture::unbind(){
 
 Texture::~Texture()
 {
-	//~ std::cout << "deleting texture -- ID : " << id << "\n";
+	std::cout << "deleting texture -- ID : " << id << "\n";
 	glDeleteTextures(1, &id);
+	glBindTexture(GL_TEXTURE_2D, 0);
+	
 }
 

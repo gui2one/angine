@@ -13,7 +13,7 @@ class SphereMesh : public MeshGenerator
 		inline Mesh generate() override
 		{
 			Mesh mesh;
-			mesh = generateSphere(paramsInt[0].value, paramsInt[1].value, paramsFloat[0].value, 1.0, 1.0);
+			mesh = generateSphere(p_rows->getValue(), p_cols->getValue(), p_radius->getValue(), p_u_ratio->getValue(), p_v_ratio->getValue());
 			
 			mesh_cache = mesh;
 			
@@ -23,6 +23,13 @@ class SphereMesh : public MeshGenerator
 		Mesh generateSphere(int rows, int cols, float radius = 0.5, float u_ratio = 1.0, float v_ratio = 1.0);
 		
 
+
+		ParamInt* p_rows;
+		ParamInt* p_cols;
+		
+		ParamFloat* p_radius;
+		ParamFloat* p_u_ratio;
+		ParamFloat* p_v_ratio;
 	private:
 	
 		/* add your private declarations */

@@ -26,7 +26,7 @@ class Texture
 		
 	private:
 		unsigned int id;
-		unsigned char* buffer;
+		//~ unsigned char* buffer;
 		int width, height, bpp;	
 	
 		/* add your private declarations */

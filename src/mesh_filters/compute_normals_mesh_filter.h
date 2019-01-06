@@ -16,6 +16,8 @@ class ComputeNormalsMeshFilter: public MeshFilter
 		
 		Mesh applyFilter(Mesh & source_mesh)override;		
 			
+		ParamBool *p_invert;
+		
 	private:
 		std::string name = "compute_normals";
 		/* add your private declarations */

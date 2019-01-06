@@ -3,17 +3,16 @@
 
 GridMesh::GridMesh()
 {
-	Param<int> param1{"rows", 2};
-	paramsInt.push_back(param1);
+	p_rows = new ParamInt("rows", 2);
+	param_layout.push(p_rows);
 	
-	Param<int> param2{"cols", 2};
-	paramsInt.push_back(param2);	
+	p_cols = new ParamInt("cols", 2);
+	param_layout.push(p_cols);
 	
-	Param<float> param3{"width", 3.0};
-	paramsFloat.push_back(param3);
-
-	Param<float> param4{"length", 3.0};
-	paramsFloat.push_back(param4);	
+	p_width = new ParamFloat("width", 1.0);
+	param_layout.push(p_width);
+	p_length = new ParamFloat("length", 1.0);
+	param_layout.push(p_length);
 }
 
 

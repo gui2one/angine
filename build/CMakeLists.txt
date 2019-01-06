@@ -24,6 +24,9 @@ add_executable(angine
 	../src/param_layout.cpp
 	../src/param.cpp
 	
+	
+	../src/param2.cpp
+	
 	../src/vendor/imgui/imgui_impl_opengl3.cpp
 	../src/vendor/imgui/imgui_impl_glfw.cpp
 	

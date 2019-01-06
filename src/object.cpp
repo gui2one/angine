@@ -232,7 +232,7 @@ void Object::buildVbo()
 	glBindBuffer(GL_ARRAY_BUFFER, m_bbox_vbo);
 	glBufferData(GL_ARRAY_BUFFER, sizeof(float) * 3*12*2, bbox_data ,GL_DYNAMIC_DRAW);
 	
-	
+	glBindBuffer(GL_ARRAY_BUFFER, 0);
 }
 
 
@@ -413,6 +413,7 @@ void Object::drawPoints(){
 
 Object::~Object()
 {
+	delete mesh_generator;
 	for (int i = 0; i < meshFilters.size(); i++)
 	{
 		delete meshFilters[i];
@@ -423,5 +424,7 @@ Object::~Object()
 	glDeleteBuffers(1, &m_ibo);
 	glDeleteBuffers(1, &m_normals_vbo);
 	glDeleteBuffers(1, &m_bbox_vbo);
+	
+	
 	std::cout << "--- Object DELETED  --- \n";
 }

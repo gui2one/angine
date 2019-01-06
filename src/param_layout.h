@@ -2,21 +2,24 @@
 #define PARAM_LAYOUT_H
 
 #include "pch.h"
-#include "param.h"
+
+#include "param2.h"
 
 #include <functional>
+
+
 class ParamLayout
 {
 	public:
-		ParamLayout();
+		ParamLayout();	
+		~ParamLayout();
+		void push(BaseParam* _param);
+		BaseParam* getParam(size_t i);
 			
-			
-		std::vector<Param<float>> paramsFloat;
-		std::vector<Param<int>> paramsInt;
-		std::vector<Param<glm::vec3>> paramsVec3;
-		std::vector<Param<std::string>> paramsString;
-		std::vector<Param<std::function<void()>>> paramsAction;
+		inline size_t getSize(){ return params.size();}
 	private:
+	
+		std::vector<BaseParam *> params;
 		/* add your private declarations */
 };
 

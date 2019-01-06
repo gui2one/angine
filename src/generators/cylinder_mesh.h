@@ -4,15 +4,24 @@
 #include "../pch.h"
 #include "../mesh.h"
 #include "mesh_generator.h"
+
+
 class CylinderMesh : public MeshGenerator
 {
 	public:
 		CylinderMesh();
 		virtual ~CylinderMesh();
 		
+		
+		
 		inline Mesh generate() override{
 			Mesh mesh;
-			mesh = generateCylinder(paramsFloat[0].value, paramsFloat[1].value, paramsInt[0].value, paramsInt[1].value );
+			mesh = generateCylinder(
+				param_radius->getValue(), 
+				param_height->getValue(), 
+				param_segs_height->getValue(), 
+				param_segs_radius->getValue() 
+			);
 			
 			mesh_cache = mesh;
 			
@@ -20,6 +29,10 @@ class CylinderMesh : public MeshGenerator
 		};
 		Mesh generateCylinder(float radius = 0.5, float height = 1.0, int segs_height = 5, int segs_radius = 20);
 		
+		ParamFloat* param_radius;
+		ParamFloat* param_height;
+		ParamInt* param_segs_height;
+		ParamInt* param_segs_radius;
 	private:
 		/* add your private declarations */
 };

@@ -3,18 +3,21 @@
 #define PI 3.14159265359
 SphereMesh::SphereMesh()
 {
-	Param<int> param1{"cols", 15};
-	paramsInt.push_back(param1);	
 
-	//~ param_cols = param1.value;
 	
-	Param<int> param2{"rows", 20};
-	paramsInt.push_back(param2);	
+	p_cols = new ParamInt("cols", 24);
+	param_layout.push(p_cols);
+	p_rows = new ParamInt("rows", 16);
+	param_layout.push(p_rows);
 	
-	//~ param_rows = param2.value;
+	p_radius = new ParamFloat("radius", 0.5);
+	param_layout.push(p_radius);
 	
-	Param<float> param3{"radius", 1.0};
-	paramsFloat.push_back(param3);		
+	p_u_ratio = new ParamFloat("U ratio", 1.0);
+	param_layout.push(p_u_ratio);
+	
+	p_v_ratio = new ParamFloat("V ratio", 1.0);
+	param_layout.push(p_v_ratio);		
 }
 
 

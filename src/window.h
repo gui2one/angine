@@ -7,8 +7,8 @@
 #include "shader.h"
 #include "texture.h"
 #include "camera.h"
-#include "generators/mesh_generator.h"
-#include "mesh_filters/mesh_filter.h"
+//~ #include "generators/mesh_generator.h"
+//~ #include "mesh_filters/mesh_filter.h"
 
 //~ #include <unistd.h>
 

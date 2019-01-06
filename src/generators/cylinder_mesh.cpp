@@ -1,19 +1,19 @@
 #include "cylinder_mesh.h"
 
 
-CylinderMesh::CylinderMesh()
-{
-	Param<float> param1{"radius", 0.5};
-	paramsFloat.push_back(param1);
+CylinderMesh::CylinderMesh(): MeshGenerator()
+{	
+	param_radius = new ParamFloat("__radius", 0.666); 	
+	param_layout.push(param_radius);
 	
-	Param<float> param2{"height", 2};
-	paramsFloat.push_back(param2);	
+	param_height = new ParamFloat("__height", 0.2); 	
+	param_layout.push(param_height);	
 	
-	Param<int> param3{"segs_height", 3};
-	paramsInt.push_back(param3);
-
-	Param<int> param4{"segs_radius", 20};
-	paramsInt.push_back(param4);	
+	param_segs_height = new ParamInt("__segs_height", 5); 	
+	param_layout.push(param_segs_height);	
+	
+	param_segs_radius = new ParamInt("__segs_radius", 30); 	
+	param_layout.push(param_segs_radius);	
 }
 
 
@@ -161,6 +161,10 @@ Mesh CylinderMesh::generateCylinder(float radius, float height, int segs_height,
 
 CylinderMesh::~CylinderMesh()
 {
+	//~ delete param_radius;	
+	//~ delete param_height;
+	//~ delete param_segs_height;
+	//~ delete param_segs_radius;	
 	
 }
 

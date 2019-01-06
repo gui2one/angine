@@ -4,6 +4,7 @@ file(REMOVE_RECURSE
   "CMakeFiles/angine.dir/home/pi/projects/angine/src/window.cpp.o"
   "CMakeFiles/angine.dir/home/pi/projects/angine/src/param_layout.cpp.o"
   "CMakeFiles/angine.dir/home/pi/projects/angine/src/param.cpp.o"
+  "CMakeFiles/angine.dir/home/pi/projects/angine/src/param2.cpp.o"
   "CMakeFiles/angine.dir/home/pi/projects/angine/src/vendor/imgui/imgui_impl_opengl3.cpp.o"
   "CMakeFiles/angine.dir/home/pi/projects/angine/src/vendor/imgui/imgui_impl_glfw.cpp.o"
   "CMakeFiles/angine.dir/home/pi/projects/angine/src/vendor/imgui/imgui.cpp.o"

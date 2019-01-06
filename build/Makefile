@@ -649,6 +649,33 @@ home/pi/projects/angine/src/param.cpp.s:
 	$(MAKE) -f CMakeFiles/angine.dir/build.make CMakeFiles/angine.dir/home/pi/projects/angine/src/param.cpp.s
 .PHONY : home/pi/projects/angine/src/param.cpp.s
 
+home/pi/projects/angine/src/param2.o: home/pi/projects/angine/src/param2.cpp.o
+
+.PHONY : home/pi/projects/angine/src/param2.o
+
+# target to build an object file
+home/pi/projects/angine/src/param2.cpp.o:
+	$(MAKE) -f CMakeFiles/angine.dir/build.make CMakeFiles/angine.dir/home/pi/projects/angine/src/param2.cpp.o
+.PHONY : home/pi/projects/angine/src/param2.cpp.o
+
+home/pi/projects/angine/src/param2.i: home/pi/projects/angine/src/param2.cpp.i
+
+.PHONY : home/pi/projects/angine/src/param2.i
+
+# target to preprocess a source file
+home/pi/projects/angine/src/param2.cpp.i:
+	$(MAKE) -f CMakeFiles/angine.dir/build.make CMakeFiles/angine.dir/home/pi/projects/angine/src/param2.cpp.i
+.PHONY : home/pi/projects/angine/src/param2.cpp.i
+
+home/pi/projects/angine/src/param2.s: home/pi/projects/angine/src/param2.cpp.s
+
+.PHONY : home/pi/projects/angine/src/param2.s
+
+# target to generate assembly for a file
+home/pi/projects/angine/src/param2.cpp.s:
+	$(MAKE) -f CMakeFiles/angine.dir/build.make CMakeFiles/angine.dir/home/pi/projects/angine/src/param2.cpp.s
+.PHONY : home/pi/projects/angine/src/param2.cpp.s
+
 home/pi/projects/angine/src/param_layout.o: home/pi/projects/angine/src/param_layout.cpp.o
 
 .PHONY : home/pi/projects/angine/src/param_layout.o
@@ -1067,6 +1094,9 @@ help:
 	@echo "... home/pi/projects/angine/src/param.o"
 	@echo "... home/pi/projects/angine/src/param.i"
 	@echo "... home/pi/projects/angine/src/param.s"
+	@echo "... home/pi/projects/angine/src/param2.o"
+	@echo "... home/pi/projects/angine/src/param2.i"
+	@echo "... home/pi/projects/angine/src/param2.s"
 	@echo "... home/pi/projects/angine/src/param_layout.o"
 	@echo "... home/pi/projects/angine/src/param_layout.i"
 	@echo "... home/pi/projects/angine/src/param_layout.s"

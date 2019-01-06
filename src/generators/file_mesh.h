@@ -15,7 +15,10 @@ class FileMesh : public MeshGenerator
 		
 		
 		
-		std::string file_path = "/home/pi/projects/angine/src/res/obj/monkey.obj";
+		
+		
+		ParamString* p_file_path;
+		ParamAction* p_load_action;
 	private:
 		/* add your private declarations */
 };

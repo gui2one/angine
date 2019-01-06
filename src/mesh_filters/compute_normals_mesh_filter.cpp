@@ -9,6 +9,9 @@ ComputeNormalsMeshFilter::ComputeNormalsMeshFilter()
 	
 	Param<bool> param2{"invert normals", false};
 	paramsBool.push_back(param2);
+	
+	p_invert = new ParamBool("Invert normals", false);
+	param_layout.push(p_invert);
 }
 
 Mesh ComputeNormalsMeshFilter::applyFilter(Mesh & source_mesh)
@@ -57,7 +60,7 @@ Mesh ComputeNormalsMeshFilter::applyFilter(Mesh & source_mesh)
 			
 			for (int i = 0; i < mesh.vertices.size(); i++)
 			{
-				if(paramsBool[0].value == false)
+				if(p_invert->getValue() == false)
 					mesh.vertices[i].normal = glm::normalize(temp_normals[i]);
 				else
 					mesh.vertices[i].normal = glm::normalize(temp_normals[i]) * -1.0f;

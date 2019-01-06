@@ -3,8 +3,17 @@
 
 #include "pch.h"
 
-template<typename  T>
-class Param
+class ParamInterface{
+	
+	public : 
+		
+		//~ static auto value;
+		
+		
+};
+
+template<typename T>
+class Param //: public ParamInterface
 {
 	public:
 		//~ Param();
