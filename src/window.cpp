@@ -64,11 +64,11 @@ Window::Window()
 		
 	glfwMakeContextCurrent(win);			
 	glewInit();
-	
+	printf("--- START loading shader\n");
 	pointShader.loadVertexShaderSource("../src/res/shaders/line_shader.vert");
 	pointShader.loadFragmentShaderSource("../src/res/shaders/line_shader.frag");		
 	pointShader.createShader();	
-	
+	printf("--- END loading shader\n");
 	glfwSwapInterval(1);
 	glEnable(GL_DEPTH_TEST);
 	
@@ -304,6 +304,8 @@ void Window::buildObjectList()
 		if(objects[i]->getParent()){
 			printf("\tParent %d, name : %s\n", i, objects[i]->getParent()->name);
 		}
+		
+		// first go through the list and find all objects with a parent
 	}
 	
 }
@@ -998,7 +1000,7 @@ void Window::refresh(){
 	
 	
 	
-	//~ int ex = explorerDialog();
+	 // int ex = explorerDialog();
 		
 	objectListDialog();
 	objectPropertiesDialog();
@@ -1030,6 +1032,7 @@ void Window::refresh(){
 
 
 	ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
+	
 	//swap buffers
 	
 	glfwSwapBuffers(win);
@@ -1067,10 +1070,12 @@ void Window::addObject(Object* obj)
 
 void Window::renderObjects(){
 	
+		//~ printf("---- START render objects function\n");
 		for (int i = 0; i < objects.size(); i++)
 		{	
 		
 			Object* curObj = objects[i];
+			
 			curObj->shader.useProgram();	
 			
 				
@@ -1126,8 +1131,9 @@ void Window::renderObjects(){
 			glUniform4f(COLOR_LOC, curObj->color.x, curObj->color.y, curObj->color.z, curObj->color.w);
 			
 			
-			//~ glBindTexture(GL_TEXTURE_2D,curObj->texture_id);
-			curObj->texture.bind();
+			
+			//~ curObj->texture.bind();
+			
 			glUniform1i(glGetUniformLocation(curObj->shader.m_id, "u_tex"),0);
 
 			//~ glLoadIdentity();
@@ -1198,7 +1204,7 @@ void Window::renderObjects(){
 		}
 		
 		
-	
+		//~ printf("---- END render objects function\n");
 }
 
 Window::~Window()
