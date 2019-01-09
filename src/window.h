@@ -28,6 +28,12 @@ class Window
 		Camera camera;
 		
 		
+		unsigned int sel_gizmo_vbo;
+		unsigned int sel_gizmo_ibo;
+		void selGizmoInit();
+		void drawSelGizmo();
+		
+		
 		
 		int width, height;
 		bool shouldClose();

@@ -186,6 +186,14 @@ camera.h
 pch.h
 /home/pi/projects/angine/src/pch.h
 
+/home/pi/projects/angine/src/entity3d.cpp
+entity3d.h
+/home/pi/projects/angine/src/entity3d.h
+
+/home/pi/projects/angine/src/entity3d.h
+pch.h
+/home/pi/projects/angine/src/pch.h
+
 /home/pi/projects/angine/src/generators/box_mesh.cpp
 box_mesh.h
 /home/pi/projects/angine/src/generators/box_mesh.h
@@ -257,8 +265,6 @@ mesh_generator.h
 /home/pi/projects/angine/src/pch.h
 ../mesh.h
 /home/pi/projects/angine/src/mesh.h
-../param.h
-/home/pi/projects/angine/src/param.h
 functional
 -
 ../param_layout.h
@@ -452,6 +458,16 @@ iterator
 mesh_filter.h
 /home/pi/projects/angine/src/mesh_filters/mesh_filter.h
 
+/home/pi/projects/angine/src/mesh_filters/duplicate_mesh_filter.cpp
+duplicate_mesh_filter.h
+/home/pi/projects/angine/src/mesh_filters/duplicate_mesh_filter.h
+
+/home/pi/projects/angine/src/mesh_filters/duplicate_mesh_filter.h
+../pch.h
+/home/pi/projects/angine/src/pch.h
+mesh_filter.h
+/home/pi/projects/angine/src/mesh_filters/mesh_filter.h
+
 /home/pi/projects/angine/src/mesh_filters/inflate_mesh_filter.cpp
 inflate_mesh_filter.h
 /home/pi/projects/angine/src/mesh_filters/inflate_mesh_filter.h
@@ -471,8 +487,6 @@ mesh_filter.h
 /home/pi/projects/angine/src/pch.h
 ../mesh.h
 /home/pi/projects/angine/src/mesh.h
-../param.h
-/home/pi/projects/angine/src/param.h
 ../param_layout.h
 /home/pi/projects/angine/src/param_layout.h
 
@@ -545,22 +559,16 @@ mesh_filters/compute_normals_mesh_filter.h
 /home/pi/projects/angine/src/mesh_filters/compute_normals_mesh_filter.h
 mesh_filters/spherify_mesh_filter.h
 /home/pi/projects/angine/src/mesh_filters/spherify_mesh_filter.h
-typeinfo
--
+mesh_filters/duplicate_mesh_filter.h
+/home/pi/projects/angine/src/mesh_filters/duplicate_mesh_filter.h
+entity3d.h
+/home/pi/projects/angine/src/entity3d.h
 
 /home/pi/projects/angine/src/param.cpp
 param.h
 /home/pi/projects/angine/src/param.h
 
 /home/pi/projects/angine/src/param.h
-pch.h
-/home/pi/projects/angine/src/pch.h
-
-/home/pi/projects/angine/src/param2.cpp
-param2.h
-/home/pi/projects/angine/src/param2.h
-
-/home/pi/projects/angine/src/param2.h
 pch.h
 /home/pi/projects/angine/src/pch.h
 functional
@@ -573,8 +581,8 @@ param_layout.h
 /home/pi/projects/angine/src/param_layout.h
 pch.h
 /home/pi/projects/angine/src/pch.h
-param2.h
-/home/pi/projects/angine/src/param2.h
+param.h
+/home/pi/projects/angine/src/param.h
 functional
 -
 
@@ -2267,6 +2275,8 @@ sstream
 -
 array
 -
+object.h
+/home/pi/projects/angine/src/object.h
 dirent.h
 -
 linux/limits.h

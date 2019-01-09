@@ -6,6 +6,7 @@ set(CMAKE_DEPENDS_LANGUAGES
 set(CMAKE_DEPENDS_CHECK_CXX
   "/home/pi/projects/angine/src/application.cpp" "/home/pi/projects/angine/build/CMakeFiles/angine.dir/home/pi/projects/angine/src/application.cpp.o"
   "/home/pi/projects/angine/src/camera.cpp" "/home/pi/projects/angine/build/CMakeFiles/angine.dir/home/pi/projects/angine/src/camera.cpp.o"
+  "/home/pi/projects/angine/src/entity3d.cpp" "/home/pi/projects/angine/build/CMakeFiles/angine.dir/home/pi/projects/angine/src/entity3d.cpp.o"
   "/home/pi/projects/angine/src/generators/box_mesh.cpp" "/home/pi/projects/angine/build/CMakeFiles/angine.dir/home/pi/projects/angine/src/generators/box_mesh.cpp.o"
   "/home/pi/projects/angine/src/generators/cylinder_mesh.cpp" "/home/pi/projects/angine/build/CMakeFiles/angine.dir/home/pi/projects/angine/src/generators/cylinder_mesh.cpp.o"
   "/home/pi/projects/angine/src/generators/file_mesh.cpp" "/home/pi/projects/angine/build/CMakeFiles/angine.dir/home/pi/projects/angine/src/generators/file_mesh.cpp.o"
@@ -16,6 +17,7 @@ set(CMAKE_DEPENDS_CHECK_CXX
   "/home/pi/projects/angine/src/main.cpp" "/home/pi/projects/angine/build/CMakeFiles/angine.dir/home/pi/projects/angine/src/main.cpp.o"
   "/home/pi/projects/angine/src/mesh.cpp" "/home/pi/projects/angine/build/CMakeFiles/angine.dir/home/pi/projects/angine/src/mesh.cpp.o"
   "/home/pi/projects/angine/src/mesh_filters/compute_normals_mesh_filter.cpp" "/home/pi/projects/angine/build/CMakeFiles/angine.dir/home/pi/projects/angine/src/mesh_filters/compute_normals_mesh_filter.cpp.o"
+  "/home/pi/projects/angine/src/mesh_filters/duplicate_mesh_filter.cpp" "/home/pi/projects/angine/build/CMakeFiles/angine.dir/home/pi/projects/angine/src/mesh_filters/duplicate_mesh_filter.cpp.o"
   "/home/pi/projects/angine/src/mesh_filters/inflate_mesh_filter.cpp" "/home/pi/projects/angine/build/CMakeFiles/angine.dir/home/pi/projects/angine/src/mesh_filters/inflate_mesh_filter.cpp.o"
   "/home/pi/projects/angine/src/mesh_filters/mesh_filter.cpp" "/home/pi/projects/angine/build/CMakeFiles/angine.dir/home/pi/projects/angine/src/mesh_filters/mesh_filter.cpp.o"
   "/home/pi/projects/angine/src/mesh_filters/spherify_mesh_filter.cpp" "/home/pi/projects/angine/build/CMakeFiles/angine.dir/home/pi/projects/angine/src/mesh_filters/spherify_mesh_filter.cpp.o"
@@ -23,7 +25,6 @@ set(CMAKE_DEPENDS_CHECK_CXX
   "/home/pi/projects/angine/src/mesh_filters/twist_mesh_filter.cpp" "/home/pi/projects/angine/build/CMakeFiles/angine.dir/home/pi/projects/angine/src/mesh_filters/twist_mesh_filter.cpp.o"
   "/home/pi/projects/angine/src/object.cpp" "/home/pi/projects/angine/build/CMakeFiles/angine.dir/home/pi/projects/angine/src/object.cpp.o"
   "/home/pi/projects/angine/src/param.cpp" "/home/pi/projects/angine/build/CMakeFiles/angine.dir/home/pi/projects/angine/src/param.cpp.o"
-  "/home/pi/projects/angine/src/param2.cpp" "/home/pi/projects/angine/build/CMakeFiles/angine.dir/home/pi/projects/angine/src/param2.cpp.o"
   "/home/pi/projects/angine/src/param_layout.cpp" "/home/pi/projects/angine/build/CMakeFiles/angine.dir/home/pi/projects/angine/src/param_layout.cpp.o"
   "/home/pi/projects/angine/src/shader.cpp" "/home/pi/projects/angine/build/CMakeFiles/angine.dir/home/pi/projects/angine/src/shader.cpp.o"
   "/home/pi/projects/angine/src/texture.cpp" "/home/pi/projects/angine/build/CMakeFiles/angine.dir/home/pi/projects/angine/src/texture.cpp.o"

@@ -25,7 +25,7 @@ add_executable(angine
 	../src/param.cpp
 	
 	
-	../src/param2.cpp
+	
 	
 	../src/vendor/imgui/imgui_impl_opengl3.cpp
 	../src/vendor/imgui/imgui_impl_glfw.cpp
@@ -43,6 +43,8 @@ add_executable(angine
 	../src/camera.cpp
 	../src/shader.cpp
 	../src/texture.cpp
+	
+	../src/entity3d.cpp
 	../src/object.cpp
 	
 	../src/utils/objLoader.cpp
@@ -62,6 +64,7 @@ add_executable(angine
 	../src/mesh_filters/twist_mesh_filter.cpp
 	../src/mesh_filters/compute_normals_mesh_filter.cpp
 	../src/mesh_filters/spherify_mesh_filter.cpp
+	../src/mesh_filters/duplicate_mesh_filter.cpp
 	
 )
 

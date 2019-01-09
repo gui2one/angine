@@ -17,7 +17,7 @@ int main()
 				
 		app.window.refresh();		
 	
-		usleep(1000000/50);	
+		//~ usleep(1000000/50);	
 	}
 	
 	return 0;

@@ -1,17 +1,19 @@
-#ifndef TRANSFORM_MESH_FILTER_H
-#define TRANSFORM_MESH_FILTER_H
+#ifndef DUPLICATE_MESH_FILTER_H
+#define DUPLICATE_MESH_FILTER_H
 
 #include "../pch.h"
 
 #include "mesh_filter.h"
 
-class TransformMeshFilter: public MeshFilter
+class DuplicateMeshFilter: public MeshFilter
 {
 	public:
-		TransformMeshFilter();
+		DuplicateMeshFilter();
 		
 		Mesh applyFilter(Mesh & source_mesh)override;
 		
+		
+		ParamInt  * p_num;
 		ParamMenu * p_menu;
 		ParamVec3 * p_translate;
 		ParamVec3 * p_rotate;
@@ -22,4 +24,4 @@ class TransformMeshFilter: public MeshFilter
 		/* add your private declarations */
 };
 
-#endif /* TRANSFORM_MESH_FILTER_H */ 
+#endif /* DUPLICATE_MESH_FILTER_H */ 

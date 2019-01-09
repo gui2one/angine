@@ -4,7 +4,6 @@ file(REMOVE_RECURSE
   "CMakeFiles/angine.dir/home/pi/projects/angine/src/window.cpp.o"
   "CMakeFiles/angine.dir/home/pi/projects/angine/src/param_layout.cpp.o"
   "CMakeFiles/angine.dir/home/pi/projects/angine/src/param.cpp.o"
-  "CMakeFiles/angine.dir/home/pi/projects/angine/src/param2.cpp.o"
   "CMakeFiles/angine.dir/home/pi/projects/angine/src/vendor/imgui/imgui_impl_opengl3.cpp.o"
   "CMakeFiles/angine.dir/home/pi/projects/angine/src/vendor/imgui/imgui_impl_glfw.cpp.o"
   "CMakeFiles/angine.dir/home/pi/projects/angine/src/vendor/imgui/imgui.cpp.o"
@@ -15,6 +14,7 @@ file(REMOVE_RECURSE
   "CMakeFiles/angine.dir/home/pi/projects/angine/src/camera.cpp.o"
   "CMakeFiles/angine.dir/home/pi/projects/angine/src/shader.cpp.o"
   "CMakeFiles/angine.dir/home/pi/projects/angine/src/texture.cpp.o"
+  "CMakeFiles/angine.dir/home/pi/projects/angine/src/entity3d.cpp.o"
   "CMakeFiles/angine.dir/home/pi/projects/angine/src/object.cpp.o"
   "CMakeFiles/angine.dir/home/pi/projects/angine/src/utils/objLoader.cpp.o"
   "CMakeFiles/angine.dir/home/pi/projects/angine/src/mesh.cpp.o"
@@ -31,6 +31,7 @@ file(REMOVE_RECURSE
   "CMakeFiles/angine.dir/home/pi/projects/angine/src/mesh_filters/twist_mesh_filter.cpp.o"
   "CMakeFiles/angine.dir/home/pi/projects/angine/src/mesh_filters/compute_normals_mesh_filter.cpp.o"
   "CMakeFiles/angine.dir/home/pi/projects/angine/src/mesh_filters/spherify_mesh_filter.cpp.o"
+  "CMakeFiles/angine.dir/home/pi/projects/angine/src/mesh_filters/duplicate_mesh_filter.cpp.o"
   "angine.pdb"
   "angine"
 )

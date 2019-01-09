@@ -1,9 +1,7 @@
 #include "param.h"
 
-//~ template<typename T>
-//~ Param<T>::Param()
-//~ {
-	//~ 
+//~ ParamFloat::ParamFloat(){
+	//~ printf("Param float empty constructor\n");
 //~ }
 
 

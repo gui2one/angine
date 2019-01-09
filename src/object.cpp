@@ -3,7 +3,7 @@
 
 
 
-Object::Object()
+Object::Object() : Entity3D()
 {
 	//~ std::cout << "--- Object CREATED ---\n";
 	
@@ -11,6 +11,76 @@ Object::Object()
 	rotation = glm::vec3(0.0f,0.0f,0.0f);
 	scale = glm::vec3(1.0f,1.0f,1.0f);	
 	color = glm::vec4(1.0f,1.0f,1.0f,1.0f);
+	
+}
+
+
+
+void Object::updateMesh()
+{
+	if(has_generator){
+		
+		if( mesh_generator->need_update)
+		{
+			//~ printf("---> Generate Mesh\n");
+			mesh = mesh_generator->generate();
+			mesh_generator->need_update = false;
+			
+			// force filters need_update
+			for (int i = 0; i < meshFilters.size(); i++)
+			{
+				meshFilters[i]->need_update = true;
+			}
+			
+			buildVbo();
+		}else{
+			mesh = mesh_generator->mesh_cache;
+		}
+	}
+
+	if(hasFilters)
+	{		
+		//// check first if one of the filters need update
+		bool some_need = false;
+		for (int i = 0; i < meshFilters.size(); i++)
+		{
+			if(meshFilters[i]->need_update){
+				some_need = true;
+			}
+		}
+				
+		for (int i = 0; i < meshFilters.size(); i++)
+		{
+			if(i == 0 && some_need){
+				mesh = mesh_generator->mesh_cache;	
+				//~ printf("---> Loading Generator Cache\n");
+				some_need = false;
+			}					
+			
+			if(meshFilters[i]->is_active)					
+			{
+				if(meshFilters[i]->need_update)
+				{
+					//~ printf("applying filter\n");
+					mesh = meshFilters[i]->applyFilter(mesh);
+					meshFilters[i]->need_update = false;
+				}else{
+					mesh = meshFilters[i]->mesh_cache;
+					meshFilters[i]->need_update = false;
+				}
+				
+				
+			}
+			
+			meshFilters[i]->need_update = false;
+		}
+		
+		//~ if(some_need == false){
+			//~ mesh = mesh_generator->mesh_cache;
+		//~ }
+		buildVbo();
+	}
+	
 	
 }
 
@@ -22,6 +92,7 @@ void Object::init()
 }
 
 void Object::initShader(){
+	//~ printf("--- START shaders initialization \n");
 	shader.loadVertexShaderSource("../src/res/shaders/basic_shader.vert");
 	shader.loadFragmentShaderSource("../src/res/shaders/basic_shader.frag");	
 	
@@ -30,6 +101,7 @@ void Object::initShader(){
 	lineShader.loadVertexShaderSource("../src/res/shaders/line_shader.vert");
 	lineShader.loadFragmentShaderSource("../src/res/shaders/line_shader.frag");		
 	lineShader.createShader();			
+	//~ printf("--- END shaders initialization \n");
 }
 
 void Object::buildTexture()
@@ -73,7 +145,7 @@ std::vector<uniform> Object::getShaderUniforms()
 void Object::buildVbo()
 {
 	
-	
+	//~ printf("--- START VBO initialization \n");
 	
 	
 	
@@ -233,8 +305,23 @@ void Object::buildVbo()
 	glBufferData(GL_ARRAY_BUFFER, sizeof(float) * 3*12*2, bbox_data ,GL_DYNAMIC_DRAW);
 	
 	glBindBuffer(GL_ARRAY_BUFFER, 0);
+	
+	//~ printf("--- END VBO initialization \n");
 }
 
+//~ void Object::applyTransforms(){
+	//~ 
+	//~ glm::mat4 temp = glm::mat4(1.0f);
+	//~ 
+	//~ temp = glm::translate(temp, position);
+	//~ temp = glm::rotate(temp, glm::radians(rotation.x), glm::vec3(1.0f, 0.0f, 0.0f));
+	//~ temp = glm::rotate(temp, glm::radians(rotation.y), glm::vec3(0.0f, 1.0f, 0.0f));
+	//~ temp = glm::rotate(temp, glm::radians(rotation.z), glm::vec3(0.0f, 0.0f, 1.0f));
+	//~ 
+	//~ temp = glm::scale(temp , scale);
+	//~ 
+	//~ transforms = temp;
+//~ }
 
 BoundingBox Object::getBoundingBox()
 {

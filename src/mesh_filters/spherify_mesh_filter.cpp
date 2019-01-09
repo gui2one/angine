@@ -4,9 +4,22 @@
 SpherifyMeshFilter::SpherifyMeshFilter()
 	: MeshFilter()
 {
-	Param<float> param1{"radius",0.5};
-	paramsFloat.push_back(param1);
-
+	p_radius = new ParamFloat("radius", 0.5);
+	param_layout.push(p_radius);
 }
+
+Mesh SpherifyMeshFilter::applyFilter(Mesh & source_mesh)
+{
+	Mesh mesh;
+	mesh = source_mesh;
+
+	for (int i = 0; i < mesh.vertices.size() ; i++)
+	{
+		mesh.vertices[i].position = glm::normalize(mesh.vertices[i].position) * p_radius->getValue();
+	}
+	
+	mesh_cache = mesh;
+	return mesh;
+};
 
 

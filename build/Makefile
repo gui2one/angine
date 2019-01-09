@@ -190,6 +190,33 @@ home/pi/projects/angine/src/camera.cpp.s:
 	$(MAKE) -f CMakeFiles/angine.dir/build.make CMakeFiles/angine.dir/home/pi/projects/angine/src/camera.cpp.s
 .PHONY : home/pi/projects/angine/src/camera.cpp.s
 
+home/pi/projects/angine/src/entity3d.o: home/pi/projects/angine/src/entity3d.cpp.o
+
+.PHONY : home/pi/projects/angine/src/entity3d.o
+
+# target to build an object file
+home/pi/projects/angine/src/entity3d.cpp.o:
+	$(MAKE) -f CMakeFiles/angine.dir/build.make CMakeFiles/angine.dir/home/pi/projects/angine/src/entity3d.cpp.o
+.PHONY : home/pi/projects/angine/src/entity3d.cpp.o
+
+home/pi/projects/angine/src/entity3d.i: home/pi/projects/angine/src/entity3d.cpp.i
+
+.PHONY : home/pi/projects/angine/src/entity3d.i
+
+# target to preprocess a source file
+home/pi/projects/angine/src/entity3d.cpp.i:
+	$(MAKE) -f CMakeFiles/angine.dir/build.make CMakeFiles/angine.dir/home/pi/projects/angine/src/entity3d.cpp.i
+.PHONY : home/pi/projects/angine/src/entity3d.cpp.i
+
+home/pi/projects/angine/src/entity3d.s: home/pi/projects/angine/src/entity3d.cpp.s
+
+.PHONY : home/pi/projects/angine/src/entity3d.s
+
+# target to generate assembly for a file
+home/pi/projects/angine/src/entity3d.cpp.s:
+	$(MAKE) -f CMakeFiles/angine.dir/build.make CMakeFiles/angine.dir/home/pi/projects/angine/src/entity3d.cpp.s
+.PHONY : home/pi/projects/angine/src/entity3d.cpp.s
+
 home/pi/projects/angine/src/generators/box_mesh.o: home/pi/projects/angine/src/generators/box_mesh.cpp.o
 
 .PHONY : home/pi/projects/angine/src/generators/box_mesh.o
@@ -460,6 +487,33 @@ home/pi/projects/angine/src/mesh_filters/compute_normals_mesh_filter.cpp.s:
 	$(MAKE) -f CMakeFiles/angine.dir/build.make CMakeFiles/angine.dir/home/pi/projects/angine/src/mesh_filters/compute_normals_mesh_filter.cpp.s
 .PHONY : home/pi/projects/angine/src/mesh_filters/compute_normals_mesh_filter.cpp.s
 
+home/pi/projects/angine/src/mesh_filters/duplicate_mesh_filter.o: home/pi/projects/angine/src/mesh_filters/duplicate_mesh_filter.cpp.o
+
+.PHONY : home/pi/projects/angine/src/mesh_filters/duplicate_mesh_filter.o
+
+# target to build an object file
+home/pi/projects/angine/src/mesh_filters/duplicate_mesh_filter.cpp.o:
+	$(MAKE) -f CMakeFiles/angine.dir/build.make CMakeFiles/angine.dir/home/pi/projects/angine/src/mesh_filters/duplicate_mesh_filter.cpp.o
+.PHONY : home/pi/projects/angine/src/mesh_filters/duplicate_mesh_filter.cpp.o
+
+home/pi/projects/angine/src/mesh_filters/duplicate_mesh_filter.i: home/pi/projects/angine/src/mesh_filters/duplicate_mesh_filter.cpp.i
+
+.PHONY : home/pi/projects/angine/src/mesh_filters/duplicate_mesh_filter.i
+
+# target to preprocess a source file
+home/pi/projects/angine/src/mesh_filters/duplicate_mesh_filter.cpp.i:
+	$(MAKE) -f CMakeFiles/angine.dir/build.make CMakeFiles/angine.dir/home/pi/projects/angine/src/mesh_filters/duplicate_mesh_filter.cpp.i
+.PHONY : home/pi/projects/angine/src/mesh_filters/duplicate_mesh_filter.cpp.i
+
+home/pi/projects/angine/src/mesh_filters/duplicate_mesh_filter.s: home/pi/projects/angine/src/mesh_filters/duplicate_mesh_filter.cpp.s
+
+.PHONY : home/pi/projects/angine/src/mesh_filters/duplicate_mesh_filter.s
+
+# target to generate assembly for a file
+home/pi/projects/angine/src/mesh_filters/duplicate_mesh_filter.cpp.s:
+	$(MAKE) -f CMakeFiles/angine.dir/build.make CMakeFiles/angine.dir/home/pi/projects/angine/src/mesh_filters/duplicate_mesh_filter.cpp.s
+.PHONY : home/pi/projects/angine/src/mesh_filters/duplicate_mesh_filter.cpp.s
+
 home/pi/projects/angine/src/mesh_filters/inflate_mesh_filter.o: home/pi/projects/angine/src/mesh_filters/inflate_mesh_filter.cpp.o
 
 .PHONY : home/pi/projects/angine/src/mesh_filters/inflate_mesh_filter.o
@@ -648,33 +702,6 @@ home/pi/projects/angine/src/param.s: home/pi/projects/angine/src/param.cpp.s
 home/pi/projects/angine/src/param.cpp.s:
 	$(MAKE) -f CMakeFiles/angine.dir/build.make CMakeFiles/angine.dir/home/pi/projects/angine/src/param.cpp.s
 .PHONY : home/pi/projects/angine/src/param.cpp.s
-
-home/pi/projects/angine/src/param2.o: home/pi/projects/angine/src/param2.cpp.o
-
-.PHONY : home/pi/projects/angine/src/param2.o
-
-# target to build an object file
-home/pi/projects/angine/src/param2.cpp.o:
-	$(MAKE) -f CMakeFiles/angine.dir/build.make CMakeFiles/angine.dir/home/pi/projects/angine/src/param2.cpp.o
-.PHONY : home/pi/projects/angine/src/param2.cpp.o
-
-home/pi/projects/angine/src/param2.i: home/pi/projects/angine/src/param2.cpp.i
-
-.PHONY : home/pi/projects/angine/src/param2.i
-
-# target to preprocess a source file
-home/pi/projects/angine/src/param2.cpp.i:
-	$(MAKE) -f CMakeFiles/angine.dir/build.make CMakeFiles/angine.dir/home/pi/projects/angine/src/param2.cpp.i
-.PHONY : home/pi/projects/angine/src/param2.cpp.i
-
-home/pi/projects/angine/src/param2.s: home/pi/projects/angine/src/param2.cpp.s
-
-.PHONY : home/pi/projects/angine/src/param2.s
-
-# target to generate assembly for a file
-home/pi/projects/angine/src/param2.cpp.s:
-	$(MAKE) -f CMakeFiles/angine.dir/build.make CMakeFiles/angine.dir/home/pi/projects/angine/src/param2.cpp.s
-.PHONY : home/pi/projects/angine/src/param2.cpp.s
 
 home/pi/projects/angine/src/param_layout.o: home/pi/projects/angine/src/param_layout.cpp.o
 
@@ -1043,6 +1070,9 @@ help:
 	@echo "... home/pi/projects/angine/src/camera.o"
 	@echo "... home/pi/projects/angine/src/camera.i"
 	@echo "... home/pi/projects/angine/src/camera.s"
+	@echo "... home/pi/projects/angine/src/entity3d.o"
+	@echo "... home/pi/projects/angine/src/entity3d.i"
+	@echo "... home/pi/projects/angine/src/entity3d.s"
 	@echo "... home/pi/projects/angine/src/generators/box_mesh.o"
 	@echo "... home/pi/projects/angine/src/generators/box_mesh.i"
 	@echo "... home/pi/projects/angine/src/generators/box_mesh.s"
@@ -1073,6 +1103,9 @@ help:
 	@echo "... home/pi/projects/angine/src/mesh_filters/compute_normals_mesh_filter.o"
 	@echo "... home/pi/projects/angine/src/mesh_filters/compute_normals_mesh_filter.i"
 	@echo "... home/pi/projects/angine/src/mesh_filters/compute_normals_mesh_filter.s"
+	@echo "... home/pi/projects/angine/src/mesh_filters/duplicate_mesh_filter.o"
+	@echo "... home/pi/projects/angine/src/mesh_filters/duplicate_mesh_filter.i"
+	@echo "... home/pi/projects/angine/src/mesh_filters/duplicate_mesh_filter.s"
 	@echo "... home/pi/projects/angine/src/mesh_filters/inflate_mesh_filter.o"
 	@echo "... home/pi/projects/angine/src/mesh_filters/inflate_mesh_filter.i"
 	@echo "... home/pi/projects/angine/src/mesh_filters/inflate_mesh_filter.s"
@@ -1094,9 +1127,6 @@ help:
 	@echo "... home/pi/projects/angine/src/param.o"
 	@echo "... home/pi/projects/angine/src/param.i"
 	@echo "... home/pi/projects/angine/src/param.s"
-	@echo "... home/pi/projects/angine/src/param2.o"
-	@echo "... home/pi/projects/angine/src/param2.i"
-	@echo "... home/pi/projects/angine/src/param2.s"
 	@echo "... home/pi/projects/angine/src/param_layout.o"
 	@echo "... home/pi/projects/angine/src/param_layout.i"
 	@echo "... home/pi/projects/angine/src/param_layout.s"

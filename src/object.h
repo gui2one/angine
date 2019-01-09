@@ -8,8 +8,6 @@
 #include "texture.h"
 
 
-
-
 #include "generators/gridmesh.h"
 #include "generators/spheremesh.h"
 #include "generators/box_mesh.h"
@@ -22,10 +20,10 @@
 #include "mesh_filters/twist_mesh_filter.h"
 #include "mesh_filters/compute_normals_mesh_filter.h"
 #include "mesh_filters/spherify_mesh_filter.h"
+#include "mesh_filters/duplicate_mesh_filter.h"
 
-#include <typeinfo>
 
-
+#include "entity3d.h"
 struct uniform{
 	std::string uniform_name;
 	GLsizei length;
@@ -33,13 +31,13 @@ struct uniform{
 	GLenum type;	
 };
 
-
 struct BoundingBox{
 	glm::vec3 position;
 	glm::vec3 size;
 };
 
-class Object{
+class Object : public Entity3D
+{
 	public :
 		Object();
 		~Object();
@@ -47,21 +45,31 @@ class Object{
 		std::vector<uniform> getShaderUniforms();
 		void buildVbo();
 		
-		unsigned int m_vbo, m_ibo, m_normals_vbo, m_bbox_vbo;
+		inline Entity3D* getParent(){
+			return parent;
+		}
+		inline void setParent(Entity3D* _entity){
+			parent = _entity;
+		}
 		
 		void init();
-		void initShader();
+		void initShader();		
+		void buildTexture();		
 		
-		void buildTexture();
+		//set parent entity3d, apply matrix and everything, awesome ... go to work and do it
+		
 		
 		inline void setRenderMode(GLuint mode){ renderMode = mode;}
-		inline GLuint getRenderMode(){ return renderMode;}
+		inline GLuint getRenderMode(){ return renderMode;}		
 		
+		unsigned int m_vbo, m_ibo, m_normals_vbo, m_bbox_vbo;
+
 		bool bDisplayPolygons = true;
 		void draw(GLuint mode=GL_TRIANGLES);
 		
 		void drawBoundingBox();
 		bool bDisplayBoundingBox = false;
+		
 		void drawNormals();
 		bool bDisplayNormals = false;
 		
@@ -77,104 +85,37 @@ class Object{
 		int generator_type = -1;
 		MeshGenerator* mesh_generator;
 		
+		
 		template<typename T> 
 		inline void setGenerator(){
-			
-			
-			//~ std::cout << typeid(T).name() << "\n";
 			
 			T* generator = new T();
 			
 			mesh.vertices.clear();
 			mesh.indices.clear();
 			mesh = generator->generate();
-			//~ buildVbo();
+			
 			computeBoundingBox();
 			
 			mesh_generator = generator;
 			has_generator = true;			
 		}
 		
-		
-		
+	
 		std::vector<MeshFilter*> meshFilters;
 		bool hasFilters = false;
 		
 		template<typename T>
 		inline void setMeshFilter(){
-			T* filter = new T();
-			
-			mesh = filter->applyFilter(mesh);
-			//~ buildVbo();
+			T* filter = new T();			
+			mesh = filter->applyFilter(mesh);			
 			meshFilters.push_back(filter);
 		}
 		
-		inline void updateMesh()
-		{
-			if(has_generator){
-				
-				if( mesh_generator->need_update)
-				{
-					printf("---> Generate Mesh\n");
-					mesh = mesh_generator->generate();
-					mesh_generator->need_update = false;
-					
-					// force filters need_update
-					for (int i = 0; i < meshFilters.size(); i++)
-					{
-						meshFilters[i]->need_update = true;
-					}
-					
-					buildVbo();
-				}
-			}
-
-			if(hasFilters)
-			{		
-				//// check first if one of the filters need update
-				bool some_need = false;
-				for (int i = 0; i < meshFilters.size(); i++)
-				{
-					if(meshFilters[i]->need_update){
-						some_need = true;
-					}
-				}
-						
-				for (int i = 0; i < meshFilters.size(); i++)
-				{
-					if(i == 0 && some_need){
-						mesh = mesh_generator->mesh_cache;	
-						printf("---> Loading Generator Cache\n");
-						some_need = false;
-					}					
-					
-					if(meshFilters[i]->is_active)					
-					{
-						if(meshFilters[i]->need_update)
-						{
-							printf("applying filter\n");
-							mesh = meshFilters[i]->applyFilter(mesh);
-							meshFilters[i]->need_update = false;
-						}else{
-							mesh = meshFilters[i]->mesh_cache;
-							meshFilters[i]->need_update = false;
-						}
-						
-						
-					}
-					
-					meshFilters[i]->need_update = false;
-				}
-				
-				//~ if(some_need == false){
-					//~ mesh = mesh_generator->mesh_cache;
-				//~ }
-				buildVbo();
-			}
-			
-			
-		}
+		void updateMesh();
+		
 		void printMeshData();
+		
 		Mesh mesh;
 		std::vector<float> vertex_data;
 		std::vector<float> normals_data;
@@ -182,11 +123,16 @@ class Object{
 		Shader shader, lineShader;
 		GLint texture_id;
 		Texture texture;
-		//~ std::string texture_path = "";
 		
-		glm::vec3 position;
-		glm::vec3 scale;
-		glm::vec3 rotation;
+		
+		
+		//~ glm::mat4 transforms = glm::mat4(1.0);		
+		//~ glm::vec3 position;
+		//~ glm::vec3 scale;
+		//~ glm::vec3 rotation;
+		//~ 
+		//~ void applyTransforms();
+		
 		glm::vec4 color;
 		
 		char name[100] = {'n','e','w','_','o','b','j','e','c','t'};
@@ -196,6 +142,7 @@ class Object{
 		
 		private:
 			GLuint renderMode = GL_TRIANGLES;
+			Entity3D* parent = nullptr;
 			
 };
 

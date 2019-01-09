@@ -19,7 +19,7 @@ class ComputeNormalsMeshFilter: public MeshFilter
 		ParamBool *p_invert;
 		
 	private:
-		std::string name = "compute_normals";
+		
 		/* add your private declarations */
 };
 

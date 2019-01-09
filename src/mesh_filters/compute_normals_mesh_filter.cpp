@@ -4,12 +4,6 @@
 ComputeNormalsMeshFilter::ComputeNormalsMeshFilter()
 	: MeshFilter()
 {
-	Param<float> param1{"tx",0.0};
-	paramsFloat.push_back(param1);	
-	
-	Param<bool> param2{"invert normals", false};
-	paramsBool.push_back(param2);
-	
 	p_invert = new ParamBool("Invert normals", false);
 	param_layout.push(p_invert);
 }

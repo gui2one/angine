@@ -4,15 +4,17 @@
 TwistMeshFilter::TwistMeshFilter()
 	: MeshFilter()
 {
-	Param<float> amount{"amount",0.0};
-	paramsFloat.push_back(amount);
-	
-	Param<int> axis_choice{"axis choice",0};
-	paramsInt.push_back(axis_choice);	
+	//~ Param<float> amount{"amount",0.0};
+	//~ paramsFloat.push_back(amount);
 	//~ 
-	//~ Param<glm::vec3> axis{"axis",glm::vec3(0.0f,0.0f, 1.0f)};
-	//~ paramsVec3.push_back(axis);
-		
+	//~ Param<int> axis_choice{"axis choice",0};
+	//~ paramsInt.push_back(axis_choice);	
+
+	p_amount = new ParamFloat("amount", 0.1);
+	param_layout.push(p_amount);
+	
+	p_axis_choice = new ParamInt("axis choice", 0);
+	param_layout.push(p_axis_choice);	
 }
 
 Mesh TwistMeshFilter::applyFilter(Mesh & source_mesh)
@@ -21,13 +23,13 @@ Mesh TwistMeshFilter::applyFilter(Mesh & source_mesh)
 	mesh = source_mesh;
 	glm::vec3 axis = glm::vec3(1.0f);
 	float ratio = 0.0f;
-	if(paramsInt[0].value == 0){			
+	if(p_axis_choice->getValue() == 0){			
 		axis = glm::vec3(1.0f, 0.0f, 0.0f);		
 		
-	}else if(paramsInt[0].value == 1){		
+	}else if(p_axis_choice->getValue() == 1){		
 		axis = glm::vec3(0.0f, 1.0f, 0.0f);		
 		
-	}else if(paramsInt[0].value == 2){
+	}else if(p_axis_choice->getValue() == 2){
 		axis = glm::vec3(0.0f, 0.0f, 1.0f);
 		
 	}
@@ -39,14 +41,14 @@ Mesh TwistMeshFilter::applyFilter(Mesh & source_mesh)
 		
 		glm::mat4 temp_matrix = glm::mat4(1.0f);
 		
-		if(paramsInt[0].value == 0){
+		if(p_axis_choice->getValue() == 0){
 			ratio = mesh.vertices[i].position.x;
-		}else if(paramsInt[0].value == 1){			
+		}else if(p_axis_choice->getValue() == 1){			
 			ratio = mesh.vertices[i].position.y;
-		}else if(paramsInt[0].value == 2){			
+		}else if(p_axis_choice->getValue() == 2){			
 			ratio = mesh.vertices[i].position.z;		
 		}
-		temp_matrix = glm::rotate(rot_matrix, ratio * paramsFloat[0].value, axis);
+		temp_matrix = glm::rotate(rot_matrix, ratio * p_amount->getValue(), axis);
 		
 		mesh.vertices[i].position = temp_matrix * glm::vec4(mesh.vertices[i].position,1.0f);
 	}
