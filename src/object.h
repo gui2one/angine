@@ -135,7 +135,7 @@ class Object : public Entity3D
 		
 		glm::vec4 color;
 		
-		char name[100] = {'n','e','w','_','o','b','j','e','c','t'};
+		
 		BoundingBox boundingBox;
 		
 		

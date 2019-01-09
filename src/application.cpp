@@ -37,10 +37,15 @@ void Application::mouse_button_callback(GLFWwindow* window, int button, int acti
 
 void Application::char_mods_callback(GLFWwindow* window, unsigned int key, int mod)
 {
+	Application* app = static_cast<Application*>(glfwGetWindowUserPointer(window));
+	
+	if( (char)key == 'l' ) // lower L
+		app->window.buildObjectList();
 	if( mod == GLFW_MOD_SHIFT)
 	{
 		printf("shift + %c\n", std::tolower((char)key));
 	}
+	
 }
 
 

@@ -41,6 +41,7 @@ class Window
 		void addObject(Object* obj);
 		std::vector<Object*> objects;
 		void renderObjects();
+		void buildObjectList();
 
 		Shader pointShader;
 		

@@ -295,6 +295,18 @@ int Window::explorerDialog(){
 	file_names.clear();
 }
 
+
+void Window::buildObjectList()
+{
+	for (int i = 0; i < objects.size(); i++)
+	{
+		printf("Object %d, name : %s\n", i, objects[i]->name);
+		if(objects[i]->getParent()){
+			printf("\tParent %d, name : %s\n", i, objects[i]->getParent()->name);
+		}
+	}
+	
+}
 void Window::objectListDialog()
 {
 	ImGui::Begin("Object List");

@@ -15,6 +15,7 @@ class Entity3D
 		
 		void applyTransforms();
 			
+		char name[100] = {'n','e','w','_','o','b','j','e','c','t'};
 	private:
 		/* add your private declarations */
 };
