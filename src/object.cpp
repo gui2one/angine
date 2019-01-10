@@ -13,7 +13,20 @@ Object::Object() : Entity3D()
 	color = glm::vec4(1.0f,1.0f,1.0f,1.0f);	
 }
 
-
+std::vector<Object*> Object::getParents()
+{
+	std::vector<Object*> parents;
+	Object * cur = this;
+	while(cur->getParent() != nullptr)
+	{
+		Object * p = (Object*)cur->getParent();
+		parents.push_back(p);
+		//~ parents.insert(parents.begin(), p);
+		cur = p;
+	}
+	
+	return parents;
+}
 
 void Object::updateMesh()
 {

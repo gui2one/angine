@@ -55,6 +55,8 @@ class Object : public Entity3D
 			parent = nullptr;
 		}
 		
+		std::vector<Object*> getParents();
+		
 		void init();
 		void initShader();		
 		void buildTexture();		

@@ -324,7 +324,7 @@ void Window::buildObjectList()
 {
 	
 	std::vector<std::pair<Object*, int > > depths(objects.size());
-	
+	std::vector<Object*> objects_copy = objects;
 	for (int i = 0; i < objects.size(); i++)
 	{
 		depths[i].first = objects[i];
@@ -356,23 +356,71 @@ void Window::buildObjectList()
 		
 		return pair1.second > pair2.second;
 	});
-	printf("------------\n");	
-	printf("OBJECTS LIST : \n");
+	
+	struct TREE_ITEM{
+		Object* obj;
+		std::vector<Object*> parents;
+	};
+	
+	std::vector<TREE_ITEM> tree_items;
 	for (int i = 0; i < depths.size(); i++)
 	{
-		printf("\tname : %s \n\tid : %d\n",depths[i].first->name, depths[i].first->getID());
+		Object * cur = depths[i].first;
+		std::vector<Object*> parents;
+		//~ printf("<<<<<<<<<<<<<< %s\n", cur->name);
+		while(cur->getParent()){
+			printf("((((( %s\n", cur->getParent()->name);
+			
+			//insert in first place 
+			parents.insert(parents.begin(),(Object*)cur->getParent());
+			
+			//~ parents.push_back((Object*)cur->getParent());
+			
+			
+			cur = (Object*)cur->getParent();
+
+		}
+		
+
+		
+		tree_items.push_back({depths[i].first, parents});
 	}
-	printf("\n------------\n\n");	
 	
-	printf("depths( ");
-	for (int i = 0; i < depths.size(); i++)
+	for (int i = 0; i < tree_items.size(); i++)
 	{
-		printf("%d%s", depths[i].second, (i == depths.size()-1 ? " " : ", "));
+		TREE_ITEM item = tree_items[i];
+		printf("Tree item : \n");
+		printf("\tname : %s\n", item.obj->name);
+		for (int pa = 0; pa < item.parents.size(); pa++)
+		{
+			Object* obj = (Object*)(item.parents[pa]);
+			if(obj != nullptr){
+				
+			printf("\t\t parent %d : %s\n" , pa, obj->name);
+			//~ printf("\t\t parent %d \n" , pa);
+			
+			}else{
+				printf("\t\tnullptr !!!!!!\n");
+			}
+		}
+		
 	}
 	
-	//// std::pair test , it seems to compile
-	//~ std::pair<Object*, std::vector<Object *> > tree_item;
-	printf(")\n-----\n\n");
+	
+	//~ printf("------------\n");	
+	//~ printf("OBJECTS LIST : \n");
+	//~ for (int i = 0; i < depths.size(); i++)
+	//~ {
+		//~ printf("\tname : %s \n\tid : %d\n",depths[i].first->name, depths[i].first->getID());
+	//~ }
+	//~ printf("\n------------\n\n");	
+	//~ 
+	//~ printf("depths( ");
+	//~ for (int i = 0; i < depths.size(); i++)
+	//~ {
+		//~ printf("%d%s", depths[i].second, (i == depths.size()-1 ? " " : ", "));
+	//~ }
+	//~ printf(")\n-----\n\n");
 	
 }
 
@@ -1264,13 +1312,23 @@ void Window::renderObjects()
 			
 			
 			// apply transform matrices
-			if(curObj->getParent() != nullptr)
+			//// first get a list of parents
+			std::vector<Object*> parents  = curObj->getParents();
+			for (int i = 0; i < parents.size(); i++)
 			{
-				model = curObj->getParent()->transforms * curObj->transforms;
-			}else{
-				
-				model = curObj->transforms;
+				model = parents[i]->transforms * model;
 			}
+			
+			//// lastly apply own transforms
+			model = model * curObj->transforms;
+			
+			//~ if(curObj->getParent() != nullptr)
+			//~ {
+				//~ model = curObj->getParent()->transforms * curObj->transforms;
+			//~ }else{
+				//~ 
+				//~ model = curObj->transforms;
+			//~ }
 			
 
 			
