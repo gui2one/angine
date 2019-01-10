@@ -51,6 +51,9 @@ class Object : public Entity3D
 		inline void setParent(Entity3D* _entity){
 			parent = _entity;
 		}
+		inline void resetParent(){
+			parent = nullptr;
+		}
 		
 		void init();
 		void initShader();		

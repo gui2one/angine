@@ -3,6 +3,7 @@
 #include <iostream>
 #include <typeinfo>
 #include <sstream>
+#include <algorithm>
 
 #include <array>
 
@@ -13,7 +14,7 @@
 #include <linux/limits.h>
 #include <unistd.h>
 #include <sys/stat.h>
-#include <algorithm>
+
 ////
 
 static std::vector<std::string> split(const std::string& str, std::string delimiter = " "){
@@ -104,7 +105,7 @@ Window::Window()
 	
 	obj->init();
 	obj->setGenerator<CylinderMesh>();
-	obj->position.x = 1.0;
+	obj->rotation.y = -45.0;
 	obj->applyTransforms();
 	obj->generator_type = 6; // really crappy design , do something !!!!
 	obj->mesh_generator->need_update = true;
@@ -116,54 +117,67 @@ Window::Window()
 	obj2->init();
 	obj2->setParent(obj);
 	obj2->setGenerator<BoxMesh>();
+	obj2->position.x = 2.0;
+	obj2->applyTransforms();	
 	obj2->generator_type = 6; // really crappy design , do something !!!!
 	obj2->mesh_generator->need_update = true;
 	
 	addObject(obj2);	
+	
+	Object* obj3 = new Object();
+	
+	obj3->init();
+	obj3->setParent(obj2);
+	obj3->setGenerator<CylinderMesh>();
+	obj3->generator_type = 6; // really crappy design , do something !!!!
+	obj3->mesh_generator->need_update = true;
+	
+	addObject(obj3);		
 
-	selGizmoInit();
+	//~ selGizmoInit();
 
 }
 
 
-void Window::selGizmoInit()
+//~ void Window::selGizmoInit()
+//~ {
+	//~ 
+	//~ float vert_data[8*3] = {
+			//~ 0.00, 0.00, 0.00,
+			//~ 0.5, 0.00, 0.00,
+			//~ 0.00, 0.5, 0.00,
+			//~ 0.00, 0.00, 0.5,
+//~ 
+			//~ 1.00, 0.00, 0.00,
+			//~ 0.5, 0.00, 0.00,
+			//~ 1.00, 0.5, 0.00,
+			//~ 1.00, 0.00, 0.5			
+	//~ };
+	//~ glDeleteBuffers(1, &sel_gizmo_vbo);
+	//~ glGenBuffers(1, &sel_gizmo_vbo);
+	//~ glBindBuffer(GL_ARRAY_BUFFER, sel_gizmo_vbo);
+	//~ glBufferData(GL_ARRAY_BUFFER, sizeof(float) * 8*3, vert_data ,GL_DYNAMIC_DRAW);	
+	//~ 
+	//~ glBindBuffer(GL_ARRAY_BUFFER, 0);
+//~ }
+
+//~ void Window::drawSelGizmo(){
+	//~ 
+	
+	//~ glBindBuffer(GL_ARRAY_BUFFER, sel_gizmo_vbo);
+	//~ glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(float) * 3, 0); 					
+	//~ glEnableVertexAttribArray(0);		
+	//~ 
+		//~ glDrawArrays(GL_POINTS,0, 8*3);
+	//~ 
+	//~ glDisableVertexAttribArray(0);		
+	//~ glBindBuffer(GL_ARRAY_BUFFER, 0);	
+	//~ 
+	
+//~ }
+
+int Window::explorerDialog()
 {
-	
-	float vert_data[8*3] = {
-			0.00, 0.00, 0.00,
-			0.5, 0.00, 0.00,
-			0.00, 0.5, 0.00,
-			0.00, 0.00, 0.5,
-
-			1.00, 0.00, 0.00,
-			0.5, 0.00, 0.00,
-			1.00, 0.5, 0.00,
-			1.00, 0.00, 0.5			
-	};
-	glDeleteBuffers(1, &sel_gizmo_vbo);
-	glGenBuffers(1, &sel_gizmo_vbo);
-	glBindBuffer(GL_ARRAY_BUFFER, sel_gizmo_vbo);
-	glBufferData(GL_ARRAY_BUFFER, sizeof(float) * 8*3, vert_data ,GL_DYNAMIC_DRAW);	
-	
-	glBindBuffer(GL_ARRAY_BUFFER, 0);
-}
-
-void Window::drawSelGizmo(){
-	
-	//~ pointShader.useProgram();
-	glBindBuffer(GL_ARRAY_BUFFER, sel_gizmo_vbo);
-	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(float) * 3, 0); 					
-	glEnableVertexAttribArray(0);		
-	
-		glDrawArrays(GL_POINTS,0, 8*3);
-	
-	glDisableVertexAttribArray(0);		
-	glBindBuffer(GL_ARRAY_BUFFER, 0);	
-	
-	//~ glUseProgram(0);		
-}
-
-int Window::explorerDialog(){
 	
 	using namespace std;
 	DIR* dir;
@@ -295,20 +309,73 @@ int Window::explorerDialog(){
 	file_names.clear();
 }
 
-
-void Window::buildObjectList()
+int Window::findObjectIndexByID(int id)
 {
 	for (int i = 0; i < objects.size(); i++)
 	{
-		printf("Object %d, name : %s\n", i, objects[i]->name);
-		if(objects[i]->getParent()){
-			printf("\tParent %d, name : %s\n", i, objects[i]->getParent()->name);
+		if(objects[i]->getID() == id)
+		{
+			return i;
+		}
+	}	
+	return -1;	
+}
+void Window::buildObjectList()
+{
+	
+	std::vector<std::pair<Object*, int > > depths(objects.size());
+	
+	for (int i = 0; i < objects.size(); i++)
+	{
+		depths[i].first = objects[i];
+		depths[i].second = 0;
+		Entity3D * p = objects[i];
+		Object * p_obj = nullptr;
+		if(p_obj = dynamic_cast<Object *>(p))
+		{
+			
+			// find depth !!! and sort by it
+			
+			////	
+			
+			printf("Object name : %s\n", p_obj->name);
+			while(p_obj->getParent() != nullptr){
+				printf("\tParent name : %s -- DEPTH --> %d\n", p_obj->getParent()->name, depths[i].second);
+				p_obj = (Object *)p_obj->getParent();
+				depths[i].second += 1;
+				
+			}				
 		}
 		
-		// first go through the list and find all objects with a parent
+		
+		
+		
 	}
 	
+	sort(depths.begin(), depths.end(), []( std::pair<Object*, int > pair1, std::pair<Object*, int > pair2){
+		
+		return pair1.second > pair2.second;
+	});
+	printf("------------\n");	
+	printf("OBJECTS LIST : \n");
+	for (int i = 0; i < depths.size(); i++)
+	{
+		printf("\tname : %s \n\tid : %d\n",depths[i].first->name, depths[i].first->getID());
+	}
+	printf("\n------------\n\n");	
+	
+	printf("depths( ");
+	for (int i = 0; i < depths.size(); i++)
+	{
+		printf("%d%s", depths[i].second, (i == depths.size()-1 ? " " : ", "));
+	}
+	
+	//// std::pair test , it seems to compile
+	//~ std::pair<Object*, std::vector<Object *> > tree_item;
+	printf(")\n-----\n\n");
+	
 }
+
 void Window::objectListDialog()
 {
 	ImGui::Begin("Object List");
@@ -348,15 +415,15 @@ void Window::objectListDialog()
 	
 	if(ImGui::Button("Delete Object"))
 	{
-		delete objects[cur_object_selected];
-		objects.erase(objects.begin() + cur_object_selected);
-		
-		if(cur_object_selected > 0)
-			cur_object_selected -= 1;
+		removeObject(objects[cur_object_selected]);
+		//~ delete objects[cur_object_selected];
+		//~ objects.erase(objects.begin() + cur_object_selected);
+		//~ 
+		//~ if(cur_object_selected > 0)
+			//~ cur_object_selected -= 1;
 	}
 	ImGui::End();
 }
-
 
 void Window::objectPropertiesDialog()
 {	
@@ -388,6 +455,71 @@ void Window::objectPropertiesDialog()
 			{			
 				if( ImGui::BeginTabItem("Transform"))
 				{
+					
+					//// parenting stufff
+					ImGui::Columns(2);
+					if(objects[cur_object_selected]->getParent())
+					{	
+						Object * parent_ptr =  (Object *)(objects[cur_object_selected]->getParent());
+						ImGui::Text((const char *)parent_ptr->name);
+					}else{
+						ImGui::Text("no parent");
+					}
+					
+					ImGui::NextColumn();
+					
+					
+					if(ImGui::BeginCombo("Set Parent","...",0))
+					{
+						
+						for (int i = 0; i < objects.size(); i++)
+						{
+							//// if not yourself
+							if( objects[i]->getID() != objects[cur_object_selected]->getID())
+							{
+								//// if has already a parent , needed , crashing !!
+								if(objects[i]->getParent() != nullptr)
+								{
+									//// finally check if current is already a child of yours in which case
+									///// it doesn't make any sense to become the child of your child
+									if(objects[cur_object_selected]->getID() != objects[i]->getParent()->getID())
+									{
+										
+										if(ImGui::Selectable(objects[i]->name))
+										{
+											//~ printf("Did I just choose a parent ?\n");
+											objects[cur_object_selected]->setParent(objects[i]);
+										}
+									}
+								}else{
+									if(ImGui::Selectable(objects[i]->name))
+									{
+										//~ printf("Did I just choose a parent ?\n");
+										objects[cur_object_selected]->setParent(objects[i]);
+									}									
+								}
+							}
+						}
+						
+						if(ImGui::Selectable("None"))
+						{
+							objects[cur_object_selected]->resetParent();
+						}
+						
+						
+					
+					
+						ImGui::EndCombo();
+					}
+					
+					
+					ImGui::Columns(1);
+					ImGui::Separator();
+					
+					
+					
+					
+					//// transform stuff
 					glm::mat4 temp_matrix = glm::mat4(1.0f);
 					
 					ImGui::LabelText("", "Position");
@@ -989,10 +1121,8 @@ void Window::objectPropertiesDialog()
 	}
 }
 
-void Window::refresh(){
-	
-
-
+void Window::refresh()
+{
 	ImGui_ImplOpenGL3_NewFrame();
 	ImGui_ImplGlfw_NewFrame();
 	ImGui::NewFrame();
@@ -1042,7 +1172,8 @@ void Window::refresh(){
 	
 }
 
-bool Window::shouldClose(){
+bool Window::shouldClose()
+{
 	return glfwWindowShouldClose(win);
 }
 
@@ -1063,12 +1194,38 @@ void Window::addObject(Object* obj)
 		
 	}
 	
+	obj->setID( cur_unique_id);
+	cur_unique_id++;
 	
 	objects.push_back(obj);
 	
 }
 
-void Window::renderObjects(){
+void Window::removeObject(Object* obj)
+{
+		//// check for children and reset parent to nullptr if needed
+		for (int i = 0; i < objects.size(); i++)
+		{
+			if(objects[i]->getParent() != nullptr){
+				
+				if(objects[i]->getParent()->getID() == obj->getID())
+				{
+					printf("got child !!!\n");
+					objects[i]->resetParent();
+				}
+			}
+		}
+		
+		int index_to_remove = findObjectIndexByID(obj->getID());
+		delete obj;
+		objects.erase(objects.begin() + index_to_remove);
+		
+		if(cur_object_selected > 0)
+			cur_object_selected -= 1;	
+}
+
+void Window::renderObjects()
+{
 	
 		//~ printf("---- START render objects function\n");
 		for (int i = 0; i < objects.size(); i++)
@@ -1136,13 +1293,16 @@ void Window::renderObjects(){
 			
 			glUniform1i(glGetUniformLocation(curObj->shader.m_id, "u_tex"),0);
 
-			//~ glLoadIdentity();
 
-			//~ glPointSize(5);
-			//~ glPolygonMode( GL_FRONT_AND_BACK, GL_LINE );
 			
-			if(cur_object_selected == i)
-				drawSelGizmo();
+			
+			
+			
+			//~ if(cur_object_selected == i)
+				//~ drawSelGizmo();
+			
+			
+			
 			
 			if(curObj->bDisplayPolygons){			
 				glPolygonMode( GL_FRONT_AND_BACK, GL_FILL );

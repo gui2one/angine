@@ -28,20 +28,28 @@ class Window
 		Camera camera;
 		
 		
-		unsigned int sel_gizmo_vbo;
-		unsigned int sel_gizmo_ibo;
-		void selGizmoInit();
-		void drawSelGizmo();
+		//~ unsigned int sel_gizmo_vbo;
+		//~ unsigned int sel_gizmo_ibo;
+		//~ void selGizmoInit();
+		//~ void drawSelGizmo();
 		
 		
 		
 		int width, height;
 		bool shouldClose();
 		
-		void addObject(Object* obj);
+
+		
 		std::vector<Object*> objects;
-		void renderObjects();
+		
+		void addObject(Object* obj);
+		void removeObject(Object* obj);
+		int findObjectIndexByID(int id);
 		void buildObjectList();
+		
+				
+		void renderObjects();
+		
 
 		Shader pointShader;
 		
@@ -58,6 +66,8 @@ class Window
 		void objectListDialog();
 		int cur_object_selected = 0;
 		int cur_mesh_filter_selected = 0;
+		
+		int cur_unique_id = 0;
 	private:
 		
 		

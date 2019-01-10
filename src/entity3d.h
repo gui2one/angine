@@ -14,9 +14,14 @@ class Entity3D
 		glm::vec3 rotation;
 		
 		void applyTransforms();
-			
+		
+		inline void setID(int _id){	id = _id;}			
+		inline int getID(){	return id;}
+		
 		char name[100] = {'n','e','w','_','o','b','j','e','c','t'};
 	private:
+	
+		int id;
 		/* add your private declarations */
 };
 
