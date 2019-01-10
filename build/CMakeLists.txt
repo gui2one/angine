@@ -65,6 +65,7 @@ add_executable(angine
 	../src/mesh_filters/compute_normals_mesh_filter.cpp
 	../src/mesh_filters/spherify_mesh_filter.cpp
 	../src/mesh_filters/duplicate_mesh_filter.cpp
+	../src/mesh_filters/from_polar_mesh_filter.cpp
 	
 )
 

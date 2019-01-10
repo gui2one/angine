@@ -32,6 +32,7 @@ file(REMOVE_RECURSE
   "CMakeFiles/angine.dir/home/pi/projects/angine/src/mesh_filters/compute_normals_mesh_filter.cpp.o"
   "CMakeFiles/angine.dir/home/pi/projects/angine/src/mesh_filters/spherify_mesh_filter.cpp.o"
   "CMakeFiles/angine.dir/home/pi/projects/angine/src/mesh_filters/duplicate_mesh_filter.cpp.o"
+  "CMakeFiles/angine.dir/home/pi/projects/angine/src/mesh_filters/from_polar_mesh_filter.cpp.o"
   "angine.pdb"
   "angine"
 )

@@ -21,6 +21,7 @@
 #include "mesh_filters/compute_normals_mesh_filter.h"
 #include "mesh_filters/spherify_mesh_filter.h"
 #include "mesh_filters/duplicate_mesh_filter.h"
+#include "mesh_filters/from_polar_mesh_filter.h"
 
 
 #include "entity3d.h"

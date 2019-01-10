@@ -752,7 +752,7 @@ void Window::objectPropertiesDialog()
 						{	
 							
 							static int choice = 0;
-							std::vector<std::string> items = {"...", "Transform", "Inflate", "Twist", "Compute Normals", "Spherify", "Duplicate"};
+							std::vector<std::string> items = {"...", "Transform", "Inflate", "Twist", "Compute Normals", "Spherify", "Duplicate", "From Polar"};
 							if(ImGui::BeginCombo("filters", items[choice].c_str(), 0))
 							{
 								for (int i = 1; i < items.size(); i++)
@@ -797,6 +797,10 @@ void Window::objectPropertiesDialog()
 									curObj->hasFilters = true;
 									curObj->setMeshFilter<DuplicateMeshFilter>();		
 									curObj->meshFilters[ curObj->meshFilters.size()-1]->setName("duplicate");
+								}else if(choice == 7){
+									curObj->hasFilters = true;
+									curObj->setMeshFilter<FromPolarMeshFilter>();		
+									curObj->meshFilters[ curObj->meshFilters.size()-1]->setName("from_polar");
 								}
 								
 							}
@@ -1006,121 +1010,7 @@ void Window::objectPropertiesDialog()
 								}
 								
 
-								//~ 
-								//~ if(curObj->meshFilters.size() > 0)
-								//~ {		
-									//~ if( ImGui::InputText("name", (char *)(curObj->meshFilters[cur_mesh_filter_selected]->getName().c_str()), 200)){
-										//~ std::cout<< curObj->meshFilters[cur_mesh_filter_selected]->getName().c_str() << "\n";
-									//~ }
-								//~ }
-								//~ 
-								//~ for (int i = 0; i < curObj->meshFilters[cur_mesh_filter_selected]->paramsFloat.size(); i++)
-								//~ {		
-									//~ if(ImGui::DragFloat(
-										//~ curObj->meshFilters[cur_mesh_filter_selected]->paramsFloat[i].name.c_str(),
-										//~ &curObj->meshFilters[cur_mesh_filter_selected]->paramsFloat[i].value ))
-									//~ {
-										//~ std::cout << curObj->meshFilters[cur_mesh_filter_selected]->paramsFloat[i].value << "\n";
-										//~ curObj->meshFilters[cur_mesh_filter_selected]->need_update = true;
-										//~ 
-										//~ // force follwing filters need_update also
-										//~ for (int j = cur_mesh_filter_selected+1; j < curObj->meshFilters.size(); j++)
-										//~ {
-											//~ curObj->meshFilters[j]->need_update = true;
-										//~ }									
-									//~ }
-									//~ 
-								//~ }	
-								//~ 
-								//~ // vec3 params
-								//~ for (int i = 0; i < curObj->meshFilters[cur_mesh_filter_selected]->paramsVec3.size(); i++)
-								//~ {	
-									//~ 
-										//~ ImGui::LabelText("", curObj->meshFilters[cur_mesh_filter_selected]->paramsVec3[i].name.c_str());
-										//~ ImGui::Columns(3,"columns");
-										//~ if(ImGui::DragFloat(":x", &curObj->meshFilters[cur_mesh_filter_selected]->paramsVec3[i].value.x)){
-											//~ curObj->meshFilters[cur_mesh_filter_selected]->need_update = true;
-											//~ 
-											//~ // force follwing filters need_update also
-											//~ for (int j = cur_mesh_filter_selected+1; j < curObj->meshFilters.size(); j++)
-											//~ {
-												//~ curObj->meshFilters[j]->need_update = true;
-											//~ }										
-										//~ }
-										//~ ImGui::NextColumn();
-										//~ if(ImGui::DragFloat(":y", &curObj->meshFilters[cur_mesh_filter_selected]->paramsVec3[i].value.y)){
-											//~ curObj->meshFilters[cur_mesh_filter_selected]->need_update = true;
-											//~ 
-											//~ // force follwing filters need_update also
-											//~ for (int j = cur_mesh_filter_selected+1; j < curObj->meshFilters.size(); j++)
-											//~ {
-												//~ curObj->meshFilters[j]->need_update = true;
-											//~ }																				
-										//~ }
-										//~ ImGui::NextColumn();
-										//~ if(ImGui::DragFloat(":z", &curObj->meshFilters[cur_mesh_filter_selected]->paramsVec3[i].value.z)){
-											//~ curObj->meshFilters[cur_mesh_filter_selected]->need_update = true;
-											//~ 
-											//~ // force follwing filters need_update also
-											//~ for (int j = cur_mesh_filter_selected+1; j < curObj->meshFilters.size(); j++)
-											//~ {
-												//~ curObj->meshFilters[j]->need_update = true;
-											//~ }																				
-										//~ }
-										//~ 
-										//~ ImGui::Separator();								
-										//~ ImGui::Columns(1);	
-										//~ 
-									//~ if(ImGui::DragFloat(
-										//~ curObj->meshFilters[cur_mesh_filter_selected]->paramsVec3[i].name.c_str(),
-										//~ &curObj->meshFilters[cur_mesh_filter_selected]->paramsVec3[i].value.x ))
-									//~ {
-										//~ std::cout << curObj->meshFilters[cur_mesh_filter_selected]->paramsVec3[i].value.x << "\n";
-										//~ curObj->meshFilters[cur_mesh_filter_selected]->need_update = true;
-										//~ 
-										//~ // force follwing filters need_update also
-										//~ for (int j = cur_mesh_filter_selected+1; j < curObj->meshFilters.size(); j++)
-										//~ {
-											//~ curObj->meshFilters[j]->need_update = true;
-										//~ }									
-									//~ }
-									//~ 
-								//~ }														
-								//~ 
-								//~ for (int i = 0; i < curObj->meshFilters[cur_mesh_filter_selected]->paramsInt.size(); i++)
-								//~ {
-									//~ static bool need_update = false;
-									//~ 
-									//~ if(ImGui::DragInt(
-										//~ curObj->meshFilters[cur_mesh_filter_selected]->paramsInt[i].name.c_str(),
-										//~ &curObj->meshFilters[cur_mesh_filter_selected]->paramsInt[i].value ))
-									//~ {
-										//~ std::cout << curObj->meshFilters[cur_mesh_filter_selected]->paramsInt[i].value << "\n";
-										//~ curObj->meshFilters[cur_mesh_filter_selected]->need_update = true;
-										//~ 
-										//~ // force follwing filters need_update also
-										//~ for (int j = cur_mesh_filter_selected+1; j < curObj->meshFilters.size(); j++)
-										//~ {
-											//~ curObj->meshFilters[j]->need_update = true;
-										//~ }										
-									//~ }
-									//~ 
-								//~ }
-//~ 
-								//~ for (int i = 0; i < curObj->meshFilters[cur_mesh_filter_selected]->paramsBool.size(); i++)
-								//~ {
-									//~ 
-									//~ if(ImGui::CheckboxFlags("Invert Normals", (unsigned int*)&curObj->meshFilters[cur_mesh_filter_selected]->paramsBool[i].value, 1))
-									//~ {
-										//~ curObj->meshFilters[cur_mesh_filter_selected]->need_update = true;
-										//~ 
-										//~ // force follwing filters need_update also
-										//~ for (int j = cur_mesh_filter_selected+1; j < curObj->meshFilters.size(); j++)
-										//~ {
-											//~ curObj->meshFilters[j]->need_update = true;
-										//~ }									
-									//~ }
-								//~ }
+								
 								
 							}
 							ImGui::EndTabItem();

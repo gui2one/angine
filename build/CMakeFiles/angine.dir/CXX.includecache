@@ -468,6 +468,16 @@ duplicate_mesh_filter.h
 mesh_filter.h
 /home/pi/projects/angine/src/mesh_filters/mesh_filter.h
 
+/home/pi/projects/angine/src/mesh_filters/from_polar_mesh_filter.cpp
+from_polar_mesh_filter.h
+/home/pi/projects/angine/src/mesh_filters/from_polar_mesh_filter.h
+
+/home/pi/projects/angine/src/mesh_filters/from_polar_mesh_filter.h
+../pch.h
+/home/pi/projects/angine/src/pch.h
+mesh_filter.h
+/home/pi/projects/angine/src/mesh_filters/mesh_filter.h
+
 /home/pi/projects/angine/src/mesh_filters/inflate_mesh_filter.cpp
 inflate_mesh_filter.h
 /home/pi/projects/angine/src/mesh_filters/inflate_mesh_filter.h
@@ -561,6 +571,8 @@ mesh_filters/spherify_mesh_filter.h
 /home/pi/projects/angine/src/mesh_filters/spherify_mesh_filter.h
 mesh_filters/duplicate_mesh_filter.h
 /home/pi/projects/angine/src/mesh_filters/duplicate_mesh_filter.h
+mesh_filters/from_polar_mesh_filter.h
+/home/pi/projects/angine/src/mesh_filters/from_polar_mesh_filter.h
 entity3d.h
 /home/pi/projects/angine/src/entity3d.h
 
