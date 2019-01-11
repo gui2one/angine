@@ -444,7 +444,7 @@ void Window::objectListDialog()
 		Object* obj = new Object();
 		
 		obj->init();
-		obj->setGenerator<BoxMesh>();
+		obj->setGenerator<FileMesh>();
 		obj->generator_type = 3;
 		obj->mesh_generator->need_update = true;
 		
