@@ -16,6 +16,7 @@ file(REMOVE_RECURSE
   "CMakeFiles/angine.dir/home/pi/projects/angine/src/texture.cpp.o"
   "CMakeFiles/angine.dir/home/pi/projects/angine/src/entity3d.cpp.o"
   "CMakeFiles/angine.dir/home/pi/projects/angine/src/object.cpp.o"
+  "CMakeFiles/angine.dir/home/pi/projects/angine/src/object_dummy.cpp.o"
   "CMakeFiles/angine.dir/home/pi/projects/angine/src/utils/objLoader.cpp.o"
   "CMakeFiles/angine.dir/home/pi/projects/angine/src/mesh.cpp.o"
   "CMakeFiles/angine.dir/home/pi/projects/angine/src/generators/mesh_generator.cpp.o"

@@ -7,26 +7,11 @@ Object::Object() : Entity3D()
 {
 	//~ std::cout << "--- Object CREATED ---\n";
 	
-	position = glm::vec3(0.0f,0.0f,0.0f);
-	rotation = glm::vec3(0.0f,0.0f,0.0f);
-	scale = glm::vec3(1.0f,1.0f,1.0f);	
+	
 	color = glm::vec4(1.0f,1.0f,1.0f,1.0f);	
 }
 
-std::vector<Object*> Object::getParents()
-{
-	std::vector<Object*> parents;
-	Object * cur = this;
-	while(cur->getParent() != nullptr)
-	{
-		Object * p = (Object*)cur->getParent();
-		parents.push_back(p);
-		//~ parents.insert(parents.begin(), p);
-		cur = p;
-	}
-	
-	return parents;
-}
+
 
 void Object::updateMesh()
 {
@@ -222,7 +207,7 @@ void Object::buildVbo()
 	glDeleteBuffers(1, &m_vbo);
 	glGenBuffers(1, &m_vbo);
 	glBindBuffer(GL_ARRAY_BUFFER, m_vbo);
-	glBufferData(GL_ARRAY_BUFFER, sizeof(float) * vertex_data.size(), vertex_data.data() ,GL_DYNAMIC_DRAW);
+	glBufferData(GL_ARRAY_BUFFER, sizeof(float) * vertex_data.size(), vertex_data.data() ,GL_STATIC_DRAW);
 	
 	vertex_data.clear();	
 	
@@ -231,7 +216,7 @@ void Object::buildVbo()
 	glDeleteBuffers(1, &m_ibo);
 	glGenBuffers(1, &m_ibo);	
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, m_ibo);
-	glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(unsigned int) * mesh.indices.size(), mesh.indices.data() ,GL_DYNAMIC_DRAW);
+	glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(unsigned int) * mesh.indices.size(), mesh.indices.data() ,GL_STATIC_DRAW);
 		
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
 	
@@ -256,7 +241,7 @@ void Object::buildVbo()
 	glDeleteBuffers(1, &m_normals_vbo);
 	glGenBuffers(1,&m_normals_vbo);	
 	glBindBuffer(GL_ARRAY_BUFFER, m_normals_vbo);
-	glBufferData(GL_ARRAY_BUFFER, sizeof(float) * normals_data.size(), normals_data.data() ,GL_DYNAMIC_DRAW);
+	glBufferData(GL_ARRAY_BUFFER, sizeof(float) * normals_data.size(), normals_data.data() ,GL_STATIC_DRAW);
 	normals_data.clear();
 
 	
@@ -314,7 +299,7 @@ void Object::buildVbo()
 	glDeleteBuffers(1, &m_bbox_vbo);
 	glGenBuffers(1,&m_bbox_vbo);	
 	glBindBuffer(GL_ARRAY_BUFFER, m_bbox_vbo);
-	glBufferData(GL_ARRAY_BUFFER, sizeof(float) * 3*12*2, bbox_data ,GL_DYNAMIC_DRAW);
+	glBufferData(GL_ARRAY_BUFFER, sizeof(float) * 3*12*2, bbox_data ,GL_STATIC_DRAW);
 	
 	glBindBuffer(GL_ARRAY_BUFFER, 0);
 	

@@ -576,6 +576,18 @@ mesh_filters/from_polar_mesh_filter.h
 entity3d.h
 /home/pi/projects/angine/src/entity3d.h
 
+/home/pi/projects/angine/src/object_dummy.cpp
+object_dummy.h
+/home/pi/projects/angine/src/object_dummy.h
+
+/home/pi/projects/angine/src/object_dummy.h
+pch.h
+/home/pi/projects/angine/src/pch.h
+mesh.h
+/home/pi/projects/angine/src/mesh.h
+entity3d.h
+/home/pi/projects/angine/src/entity3d.h
+
 /home/pi/projects/angine/src/param.cpp
 param.h
 /home/pi/projects/angine/src/param.h
@@ -2291,6 +2303,8 @@ array
 -
 object.h
 /home/pi/projects/angine/src/object.h
+object_dummy.h
+/home/pi/projects/angine/src/object_dummy.h
 dirent.h
 -
 linux/limits.h

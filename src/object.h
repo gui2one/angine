@@ -45,24 +45,13 @@ class Object : public Entity3D
 
 		std::vector<uniform> getShaderUniforms();
 		void buildVbo();
-		
-		inline Entity3D* getParent(){
-			return parent;
-		}
-		inline void setParent(Entity3D* _entity){
-			parent = _entity;
-		}
-		inline void resetParent(){
-			parent = nullptr;
-		}
-		
-		std::vector<Object*> getParents();
+
 		
 		void init();
 		void initShader();		
 		void buildTexture();		
 		
-		//set parent entity3d, apply matrix and everything, awesome ... go to work and do it
+		
 		
 		
 		inline void setRenderMode(GLuint mode){ renderMode = mode;}
@@ -148,7 +137,7 @@ class Object : public Entity3D
 		
 		private:
 			GLuint renderMode = GL_TRIANGLES;
-			Entity3D* parent = nullptr;
+			//~ Entity3D* parent = nullptr;
 			
 };
 

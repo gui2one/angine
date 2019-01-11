@@ -15,12 +15,25 @@ class Entity3D
 		
 		void applyTransforms();
 		
+		inline Entity3D* getParent(){ 
+			
+			return parent; 
+		}
+		inline void setParent(Entity3D* _entity){
+			parent = _entity;
+		}
+		inline void resetParent(){
+			parent = nullptr;
+		}
+		
+		std::vector<Entity3D*> getParents();
+		
 		inline void setID(int _id){	id = _id;}			
 		inline int getID(){	return id;}
 		
 		char name[100] = {'n','e','w','_','o','b','j','e','c','t'};
 	private:
-	
+		Entity3D* parent;
 		int id;
 		/* add your private declarations */
 };

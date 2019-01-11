@@ -46,6 +46,7 @@ add_executable(angine
 	
 	../src/entity3d.cpp
 	../src/object.cpp
+	../src/object_dummy.cpp
 	
 	../src/utils/objLoader.cpp
 	

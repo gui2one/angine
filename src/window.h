@@ -40,10 +40,10 @@ class Window
 		
 
 		
-		std::vector<Object*> objects;
+		std::vector<Entity3D*> objects;
 		
-		void addObject(Object* obj);
-		void removeObject(Object* obj);
+		void addObject(Entity3D* obj);
+		void removeObject(Entity3D* obj);
 		int findObjectIndexByID(int id);
 		void buildObjectList();
 		

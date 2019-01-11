@@ -703,6 +703,33 @@ home/pi/projects/angine/src/object.cpp.s:
 	$(MAKE) -f CMakeFiles/angine.dir/build.make CMakeFiles/angine.dir/home/pi/projects/angine/src/object.cpp.s
 .PHONY : home/pi/projects/angine/src/object.cpp.s
 
+home/pi/projects/angine/src/object_dummy.o: home/pi/projects/angine/src/object_dummy.cpp.o
+
+.PHONY : home/pi/projects/angine/src/object_dummy.o
+
+# target to build an object file
+home/pi/projects/angine/src/object_dummy.cpp.o:
+	$(MAKE) -f CMakeFiles/angine.dir/build.make CMakeFiles/angine.dir/home/pi/projects/angine/src/object_dummy.cpp.o
+.PHONY : home/pi/projects/angine/src/object_dummy.cpp.o
+
+home/pi/projects/angine/src/object_dummy.i: home/pi/projects/angine/src/object_dummy.cpp.i
+
+.PHONY : home/pi/projects/angine/src/object_dummy.i
+
+# target to preprocess a source file
+home/pi/projects/angine/src/object_dummy.cpp.i:
+	$(MAKE) -f CMakeFiles/angine.dir/build.make CMakeFiles/angine.dir/home/pi/projects/angine/src/object_dummy.cpp.i
+.PHONY : home/pi/projects/angine/src/object_dummy.cpp.i
+
+home/pi/projects/angine/src/object_dummy.s: home/pi/projects/angine/src/object_dummy.cpp.s
+
+.PHONY : home/pi/projects/angine/src/object_dummy.s
+
+# target to generate assembly for a file
+home/pi/projects/angine/src/object_dummy.cpp.s:
+	$(MAKE) -f CMakeFiles/angine.dir/build.make CMakeFiles/angine.dir/home/pi/projects/angine/src/object_dummy.cpp.s
+.PHONY : home/pi/projects/angine/src/object_dummy.cpp.s
+
 home/pi/projects/angine/src/param.o: home/pi/projects/angine/src/param.cpp.o
 
 .PHONY : home/pi/projects/angine/src/param.o
@@ -1154,6 +1181,9 @@ help:
 	@echo "... home/pi/projects/angine/src/object.o"
 	@echo "... home/pi/projects/angine/src/object.i"
 	@echo "... home/pi/projects/angine/src/object.s"
+	@echo "... home/pi/projects/angine/src/object_dummy.o"
+	@echo "... home/pi/projects/angine/src/object_dummy.i"
+	@echo "... home/pi/projects/angine/src/object_dummy.s"
 	@echo "... home/pi/projects/angine/src/param.o"
 	@echo "... home/pi/projects/angine/src/param.i"
 	@echo "... home/pi/projects/angine/src/param.s"
