@@ -441,12 +441,12 @@ void Window::objectListDialog()
 	if(ImGui::Button("Add Object"))
 	{
 		printf("--- START add object \n");
-		Entity3D* obj = new Object();
+		Object* obj = new Object();
 		
-		//~ obj->init();
-		//~ obj->setGenerator<BoxMesh>();
-		//~ obj->generator_type = 3;
-		//~ obj->mesh_generator->need_update = true;
+		obj->init();
+		obj->setGenerator<BoxMesh>();
+		obj->generator_type = 3;
+		obj->mesh_generator->need_update = true;
 		
 		addObject(obj);
 		
@@ -520,27 +520,27 @@ void Window::objectPropertiesDialog()
 						for (int i = 0; i < objects.size(); i++)
 						{
 							//// if not yourself
-							if( objects[i]->getID() != objects[cur_object_selected]->getID())
+							if( objects[i]->getID() != curEntity->getID())
 							{
 								//// if has already a parent , needed , crashing !!
 								if(objects[i]->getParent() != nullptr)
 								{
 									//// finally check if current is already a child of yours in which case
 									///// it doesn't make any sense to become the child of your child
-									if(objects[cur_object_selected]->getID() != objects[i]->getParent()->getID())
+									if(curEntity->getID() != objects[i]->getParent()->getID())
 									{
 										
 										if(ImGui::Selectable(objects[i]->name))
 										{
 											//~ printf("Did I just choose a parent ?\n");
-											objects[cur_object_selected]->setParent(objects[i]);
+											curEntity->setParent(objects[i]);
 										}
 									}
 								}else{
 									if(ImGui::Selectable(objects[i]->name))
 									{
 										//~ printf("Did I just choose a parent ?\n");
-										objects[cur_object_selected]->setParent(objects[i]);
+										curEntity->setParent(objects[i]);
 									}									
 								}
 							}
@@ -548,7 +548,7 @@ void Window::objectPropertiesDialog()
 						
 						if(ImGui::Selectable("None"))
 						{
-							objects[cur_object_selected]->resetParent();
+							curEntity->resetParent();
 						}
 						
 						
@@ -570,16 +570,16 @@ void Window::objectPropertiesDialog()
 					ImGui::LabelText("", "Position");
 					ImGui::Columns(3,"columns");
 					
-					if(ImGui::DragFloat(":tx", &objects[cur_object_selected]->position.x)){
-						objects[cur_object_selected]->applyTransforms();
+					if(ImGui::DragFloat(":tx", &curEntity->position.x)){
+						curEntity->applyTransforms();
 					}
 					ImGui::NextColumn();
-					if(ImGui::DragFloat(":ty", &objects[cur_object_selected]->position.y)){
-						objects[cur_object_selected]->applyTransforms();						
+					if(ImGui::DragFloat(":ty", &curEntity->position.y)){
+						curEntity->applyTransforms();						
 					}
 					ImGui::NextColumn();
-					if(ImGui::DragFloat(":tz", &objects[cur_object_selected]->position.z)){
-						objects[cur_object_selected]->applyTransforms();					
+					if(ImGui::DragFloat(":tz", &curEntity->position.z)){
+						curEntity->applyTransforms();					
 					}
 					
 					ImGui::Separator();
@@ -587,16 +587,16 @@ void Window::objectPropertiesDialog()
 					ImGui::Columns(1);			
 					ImGui::LabelText("", "Rotation");
 					ImGui::Columns(3,"columns");
-					if(ImGui::DragFloat(":rx", &objects[cur_object_selected]->rotation.x)){						
-						objects[cur_object_selected]->applyTransforms();					
+					if(ImGui::DragFloat(":rx", &curEntity->rotation.x)){						
+						curEntity->applyTransforms();					
 					}
 					ImGui::NextColumn();
-					if(ImGui::DragFloat(":ry", &objects[cur_object_selected]->rotation.y)){
-						objects[cur_object_selected]->applyTransforms();
+					if(ImGui::DragFloat(":ry", &curEntity->rotation.y)){
+						curEntity->applyTransforms();
 					}
 					ImGui::NextColumn();
-					if(ImGui::DragFloat(":rz", &objects[cur_object_selected]->rotation.z)){
-						objects[cur_object_selected]->applyTransforms();
+					if(ImGui::DragFloat(":rz", &curEntity->rotation.z)){
+						curEntity->applyTransforms();
 					}
 					
 					ImGui::Separator();		
@@ -604,16 +604,16 @@ void Window::objectPropertiesDialog()
 					ImGui::Columns(1);			
 					ImGui::LabelText("", "Scale");
 					ImGui::Columns(3,"columns");
-					if(ImGui::DragFloat(":sx", &objects[cur_object_selected]->scale.x)){
-						objects[cur_object_selected]->applyTransforms();
+					if(ImGui::DragFloat(":sx", &curEntity->scale.x)){
+						curEntity->applyTransforms();
 					}
 					ImGui::NextColumn();
-					if(ImGui::DragFloat(":sy", &objects[cur_object_selected]->scale.y)){
-						objects[cur_object_selected]->applyTransforms();
+					if(ImGui::DragFloat(":sy", &curEntity->scale.y)){
+						curEntity->applyTransforms();
 					}
 					ImGui::NextColumn();
-					if(ImGui::DragFloat(":sz", &objects[cur_object_selected]->scale.z)){
-						objects[cur_object_selected]->applyTransforms();
+					if(ImGui::DragFloat(":sz", &curEntity->scale.z)){
+						curEntity->applyTransforms();
 					}
 					
 					
@@ -621,10 +621,10 @@ void Window::objectPropertiesDialog()
 				}
 			
 				ImGui::Columns(1);
-				
+				Entity3D * p = curEntity;
 				Object * curObj = nullptr;
 				
-				if(curObj = dynamic_cast<Object *>(curEntity))				
+				if(curObj = dynamic_cast<Object *>(p))				
 				{							
 					if( ImGui::BeginTabItem("Mesh"))
 					{
@@ -1103,8 +1103,8 @@ void Window::refresh()
 			ptr->updateMesh();
 		}
 	}
-	
-	
+	//~ 
+	//~ 
 	renderObjects();
 	
 
@@ -1128,20 +1128,20 @@ bool Window::shouldClose()
 void Window::addObject(Entity3D* obj)
 {
 	
-	//~ for (int i = 0; i < objects.size(); i++)
-	//~ {
-		//~ std::cout << "OLD NAME : "<<objects[i]->name <<"\n";
-		//~ if(strcmp(obj->name, objects[i]->name) == 0) // if equal to zero means strings are equal
-		//~ {
-			//~ std::cout << "changing name \n";
-			//~ std::string newName = objects[i]->name;
-			//~ newName += "_";
-			//~ strcpy(obj->name, newName.c_str());
-			//~ 
-		//~ }
-		//~ 
-	//~ }
-	//~ 
+	for (int i = 0; i < objects.size(); i++)
+	{
+		std::cout << "OLD NAME : "<<objects[i]->name <<"\n";
+		if(strcmp(obj->name, objects[i]->name) == 0) // if equal to zero means strings are equal
+		{
+			std::cout << "changing name \n";
+			std::string newName = objects[i]->name;
+			newName += "_";
+			strcpy(obj->name, newName.c_str());
+			
+		}
+		
+	}
+	
 	obj->setID(cur_unique_id);
 	cur_unique_id++;
 	

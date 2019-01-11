@@ -33,7 +33,7 @@ class Entity3D
 		
 		char name[100] = {'n','e','w','_','o','b','j','e','c','t'};
 	private:
-		Entity3D* parent;
+		Entity3D* parent = nullptr;
 		int id;
 		/* add your private declarations */
 };
