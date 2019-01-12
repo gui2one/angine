@@ -15,25 +15,24 @@ class Entity3D
 		
 		void applyTransforms();
 		
-		inline Entity3D* getParent(){ 
-			
-			return parent; 
-		}
-		inline void setParent(Entity3D* _entity){
-			parent = _entity;
-		}
-		inline void resetParent(){
-			parent = nullptr;
-		}
+		inline Entity3D* getParent(){ return parent; }
+		inline void setParent(Entity3D* _entity){ parent = _entity;}
+		inline void resetParent(){ parent = nullptr;}
 		
 		std::vector<Entity3D*> getParents();
+
+		inline Entity3D* getLookAtTarget(){ return look_at_target; }
+		inline void setLookAtTarget(Entity3D* _entity){ look_at_target = _entity;}
+		inline void resetLookAtTarget(){ look_at_target = nullptr;}
 		
 		inline void setID(int _id){	id = _id;}			
 		inline int getID(){	return id;}
 		
 		char name[100] = {'n','e','w','_','o','b','j','e','c','t'};
+		glm::vec4 color;
 	private:
-		Entity3D* parent = nullptr;
+		Entity3D * parent 		 = nullptr;
+		Entity3D * look_at_target = nullptr;
 		int id;
 		/* add your private declarations */
 };

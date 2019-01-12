@@ -19,8 +19,8 @@ uniform vec3 u_camera_pos;
 void main()
 {           
 	vec3 camera_dir = normalize(u_camera_pos - position);
-	gl_Position =  projection * view * model *vec4(position, 1.0); // + vec4(camera_dir * 0.001,1.0);
-	
+	gl_Position =  projection * view * model * vec4(position, 1.0);
+	gl_Position += vec4(camera_dir * -0.0001,0.0);
 
 	f_color = vec4(1.0,1.0,1.0,1.0);
 	f_color *= u_color;

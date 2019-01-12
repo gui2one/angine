@@ -10,6 +10,7 @@ class ObjectDummy: public Entity3D
 	public:
 		ObjectDummy();
 		
+		void init();
 		void buildVbo();
 		void draw();
 		

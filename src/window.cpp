@@ -10,6 +10,10 @@
 #include "object.h"
 #include "object_dummy.h"
 
+//~ #include <opensubdiv/far/topologyDescriptor.h>
+//~ #include <opensubdiv/far/primvarRefiner.h>
+
+
 // for explorerDialog
 #include <dirent.h>
 #include <linux/limits.h>
@@ -17,6 +21,7 @@
 #include <sys/stat.h>
 
 ////
+
 
 static std::vector<std::string> split(const std::string& str, std::string delimiter = " "){
 	
@@ -80,8 +85,8 @@ Window::Window()
 	glEnable(GL_BLEND);	
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 	
-	glEnable(GL_CULL_FACE);
-	glCullFace(GL_BACK);
+	//~ glEnable(GL_CULL_FACE);
+	//~ glCullFace(GL_BACK);
 	
 	IMGUI_CHECKVERSION();
 	ImGui::CreateContext();
@@ -438,17 +443,41 @@ void Window::objectListDialog()
 	}
 	
 	
+	std::vector<std::string> items = {"Mesh Object", "Dummy Object"};
+	static int choice = 0;
+	if(ImGui::BeginCombo("add entity", "...",0)){
+		
+		for (int i = 0; i < items.size(); i++)
+		{
+			if(ImGui::Selectable( items[i].c_str())){
+				choice = i;
+				
+			}
+		}
+		
+		ImGui::EndCombo();
+	}
+	
 	if(ImGui::Button("Add Object"))
 	{
-		printf("--- START add object \n");
-		Object* obj = new Object();
-		
-		obj->init();
-		obj->setGenerator<FileMesh>();
-		obj->generator_type = 3;
-		obj->mesh_generator->need_update = true;
-		
-		addObject(obj);
+		if(choice == 0)
+		{
+			printf("--- START add object \n");
+			Object* obj = new Object();
+			
+			obj->init();
+			obj->setGenerator<FileMesh>();
+			obj->generator_type = 3;
+			obj->mesh_generator->need_update = true;
+			
+			addObject(obj);
+		}else if(choice == 1){
+			ObjectDummy* dummy = new ObjectDummy();
+			
+			dummy->init();
+			
+			addObject(dummy);			
+		}
 		
 		printf("--- END add object \n");
 		
@@ -497,11 +526,64 @@ void Window::objectPropertiesDialog()
 			{			
 				if( ImGui::BeginTabItem("Transform"))
 				{
-					//~ Entity3D * curEntity = objects[cur_object_selected];
-
-						
-						
+					
+					//// transform stuff
+					glm::mat4 temp_matrix = glm::mat4(1.0f);
+					
+					ImGui::LabelText("", "Position");
+					ImGui::Columns(3,"columns");
+					
+					if(ImGui::DragFloat(":tx", &curEntity->position.x)){
+						curEntity->applyTransforms();
+					}
+					ImGui::NextColumn();
+					if(ImGui::DragFloat(":ty", &curEntity->position.y)){
+						curEntity->applyTransforms();						
+					}
+					ImGui::NextColumn();
+					if(ImGui::DragFloat(":tz", &curEntity->position.z)){
+						curEntity->applyTransforms();					
+					}
+					
+					ImGui::Separator();
+					
+					ImGui::Columns(1);			
+					ImGui::LabelText("", "Rotation");
+					ImGui::Columns(3,"columns");
+					if(ImGui::DragFloat(":rx", &curEntity->rotation.x)){						
+						curEntity->applyTransforms();					
+					}
+					ImGui::NextColumn();
+					if(ImGui::DragFloat(":ry", &curEntity->rotation.y)){
+						curEntity->applyTransforms();
+					}
+					ImGui::NextColumn();
+					if(ImGui::DragFloat(":rz", &curEntity->rotation.z)){
+						curEntity->applyTransforms();
+					}
+					
+					ImGui::Separator();		
+					
+					ImGui::Columns(1);			
+					ImGui::LabelText("", "Scale");
+					ImGui::Columns(3,"columns");
+					if(ImGui::DragFloat(":sx", &curEntity->scale.x)){
+						curEntity->applyTransforms();
+					}
+					ImGui::NextColumn();
+					if(ImGui::DragFloat(":sy", &curEntity->scale.y)){
+						curEntity->applyTransforms();
+					}
+					ImGui::NextColumn();
+					if(ImGui::DragFloat(":sz", &curEntity->scale.z)){
+						curEntity->applyTransforms();
+					}
+					ImGui::Columns(1);	
+					ImGui::Separator();	
+					
+					
 					//// parenting stufff
+					ImGui::Text("Parent");
 					ImGui::Columns(2);
 					if(curEntity->getParent())
 					{	
@@ -559,64 +641,63 @@ void Window::objectPropertiesDialog()
 					
 					
 					ImGui::Columns(1);
-					ImGui::Separator();
+					ImGui::Separator();	
+					ImGui::Text("Look At target");
+					ImGui::Columns(2);
 					
-					
-					
-					
-					//// transform stuff
-					glm::mat4 temp_matrix = glm::mat4(1.0f);
-					
-					ImGui::LabelText("", "Position");
-					ImGui::Columns(3,"columns");
-					
-					if(ImGui::DragFloat(":tx", &curEntity->position.x)){
-						curEntity->applyTransforms();
-					}
+					if(curEntity->getLookAtTarget())
+					{	
+						Entity3D * target_ptr =  curEntity->getLookAtTarget();
+						ImGui::Text((const char *)target_ptr->name);
+					}else{
+						ImGui::Text("no parent");
+					}					
 					ImGui::NextColumn();
-					if(ImGui::DragFloat(":ty", &curEntity->position.y)){
-						curEntity->applyTransforms();						
-					}
-					ImGui::NextColumn();
-					if(ImGui::DragFloat(":tz", &curEntity->position.z)){
-						curEntity->applyTransforms();					
-					}
 					
-					ImGui::Separator();
-					
-					ImGui::Columns(1);			
-					ImGui::LabelText("", "Rotation");
-					ImGui::Columns(3,"columns");
-					if(ImGui::DragFloat(":rx", &curEntity->rotation.x)){						
-						curEntity->applyTransforms();					
-					}
-					ImGui::NextColumn();
-					if(ImGui::DragFloat(":ry", &curEntity->rotation.y)){
-						curEntity->applyTransforms();
-					}
-					ImGui::NextColumn();
-					if(ImGui::DragFloat(":rz", &curEntity->rotation.z)){
-						curEntity->applyTransforms();
-					}
-					
-					ImGui::Separator();		
-					
-					ImGui::Columns(1);			
-					ImGui::LabelText("", "Scale");
-					ImGui::Columns(3,"columns");
-					if(ImGui::DragFloat(":sx", &curEntity->scale.x)){
-						curEntity->applyTransforms();
-					}
-					ImGui::NextColumn();
-					if(ImGui::DragFloat(":sy", &curEntity->scale.y)){
-						curEntity->applyTransforms();
-					}
-					ImGui::NextColumn();
-					if(ImGui::DragFloat(":sz", &curEntity->scale.z)){
-						curEntity->applyTransforms();
-					}
+					if(ImGui::BeginCombo("Set Look At Target","...",0))
+					{
+						
+						for (int i = 0; i < objects.size(); i++)
+						{
+							//// if not yourself
+							if( objects[i]->getID() != curEntity->getID())
+							{
+								//// if has already a target , needed , crashing !!
+								//~ if(objects[i]->getParent() != nullptr)
+								//~ {
+									//~ //// finally check if current is already a target of yours in which case
+									//~ ///// it doesn't make any sense to become the target of your child
+									//~ if(curEntity->getID() != objects[i]->getLookAtTarget()->getID())
+									//~ {
+										//~ 
+										//~ if(ImGui::Selectable(objects[i]->name))
+										//~ {
+											//~ printf("Did I just choose a target ?\n");
+											//~ curEntity->setLookAtTarget(objects[i]);
+										//~ }
+									//~ }
+								//~ }else{
+									if(ImGui::Selectable(objects[i]->name))
+									{
+										printf("Did I just choose a target ?\n");
+										curEntity->setLookAtTarget(objects[i]);
+									}									
+								//~ }
+							}
+						}
+						
+						if(ImGui::Selectable("None"))
+						{
+							curEntity->resetLookAtTarget();
+						}
+						
+						
 					
 					
+						ImGui::EndCombo();
+					}					
+					
+					ImGui::Separator();					
 					ImGui::EndTabItem();
 				}
 			
@@ -1028,7 +1109,7 @@ void Window::objectPropertiesDialog()
 					ImGui::Separator();
 					
 					
-					if( ImGui::BeginTabItem("Materials"))
+					if( ImGui::BeginTabItem("Material"))
 					{
 						if( ImGui::Button("Reload Shader"))
 						{
@@ -1174,157 +1255,195 @@ void Window::removeObject(Entity3D* obj)
 
 void Window::renderObjects()
 {
+	glm::mat4 projection = glm::mat4(1.0f);
+	glm::mat4 view = glm::mat4(1.0f);
+	glm::mat4 model =  glm::mat4(1.0f);
+	projection*= glm::perspective(45.0f, (float)width / (float)height, 0.01f, 100.0f);
+
 	
-		//~ printf("---- START render objects function\n");
-		for (int i = 0; i < objects.size(); i++)
-		{	
+	glm::vec3 up_vector;
+	if( camera.target_position.z > camera.position.z){						
+		up_vector =	glm::vec3(0.0f,-1.0f,0.0f);
+	}else{
+		up_vector =	glm::vec3(0.0f,1.0f,0.0f);
+	}
+	//~ glm::mat4 ModelViewMatrix = glm::mat4(1.0f); 
+	view *= glm::lookAt(
+							camera.position, 
+							camera.target_position, 
+							glm::normalize(up_vector)
+						);			
+
+
+	
+	//~ printf("---- START render objects function\n");
+	for (int i = 0; i < objects.size(); i++)
+	{	
+		
+		
+		Object      * curObj        = nullptr;
+		ObjectDummy * curDummy = nullptr;
+		if( curObj = dynamic_cast<Object *>(objects[i]))
+		{
+			model = glm::mat4(1.0f);
+			//~ curObj = ptr;
+			curObj->shader.useProgram();	
 			
-			Object * curObj = nullptr;
-			if( curObj = dynamic_cast<Object *>(objects[i])){
-				//~ curObj = ptr;
-				curObj->shader.useProgram();	
-				
-					
-				//~ glLoadIdentity();
-				
-				glm::mat4 projection = glm::mat4(1.0f);
-				glm::mat4 view = glm::mat4(1.0f);
-				glm::mat4 model = glm::mat4(1.0f);
-				projection*= glm::perspective(45.0f, (float)width / (float)height, 0.01f, 100.0f);
-
-				
-				glm::vec3 up_vector;
-				if( camera.target_position.z > camera.position.z){						
-					up_vector =	glm::vec3(0.0f,-1.0f,0.0f);
-				}else{
-					up_vector =	glm::vec3(0.0f,1.0f,0.0f);
-				}
-				//~ glm::mat4 ModelViewMatrix = glm::mat4(1.0f); 
-				view *= glm::lookAt(
-										camera.position, 
-										camera.target_position, 
-										glm::normalize(up_vector)
-									);			
-
-
+			//~ glLoadIdentity();
 			
-				
-				glLoadIdentity();
-				
-				
-				// apply transform matrices
-				//// first get a list of parents
-				std::vector<Entity3D*> parents  = curObj->getParents();
-				for (int i = 0; i < parents.size(); i++)
-				{
-					model = parents[i]->transforms * model;
-				}
-				
-				//// lastly apply own transforms
-				model = model * curObj->transforms;
-				
-				//~ if(curObj->getParent() != nullptr)
-				//~ {
-					//~ model = curObj->getParent()->transforms * curObj->transforms;
-				//~ }else{
-					//~ 
-					//~ model = curObj->transforms;
-				//~ }
-				
+			//// apply transform matrices
 
-				
-				glUniformMatrix4fv(glGetUniformLocation(curObj->shader.m_id,"projection"), 1, GL_FALSE, glm::value_ptr(projection));	
-				glUniformMatrix4fv(glGetUniformLocation(curObj->shader.m_id,"model"), 1, GL_FALSE, glm::value_ptr(model));	
-				glUniformMatrix4fv(glGetUniformLocation(curObj->shader.m_id,"view"), 1, GL_FALSE, glm::value_ptr(view));	
-				
-				
-				
-				
-				
-										
-										
-				GLuint COLOR_LOC = glGetUniformLocation(curObj->shader.m_id,"u_color");
-				glUniform4f(COLOR_LOC, curObj->color.x, curObj->color.y, curObj->color.z, curObj->color.w);
-				
-				
-				
-				//~ curObj->texture.bind();
-				
-				glUniform1i(glGetUniformLocation(curObj->shader.m_id, "u_tex"),0);
-
-
-				
-				
-				
-				
-				//~ if(cur_object_selected == i)
-					//~ drawSelGizmo();
-				
-				
-				
-				
-				if(curObj->bDisplayPolygons){			
-					glPolygonMode( GL_FRONT_AND_BACK, GL_FILL );
-					curObj->draw(curObj->getRenderMode());
-				}
-					
-				if(curObj->bDisplayWireframe){
-					curObj->lineShader.useProgram();
-					glUniformMatrix4fv(glGetUniformLocation(curObj->lineShader.m_id,"projection"), 1, GL_FALSE, glm::value_ptr(projection));	
-					glUniformMatrix4fv(glGetUniformLocation(curObj->lineShader.m_id,"model"), 1, GL_FALSE, glm::value_ptr(model));	
-					glUniformMatrix4fv(glGetUniformLocation(curObj->lineShader.m_id,"view"), 1, GL_FALSE, glm::value_ptr(view));					
-
-					glUniform3f(glGetUniformLocation(curObj->lineShader.m_id,"u_camera_pos"), camera.position.x, camera.position.y, camera.position.z);	
-					COLOR_LOC = glGetUniformLocation(curObj->lineShader.m_id,"u_color");
-					glPointSize(5);
-					glUniform4f(COLOR_LOC, 0.0,0.0,1.0,1.0);
-					
-					glPolygonMode( GL_FRONT_AND_BACK, GL_LINE );
-					
-						curObj->draw(curObj->getRenderMode());				
-						
-					glPolygonMode( GL_FRONT_AND_BACK, GL_FILL );
-				}
-				
-				if(curObj->bDisplayPoints){
-					curObj->lineShader.useProgram();
-					glUniformMatrix4fv(glGetUniformLocation(curObj->lineShader.m_id,"projection"), 1, GL_FALSE, glm::value_ptr(projection));	
-					glUniformMatrix4fv(glGetUniformLocation(curObj->lineShader.m_id,"model"), 1, GL_FALSE, glm::value_ptr(model));	
-					glUniformMatrix4fv(glGetUniformLocation(curObj->lineShader.m_id,"view"), 1, GL_FALSE, glm::value_ptr(view));					
-												
-					COLOR_LOC = glGetUniformLocation(curObj->lineShader.m_id,"u_color");
-					glUniform4f(COLOR_LOC, 1.0,0.0,0.0,1.0);			
-					curObj->drawPoints();
-				}			
-				
-				
-				if(curObj->bDisplayNormals){
-												
-					COLOR_LOC = glGetUniformLocation(curObj->shader.m_id,"u_color");
-					glUniform4f(COLOR_LOC, 1.0,0.0,0.0,1.0);			
-					curObj->drawNormals();
-				}
-				
-				if(curObj->bDisplayBoundingBox)
-				{
-					//~ glUseProgram(0);
-					curObj->lineShader.useProgram();
-					COLOR_LOC = glGetUniformLocation(curObj->lineShader.m_id,"u_color");
-					glPointSize(5);
-					glUniform4f(COLOR_LOC, 1.0,1.0,0.0,1.0);				
-					glUniformMatrix4fv(glGetUniformLocation(curObj->lineShader.m_id,"projection"), 1, GL_FALSE, glm::value_ptr(projection));	
-					glUniformMatrix4fv(glGetUniformLocation(curObj->lineShader.m_id,"model"), 1, GL_FALSE, glm::value_ptr(model));	
-					glUniformMatrix4fv(glGetUniformLocation(curObj->lineShader.m_id,"view"), 1, GL_FALSE, glm::value_ptr(view));				
-					curObj->drawBoundingBox();
-				}
-				
+			std::vector<Entity3D*> parents  = curObj->getParents();
+			for (int i = 0; i < parents.size(); i++)
+			{
+				model = parents[i]->transforms * model;
 			}
-			 
+			
+			//// lastly apply own transforms
+			
+			if(curObj->getLookAtTarget() != nullptr)
+			{
+				//~ printf("target position : %.3f, %.3f, %.3f\n",curObj->getLookAtTarget()->position.x, curObj->getLookAtTarget()->position.y, curObj->getLookAtTarget()->position.z);
+				
+				// need to apply all target transforms before lookat
+				Entity3D * target = curObj->getLookAtTarget();
+				glm::mat4 target_model = glm::mat4(1.0f);
+				
+				std::vector<Entity3D*> parents2  = curObj->getParents();
+				for (int i = 0; i < parents2.size(); i++)
+				{
+					target_model = parents2[i]->transforms * model;
+				}						
+				
+				target_model = target_model * target->transforms;
+				// compute final target position
+				glm::vec4 temp = glm::vec4(target->position.x, target->position.y, target->position.z,1.0f);
+				temp =  temp * target_model;
+				
+				model *= glm::inverse(glm::lookAt(
+							curObj->position,
+							glm::vec3(temp.x, temp.y, temp.z),
+							glm::vec3(0.0f, 1.0f, 0.0f)
+							));
+			}			
+			model = model * curObj->transforms;
+
+
+
+			
+			glUniformMatrix4fv(glGetUniformLocation(curObj->shader.m_id,"projection"), 1, GL_FALSE, glm::value_ptr(projection));	
+			glUniformMatrix4fv(glGetUniformLocation(curObj->shader.m_id,"model"), 1, GL_FALSE, glm::value_ptr(model));	
+			glUniformMatrix4fv(glGetUniformLocation(curObj->shader.m_id,"view"), 1, GL_FALSE, glm::value_ptr(view));	
+									
+			GLuint COLOR_LOC = glGetUniformLocation(curObj->shader.m_id,"u_color");
+			glUniform4f(COLOR_LOC, curObj->color.x, curObj->color.y, curObj->color.z, curObj->color.w);
 			
 			
 			
+			//~ curObj->texture.bind();
+			
+			glUniform1i(glGetUniformLocation(curObj->shader.m_id, "u_tex"),0);
+
+
+			
+			
+			
+			
+			//~ if(cur_object_selected == i)
+				//~ drawSelGizmo();
+			
+			
+			
+			
+			if(curObj->bDisplayPolygons){			
+				glPolygonMode( GL_FRONT_AND_BACK, GL_FILL );
+				curObj->draw(curObj->getRenderMode());
+			}
+				
+			if(curObj->bDisplayWireframe){
+				curObj->lineShader.useProgram();
+				glUniformMatrix4fv(glGetUniformLocation(curObj->lineShader.m_id,"projection"), 1, GL_FALSE, glm::value_ptr(projection));	
+				glUniformMatrix4fv(glGetUniformLocation(curObj->lineShader.m_id,"model"), 1, GL_FALSE, glm::value_ptr(model));	
+				glUniformMatrix4fv(glGetUniformLocation(curObj->lineShader.m_id,"view"), 1, GL_FALSE, glm::value_ptr(view));					
+
+				glUniform3f(glGetUniformLocation(curObj->lineShader.m_id,"u_camera_pos"), camera.position.x, camera.position.y, camera.position.z);	
+				COLOR_LOC = glGetUniformLocation(curObj->lineShader.m_id,"u_color");
+				glPointSize(5);
+				glUniform4f(COLOR_LOC, 0.0,0.0,1.0,1.0);
+				
+				glPolygonMode( GL_FRONT_AND_BACK, GL_LINE );
+				
+					curObj->draw(curObj->getRenderMode());				
+					
+				glPolygonMode( GL_FRONT_AND_BACK, GL_FILL );
+			}
+			
+			if(curObj->bDisplayPoints){
+				curObj->lineShader.useProgram();
+				glUniformMatrix4fv(glGetUniformLocation(curObj->lineShader.m_id,"projection"), 1, GL_FALSE, glm::value_ptr(projection));	
+				glUniformMatrix4fv(glGetUniformLocation(curObj->lineShader.m_id,"model"), 1, GL_FALSE, glm::value_ptr(model));	
+				glUniformMatrix4fv(glGetUniformLocation(curObj->lineShader.m_id,"view"), 1, GL_FALSE, glm::value_ptr(view));					
+											
+				COLOR_LOC = glGetUniformLocation(curObj->lineShader.m_id,"u_color");
+				glUniform4f(COLOR_LOC, 1.0,0.0,0.0,1.0);			
+				curObj->drawPoints();
+			}			
+			
+			
+			if(curObj->bDisplayNormals){
+											
+				COLOR_LOC = glGetUniformLocation(curObj->shader.m_id,"u_color");
+				glUniform4f(COLOR_LOC, 1.0,0.0,0.0,1.0);			
+				curObj->drawNormals();
+			}
+			
+			if(curObj->bDisplayBoundingBox)
+			{
+				//~ glUseProgram(0);
+				curObj->lineShader.useProgram();
+				COLOR_LOC = glGetUniformLocation(curObj->lineShader.m_id,"u_color");
+				glPointSize(5);
+				glUniform4f(COLOR_LOC, 1.0,1.0,0.0,1.0);				
+				glUniformMatrix4fv(glGetUniformLocation(curObj->lineShader.m_id,"projection"), 1, GL_FALSE, glm::value_ptr(projection));	
+				glUniformMatrix4fv(glGetUniformLocation(curObj->lineShader.m_id,"model"), 1, GL_FALSE, glm::value_ptr(model));	
+				glUniformMatrix4fv(glGetUniformLocation(curObj->lineShader.m_id,"view"), 1, GL_FALSE, glm::value_ptr(view));				
+				curObj->drawBoundingBox();
+			}
 			
 		}
+		 
+		if(curDummy = dynamic_cast<ObjectDummy *>(objects[i]))
+		{
+			model = glm::mat4(1.0f);
+			pointShader.useProgram();
+			
+			// printf("drawing dummy\n");
+		
+			std::vector<Entity3D*> parents  = curDummy->getParents();
+			for (int i = 0; i < parents.size(); i++)
+			{
+				model = parents[i]->transforms * model;
+			}
+			
+			//// lastly apply own transforms
+			model = model * curDummy->transforms;		
+			glUniformMatrix4fv(glGetUniformLocation(pointShader.m_id,"projection"), 1, GL_FALSE, glm::value_ptr(projection));	
+			glUniformMatrix4fv(glGetUniformLocation(pointShader.m_id,"model"), 1, GL_FALSE, glm::value_ptr(model));	
+			glUniformMatrix4fv(glGetUniformLocation(pointShader.m_id,"view"), 1, GL_FALSE, glm::value_ptr(view));
+			glUniform4f(
+				glGetUniformLocation(pointShader.m_id,"u_color"), 
+				1.0,1.0,0.0,1.0);				
+			curDummy->draw();	
+			
+			glUseProgram(0);
+		}
+		
+		
+		
+		
+		
+		
+	}
 		
 		
 		//~ printf("---- END render objects function\n");

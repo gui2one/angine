@@ -128,7 +128,7 @@ class Object : public Entity3D
 		//~ 
 		//~ void applyTransforms();
 		
-		glm::vec4 color;
+		
 		
 		
 		BoundingBox boundingBox;

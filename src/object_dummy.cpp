@@ -7,20 +7,42 @@ ObjectDummy::ObjectDummy()
 	
 }
 
+void ObjectDummy::init()
+{
+	buildVbo();
+}
+
 void ObjectDummy::buildVbo()
 {
 	std::vector<float> vertex_data;
 		
-	vertex_data.push_back((-0.5, 0.0, 0.0));
-	//~ vertex_data.push_back({0.5, 0.0, 0.0});
-	//~ 
-	//~ vertex_data.push_back({0.0, -0.5, 0.0});
-	//~ vertex_data.push_back({0.0,  0.5, 0.0});
-	//~ 
-	//~ vertex_data.push_back({0.0,  0.0, -0.5});
-	//~ vertex_data.push_back({0.0,  0.0,  0.5});
+	vertex_data.push_back(-0.5);
+	vertex_data.push_back( 0.0);
+	vertex_data.push_back( 0.0);
+	
+	vertex_data.push_back( 0.5);
+	vertex_data.push_back( 0.0);
+	vertex_data.push_back( 0.0);
 	
 	
+	vertex_data.push_back( 0.0);
+	vertex_data.push_back(-0.5);
+	vertex_data.push_back( 0.0);
+
+	vertex_data.push_back( 0.0);
+	vertex_data.push_back( 0.5);
+	vertex_data.push_back( 0.0);
+	
+
+	vertex_data.push_back( 0.0);
+	vertex_data.push_back( 0.0);
+	vertex_data.push_back(-0.5);
+
+	vertex_data.push_back( 0.0);
+	vertex_data.push_back( 0.0);
+	vertex_data.push_back( 0.5);
+	
+	printf("data size :: %d\n", vertex_data.size());
 	
 	glDeleteBuffers(1, &m_vbo);
 	glGenBuffers(1, &m_vbo);
@@ -36,7 +58,7 @@ void ObjectDummy::draw()
 		glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(float) * 3, 0); 					
 		glEnableVertexAttribArray(0);		
 		
-			glDrawArrays(GL_LINES,0, 2*3);
+			glDrawArrays(GL_LINES,0, 2*3*3);
 		
 		glDisableVertexAttribArray(0);		
 		glBindBuffer(GL_ARRAY_BUFFER, 0);	

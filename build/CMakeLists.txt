@@ -14,6 +14,7 @@ include_directories(/usr/local/include)
 include_directories(../src/vendor/imgui/)
 
 link_directories(../src/libs/)
+link_directories(../src/libs/osd/)
 
 
 add_executable(angine
@@ -50,6 +51,7 @@ add_executable(angine
 	
 	../src/utils/objLoader.cpp
 	
+	
 	../src/mesh.cpp
 	../src/generators/mesh_generator.cpp
 	../src/generators/gridmesh.cpp
@@ -72,6 +74,9 @@ add_executable(angine
 
 
 target_link_libraries(angine PCHLib)
+
+target_link_libraries(angine -losdCPU) # open subdiv
+
 target_link_libraries(angine -lassimp)
 target_link_libraries(angine -lGL)
 target_link_libraries(angine  -L/usr/local/lib -lglfw3 -lrt -lm -ldl -lXrandr -lXinerama -lXxf86vm -lXext -lXcursor -lXrender -lXfixes -lX11 -lpthread -lxcb -lXau -lXdmcp )
