@@ -18,9 +18,13 @@ uniform vec3 u_camera_pos;
 
 void main()
 {           
-	vec3 camera_dir = normalize(u_camera_pos - position);
+	
+	vec4 camera_pos = projection * view * vec4(u_camera_pos, 1.0); //// do not include model matrix in multiplication for the camera
 	gl_Position =  projection * view * model * vec4(position, 1.0);
-	gl_Position += vec4(camera_dir * -0.0001,0.0);
+	vec3 camera_dir = normalize(camera_pos.xyz - gl_Position.xyz);
+	
+	// offset position a small amount towards camera to avoid z fighting, it works pretty well
+	gl_Position += vec4(camera_dir * 0.0001,0.0);
 
 	f_color = vec4(1.0,1.0,1.0,1.0);
 	f_color *= u_color;

@@ -115,7 +115,7 @@ class Object : public Entity3D
 		std::vector<float> vertex_data;
 		std::vector<float> normals_data;
 		
-		Shader shader, lineShader;
+		Shader shader;
 		GLint texture_id;
 		Texture texture;
 		

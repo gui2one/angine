@@ -164,6 +164,22 @@ imgui_user.h
 
 ../src/vendor/imgui/imgui_impl_opengl3.h
 
+/home/pi/projects/angine/src/animation/base_keyframe.cpp
+base_keyframe.h
+/home/pi/projects/angine/src/animation/base_keyframe.h
+
+/home/pi/projects/angine/src/animation/base_keyframe.h
+../pch.h
+/home/pi/projects/angine/src/pch.h
+
+/home/pi/projects/angine/src/animation/time_line.cpp
+time_line.h
+/home/pi/projects/angine/src/animation/time_line.h
+
+/home/pi/projects/angine/src/animation/time_line.h
+../pch.h
+/home/pi/projects/angine/src/pch.h
+
 /home/pi/projects/angine/src/application.cpp
 application.h
 /home/pi/projects/angine/src/application.h
@@ -588,6 +604,16 @@ mesh.h
 entity3d.h
 /home/pi/projects/angine/src/entity3d.h
 
+/home/pi/projects/angine/src/object_light.cpp
+object_light.h
+/home/pi/projects/angine/src/object_light.h
+
+/home/pi/projects/angine/src/object_light.h
+pch.h
+/home/pi/projects/angine/src/pch.h
+entity3d.h
+/home/pi/projects/angine/src/entity3d.h
+
 /home/pi/projects/angine/src/param.cpp
 param.h
 /home/pi/projects/angine/src/param.h
@@ -597,6 +623,8 @@ pch.h
 /home/pi/projects/angine/src/pch.h
 functional
 -
+animation/base_keyframe.h
+/home/pi/projects/angine/src/animation/base_keyframe.h
 
 /home/pi/projects/angine/src/param_layout.cpp
 param_layout.h
@@ -2305,6 +2333,8 @@ object.h
 /home/pi/projects/angine/src/object.h
 object_dummy.h
 /home/pi/projects/angine/src/object_dummy.h
+object_light.h
+/home/pi/projects/angine/src/object_light.h
 dirent.h
 -
 linux/limits.h
@@ -2325,6 +2355,8 @@ texture.h
 /home/pi/projects/angine/src/texture.h
 camera.h
 /home/pi/projects/angine/src/camera.h
+animation/time_line.h
+/home/pi/projects/angine/src/animation/time_line.h
 imgui.h
 /home/pi/projects/angine/src/imgui.h
 imgui_impl_glfw.h

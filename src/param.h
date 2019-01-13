@@ -3,6 +3,7 @@
 
 #include "pch.h"
 #include <functional>
+#include "animation/base_keyframe.h"
 
 enum PARAMTYPE{
 	PARAM_DEFAULT,
@@ -19,6 +20,7 @@ class BaseParam{
 	public:
 	
 		inline BaseParam(){}
+		inline virtual ~BaseParam(){}
 		inline void setType(PARAMTYPE _type){ type = _type; }
 		inline PARAMTYPE getType(){ return type; }
 
@@ -26,12 +28,19 @@ class BaseParam{
 		inline void setName(std::string _name){ name = _name; }
 		inline std::string getName(){ return name; }		
 	
-		inline virtual ~BaseParam(){}
-
+		inline std::vector<BaseKeyframe> getKeyframes(){ return keyframes; }
+		inline void setKeyframes(std::vector<BaseKeyframe> _keys){ keyframes = _keys; }
+		inline unsigned int getNumKeyframes(){ return (unsigned int)keyframes.size(); }
+		inline void removeAllKeyframes(){ keyframes.clear(); };
+		
+		inline void addKeyframe(BaseKeyframe _key){
+			keyframes.push_back(_key);
+		}
 	private:	
 	
 		std::string name;
 		PARAMTYPE type = PARAM_DEFAULT;
+		std::vector<BaseKeyframe> keyframes;
 		
 };
 
@@ -64,18 +73,29 @@ class ParamInt : public BaseParam
 	public:
 	
 		
-		inline ParamInt(std::string _name, int _val = 0): BaseParam(){
+		inline ParamInt(std::string _name, int _val = 0, int _min = -1000000, int _max = 1000000): BaseParam(){
 			
 			setType(PARAM_INT); 
 			setName(_name);
 			value = _val;
+			min = _min;
+			max = _max;
 			//~ printf("creating a Int type parameter ....\n");
 			//~ printf("\tname : %s -- value : %d\n", getName().c_str(), value);
 		}
 		
 
 		int value;
-		inline void setValue(int _val){ value = _val;}
+		int min, max;
+		inline void setValue(int _val){ 
+			if(_val < min)				
+				value = min;
+			else if(_val > max)
+				value = max;
+			else 
+				value = _val;
+				
+		}
 		inline int getValue(){ return value;}
 		
 		

@@ -4,6 +4,8 @@ set(CMAKE_DEPENDS_LANGUAGES
   )
 # The set of files for implicit dependencies of each language:
 set(CMAKE_DEPENDS_CHECK_CXX
+  "/home/pi/projects/angine/src/animation/base_keyframe.cpp" "/home/pi/projects/angine/build/CMakeFiles/angine.dir/home/pi/projects/angine/src/animation/base_keyframe.cpp.o"
+  "/home/pi/projects/angine/src/animation/time_line.cpp" "/home/pi/projects/angine/build/CMakeFiles/angine.dir/home/pi/projects/angine/src/animation/time_line.cpp.o"
   "/home/pi/projects/angine/src/application.cpp" "/home/pi/projects/angine/build/CMakeFiles/angine.dir/home/pi/projects/angine/src/application.cpp.o"
   "/home/pi/projects/angine/src/camera.cpp" "/home/pi/projects/angine/build/CMakeFiles/angine.dir/home/pi/projects/angine/src/camera.cpp.o"
   "/home/pi/projects/angine/src/entity3d.cpp" "/home/pi/projects/angine/build/CMakeFiles/angine.dir/home/pi/projects/angine/src/entity3d.cpp.o"
@@ -26,6 +28,7 @@ set(CMAKE_DEPENDS_CHECK_CXX
   "/home/pi/projects/angine/src/mesh_filters/twist_mesh_filter.cpp" "/home/pi/projects/angine/build/CMakeFiles/angine.dir/home/pi/projects/angine/src/mesh_filters/twist_mesh_filter.cpp.o"
   "/home/pi/projects/angine/src/object.cpp" "/home/pi/projects/angine/build/CMakeFiles/angine.dir/home/pi/projects/angine/src/object.cpp.o"
   "/home/pi/projects/angine/src/object_dummy.cpp" "/home/pi/projects/angine/build/CMakeFiles/angine.dir/home/pi/projects/angine/src/object_dummy.cpp.o"
+  "/home/pi/projects/angine/src/object_light.cpp" "/home/pi/projects/angine/build/CMakeFiles/angine.dir/home/pi/projects/angine/src/object_light.cpp.o"
   "/home/pi/projects/angine/src/param.cpp" "/home/pi/projects/angine/build/CMakeFiles/angine.dir/home/pi/projects/angine/src/param.cpp.o"
   "/home/pi/projects/angine/src/param_layout.cpp" "/home/pi/projects/angine/build/CMakeFiles/angine.dir/home/pi/projects/angine/src/param_layout.cpp.o"
   "/home/pi/projects/angine/src/shader.cpp" "/home/pi/projects/angine/build/CMakeFiles/angine.dir/home/pi/projects/angine/src/shader.cpp.o"

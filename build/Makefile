@@ -136,6 +136,60 @@ PCHLib/fast:
 	$(MAKE) -f CMakeFiles/PCHLib.dir/build.make CMakeFiles/PCHLib.dir/build
 .PHONY : PCHLib/fast
 
+home/pi/projects/angine/src/animation/base_keyframe.o: home/pi/projects/angine/src/animation/base_keyframe.cpp.o
+
+.PHONY : home/pi/projects/angine/src/animation/base_keyframe.o
+
+# target to build an object file
+home/pi/projects/angine/src/animation/base_keyframe.cpp.o:
+	$(MAKE) -f CMakeFiles/angine.dir/build.make CMakeFiles/angine.dir/home/pi/projects/angine/src/animation/base_keyframe.cpp.o
+.PHONY : home/pi/projects/angine/src/animation/base_keyframe.cpp.o
+
+home/pi/projects/angine/src/animation/base_keyframe.i: home/pi/projects/angine/src/animation/base_keyframe.cpp.i
+
+.PHONY : home/pi/projects/angine/src/animation/base_keyframe.i
+
+# target to preprocess a source file
+home/pi/projects/angine/src/animation/base_keyframe.cpp.i:
+	$(MAKE) -f CMakeFiles/angine.dir/build.make CMakeFiles/angine.dir/home/pi/projects/angine/src/animation/base_keyframe.cpp.i
+.PHONY : home/pi/projects/angine/src/animation/base_keyframe.cpp.i
+
+home/pi/projects/angine/src/animation/base_keyframe.s: home/pi/projects/angine/src/animation/base_keyframe.cpp.s
+
+.PHONY : home/pi/projects/angine/src/animation/base_keyframe.s
+
+# target to generate assembly for a file
+home/pi/projects/angine/src/animation/base_keyframe.cpp.s:
+	$(MAKE) -f CMakeFiles/angine.dir/build.make CMakeFiles/angine.dir/home/pi/projects/angine/src/animation/base_keyframe.cpp.s
+.PHONY : home/pi/projects/angine/src/animation/base_keyframe.cpp.s
+
+home/pi/projects/angine/src/animation/time_line.o: home/pi/projects/angine/src/animation/time_line.cpp.o
+
+.PHONY : home/pi/projects/angine/src/animation/time_line.o
+
+# target to build an object file
+home/pi/projects/angine/src/animation/time_line.cpp.o:
+	$(MAKE) -f CMakeFiles/angine.dir/build.make CMakeFiles/angine.dir/home/pi/projects/angine/src/animation/time_line.cpp.o
+.PHONY : home/pi/projects/angine/src/animation/time_line.cpp.o
+
+home/pi/projects/angine/src/animation/time_line.i: home/pi/projects/angine/src/animation/time_line.cpp.i
+
+.PHONY : home/pi/projects/angine/src/animation/time_line.i
+
+# target to preprocess a source file
+home/pi/projects/angine/src/animation/time_line.cpp.i:
+	$(MAKE) -f CMakeFiles/angine.dir/build.make CMakeFiles/angine.dir/home/pi/projects/angine/src/animation/time_line.cpp.i
+.PHONY : home/pi/projects/angine/src/animation/time_line.cpp.i
+
+home/pi/projects/angine/src/animation/time_line.s: home/pi/projects/angine/src/animation/time_line.cpp.s
+
+.PHONY : home/pi/projects/angine/src/animation/time_line.s
+
+# target to generate assembly for a file
+home/pi/projects/angine/src/animation/time_line.cpp.s:
+	$(MAKE) -f CMakeFiles/angine.dir/build.make CMakeFiles/angine.dir/home/pi/projects/angine/src/animation/time_line.cpp.s
+.PHONY : home/pi/projects/angine/src/animation/time_line.cpp.s
+
 home/pi/projects/angine/src/application.o: home/pi/projects/angine/src/application.cpp.o
 
 .PHONY : home/pi/projects/angine/src/application.o
@@ -730,6 +784,33 @@ home/pi/projects/angine/src/object_dummy.cpp.s:
 	$(MAKE) -f CMakeFiles/angine.dir/build.make CMakeFiles/angine.dir/home/pi/projects/angine/src/object_dummy.cpp.s
 .PHONY : home/pi/projects/angine/src/object_dummy.cpp.s
 
+home/pi/projects/angine/src/object_light.o: home/pi/projects/angine/src/object_light.cpp.o
+
+.PHONY : home/pi/projects/angine/src/object_light.o
+
+# target to build an object file
+home/pi/projects/angine/src/object_light.cpp.o:
+	$(MAKE) -f CMakeFiles/angine.dir/build.make CMakeFiles/angine.dir/home/pi/projects/angine/src/object_light.cpp.o
+.PHONY : home/pi/projects/angine/src/object_light.cpp.o
+
+home/pi/projects/angine/src/object_light.i: home/pi/projects/angine/src/object_light.cpp.i
+
+.PHONY : home/pi/projects/angine/src/object_light.i
+
+# target to preprocess a source file
+home/pi/projects/angine/src/object_light.cpp.i:
+	$(MAKE) -f CMakeFiles/angine.dir/build.make CMakeFiles/angine.dir/home/pi/projects/angine/src/object_light.cpp.i
+.PHONY : home/pi/projects/angine/src/object_light.cpp.i
+
+home/pi/projects/angine/src/object_light.s: home/pi/projects/angine/src/object_light.cpp.s
+
+.PHONY : home/pi/projects/angine/src/object_light.s
+
+# target to generate assembly for a file
+home/pi/projects/angine/src/object_light.cpp.s:
+	$(MAKE) -f CMakeFiles/angine.dir/build.make CMakeFiles/angine.dir/home/pi/projects/angine/src/object_light.cpp.s
+.PHONY : home/pi/projects/angine/src/object_light.cpp.s
+
 home/pi/projects/angine/src/param.o: home/pi/projects/angine/src/param.cpp.o
 
 .PHONY : home/pi/projects/angine/src/param.o
@@ -1118,6 +1199,12 @@ help:
 	@echo "... rebuild_cache"
 	@echo "... angine"
 	@echo "... PCHLib"
+	@echo "... home/pi/projects/angine/src/animation/base_keyframe.o"
+	@echo "... home/pi/projects/angine/src/animation/base_keyframe.i"
+	@echo "... home/pi/projects/angine/src/animation/base_keyframe.s"
+	@echo "... home/pi/projects/angine/src/animation/time_line.o"
+	@echo "... home/pi/projects/angine/src/animation/time_line.i"
+	@echo "... home/pi/projects/angine/src/animation/time_line.s"
 	@echo "... home/pi/projects/angine/src/application.o"
 	@echo "... home/pi/projects/angine/src/application.i"
 	@echo "... home/pi/projects/angine/src/application.s"
@@ -1184,6 +1271,9 @@ help:
 	@echo "... home/pi/projects/angine/src/object_dummy.o"
 	@echo "... home/pi/projects/angine/src/object_dummy.i"
 	@echo "... home/pi/projects/angine/src/object_dummy.s"
+	@echo "... home/pi/projects/angine/src/object_light.o"
+	@echo "... home/pi/projects/angine/src/object_light.i"
+	@echo "... home/pi/projects/angine/src/object_light.s"
 	@echo "... home/pi/projects/angine/src/param.o"
 	@echo "... home/pi/projects/angine/src/param.i"
 	@echo "... home/pi/projects/angine/src/param.s"

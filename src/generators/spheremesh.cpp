@@ -36,7 +36,7 @@ static glm::vec3 fromPolar(float u, float v, float radius){
 	return temp;
 }
 
-static Mesh generateGrid(int rows, int cols, float radius)
+static Mesh generateGrid(int rows, int cols, float radius, bool prep_poles = true)
 {
 	
 	std::vector<Vertex> vertices;
@@ -53,9 +53,7 @@ static Mesh generateGrid(int rows, int cols, float radius)
 			
 			
 			vert.position = fromPolar(posx * PI, posy * 2.0 * PI, radius);
-			//~ vert.position.x = (posx );
-			//~ vert.position.y = (posy );
-			//~ vert.position.z = 0.0;
+			//~ vert.position = glm::vec3(posx * 3.0f, posy * 3.0f, 0.0f);
 			
 			vert.t_coords.x = posx;
 			vert.t_coords.y = posy;
@@ -71,13 +69,17 @@ static Mesh generateGrid(int rows, int cols, float radius)
 		for (unsigned int x = 0; x < cols-1; x++)
 		{
 			unsigned int curIndex = x + y * cols;
-			indices.push_back(curIndex);
-			indices.push_back(curIndex+cols+1);
-			indices.push_back(curIndex+cols);
+			if( x != 0 && prep_poles){
+				indices.push_back(curIndex);
+				indices.push_back(curIndex+cols+1);
+				indices.push_back(curIndex+cols);
+			}
 			
-			indices.push_back(curIndex+cols+1);
-			indices.push_back(curIndex);
-			indices.push_back(curIndex+1);			
+			if( (x != cols-2) && prep_poles){
+				indices.push_back(curIndex+cols+1);
+				indices.push_back(curIndex);
+				indices.push_back(curIndex+1);			
+			}
 		}		
 	}	
 	

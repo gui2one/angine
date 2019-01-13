@@ -9,6 +9,7 @@
 
 #include "object.h"
 #include "object_dummy.h"
+#include "object_light.h"
 
 //~ #include <opensubdiv/far/topologyDescriptor.h>
 //~ #include <opensubdiv/far/primvarRefiner.h>
@@ -71,11 +72,22 @@ Window::Window()
 		
 	glfwMakeContextCurrent(win);			
 	glewInit();
-	printf("--- START loading shader\n");
-	pointShader.loadVertexShaderSource("../src/res/shaders/line_shader.vert");
-	pointShader.loadFragmentShaderSource("../src/res/shaders/line_shader.frag");		
-	pointShader.createShader();	
-	printf("--- END loading shader\n");
+	
+	
+	glfwSetWindowUserPointer(win, this);
+	glfwSetCharModsCallback(win, char_mods_callback);	
+	glfwSetCursorPosCallback(win, cursor_pos_callback);	
+	glfwSetMouseButtonCallback(win, mouse_button_callback);	
+	
+	
+	point_shader.loadVertexShaderSource("../src/res/shaders/line_shader.vert");
+	point_shader.loadFragmentShaderSource("../src/res/shaders/line_shader.frag");		
+	point_shader.createShader();	
+	
+	default_shader.loadVertexShaderSource("../src/res/shaders/basic_shader.vert");
+	default_shader.loadFragmentShaderSource("../src/res/shaders/basic_shader.frag");		
+	default_shader.createShader();	
+	
 	glfwSwapInterval(1);
 	glEnable(GL_DEPTH_TEST);
 	
@@ -90,7 +102,7 @@ Window::Window()
 	
 	IMGUI_CHECKVERSION();
 	ImGui::CreateContext();
-	ImGuiIO& io = ImGui::GetIO(); (void)io;
+	ImGuiIO &io = ImGui::GetIO(); (void)io;
 	
 
 	
@@ -103,21 +115,39 @@ Window::Window()
 	ImGui_ImplOpenGL3_Init(glsl_version);
 	
 
+	initWorldGrid();
 	
 
+	setCamPosFromPolar(camera_u_pos, camera_v_pos);
 
 	// default first object
-	//~ Object* obj = new Object();
-	//~ 
-	//~ obj->init();
-	//~ obj->setGenerator<CylinderMesh>();
-	//~ obj->rotation.y = -45.0;
-	//~ obj->applyTransforms();
-	//~ obj->generator_type = 6; // really crappy design , do something !!!!
-	//~ obj->mesh_generator->need_update = true;
-	//~ 
-	//~ addObject(obj);
+	Object* obj = new Object();
 	
+	obj->init();
+	obj->shader = default_shader;
+	obj->setName("wheel_1");
+	obj->setGenerator<CylinderMesh>();
+	
+	std::vector<BaseKeyframe> keyframes;
+	
+	Keyframe<float> key_1;
+	keyframes.push_back(key_1);
+	obj->mesh_generator->param_layout.getParam(0)->setKeyframes(keyframes);
+	obj->rotation.y = -45.0;
+	obj->applyTransforms();
+	obj->generator_type = 6; // really crappy design , do something !!!!
+	obj->mesh_generator->need_update = true;
+	
+	addObject(obj);
+	
+	
+	ObjectDummy * dummy = new ObjectDummy();
+	dummy->setName("null_1");
+	dummy->init();
+	
+	dummy->position.x = -1.5;
+	dummy->applyTransforms();
+	addObject(dummy);
 	//~ Object* obj2 = new Object();
 	//~ 
 	//~ obj2->init();
@@ -144,6 +174,146 @@ Window::Window()
 
 }
 
+void Window::initWorldGrid()
+{
+
+	//// build verts
+	//~ struct vert{
+		//~ float x, y, z;
+	//~ };
+	std::vector<float> verts;
+
+	for (int x = 0; x <= 10; x++)
+	{
+		verts.push_back((float)x-5);
+		verts.push_back(-5.0f);
+		verts.push_back( 0.0f);
+		
+		
+		verts.push_back((float)x-5);
+		verts.push_back( 5.0f);
+		verts.push_back( 0.0f);
+	}
+	
+	for (int y = 0; y <= 10; y++)
+	{
+		verts.push_back(-5.0f);
+		verts.push_back((float)y-5);
+		verts.push_back( 0.0f);
+		
+		verts.push_back( 5.0f);
+		verts.push_back((float)y-5);
+		verts.push_back( 0.0f);
+	}	
+	
+	std::vector<unsigned int> indices;
+
+	for (int i = 0; i <= 21; i++)
+	{
+		indices.push_back((i*2));
+		indices.push_back((i*2)+1);
+	}
+	
+
+	glDeleteBuffers(1, &world_grid_vbo);
+	glGenBuffers(1, &world_grid_vbo);
+	glBindBuffer(GL_ARRAY_BUFFER, world_grid_vbo);
+	glBufferData(GL_ARRAY_BUFFER, sizeof(float) * verts.size(), verts.data() ,GL_STATIC_DRAW);
+	glBindBuffer(GL_ARRAY_BUFFER, 0);
+
+
+	glDeleteBuffers(1, &world_grid_ibo);
+	glGenBuffers(1, &world_grid_ibo);	
+	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, world_grid_ibo);
+	glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(unsigned int) * indices.size(), indices.data() ,GL_STATIC_DRAW);
+	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
+	
+	
+	
+
+	
+	
+}
+
+
+void Window::drawWorldGrid()
+{
+	glBindBuffer(GL_ARRAY_BUFFER, world_grid_vbo);
+	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(float) * 3, 0); 
+	glEnableVertexAttribArray(0);
+	
+	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, world_grid_ibo);
+	
+	glDrawElements(GL_LINES, 44, GL_UNSIGNED_INT, nullptr);
+	
+	glDisableVertexAttribArray(0);
+	glBindBuffer(GL_ARRAY_BUFFER, 0);
+	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
+	
+}
+void Window::cursor_pos_callback(GLFWwindow* window, double xpos, double ypos)
+{
+	Window* app = static_cast<Window*>(glfwGetWindowUserPointer(window));
+	if(app->right_mouse_button_down)
+	{
+		app->mouse_delta_x = app->mouse_old_x - xpos;
+		app->mouse_old_x = xpos;
+		app->mouse_delta_y = app->mouse_old_y - ypos;
+		app->mouse_old_y = ypos;
+		
+		
+		double rot_speed = 0.01;
+		//~ printf("camera_u_pos : %.3f\n", app->camera_u_pos);
+		//~ printf("camera_v_pos : %.3f\n", app->camera_v_pos);
+		//~ printf("---------------------------\n");
+		app->camera_u_pos -= app->mouse_delta_x * rot_speed;
+		
+
+			
+		app->camera_v_pos += app->mouse_delta_y * rot_speed;
+		
+		if(app->camera_v_pos < 0.2)
+			app->camera_v_pos = 0.2;
+		else if(app->camera_v_pos > PI-0.2)
+			app->camera_v_pos = PI-0.2;		
+		
+		app->setCamPosFromPolar(app->camera_u_pos, app->camera_v_pos);
+		
+	}
+	
+}
+
+void Window::mouse_button_callback(GLFWwindow* window, int button, int action, int mods)
+{
+	Window* app = static_cast<Window*>(glfwGetWindowUserPointer(window));
+    if(button == GLFW_MOUSE_BUTTON_RIGHT && action == GLFW_PRESS ){
+		
+		app->right_mouse_button_down = true;
+		
+		glfwGetCursorPos(window, &app->mouse_pos_x, &app->mouse_pos_y);
+		app->mouse_old_x = app->mouse_pos_x;
+		app->mouse_old_y = app->mouse_pos_y;
+		
+		
+	}else if(button == GLFW_MOUSE_BUTTON_RIGHT && action == GLFW_RELEASE ){
+		
+		app->right_mouse_button_down = false;
+		
+	}
+}
+
+void Window::char_mods_callback(GLFWwindow* window, unsigned int key, int mod)
+{
+	Window* app = static_cast<Window*>(glfwGetWindowUserPointer(window));
+	
+	if( (char)key == 'l' ) // lower L
+		app->buildObjectList();
+	if( mod == GLFW_MOD_SHIFT)
+	{
+		printf("shift + %c\n", std::tolower((char)key));
+	}
+	
+}
 
 //~ void Window::selGizmoInit()
 //~ {
@@ -181,6 +351,13 @@ Window::Window()
 	//~ 
 	
 //~ }
+
+void Window::setCamPosFromPolar(float u, float v)
+{
+	camera.position.x = sin(u)* sin(v) * 5.0;
+	camera.position.y = cos(u)* sin(v) *5.0;
+	camera.position.z = cos(v) * 5.0;	
+}
 
 int Window::explorerDialog()
 {
@@ -443,9 +620,9 @@ void Window::objectListDialog()
 	}
 	
 	
-	std::vector<std::string> items = {"Mesh Object", "Dummy Object"};
+	std::vector<std::string> items = {"Mesh Object", "Dummy Object", "Light"};
 	static int choice = 0;
-	if(ImGui::BeginCombo("add entity", "...",0)){
+	if(ImGui::BeginCombo("add entity", items[choice].c_str(),0)){
 		
 		for (int i = 0; i < items.size(); i++)
 		{
@@ -469,7 +646,7 @@ void Window::objectListDialog()
 			obj->setGenerator<FileMesh>();
 			obj->generator_type = 3;
 			obj->mesh_generator->need_update = true;
-			
+			obj->shader = default_shader;
 			addObject(obj);
 		}else if(choice == 1){
 			ObjectDummy* dummy = new ObjectDummy();
@@ -477,6 +654,11 @@ void Window::objectListDialog()
 			dummy->init();
 			
 			addObject(dummy);			
+		}else if(choice == 2){
+			ObjectLight* light = new ObjectLight();
+			
+			light->init();			
+			addObject(light);			
 		}
 		
 		printf("--- END add object \n");
@@ -786,15 +968,62 @@ void Window::objectPropertiesDialog()
 										
 										if(p_float = dynamic_cast<ParamFloat *>(p))
 										{
+
+						
+
+
+											if(p_float->getNumKeyframes() > 0)
+											{
+												ImGui::PushStyleColor(ImGuiCol_Text, (ImVec4)ImColor(1.0f, 0.3f, 0.3f, 1.0f));
+											}											
 											if(ImGui::DragFloat(p_float->getName().c_str(), &p_float->value))
 											{
+												
 												curObj->mesh_generator->need_update = true;	
 											}
+											
+											if(p_float->getNumKeyframes() > 0)
+											{
+												ImGui::PopStyleColor();
+											}	
+											
+												
+												ImGui::PushID(p_float->getName().c_str());
+												if (ImGui::BeginPopupContextItem("item context menu"))
+												{
+													if (ImGui::Selectable("Remove All Keyframes")){
+														p_float->removeAllKeyframes();
+													}
+													if (ImGui::Selectable("Add Keyframe")){
+														Keyframe<float> key;
+														p_float->addKeyframe(key);
+													}
+													ImGui::PushItemWidth(-1);
+													//~ ImGui::DragFloat("##Value", &value, 0.1f, 0.0f, 0.0f);
+													ImGui::PopItemWidth();
+													ImGui::EndPopup();
+													
+												}					
+												
+												ImGui::PopID();							
+										
+
+											
+																						
+											//~ if(ImGui::OpenPopupOnItemClick("item context menu", 1))
+											//~ {
+												//~ 
+												//~ 
+											//~ }
+											
+														
 										}
 										if(p_int = dynamic_cast<ParamInt *>(p))
-										{										
-											if(ImGui::DragInt(p_int->getName().c_str(), &p_int->value))
+										{	
+											int _val = p_int->value;									
+											if(ImGui::DragInt(p_int->getName().c_str(), &_val))
 											{
+												p_int->setValue(_val);
 												curObj->mesh_generator->need_update = true;	
 											}
 										}									
@@ -1146,20 +1375,39 @@ void Window::objectPropertiesDialog()
 	}
 }
 
+void Window::timeLineDialog()
+{
+	ImGui::Begin("Timeline");
+	
+	//~ ImDrawList* draw_list = ImGui::GetWindowDrawList();
+	//~ const ImVec2 p = ImGui::GetCursorScreenPos();
+	//~ draw_list->AddRectFilled(ImVec2(p.x, p.y), ImVec2(p.x+5.0f, p.y+5.0f), ImColor(ImVec4(1.0f,1.0f,0.5f,1.0f)));	
+	
+	if(ImGui::Button("play"))
+	{
+
+
+	}
+	ImGui::End();
+}
+
 void Window::refresh()
 {
 	ImGui_ImplOpenGL3_NewFrame();
 	ImGui_ImplGlfw_NewFrame();
 	ImGui::NewFrame();
 
-	
-	
+	ImGuiIO &io = ImGui::GetIO();
+	if(io.WantCaptureMouse){
+		
+		//~ printf("ImGui captured mouse\n");
+	}
 	
 	 // int ex = explorerDialog();
 		
 	objectListDialog();
 	objectPropertiesDialog();
-
+	timeLineDialog();
 	
 	ImGui::Render();
 
@@ -1261,12 +1509,12 @@ void Window::renderObjects()
 	projection*= glm::perspective(45.0f, (float)width / (float)height, 0.01f, 100.0f);
 
 	
-	glm::vec3 up_vector;
-	if( camera.target_position.z > camera.position.z){						
-		up_vector =	glm::vec3(0.0f,-1.0f,0.0f);
-	}else{
-		up_vector =	glm::vec3(0.0f,1.0f,0.0f);
-	}
+	glm::vec3 up_vector = glm::vec3(0.0f,0.0f,1.0f);
+	//~ if( camera.target_position.z > camera.position.z){						
+		//~ up_vector =	glm::vec3(0.0f,-1.0f,0.0f);
+	//~ }else{
+		//~ up_vector =	glm::vec3(0.0f,1.0f,0.0f);
+	//~ }
 	//~ glm::mat4 ModelViewMatrix = glm::mat4(1.0f); 
 	view *= glm::lookAt(
 							camera.position, 
@@ -1277,60 +1525,48 @@ void Window::renderObjects()
 
 	
 	//~ printf("---- START render objects function\n");
+	
+	// draw world grid
+			point_shader.useProgram();
+			glUniformMatrix4fv(glGetUniformLocation(point_shader.m_id,"projection"), 1, GL_FALSE, glm::value_ptr(projection));	
+			glUniformMatrix4fv(glGetUniformLocation(point_shader.m_id,"model"), 1, GL_FALSE, glm::value_ptr(model));	
+			glUniformMatrix4fv(glGetUniformLocation(point_shader.m_id,"view"), 1, GL_FALSE, glm::value_ptr(view));	
+									
+			GLuint COLOR_LOC = glGetUniformLocation(point_shader.m_id,"u_color");
+			glUniform4f(COLOR_LOC, 1.0, 1.0, 1.0, 0.5);	
+			
+			drawWorldGrid();
+			
+			glUseProgram(0);
+	
 	for (int i = 0; i < objects.size(); i++)
 	{	
+
+		Entity3D* curEntity = objects[i];
+		model = glm::mat4(1.0f);
+		//// apply own transforms
+		model = curEntity->transforms * model;			
+		//// apply parents transforms
+		curEntity->applyParentsMatrices(model);
 		
+	
+			
+		if(curEntity->getLookAtTarget() != nullptr)
+		{
+
+		}	
 		
 		Object      * curObj        = nullptr;
 		ObjectDummy * curDummy = nullptr;
 		if( curObj = dynamic_cast<Object *>(objects[i]))
 		{
-			model = glm::mat4(1.0f);
-			//~ curObj = ptr;
+			
+
 			curObj->shader.useProgram();	
-			
-			//~ glLoadIdentity();
-			
-			//// apply transform matrices
-
-			std::vector<Entity3D*> parents  = curObj->getParents();
-			for (int i = 0; i < parents.size(); i++)
-			{
-				model = parents[i]->transforms * model;
-			}
-			
-			//// lastly apply own transforms
-			
-			if(curObj->getLookAtTarget() != nullptr)
-			{
-				//~ printf("target position : %.3f, %.3f, %.3f\n",curObj->getLookAtTarget()->position.x, curObj->getLookAtTarget()->position.y, curObj->getLookAtTarget()->position.z);
-				
-				// need to apply all target transforms before lookat
-				Entity3D * target = curObj->getLookAtTarget();
-				glm::mat4 target_model = glm::mat4(1.0f);
-				
-				std::vector<Entity3D*> parents2  = curObj->getParents();
-				for (int i = 0; i < parents2.size(); i++)
-				{
-					target_model = parents2[i]->transforms * model;
-				}						
-				
-				target_model = target_model * target->transforms;
-				// compute final target position
-				glm::vec4 temp = glm::vec4(target->position.x, target->position.y, target->position.z,1.0f);
-				temp =  temp * target_model;
-				
-				model *= glm::inverse(glm::lookAt(
-							curObj->position,
-							glm::vec3(temp.x, temp.y, temp.z),
-							glm::vec3(0.0f, 1.0f, 0.0f)
-							));
-			}			
-			model = model * curObj->transforms;
-
-
 
 			
+			
+
 			glUniformMatrix4fv(glGetUniformLocation(curObj->shader.m_id,"projection"), 1, GL_FALSE, glm::value_ptr(projection));	
 			glUniformMatrix4fv(glGetUniformLocation(curObj->shader.m_id,"model"), 1, GL_FALSE, glm::value_ptr(model));	
 			glUniformMatrix4fv(glGetUniformLocation(curObj->shader.m_id,"view"), 1, GL_FALSE, glm::value_ptr(view));	
@@ -1338,36 +1574,27 @@ void Window::renderObjects()
 			GLuint COLOR_LOC = glGetUniformLocation(curObj->shader.m_id,"u_color");
 			glUniform4f(COLOR_LOC, curObj->color.x, curObj->color.y, curObj->color.z, curObj->color.w);
 			
-			
-			
 			//~ curObj->texture.bind();
 			
 			glUniform1i(glGetUniformLocation(curObj->shader.m_id, "u_tex"),0);
 
-
-			
-			
-			
-			
 			//~ if(cur_object_selected == i)
 				//~ drawSelGizmo();
-			
-			
-			
 			
 			if(curObj->bDisplayPolygons){			
 				glPolygonMode( GL_FRONT_AND_BACK, GL_FILL );
 				curObj->draw(curObj->getRenderMode());
 			}
 				
-			if(curObj->bDisplayWireframe){
-				curObj->lineShader.useProgram();
-				glUniformMatrix4fv(glGetUniformLocation(curObj->lineShader.m_id,"projection"), 1, GL_FALSE, glm::value_ptr(projection));	
-				glUniformMatrix4fv(glGetUniformLocation(curObj->lineShader.m_id,"model"), 1, GL_FALSE, glm::value_ptr(model));	
-				glUniformMatrix4fv(glGetUniformLocation(curObj->lineShader.m_id,"view"), 1, GL_FALSE, glm::value_ptr(view));					
+			if(curObj->bDisplayWireframe)
+			{
+				point_shader.useProgram();
+				glUniformMatrix4fv(glGetUniformLocation(point_shader.m_id,"projection"), 1, GL_FALSE, glm::value_ptr(projection));	
+				glUniformMatrix4fv(glGetUniformLocation(point_shader.m_id,"model"), 1, GL_FALSE, glm::value_ptr(model));	
+				glUniformMatrix4fv(glGetUniformLocation(point_shader.m_id,"view"), 1, GL_FALSE, glm::value_ptr(view));					
 
-				glUniform3f(glGetUniformLocation(curObj->lineShader.m_id,"u_camera_pos"), camera.position.x, camera.position.y, camera.position.z);	
-				COLOR_LOC = glGetUniformLocation(curObj->lineShader.m_id,"u_color");
+				glUniform3f(glGetUniformLocation(point_shader.m_id,"u_camera_pos"), camera.position.x, camera.position.y, camera.position.z);	
+				COLOR_LOC = glGetUniformLocation(point_shader.m_id,"u_color");
 				glPointSize(5);
 				glUniform4f(COLOR_LOC, 0.0,0.0,1.0,1.0);
 				
@@ -1379,12 +1606,12 @@ void Window::renderObjects()
 			}
 			
 			if(curObj->bDisplayPoints){
-				curObj->lineShader.useProgram();
-				glUniformMatrix4fv(glGetUniformLocation(curObj->lineShader.m_id,"projection"), 1, GL_FALSE, glm::value_ptr(projection));	
-				glUniformMatrix4fv(glGetUniformLocation(curObj->lineShader.m_id,"model"), 1, GL_FALSE, glm::value_ptr(model));	
-				glUniformMatrix4fv(glGetUniformLocation(curObj->lineShader.m_id,"view"), 1, GL_FALSE, glm::value_ptr(view));					
+				point_shader.useProgram();
+				glUniformMatrix4fv(glGetUniformLocation(point_shader.m_id,"projection"), 1, GL_FALSE, glm::value_ptr(projection));	
+				glUniformMatrix4fv(glGetUniformLocation(point_shader.m_id,"model"), 1, GL_FALSE, glm::value_ptr(model));	
+				glUniformMatrix4fv(glGetUniformLocation(point_shader.m_id,"view"), 1, GL_FALSE, glm::value_ptr(view));					
 											
-				COLOR_LOC = glGetUniformLocation(curObj->lineShader.m_id,"u_color");
+				COLOR_LOC = glGetUniformLocation(point_shader.m_id,"u_color");
 				glUniform4f(COLOR_LOC, 1.0,0.0,0.0,1.0);			
 				curObj->drawPoints();
 			}			
@@ -1400,13 +1627,13 @@ void Window::renderObjects()
 			if(curObj->bDisplayBoundingBox)
 			{
 				//~ glUseProgram(0);
-				curObj->lineShader.useProgram();
-				COLOR_LOC = glGetUniformLocation(curObj->lineShader.m_id,"u_color");
+				point_shader.useProgram();
+				COLOR_LOC = glGetUniformLocation(point_shader.m_id,"u_color");
 				glPointSize(5);
 				glUniform4f(COLOR_LOC, 1.0,1.0,0.0,1.0);				
-				glUniformMatrix4fv(glGetUniformLocation(curObj->lineShader.m_id,"projection"), 1, GL_FALSE, glm::value_ptr(projection));	
-				glUniformMatrix4fv(glGetUniformLocation(curObj->lineShader.m_id,"model"), 1, GL_FALSE, glm::value_ptr(model));	
-				glUniformMatrix4fv(glGetUniformLocation(curObj->lineShader.m_id,"view"), 1, GL_FALSE, glm::value_ptr(view));				
+				glUniformMatrix4fv(glGetUniformLocation(point_shader.m_id,"projection"), 1, GL_FALSE, glm::value_ptr(projection));	
+				glUniformMatrix4fv(glGetUniformLocation(point_shader.m_id,"model"), 1, GL_FALSE, glm::value_ptr(model));	
+				glUniformMatrix4fv(glGetUniformLocation(point_shader.m_id,"view"), 1, GL_FALSE, glm::value_ptr(view));				
 				curObj->drawBoundingBox();
 			}
 			
@@ -1414,24 +1641,25 @@ void Window::renderObjects()
 		 
 		if(curDummy = dynamic_cast<ObjectDummy *>(objects[i]))
 		{
-			model = glm::mat4(1.0f);
-			pointShader.useProgram();
 			
-			// printf("drawing dummy\n");
-		
-			std::vector<Entity3D*> parents  = curDummy->getParents();
-			for (int i = 0; i < parents.size(); i++)
-			{
-				model = parents[i]->transforms * model;
-			}
+			point_shader.useProgram();
 			
-			//// lastly apply own transforms
-			model = model * curDummy->transforms;		
-			glUniformMatrix4fv(glGetUniformLocation(pointShader.m_id,"projection"), 1, GL_FALSE, glm::value_ptr(projection));	
-			glUniformMatrix4fv(glGetUniformLocation(pointShader.m_id,"model"), 1, GL_FALSE, glm::value_ptr(model));	
-			glUniformMatrix4fv(glGetUniformLocation(pointShader.m_id,"view"), 1, GL_FALSE, glm::value_ptr(view));
+			
+		//~ 
+			//~ std::vector<Entity3D*> parents  = curDummy->getParents();
+			//~ for (int i = 0; i < parents.size(); i++)
+			//~ {
+				//~ model = parents[i]->transforms * model;
+			//~ }
+			//~ 
+			//~ //// lastly apply own transforms
+			//~ model = model * curDummy->transforms;		
+			
+			glUniformMatrix4fv(glGetUniformLocation(point_shader.m_id,"projection"), 1, GL_FALSE, glm::value_ptr(projection));	
+			glUniformMatrix4fv(glGetUniformLocation(point_shader.m_id,"model"), 1, GL_FALSE, glm::value_ptr(model));	
+			glUniformMatrix4fv(glGetUniformLocation(point_shader.m_id,"view"), 1, GL_FALSE, glm::value_ptr(view));
 			glUniform4f(
-				glGetUniformLocation(pointShader.m_id,"u_color"), 
+				glGetUniformLocation(point_shader.m_id,"u_color"), 
 				1.0,1.0,0.0,1.0);				
 			curDummy->draw();	
 			

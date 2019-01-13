@@ -9,10 +9,10 @@ CylinderMesh::CylinderMesh(): MeshGenerator()
 	param_height = new ParamFloat("__height", 0.2); 	
 	param_layout.push(param_height);	
 	
-	param_segs_height = new ParamInt("__segs_height", 5); 	
+	param_segs_height = new ParamInt("__segs_height", 5, 2); 	
 	param_layout.push(param_segs_height);	
 	
-	param_segs_radius = new ParamInt("__segs_radius", 30); 	
+	param_segs_radius = new ParamInt("__segs_radius", 30, 4); 	
 	param_layout.push(param_segs_radius);	
 }
 

@@ -3,15 +3,14 @@
 
 
 
-Object::Object() : Entity3D()
+Object::Object() 
+	: Entity3D()
 {
 	//~ std::cout << "--- Object CREATED ---\n";
 	
 	
 	color = glm::vec4(1.0f,1.0f,1.0f,1.0f);	
 }
-
-
 
 void Object::updateMesh()
 {
@@ -83,21 +82,23 @@ void Object::updateMesh()
 
 void Object::init()
 {
-	initShader();
+	//~ printf("--- START object initialization \n");
+	//~ initShader();
 	buildTexture();	
 	buildVbo();	
+	//~ printf("--- END object initialization \n");
 }
 
 void Object::initShader(){
-	//~ printf("--- START shaders initialization \n");
+	
 	shader.loadVertexShaderSource("../src/res/shaders/basic_shader.vert");
 	shader.loadFragmentShaderSource("../src/res/shaders/basic_shader.frag");	
 	
 	shader.createShader();	
 
-	lineShader.loadVertexShaderSource("../src/res/shaders/line_shader.vert");
-	lineShader.loadFragmentShaderSource("../src/res/shaders/line_shader.frag");		
-	lineShader.createShader();			
+		//~ lineShader.loadVertexShaderSource("../src/res/shaders/line_shader.vert");
+		//~ lineShader.loadFragmentShaderSource("../src/res/shaders/line_shader.frag");		
+		//~ lineShader.createShader();			
 	//~ printf("--- END shaders initialization \n");
 }
 
@@ -207,7 +208,7 @@ void Object::buildVbo()
 	glDeleteBuffers(1, &m_vbo);
 	glGenBuffers(1, &m_vbo);
 	glBindBuffer(GL_ARRAY_BUFFER, m_vbo);
-	glBufferData(GL_ARRAY_BUFFER, sizeof(float) * vertex_data.size(), vertex_data.data() ,GL_STATIC_DRAW);
+	glBufferData(GL_ARRAY_BUFFER, sizeof(float) * vertex_data.size(), vertex_data.data() ,GL_DYNAMIC_DRAW);
 	
 	vertex_data.clear();	
 	
@@ -216,7 +217,7 @@ void Object::buildVbo()
 	glDeleteBuffers(1, &m_ibo);
 	glGenBuffers(1, &m_ibo);	
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, m_ibo);
-	glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(unsigned int) * mesh.indices.size(), mesh.indices.data() ,GL_STATIC_DRAW);
+	glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(unsigned int) * mesh.indices.size(), mesh.indices.data() ,GL_DYNAMIC_DRAW);
 		
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
 	
@@ -241,7 +242,7 @@ void Object::buildVbo()
 	glDeleteBuffers(1, &m_normals_vbo);
 	glGenBuffers(1,&m_normals_vbo);	
 	glBindBuffer(GL_ARRAY_BUFFER, m_normals_vbo);
-	glBufferData(GL_ARRAY_BUFFER, sizeof(float) * normals_data.size(), normals_data.data() ,GL_STATIC_DRAW);
+	glBufferData(GL_ARRAY_BUFFER, sizeof(float) * normals_data.size(), normals_data.data() ,GL_DYNAMIC_DRAW);
 	normals_data.clear();
 
 	
@@ -299,7 +300,7 @@ void Object::buildVbo()
 	glDeleteBuffers(1, &m_bbox_vbo);
 	glGenBuffers(1,&m_bbox_vbo);	
 	glBindBuffer(GL_ARRAY_BUFFER, m_bbox_vbo);
-	glBufferData(GL_ARRAY_BUFFER, sizeof(float) * 3*12*2, bbox_data ,GL_STATIC_DRAW);
+	glBufferData(GL_ARRAY_BUFFER, sizeof(float) * 3*12*2, bbox_data ,GL_DYNAMIC_DRAW);
 	
 	glBindBuffer(GL_ARRAY_BUFFER, 0);
 	
@@ -469,7 +470,7 @@ void Object::drawNormals()
 }
 
 void Object::drawPoints(){
-		lineShader.useProgram();
+		//~ lineShader.useProgram();
 		//~ glUniform4f(glGetUniformLocation(shader.m_id,"u_color"), 0.0,1.0,0.5,1.0);
 		glBindBuffer(GL_ARRAY_BUFFER, m_vbo);
 		glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(float) * 8, 0); 					

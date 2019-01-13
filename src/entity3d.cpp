@@ -8,6 +8,18 @@ Entity3D::Entity3D()
 	scale = glm::vec3(1.0f,1.0f,1.0f);	
 }
 
+void Entity3D::setName(std::string str_name)
+{
+
+	
+	
+	for (int i = 0; i < str_name.size(); i++)
+	{
+		name[i] = str_name[i];
+	}
+	
+}
+
 void Entity3D::applyTransforms(){
 	
 	glm::mat4 temp = glm::mat4(1.0f);
@@ -37,6 +49,18 @@ std::vector<Entity3D*> Entity3D::getParents()
 	return parents;
 }
 
+void Entity3D::applyParentsMatrices(glm::mat4 & source_matrix)
+{
+	
+	std::vector<Entity3D*> parents  = getParents();
+	
+	for (int i = 0; i < parents.size(); i++)
+	{
+		source_matrix = parents[i]->transforms * source_matrix;
+	}	
+	
+	
+}
 
 Entity3D::~Entity3D()
 {

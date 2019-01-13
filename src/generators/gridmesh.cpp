@@ -3,10 +3,10 @@
 
 GridMesh::GridMesh()
 {
-	p_rows = new ParamInt("rows", 2);
+	p_rows = new ParamInt("rows", 2, 2);
 	param_layout.push(p_rows);
 	
-	p_cols = new ParamInt("cols", 2);
+	p_cols = new ParamInt("cols", 2, 2);
 	param_layout.push(p_cols);
 	
 	p_width = new ParamFloat("width", 1.0);
