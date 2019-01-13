@@ -555,6 +555,8 @@ texture.h
 /home/pi/projects/angine/src/object.h
 iostream
 -
+iterator
+-
 pch.h
 /home/pi/projects/angine/src/pch.h
 mesh.h

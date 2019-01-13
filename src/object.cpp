@@ -12,6 +12,13 @@ Object::Object()
 	color = glm::vec4(1.0f,1.0f,1.0f,1.0f);	
 }
 
+void Object::moveFilter(int _origin, int _dest)
+{
+	MeshFilter* save = meshFilters[_origin];
+	meshFilters.erase(meshFilters.begin()+_origin);
+	meshFilters.insert(meshFilters.begin() + _dest, save);
+}
+
 void Object::updateMesh()
 {
 	if(has_generator){

@@ -23,6 +23,16 @@
 
 ////
 
+static int ray_plane_intersect(glm::vec3 planeN, glm::vec3 planeP, glm::vec3 pointP, glm::vec3 rayDir, glm::vec3& hitP)
+{
+    glm::vec3 W = planeP - pointP;
+    
+    float K = glm::dot(W, planeN) / glm::dot( rayDir, planeN);
+    
+    hitP = pointP + ( K * rayDir);
+    return  K>= 0.0 && K <= 1.0;
+}
+
 
 static std::vector<std::string> split(const std::string& str, std::string delimiter = " "){
 	
@@ -54,7 +64,19 @@ static std::vector<std::string> split(const std::string& str, std::string delimi
 
 Window::Window()
 {
-	
+	glm::vec3 hitP = glm::vec3(0.0f);
+	int hit = ray_plane_intersect(
+			glm::vec3(0.0f,0.0f,-1.0f),// plane normal
+			glm::vec3(0.0f,0.0f,0.0f),// plane point
+			glm::vec3(0.1f,2.2f,2.0f),// point pos
+			glm::vec3(0.0f,0.0f,-3.0f),// raydir
+			hitP);
+	printf("hit : %s\n", (hit == 1 ? "true":"false"));
+	if( hit){
+			printf("ray hit !\n");
+			printf("\tpos : %.3f, %.3f, %.3f\n", hitP.x, hitP.y, hitP.z);
+			printf("-----------------\n");
+	}
 	if(!glfwInit()){
 		std::cout<<"Problem with GLFW\n";
 		glfwTerminate();		
@@ -1189,7 +1211,19 @@ void Window::objectPropertiesDialog()
 										printf("Deleted Mesh Filter \n");									
 											
 									}								
-									
+									ImGui::Columns(2);
+									if(ImGui::Button("move down"))
+									{
+										if(cur_mesh_filter_selected != curObj->meshFilters.size()-1)
+											curObj->moveFilter(cur_mesh_filter_selected, cur_mesh_filter_selected+1);
+									}
+									ImGui::NextColumn();
+									if(ImGui::Button("move up"))
+									{
+										if(cur_mesh_filter_selected != 0)
+											curObj->moveFilter(cur_mesh_filter_selected, cur_mesh_filter_selected-1);
+									}
+									ImGui::Columns(1);									
 								}
 								
 								if( curObj->meshFilters.size() > 0)

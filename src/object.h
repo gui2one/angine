@@ -1,6 +1,8 @@
 #ifndef OBJECT_H
 #define OBJECT_H
+
 #include <iostream>
+#include <iterator>
 
 #include "pch.h"
 #include "mesh.h"
@@ -99,7 +101,7 @@ class Object : public Entity3D
 	
 		std::vector<MeshFilter*> meshFilters;
 		bool hasFilters = false;
-		
+		void moveFilter(int _origin, int _dest);
 		template<typename T>
 		inline void setMeshFilter(){
 			T* filter = new T();			
