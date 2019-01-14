@@ -1704,27 +1704,25 @@ void Window::renderObjects()
 			
 		if(curEntity->getLookAtTarget() != nullptr)
 		{
-
+			///// todo
 		}	
 		
 		Object      * curObj        = nullptr;
 		ObjectDummy * curDummy = nullptr;
 		if( curObj = dynamic_cast<Object *>(objects[i]))
-		{
-			
-
+		{			
 			curObj->shader.useProgram();	
-
-			
-			
 
 			glUniformMatrix4fv(glGetUniformLocation(curObj->shader.m_id,"projection"), 1, GL_FALSE, glm::value_ptr(camera.projection));	
 			glUniformMatrix4fv(glGetUniformLocation(curObj->shader.m_id,"model"), 1, GL_FALSE, glm::value_ptr(model));	
 			glUniformMatrix4fv(glGetUniformLocation(curObj->shader.m_id,"view"), 1, GL_FALSE, glm::value_ptr(view));	
 									
 			GLuint COLOR_LOC = glGetUniformLocation(curObj->shader.m_id,"u_color");
-			glUniform4f(COLOR_LOC, curObj->color.x, curObj->color.y, curObj->color.z, curObj->color.w);
-			
+
+			if(cur_object_selected == i)
+				glUniform4f(COLOR_LOC, 1.0, 1.0, 0.2, 1.0);
+			else
+				glUniform4f(COLOR_LOC, curObj->color.x, curObj->color.y, curObj->color.z, curObj->color.w);
 			//~ curObj->texture.bind();
 			
 			glUniform1i(glGetUniformLocation(curObj->shader.m_id, "u_tex"),0);
@@ -1791,12 +1789,9 @@ void Window::renderObjects()
 		}
 		 
 		if(curDummy = dynamic_cast<ObjectDummy *>(objects[i]))
-		{
-			
+		{			
 			point_shader.useProgram();
-			
 
-			
 			glUniformMatrix4fv(glGetUniformLocation(point_shader.m_id,"projection"), 1, GL_FALSE, glm::value_ptr(camera.projection));	
 			glUniformMatrix4fv(glGetUniformLocation(point_shader.m_id,"model"), 1, GL_FALSE, glm::value_ptr(model));	
 			glUniformMatrix4fv(glGetUniformLocation(point_shader.m_id,"view"), 1, GL_FALSE, glm::value_ptr(view));
@@ -1807,16 +1802,7 @@ void Window::renderObjects()
 			
 			glUseProgram(0);
 		}
-		
-		
-		
-		
-		
-		
 	}
-		
-		
-		//~ printf("---- END render objects function\n");
 }
 
 Window::~Window()
