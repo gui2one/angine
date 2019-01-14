@@ -64,19 +64,19 @@ static std::vector<std::string> split(const std::string& str, std::string delimi
 
 Window::Window()
 {
-	glm::vec3 hitP = glm::vec3(0.0f);
-	int hit = ray_plane_intersect(
-			glm::vec3(0.0f,0.0f,-1.0f),// plane normal
-			glm::vec3(0.0f,0.0f,0.0f),// plane point
-			glm::vec3(0.1f,2.2f,2.0f),// point pos
-			glm::vec3(0.0f,0.0f,-3.0f),// raydir
-			hitP);
-	printf("hit : %s\n", (hit == 1 ? "true":"false"));
-	if( hit){
-			printf("ray hit !\n");
-			printf("\tpos : %.3f, %.3f, %.3f\n", hitP.x, hitP.y, hitP.z);
-			printf("-----------------\n");
-	}
+	//~ glm::vec3 hitP = glm::vec3(0.0f);
+	//~ int hit = ray_plane_intersect(
+			//~ glm::vec3(0.0f,0.0f,-1.0f),// plane normal
+			//~ glm::vec3(0.0f,0.0f,0.0f),// plane point
+			//~ glm::vec3(0.1f,2.2f,2.0f),// point pos
+			//~ glm::vec3(0.0f,0.0f,-3.0f),// raydir
+			//~ hitP);
+	//~ printf("hit : %s\n", (hit == 1 ? "true":"false"));
+	//~ if( hit){
+			//~ printf("ray hit !\n");
+			//~ printf("\tpos : %.3f, %.3f, %.3f\n", hitP.x, hitP.y, hitP.z);
+			//~ printf("-----------------\n");
+	//~ }
 	if(!glfwInit()){
 		std::cout<<"Problem with GLFW\n";
 		glfwTerminate();		
@@ -322,6 +322,55 @@ void Window::mouse_button_callback(GLFWwindow* window, int button, int action, i
 		app->right_mouse_button_down = false;
 		
 	}
+	
+	if(button == GLFW_MOUSE_BUTTON_LEFT && action == GLFW_PRESS){
+		printf("Sending ray, sir !\n");
+		
+		double x_pos, y_pos;
+		glfwGetCursorPos(window, &x_pos, &y_pos);
+		
+		float x = (2.0f * x_pos) / app->width - 1.0f;
+		float y = 1.0f - (2.0f * y_pos) / app->height;
+		glm::vec3 planeN = glm::vec3(0.0f, 0.0f , 1.0f);
+		glm::vec3 planeP = glm::vec3(0.0f, 0.0f , 0.0f);
+		glm::vec3 pointP = glm::vec3(x, y , 1.0f);
+		glm::vec3 rayDir = glm::vec3(0.0f, 0.0f , -2.0f);
+		
+		glm::mat4 projection = glm::mat4(1.0f);
+		glm::mat4 view = glm::mat4(1.0f);
+
+		projection*= glm::perspective(45.0f, (float)app->width / (float)app->height, 0.01f, 100.0f);
+		//~ projection[3][2] = 0.0f;
+		projection[3][3] = 1.0f; // not sure why I need this, but it gets rid off a nasty offset 
+		
+		glm::vec3 up_vector = glm::vec3(0.0f,0.0f,1.0f);
+
+		view *= glm::lookAt(
+								app->camera.position, 
+								app->camera.target_position, 
+								glm::normalize(up_vector)
+							);			
+							
+		glm::vec4 tempPointP = inverse(projection * view)  * glm::vec4(pointP.x, pointP.y, pointP.z, 1.0f) ;
+		tempPointP /= tempPointP.w ;
+		
+		
+		//~ printf("new pointP : \n\t%.3f, %.3f, %.3f\n", tempPointP.x, tempPointP.y, tempPointP.z);
+		
+		glm::vec3 hitP = glm::vec3(0.0f);
+		int hit = ray_plane_intersect(planeN, planeP, app->camera.position, tempPointP, hitP);
+		
+		if( hit)
+		{
+			printf("ray hit at : %.3f, %.3f,%.3f\n", hitP.x, hitP.y, hitP.z);
+			
+			ObjectDummy * dum = new ObjectDummy();
+			dum->position = hitP;
+			dum->applyTransforms();
+			dum->init();
+			app->addObject(dum);
+		}
+	}
 }
 
 void Window::char_mods_callback(GLFWwindow* window, unsigned int key, int mod)
@@ -337,42 +386,7 @@ void Window::char_mods_callback(GLFWwindow* window, unsigned int key, int mod)
 	
 }
 
-//~ void Window::selGizmoInit()
-//~ {
-	//~ 
-	//~ float vert_data[8*3] = {
-			//~ 0.00, 0.00, 0.00,
-			//~ 0.5, 0.00, 0.00,
-			//~ 0.00, 0.5, 0.00,
-			//~ 0.00, 0.00, 0.5,
-//~ 
-			//~ 1.00, 0.00, 0.00,
-			//~ 0.5, 0.00, 0.00,
-			//~ 1.00, 0.5, 0.00,
-			//~ 1.00, 0.00, 0.5			
-	//~ };
-	//~ glDeleteBuffers(1, &sel_gizmo_vbo);
-	//~ glGenBuffers(1, &sel_gizmo_vbo);
-	//~ glBindBuffer(GL_ARRAY_BUFFER, sel_gizmo_vbo);
-	//~ glBufferData(GL_ARRAY_BUFFER, sizeof(float) * 8*3, vert_data ,GL_DYNAMIC_DRAW);	
-	//~ 
-	//~ glBindBuffer(GL_ARRAY_BUFFER, 0);
-//~ }
 
-//~ void Window::drawSelGizmo(){
-	//~ 
-	
-	//~ glBindBuffer(GL_ARRAY_BUFFER, sel_gizmo_vbo);
-	//~ glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(float) * 3, 0); 					
-	//~ glEnableVertexAttribArray(0);		
-	//~ 
-		//~ glDrawArrays(GL_POINTS,0, 8*3);
-	//~ 
-	//~ glDisableVertexAttribArray(0);		
-	//~ glBindBuffer(GL_ARRAY_BUFFER, 0);	
-	//~ 
-	
-//~ }
 
 void Window::setCamPosFromPolar(float u, float v)
 {
