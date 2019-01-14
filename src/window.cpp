@@ -340,8 +340,15 @@ void Window::mouse_button_callback(GLFWwindow* window, int button, int action, i
 		glm::mat4 view = glm::mat4(1.0f);
 
 		projection*= glm::perspective(45.0f, (float)app->width / (float)app->height, 0.01f, 100.0f);
-		//~ projection[3][2] = 0.0f;
-		projection[3][3] = 1.0f; // not sure why I need this, but it gets rid off a nasty offset 
+		
+		// not sure why I need this, but it gets rid off a nasty offset 
+		// found a solution here : https://stackoverflow.com/questions/48514387/can-anyone-explain-this-small-offset-from-ray-casting-by-mouse-click?rq=1
+		// but the guy says he forced projection[3][3] to be 0.0, I have to do 1.0f for this to work
+		
+		projection[3][3] = 1.0f; 
+		
+		/////
+		
 		
 		glm::vec3 up_vector = glm::vec3(0.0f,0.0f,1.0f);
 
