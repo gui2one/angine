@@ -1339,13 +1339,34 @@ void Window::objectPropertiesDialog()
 									if(ImGui::Button("move down"))
 									{
 										if(cur_mesh_filter_selected != curObj->meshFilters.size()-1)
+										{	
 											curObj->moveFilter(cur_mesh_filter_selected, cur_mesh_filter_selected+1);
+											cur_mesh_filter_selected++;
+											
+											curObj->meshFilters[cur_mesh_filter_selected-1]->need_update = true;
+											
+											// force follwing filters need_update also
+											for (int i = cur_mesh_filter_selected; i < curObj->meshFilters.size(); i++)
+											{
+												curObj->meshFilters[i]->need_update = true;
+											}											
+										}
 									}
 									ImGui::NextColumn();
 									if(ImGui::Button("move up"))
 									{
 										if(cur_mesh_filter_selected != 0)
+										{
 											curObj->moveFilter(cur_mesh_filter_selected, cur_mesh_filter_selected-1);
+											cur_mesh_filter_selected--;
+											curObj->meshFilters[cur_mesh_filter_selected]->need_update = true;
+											
+											// force follwing filters need_update also
+											for (int i = cur_mesh_filter_selected; i < curObj->meshFilters.size(); i++)
+											{
+												curObj->meshFilters[i]->need_update = true;
+											}												
+										}
 									}
 									ImGui::Columns(1);									
 								}
