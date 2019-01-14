@@ -217,7 +217,7 @@ Entity3D* Window::mouseClickObject()
 			
 			float x = (2.0f * pos_x) / width - 1.0f;
 			float y = 1.0f - (2.0f * pos_y) / height;
-			glm::vec3 planeN = glm::vec3(0.0f, 0.0f , 1.0f);
+			glm::vec3 planeN = glm::normalize(p_object->position - camera.position);
 			glm::vec3 planeP = bbox_center;
 			glm::vec3 pointP = glm::vec3(x, y , 1.0f);
 			glm::vec3 rayDir = glm::vec3(0.0f, 0.0f , -1.0f);
