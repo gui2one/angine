@@ -321,6 +321,43 @@ BoundingBox Object::getBoundingBox()
 	return boundingBox;
 }
 
+BoundingBox Object::computeAABB(){
+	//~ std::cout << "Computing BBOX\n";
+	float minx = 100000.0;
+	float miny = 100000.0;
+	float minz = 100000.0;
+	float maxx = -100000.0;
+	float maxy = -100000.0;
+	float maxz = -100000.0;
+	for (int i = 0; i < mesh.vertices.size(); i++)
+	{
+		glm::vec3 vert_pos = mesh.vertices[i].position;
+		glm::vec4 vpos =  transforms  *glm::vec4(vert_pos.x, vert_pos.y, vert_pos.z, 1.0f);
+		
+		//~ printf("Vertex %d : %.3f, %.3f, %.3f \n", i, vpos.x, vpos.y, vpos.z);
+		if(vpos.x < minx)
+			minx = vpos.x;
+		if(vpos.x > maxx)
+			maxx = vpos.x;
+		if( vpos.y < miny)
+			miny = vpos.y;
+		if(vpos.y > maxy)
+			maxy = vpos.y;
+		if( vpos.z < minz)
+			minz = vpos.z;
+		if(vpos.z > maxz)
+			maxz = vpos.z;			
+
+	}
+	
+	BoundingBox bbox;
+	
+	bbox.position = glm::vec3(minx, miny, minz);
+	bbox.size = glm::vec3(maxx-minx, maxy-miny, maxz-minz);	
+	
+	return bbox;
+}
+
 void Object::computeBoundingBox()
 {
 	

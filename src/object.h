@@ -76,6 +76,7 @@ class Object : public Entity3D
 		
 		void computeBoundingBox();
 		BoundingBox getBoundingBox();
+		BoundingBox computeAABB();
 		
 		
 		bool has_generator = false;

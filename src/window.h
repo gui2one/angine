@@ -30,7 +30,10 @@ class Window
 		static void char_mods_callback(GLFWwindow* window, unsigned int key, int action);
 		static void cursor_pos_callback(GLFWwindow* window, double xpos, double ypos);
 		static void mouse_button_callback(GLFWwindow* window, int button, int action, int mods);	
+		static void scroll_callback(GLFWwindow* window, double xoffset, double yoffset);
 		
+		
+		Entity3D* mouseClickObject();
 		
 		void initWorldGrid();
 		void drawWorldGrid();
@@ -40,7 +43,8 @@ class Window
 		bool right_mouse_button_down = false;	
 		Camera camera;
 		
-		void setCamPosFromPolar(float u, float v);
+		void setCamPosFromPolar(float u, float v, float _radius);
+		double camera_orbit_radius = 5.0;
 		double camera_u_pos = PI;
 		double camera_v_pos = (PI/2.0) - 0.3;
 		double mouse_pos_x, mouse_pos_y;

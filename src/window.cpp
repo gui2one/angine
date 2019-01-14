@@ -100,6 +100,7 @@ Window::Window()
 	glfwSetCharModsCallback(win, char_mods_callback);	
 	glfwSetCursorPosCallback(win, cursor_pos_callback);	
 	glfwSetMouseButtonCallback(win, mouse_button_callback);	
+	glfwSetScrollCallback(win, scroll_callback);
 	
 	
 	point_shader.loadVertexShaderSource("../src/res/shaders/line_shader.vert");
@@ -140,7 +141,7 @@ Window::Window()
 	initWorldGrid();
 	
 
-	setCamPosFromPolar(camera_u_pos, camera_v_pos);
+	setCamPosFromPolar(camera_u_pos, camera_v_pos, camera_orbit_radius);
 
 	// default first object
 	Object* obj = new Object();
@@ -194,6 +195,85 @@ Window::Window()
 
 	//~ selGizmoInit();
 
+}
+Entity3D* Window::mouseClickObject()
+{
+	double pos_x, pos_y;
+	glfwGetCursorPos(win, &pos_x, &pos_y);
+	for (int i = 0; i < objects.size(); i++)
+	{
+		Entity3D * cur = objects[i];
+		
+		Object * p_object = nullptr;
+		if( p_object = dynamic_cast<Object *>(cur)){
+			
+			BoundingBox AABB = p_object->computeAABB();
+			
+			glm::vec3 bbox_pos = AABB.position;
+			glm::vec3 bbox_size = AABB.size;
+			glm::vec3 bbox_center = bbox_pos + glm::vec3(bbox_size.x/2.0f, bbox_size.y/2.0f, bbox_size.y/2.0f) ;	
+			printf("position  : %.3f, %.3f, %.3f\n", bbox_pos.x, bbox_pos.y, bbox_pos.z);
+			
+			
+			float x = (2.0f * pos_x) / width - 1.0f;
+			float y = 1.0f - (2.0f * pos_y) / height;
+			glm::vec3 planeN = glm::vec3(0.0f, 0.0f , 1.0f);
+			glm::vec3 planeP = bbox_center;
+			glm::vec3 pointP = glm::vec3(x, y , 1.0f);
+			glm::vec3 rayDir = glm::vec3(0.0f, 0.0f , -1.0f);
+			
+			glm::mat4 projection = camera.projection;
+			glm::mat4 view = glm::mat4(1.0f);
+
+			
+			
+			// not sure why I need this, but it gets rid off a nasty offset 
+			// found a solution here : https://stackoverflow.com/questions/48514387/can-anyone-explain-this-small-offset-from-ray-casting-by-mouse-click?rq=1
+			// but the guy says he forced projection[3][3] to be 0.0, I have to do 1.0f for this to work
+			
+			projection[3][3] = 1.0f; 
+			//~ 
+			//~ /////
+			//~ 
+			//~ 
+			glm::vec3 up_vector = glm::vec3(0.0f,0.0f,1.0f);
+
+			view *= glm::lookAt(
+									camera.position, 
+									camera.target_position, 
+									glm::normalize(up_vector)
+								);			
+								
+			glm::vec4 tempPointP = inverse(projection * view)* glm::vec4(pointP.x, pointP.y, pointP.z, 1.0f) ;
+			tempPointP /= tempPointP.w ;
+			//~ 
+			//~ 
+			
+			//~ 
+			glm::vec3 hitP = glm::vec3(0.0f);
+			int hit = ray_plane_intersect(planeN, planeP, camera.position, tempPointP, hitP);		
+			
+			if(hit)
+			{
+				if( hitP.x > bbox_pos.x && hitP.x < bbox_pos.x + bbox_size.x)
+				{
+					
+					if( hitP.y > bbox_pos.y && hitP.y < bbox_pos.y + bbox_size.y)
+					{
+						
+						if( hitP.z > bbox_pos.z && hitP.z < bbox_pos.z + bbox_size.z)
+						{					
+							printf("hit !!!!! object number %d\n", i);
+							cur_object_selected = i;
+							return objects[i];
+						}
+					}
+				}
+				
+			}
+		}
+	}
+	
 }
 
 void Window::initWorldGrid()
@@ -299,83 +379,109 @@ void Window::cursor_pos_callback(GLFWwindow* window, double xpos, double ypos)
 		else if(app->camera_v_pos > PI-0.2)
 			app->camera_v_pos = PI-0.2;		
 		
-		app->setCamPosFromPolar(app->camera_u_pos, app->camera_v_pos);
+		app->setCamPosFromPolar(app->camera_u_pos, app->camera_v_pos, app->camera_orbit_radius);
 		
 	}
 	
 }
 
+
+void Window::scroll_callback(GLFWwindow* window, double xoffset, double yoffset)
+{
+	Window* app = static_cast<Window*>(glfwGetWindowUserPointer(window));
+	ImGuiIO &io = ImGui::GetIO();
+	if(io.WantCaptureMouse){
+	
+		
+		//~ printf("ImGui captured mouse\n");
+	}else{	
+		app->camera_orbit_radius -= yoffset*0.2;
+		app->setCamPosFromPolar(app->camera_u_pos, app->camera_v_pos, app->camera_orbit_radius);
+	}
+}
 void Window::mouse_button_callback(GLFWwindow* window, int button, int action, int mods)
 {
 	Window* app = static_cast<Window*>(glfwGetWindowUserPointer(window));
-    if(button == GLFW_MOUSE_BUTTON_RIGHT && action == GLFW_PRESS ){
-		
-		app->right_mouse_button_down = true;
-		
-		glfwGetCursorPos(window, &app->mouse_pos_x, &app->mouse_pos_y);
-		app->mouse_old_x = app->mouse_pos_x;
-		app->mouse_old_y = app->mouse_pos_y;
-		
-		
-	}else if(button == GLFW_MOUSE_BUTTON_RIGHT && action == GLFW_RELEASE ){
-		
-		app->right_mouse_button_down = false;
-		
-	}
 	
-	if(button == GLFW_MOUSE_BUTTON_LEFT && action == GLFW_PRESS){
-		printf("Sending ray, sir !\n");
+	ImGuiIO &io = ImGui::GetIO();
+	if(io.WantCaptureMouse){
+	
 		
-		double x_pos, y_pos;
-		glfwGetCursorPos(window, &x_pos, &y_pos);
-		
-		float x = (2.0f * x_pos) / app->width - 1.0f;
-		float y = 1.0f - (2.0f * y_pos) / app->height;
-		glm::vec3 planeN = glm::vec3(0.0f, 0.0f , 1.0f);
-		glm::vec3 planeP = glm::vec3(0.0f, 0.0f , 0.0f);
-		glm::vec3 pointP = glm::vec3(x, y , 1.0f);
-		glm::vec3 rayDir = glm::vec3(0.0f, 0.0f , -2.0f);
-		
-		glm::mat4 projection = glm::mat4(1.0f);
-		glm::mat4 view = glm::mat4(1.0f);
-
-		projection*= glm::perspective(45.0f, (float)app->width / (float)app->height, 0.01f, 100.0f);
-		
-		// not sure why I need this, but it gets rid off a nasty offset 
-		// found a solution here : https://stackoverflow.com/questions/48514387/can-anyone-explain-this-small-offset-from-ray-casting-by-mouse-click?rq=1
-		// but the guy says he forced projection[3][3] to be 0.0, I have to do 1.0f for this to work
-		
-		projection[3][3] = 1.0f; 
-		
-		/////
+		//~ printf("ImGui captured mouse\n");
+	}else{	
 		
 		
-		glm::vec3 up_vector = glm::vec3(0.0f,0.0f,1.0f);
-
-		view *= glm::lookAt(
-								app->camera.position, 
-								app->camera.target_position, 
-								glm::normalize(up_vector)
-							);			
-							
-		glm::vec4 tempPointP = inverse(projection * view)  * glm::vec4(pointP.x, pointP.y, pointP.z, 1.0f) ;
-		tempPointP /= tempPointP.w ;
-		
-		
-		//~ printf("new pointP : \n\t%.3f, %.3f, %.3f\n", tempPointP.x, tempPointP.y, tempPointP.z);
-		
-		glm::vec3 hitP = glm::vec3(0.0f);
-		int hit = ray_plane_intersect(planeN, planeP, app->camera.position, tempPointP, hitP);
-		
-		if( hit)
-		{
-			printf("ray hit at : %.3f, %.3f,%.3f\n", hitP.x, hitP.y, hitP.z);
+		if(button == GLFW_MOUSE_BUTTON_RIGHT && action == GLFW_PRESS ){
 			
-			ObjectDummy * dum = new ObjectDummy();
-			dum->position = hitP;
-			dum->applyTransforms();
-			dum->init();
-			app->addObject(dum);
+			app->right_mouse_button_down = true;
+			
+			glfwGetCursorPos(window, &app->mouse_pos_x, &app->mouse_pos_y);
+			app->mouse_old_x = app->mouse_pos_x;
+			app->mouse_old_y = app->mouse_pos_y;
+			
+			
+		}else if(button == GLFW_MOUSE_BUTTON_RIGHT && action == GLFW_RELEASE ){
+			
+			app->right_mouse_button_down = false;
+			
+		}
+		
+		if(button == GLFW_MOUSE_BUTTON_LEFT && action == GLFW_PRESS){
+			app->mouseClickObject();
+			
+			//~ printf("Sending ray, sir !\n");
+			//~ 
+			//~ double x_pos, y_pos;
+			//~ glfwGetCursorPos(window, &x_pos, &y_pos);
+			//~ 
+			//~ float x = (2.0f * x_pos) / app->width - 1.0f;
+			//~ float y = 1.0f - (2.0f * y_pos) / app->height;
+			//~ glm::vec3 planeN = glm::vec3(0.0f, 0.0f , 1.0f);
+			//~ glm::vec3 planeP = glm::vec3(0.0f, 0.0f , 0.0f);
+			//~ glm::vec3 pointP = glm::vec3(x, y , 1.0f);
+			//~ glm::vec3 rayDir = glm::vec3(0.0f, 0.0f , -2.0f);
+			//~ 
+			//~ glm::mat4 projection = app->camera.projection;
+			//~ glm::mat4 view = glm::mat4(1.0f);
+//~ 
+			
+			//~ 
+			//~ // not sure why I need this, but it gets rid off a nasty offset 
+			//~ // found a solution here : https://stackoverflow.com/questions/48514387/can-anyone-explain-this-small-offset-from-ray-casting-by-mouse-click?rq=1
+			//~ // but the guy says he forced projection[3][3] to be 0.0, I have to do 1.0f for this to work
+			//~ 
+			//~ projection[3][3] = 1.0f; 
+			//~ 
+			//~ /////
+			//~ 
+			//~ 
+			//~ glm::vec3 up_vector = glm::vec3(0.0f,0.0f,1.0f);
+//~ 
+			//~ view *= glm::lookAt(
+									//~ app->camera.position, 
+									//~ app->camera.target_position, 
+									//~ glm::normalize(up_vector)
+								//~ );			
+								//~ 
+			//~ glm::vec4 tempPointP = inverse(projection * view)  * glm::vec4(pointP.x, pointP.y, pointP.z, 1.0f) ;
+			//~ tempPointP /= tempPointP.w ;
+			//~ 
+			//~ 
+			
+			//~ 
+			//~ glm::vec3 hitP = glm::vec3(0.0f);
+			//~ int hit = ray_plane_intersect(planeN, planeP, app->camera.position, tempPointP, hitP);
+			//~ 
+			//~ if( hit)
+			//~ {
+				//~ printf("ray hit at : %.3f, %.3f,%.3f\n", hitP.x, hitP.y, hitP.z);
+				//~ 
+				//~ ObjectDummy * dum = new ObjectDummy();
+				//~ dum->position = hitP;
+				//~ dum->applyTransforms();
+				//~ dum->init();
+				//~ app->addObject(dum);
+			//~ }
 		}
 	}
 }
@@ -395,11 +501,11 @@ void Window::char_mods_callback(GLFWwindow* window, unsigned int key, int mod)
 
 
 
-void Window::setCamPosFromPolar(float u, float v)
+void Window::setCamPosFromPolar(float u, float v, float _radius)
 {
-	camera.position.x = sin(u)* sin(v) * 5.0;
-	camera.position.y = cos(u)* sin(v) *5.0;
-	camera.position.z = cos(v) * 5.0;	
+	camera.position.x = sin(u)* sin(v) * _radius;
+	camera.position.y = cos(u)* sin(v) * _radius;
+	camera.position.z = cos(v) * _radius;	
 }
 
 int Window::explorerDialog()
@@ -711,12 +817,9 @@ void Window::objectListDialog()
 	
 	if(ImGui::Button("Delete Object"))
 	{
-		removeObject(objects[cur_object_selected]);
-		//~ delete objects[cur_object_selected];
-		//~ objects.erase(objects.begin() + cur_object_selected);
-		//~ 
-		//~ if(cur_object_selected > 0)
-			//~ cur_object_selected -= 1;
+		if(objects.size() > 0)
+			removeObject(objects[cur_object_selected]);
+		
 	}
 	ImGui::End();
 }
@@ -1452,11 +1555,7 @@ void Window::refresh()
 	ImGui_ImplGlfw_NewFrame();
 	ImGui::NewFrame();
 
-	ImGuiIO &io = ImGui::GetIO();
-	if(io.WantCaptureMouse){
-		
-		//~ printf("ImGui captured mouse\n");
-	}
+
 	
 	 // int ex = explorerDialog();
 		
@@ -1469,6 +1568,10 @@ void Window::refresh()
 	
 	glfwGetFramebufferSize(win, &width, &height);
 	glViewport(0,0,width, height);
+	
+	camera.setProjection(
+		glm::perspective(camera.fov_angle, (float)width/ (float)height, camera.near, camera.far)
+	);
 	
 	float ratio = (float)width / height;
 	
@@ -1558,19 +1661,13 @@ void Window::removeObject(Entity3D* obj)
 
 void Window::renderObjects()
 {
-	glm::mat4 projection = glm::mat4(1.0f);
 	glm::mat4 view = glm::mat4(1.0f);
 	glm::mat4 model =  glm::mat4(1.0f);
-	projection*= glm::perspective(45.0f, (float)width / (float)height, 0.01f, 100.0f);
+	//~ projection*= glm::perspective(45.0f, (float)width / (float)height, 0.01f, 100.0f);
 
 	
 	glm::vec3 up_vector = glm::vec3(0.0f,0.0f,1.0f);
-	//~ if( camera.target_position.z > camera.position.z){						
-		//~ up_vector =	glm::vec3(0.0f,-1.0f,0.0f);
-	//~ }else{
-		//~ up_vector =	glm::vec3(0.0f,1.0f,0.0f);
-	//~ }
-	//~ glm::mat4 ModelViewMatrix = glm::mat4(1.0f); 
+
 	view *= glm::lookAt(
 							camera.position, 
 							camera.target_position, 
@@ -1579,11 +1676,9 @@ void Window::renderObjects()
 
 
 	
-	//~ printf("---- START render objects function\n");
-	
 	// draw world grid
 			point_shader.useProgram();
-			glUniformMatrix4fv(glGetUniformLocation(point_shader.m_id,"projection"), 1, GL_FALSE, glm::value_ptr(projection));	
+			glUniformMatrix4fv(glGetUniformLocation(point_shader.m_id,"projection"), 1, GL_FALSE, glm::value_ptr(camera.projection));	
 			glUniformMatrix4fv(glGetUniformLocation(point_shader.m_id,"model"), 1, GL_FALSE, glm::value_ptr(model));	
 			glUniformMatrix4fv(glGetUniformLocation(point_shader.m_id,"view"), 1, GL_FALSE, glm::value_ptr(view));	
 									
@@ -1593,6 +1688,7 @@ void Window::renderObjects()
 			drawWorldGrid();
 			
 			glUseProgram(0);
+	////
 	
 	for (int i = 0; i < objects.size(); i++)
 	{	
@@ -1622,7 +1718,7 @@ void Window::renderObjects()
 			
 			
 
-			glUniformMatrix4fv(glGetUniformLocation(curObj->shader.m_id,"projection"), 1, GL_FALSE, glm::value_ptr(projection));	
+			glUniformMatrix4fv(glGetUniformLocation(curObj->shader.m_id,"projection"), 1, GL_FALSE, glm::value_ptr(camera.projection));	
 			glUniformMatrix4fv(glGetUniformLocation(curObj->shader.m_id,"model"), 1, GL_FALSE, glm::value_ptr(model));	
 			glUniformMatrix4fv(glGetUniformLocation(curObj->shader.m_id,"view"), 1, GL_FALSE, glm::value_ptr(view));	
 									
@@ -1644,7 +1740,7 @@ void Window::renderObjects()
 			if(curObj->bDisplayWireframe)
 			{
 				point_shader.useProgram();
-				glUniformMatrix4fv(glGetUniformLocation(point_shader.m_id,"projection"), 1, GL_FALSE, glm::value_ptr(projection));	
+				glUniformMatrix4fv(glGetUniformLocation(point_shader.m_id,"projection"), 1, GL_FALSE, glm::value_ptr(camera.projection));	
 				glUniformMatrix4fv(glGetUniformLocation(point_shader.m_id,"model"), 1, GL_FALSE, glm::value_ptr(model));	
 				glUniformMatrix4fv(glGetUniformLocation(point_shader.m_id,"view"), 1, GL_FALSE, glm::value_ptr(view));					
 
@@ -1662,7 +1758,7 @@ void Window::renderObjects()
 			
 			if(curObj->bDisplayPoints){
 				point_shader.useProgram();
-				glUniformMatrix4fv(glGetUniformLocation(point_shader.m_id,"projection"), 1, GL_FALSE, glm::value_ptr(projection));	
+				glUniformMatrix4fv(glGetUniformLocation(point_shader.m_id,"projection"), 1, GL_FALSE, glm::value_ptr(camera.projection));	
 				glUniformMatrix4fv(glGetUniformLocation(point_shader.m_id,"model"), 1, GL_FALSE, glm::value_ptr(model));	
 				glUniformMatrix4fv(glGetUniformLocation(point_shader.m_id,"view"), 1, GL_FALSE, glm::value_ptr(view));					
 											
@@ -1686,7 +1782,7 @@ void Window::renderObjects()
 				COLOR_LOC = glGetUniformLocation(point_shader.m_id,"u_color");
 				glPointSize(5);
 				glUniform4f(COLOR_LOC, 1.0,1.0,0.0,1.0);				
-				glUniformMatrix4fv(glGetUniformLocation(point_shader.m_id,"projection"), 1, GL_FALSE, glm::value_ptr(projection));	
+				glUniformMatrix4fv(glGetUniformLocation(point_shader.m_id,"projection"), 1, GL_FALSE, glm::value_ptr(camera.projection));	
 				glUniformMatrix4fv(glGetUniformLocation(point_shader.m_id,"model"), 1, GL_FALSE, glm::value_ptr(model));	
 				glUniformMatrix4fv(glGetUniformLocation(point_shader.m_id,"view"), 1, GL_FALSE, glm::value_ptr(view));				
 				curObj->drawBoundingBox();
@@ -1699,18 +1795,9 @@ void Window::renderObjects()
 			
 			point_shader.useProgram();
 			
+
 			
-		//~ 
-			//~ std::vector<Entity3D*> parents  = curDummy->getParents();
-			//~ for (int i = 0; i < parents.size(); i++)
-			//~ {
-				//~ model = parents[i]->transforms * model;
-			//~ }
-			//~ 
-			//~ //// lastly apply own transforms
-			//~ model = model * curDummy->transforms;		
-			
-			glUniformMatrix4fv(glGetUniformLocation(point_shader.m_id,"projection"), 1, GL_FALSE, glm::value_ptr(projection));	
+			glUniformMatrix4fv(glGetUniformLocation(point_shader.m_id,"projection"), 1, GL_FALSE, glm::value_ptr(camera.projection));	
 			glUniformMatrix4fv(glGetUniformLocation(point_shader.m_id,"model"), 1, GL_FALSE, glm::value_ptr(model));	
 			glUniformMatrix4fv(glGetUniformLocation(point_shader.m_id,"view"), 1, GL_FALSE, glm::value_ptr(view));
 			glUniform4f(
