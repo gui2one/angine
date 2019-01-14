@@ -212,7 +212,7 @@ Entity3D* Window::mouseClickObject()
 			glm::vec3 bbox_pos = AABB.position;
 			glm::vec3 bbox_size = AABB.size;
 			glm::vec3 bbox_center = bbox_pos + glm::vec3(bbox_size.x/2.0f, bbox_size.y/2.0f, bbox_size.y/2.0f) ;	
-			printf("position  : %.3f, %.3f, %.3f\n", bbox_pos.x, bbox_pos.y, bbox_pos.z);
+			//~ printf("position  : %.3f, %.3f, %.3f\n", bbox_pos.x, bbox_pos.y, bbox_pos.z);
 			
 			
 			float x = (2.0f * pos_x) / width - 1.0f;
@@ -263,7 +263,7 @@ Entity3D* Window::mouseClickObject()
 						
 						if( hitP.z > bbox_pos.z && hitP.z < bbox_pos.z + bbox_size.z)
 						{					
-							printf("hit !!!!! object number %d\n", i);
+							//~ printf("hit !!!!! object number %d\n", i);
 							cur_object_selected = i;
 							return objects[i];
 						}
@@ -407,7 +407,7 @@ void Window::mouse_button_callback(GLFWwindow* window, int button, int action, i
 	if(io.WantCaptureMouse){
 	
 		
-		//~ printf("ImGui captured mouse\n");
+		
 	}else{	
 		
 		
@@ -429,59 +429,7 @@ void Window::mouse_button_callback(GLFWwindow* window, int button, int action, i
 		if(button == GLFW_MOUSE_BUTTON_LEFT && action == GLFW_PRESS){
 			app->mouseClickObject();
 			
-			//~ printf("Sending ray, sir !\n");
-			//~ 
-			//~ double x_pos, y_pos;
-			//~ glfwGetCursorPos(window, &x_pos, &y_pos);
-			//~ 
-			//~ float x = (2.0f * x_pos) / app->width - 1.0f;
-			//~ float y = 1.0f - (2.0f * y_pos) / app->height;
-			//~ glm::vec3 planeN = glm::vec3(0.0f, 0.0f , 1.0f);
-			//~ glm::vec3 planeP = glm::vec3(0.0f, 0.0f , 0.0f);
-			//~ glm::vec3 pointP = glm::vec3(x, y , 1.0f);
-			//~ glm::vec3 rayDir = glm::vec3(0.0f, 0.0f , -2.0f);
-			//~ 
-			//~ glm::mat4 projection = app->camera.projection;
-			//~ glm::mat4 view = glm::mat4(1.0f);
-//~ 
-			
-			//~ 
-			//~ // not sure why I need this, but it gets rid off a nasty offset 
-			//~ // found a solution here : https://stackoverflow.com/questions/48514387/can-anyone-explain-this-small-offset-from-ray-casting-by-mouse-click?rq=1
-			//~ // but the guy says he forced projection[3][3] to be 0.0, I have to do 1.0f for this to work
-			//~ 
-			//~ projection[3][3] = 1.0f; 
-			//~ 
-			//~ /////
-			//~ 
-			//~ 
-			//~ glm::vec3 up_vector = glm::vec3(0.0f,0.0f,1.0f);
-//~ 
-			//~ view *= glm::lookAt(
-									//~ app->camera.position, 
-									//~ app->camera.target_position, 
-									//~ glm::normalize(up_vector)
-								//~ );			
-								//~ 
-			//~ glm::vec4 tempPointP = inverse(projection * view)  * glm::vec4(pointP.x, pointP.y, pointP.z, 1.0f) ;
-			//~ tempPointP /= tempPointP.w ;
-			//~ 
-			//~ 
-			
-			//~ 
-			//~ glm::vec3 hitP = glm::vec3(0.0f);
-			//~ int hit = ray_plane_intersect(planeN, planeP, app->camera.position, tempPointP, hitP);
-			//~ 
-			//~ if( hit)
-			//~ {
-				//~ printf("ray hit at : %.3f, %.3f,%.3f\n", hitP.x, hitP.y, hitP.z);
-				//~ 
-				//~ ObjectDummy * dum = new ObjectDummy();
-				//~ dum->position = hitP;
-				//~ dum->applyTransforms();
-				//~ dum->init();
-				//~ app->addObject(dum);
-			//~ }
+
 		}
 	}
 }
@@ -1638,16 +1586,14 @@ void Window::addObject(Entity3D* obj)
 	
 	for (int i = 0; i < objects.size(); i++)
 	{
-		std::cout << "OLD NAME : "<<objects[i]->name <<"\n";
+		//~ std::cout << "OLD NAME : "<<objects[i]->name <<"\n";
 		if(strcmp(obj->name, objects[i]->name) == 0) // if equal to zero means strings are equal
 		{
-			std::cout << "changing name \n";
+			//~ std::cout << "changing name \n";
 			std::string newName = objects[i]->name;
 			newName += "_";
-			strcpy(obj->name, newName.c_str());
-			
-		}
-		
+			strcpy(obj->name, newName.c_str());			
+		}		
 	}
 	
 	obj->setID(cur_unique_id);
@@ -1656,6 +1602,7 @@ void Window::addObject(Entity3D* obj)
 	objects.push_back(obj);
 	
 }
+
 
 void Window::removeObject(Entity3D* obj)
 {

@@ -110,6 +110,8 @@ class Object : public Entity3D
 			meshFilters.push_back(filter);
 		}
 		
+		
+		
 		void updateMesh();
 		
 		void printMeshData();
