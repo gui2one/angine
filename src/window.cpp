@@ -771,6 +771,74 @@ void Window::objectListDialog()
 	}
 	ImGui::End();
 }
+void Window::buildMeshGeneratorParamUi(BaseParam * param, std::function<void()> callback){
+			
+	ParamFloat * p_float = nullptr;
+	ParamInt * p_int = nullptr;
+	ParamString * p_string = nullptr;
+	ParamAction * p_action = nullptr;
+	ParamBool * p_bool = nullptr;
+	if(param->getNumKeyframes() > 0)
+	{
+		ImGui::PushStyleColor(ImGuiCol_Text, (ImVec4)ImColor(1.0f, 0.3f, 0.3f, 1.0f));
+	}			
+	
+	if(p_float = dynamic_cast<ParamFloat*>(param)){			
+		if(ImGui::DragFloat(p_float->getName().c_str(), &p_float->value)){
+			callback();
+		}				
+	}else if(p_int = dynamic_cast<ParamInt*>(param)){
+		int _val = p_int->value;			
+		if(ImGui::DragInt(p_int->getName().c_str(), &_val)){
+			p_int->setValue(_val);
+			callback();
+		}				
+	}else if(p_string = dynamic_cast<ParamString*>(param)){			
+		if(ImGui::InputText(p_string->getName().c_str(), (char*)p_string->value.c_str(), 200))
+		{
+			callback();	
+		}				
+	}else if(p_bool = dynamic_cast<ParamBool*>(param)){			
+		if(ImGui::CheckboxFlags(p_bool->getName().c_str(), (unsigned int*)&p_bool->value, 1))
+		{
+			callback();	
+		}				
+	}else if(p_action = dynamic_cast<ParamAction*>(param)){	
+				
+		ImGui::Text(p_action->getName().c_str());
+		if(ImGui::Button(p_action->getName().c_str())){
+			
+			p_action->value();
+			callback();
+		}				
+	}
+	
+	
+	if(param->getNumKeyframes() > 0)
+	{
+		ImGui::PopStyleColor();
+	}	
+	
+		
+	ImGui::PushID(param->getName().c_str());
+	if (ImGui::BeginPopupContextItem("item context menu"))
+	{
+		if (ImGui::Selectable("Remove All Keyframes")){
+			param->removeAllKeyframes();
+		}
+		if (ImGui::Selectable("Add Keyframe")){
+			Keyframe<float> key;
+			param->addKeyframe(key);
+		}
+		ImGui::PushItemWidth(-1);
+		//~ ImGui::DragFloat("##Value", &value, 0.1f, 0.0f, 0.0f);
+		ImGui::PopItemWidth();
+		ImGui::EndPopup();
+		
+	}					
+	
+	ImGui::PopID();				
+}
 
 void Window::objectPropertiesDialog()
 {	
@@ -1060,93 +1128,43 @@ void Window::objectPropertiesDialog()
 										ParamBool *p_bool = nullptr;
 										ParamAction *p_action = nullptr;
 										
-										if(p_float = dynamic_cast<ParamFloat *>(p))
-										{
-
-						
-
-
-											if(p_float->getNumKeyframes() > 0)
-											{
-												ImGui::PushStyleColor(ImGuiCol_Text, (ImVec4)ImColor(1.0f, 0.3f, 0.3f, 1.0f));
-											}											
-											if(ImGui::DragFloat(p_float->getName().c_str(), &p_float->value))
-											{
-												
-												curObj->mesh_generator->need_update = true;	
-											}
-											
-											if(p_float->getNumKeyframes() > 0)
-											{
-												ImGui::PopStyleColor();
-											}	
-											
-												
-												ImGui::PushID(p_float->getName().c_str());
-												if (ImGui::BeginPopupContextItem("item context menu"))
-												{
-													if (ImGui::Selectable("Remove All Keyframes")){
-														p_float->removeAllKeyframes();
-													}
-													if (ImGui::Selectable("Add Keyframe")){
-														Keyframe<float> key;
-														p_float->addKeyframe(key);
-													}
-													ImGui::PushItemWidth(-1);
-													//~ ImGui::DragFloat("##Value", &value, 0.1f, 0.0f, 0.0f);
-													ImGui::PopItemWidth();
-													ImGui::EndPopup();
-													
-												}					
-												
-												ImGui::PopID();							
-										
-
-											
-																						
-											//~ if(ImGui::OpenPopupOnItemClick("item context menu", 1))
-											//~ {
+										buildMeshGeneratorParamUi(p, [curObj](){
+												curObj->mesh_generator->need_update = true;											
+										});											
+										//~ if(p_float = dynamic_cast<ParamFloat *>(p))
+										//~ {
+											//~ buildMeshGeneratorParamUi(p, [curObj](){
+													//~ curObj->mesh_generator->need_update = true;											
+											//~ });	
+										//~ }
+										//~ if(p_int = dynamic_cast<ParamInt *>(p))
+										//~ {	
+											//~ buildMeshGeneratorParamUi(p, [curObj](){
+													//~ curObj->mesh_generator->need_update = true;											
+											//~ });	
+										//~ }									
+										//~ if(p_string = dynamic_cast<ParamString *>(p))
+										//~ {											
+											//~ buildMeshGeneratorParamUi(p, [curObj](){
+													//~ curObj->mesh_generator->need_update = true;											
+											//~ });	
+										//~ }	
+										//~ if(p_bool = dynamic_cast<ParamBool*>(p))
+										//~ {
+											//~ buildMeshGeneratorParamUi(p, [curObj](){
+													//~ curObj->mesh_generator->need_update = true;											
+											//~ });
+										//~ 
+										//~ }	
+										//~ if(p_action = dynamic_cast<ParamAction*>(p))
+										//~ {
+											//~ ImGui::Text(p_action->getName().c_str());
+											//~ if(ImGui::Button(p_action->getName().c_str())){
 												//~ 
-												//~ 
-											//~ }
-											
-														
-										}
-										if(p_int = dynamic_cast<ParamInt *>(p))
-										{	
-											int _val = p_int->value;									
-											if(ImGui::DragInt(p_int->getName().c_str(), &_val))
-											{
-												p_int->setValue(_val);
-												curObj->mesh_generator->need_update = true;	
-											}
-										}									
-										if(p_string = dynamic_cast<ParamString *>(p))
-										{											
-											if(ImGui::InputText(p_string->getName().c_str(), (char*)p_string->value.c_str(), 200))
-											{
-												curObj->mesh_generator->need_update = true;	
-											}
-										}	
-										if(p_bool = dynamic_cast<ParamBool*>(p))
-										{
-											//~ ImGui::Text(p_bool->getName().c_str());
-											if(ImGui::CheckboxFlags(p_bool->getName().c_str(), (unsigned int*)&p_bool->value, 1)){
-												printf(" bool param : %s\n", (p_bool->getValue()==true ? "true": "false"));
-												curObj->mesh_generator->need_update = true;	
-											}
-										
-										}	
-										if(p_action = dynamic_cast<ParamAction*>(p))
-										{
-											ImGui::Text(p_action->getName().c_str());
-											if(ImGui::Button(p_action->getName().c_str())){
-												
-												p_action->value();
-												curObj->mesh_generator->need_update = true;	
-											}
-										
-										}									
+												//~ p_action->value();
+												//~ curObj->mesh_generator->need_update = true;	
+											//~ }										
+										//~ }									
 							
 										
 										ImGui::Separator();
@@ -1506,15 +1524,28 @@ void Window::timeLineDialog()
 {
 	ImGui::Begin("Timeline");
 	
-	//~ ImDrawList* draw_list = ImGui::GetWindowDrawList();
-	//~ const ImVec2 p = ImGui::GetCursorScreenPos();
-	//~ draw_list->AddRectFilled(ImVec2(p.x, p.y), ImVec2(p.x+5.0f, p.y+5.0f), ImColor(ImVec4(1.0f,1.0f,0.5f,1.0f)));	
+
 	
 	if(ImGui::Button("play"))
 	{
 
 
 	}
+	
+	//~ ImDrawList* draw_list = ImGui::GetWindowDrawList();
+	//~ const ImVec2 p = ImGui::GetCursorScreenPos();
+	//~ ImVec2 size = ImGui::GetWindowSize();
+	//~ 
+	//~ draw_list->AddRectFilled(ImVec2(p.x, p.y+10.0f), ImVec2(p.x+size.x - 30.0f, p.y+5.0f), ImColor(ImVec4(1.0f,1.0f,0.5f,1.0f)));		
+	
+	
+	ImGui::PushItemWidth(-1);
+	if(ImGui::SliderInt("frame", &time_line.current_frame, 1, 100, "%d")){
+		
+	}
+	
+	
+	ImGui::Text("%d", time_line.current_frame);
 	ImGui::End();
 }
 

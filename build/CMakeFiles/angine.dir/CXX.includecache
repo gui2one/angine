@@ -2347,6 +2347,10 @@ sys/stat.h
 -
 
 /home/pi/projects/angine/src/window.h
+functional
+-
+type_traits
+-
 pch.h
 /home/pi/projects/angine/src/pch.h
 object.h

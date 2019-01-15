@@ -8,10 +8,10 @@ class TimeLine
 	public:
 		TimeLine();
 		
-		int start = 0;
+		int start = 1;
 		int end = 100;
 		int frame_rate = 25;
-		int current_frame = 0;
+		int current_frame = 50;
 			
 	private:
 		/* add your private declarations */

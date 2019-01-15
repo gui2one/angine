@@ -1,6 +1,8 @@
 #ifndef WINDOW_H
 #define WINDOW_H
 
+#include <functional>
+#include <type_traits>
 #include "pch.h"
 
 #include "object.h"
@@ -97,6 +99,9 @@ class Window
 		int cur_mesh_filter_selected = 0;
 		
 		int cur_unique_id = 0;
+		
+		//~ template<typename T>
+		void buildMeshGeneratorParamUi(BaseParam * param, std::function<void()> callback = [](){});
 	private:
 		
 		
