@@ -323,6 +323,11 @@ BoundingBox Object::getBoundingBox()
 
 BoundingBox Object::computeAABB(){
 	//~ std::cout << "Computing BBOX\n";
+	
+	glm::mat4 all_transforms = glm::mat4(1.0f);
+	
+	applyParentsMatrices(all_transforms);
+	all_transforms *= transforms;
 	float minx = 100000.0;
 	float miny = 100000.0;
 	float minz = 100000.0;
@@ -332,7 +337,7 @@ BoundingBox Object::computeAABB(){
 	for (int i = 0; i < mesh.vertices.size(); i++)
 	{
 		glm::vec3 vert_pos = mesh.vertices[i].position;
-		glm::vec4 vpos =  transforms  *glm::vec4(vert_pos.x, vert_pos.y, vert_pos.z, 1.0f);
+		glm::vec4 vpos = all_transforms * glm::vec4(vert_pos.x, vert_pos.y, vert_pos.z, 1.0f);
 		
 		//~ printf("Vertex %d : %.3f, %.3f, %.3f \n", i, vpos.x, vpos.y, vpos.z);
 		if(vpos.x < minx)
@@ -354,6 +359,8 @@ BoundingBox Object::computeAABB(){
 	
 	bbox.position = glm::vec3(minx, miny, minz);
 	bbox.size = glm::vec3(maxx-minx, maxy-miny, maxz-minz);	
+	
+	//~ printf("bouding box size : %.3f, %.3f, %.3f\n", bbox.size.x, bbox.size.y, bbox.size.z);
 	
 	return bbox;
 }

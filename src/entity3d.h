@@ -17,13 +17,15 @@ class Entity3D
 		glm::vec3 rotation;
 		
 		void applyTransforms();
-		
+
+		glm::vec3 getWorldPosition();
 		inline Entity3D* getParent(){ return parent; }
 		inline void setParent(Entity3D* _entity){ parent = _entity;}
 		inline void resetParent(){ parent = nullptr;}
 		
 		std::vector<Entity3D*> getParents();
 		void applyParentsMatrices(glm::mat4 & source_matrix);
+
 
 		inline Entity3D* getLookAtTarget(){ return look_at_target; }
 		inline void setLookAtTarget(Entity3D* _entity){ look_at_target = _entity;}

@@ -245,7 +245,7 @@ Entity3D* Window::mouseClickObject()
 								);			
 								
 			glm::vec4 tempPointP = inverse(projection * view)* glm::vec4(pointP.x, pointP.y, pointP.z, 1.0f) ;
-			tempPointP /= tempPointP.w ;
+			tempPointP /= tempPointP.w *0.5f;
 			//~ 
 			//~ 
 			
@@ -991,7 +991,7 @@ void Window::objectPropertiesDialog()
 						Entity3D * target_ptr =  curEntity->getLookAtTarget();
 						ImGui::Text((const char *)target_ptr->name);
 					}else{
-						ImGui::Text("no parent");
+						ImGui::Text("no target");
 					}					
 					ImGui::NextColumn();
 					
@@ -1021,7 +1021,10 @@ void Window::objectPropertiesDialog()
 									if(ImGui::Selectable(objects[i]->name))
 									{
 										printf("Did I just choose a target ?\n");
+										objects[i]->applyTransforms();
 										curEntity->setLookAtTarget(objects[i]);
+										glm::vec3 t_pos = objects[i]->getWorldPosition();
+										printf("world pos : %.3f, %.3f, %.3f\n", t_pos.x, t_pos.y, t_pos.z);
 									}									
 								//~ }
 							}
@@ -1525,17 +1528,25 @@ void Window::renderObjects()
 
 		Entity3D* curEntity = objects[i];
 		model = glm::mat4(1.0f);
+		
+		if(curEntity->getLookAtTarget() != nullptr)
+		{
+			Entity3D * target = curEntity->getLookAtTarget();
+			model = glm::lookAt(
+				curEntity->getWorldPosition(),
+				target->getWorldPosition(),
+				glm::vec3(0.0f, 0.0f, 1.0f)) * model;
+		}		
+
+
 		//// apply own transforms
 		model = curEntity->transforms * model;			
 		//// apply parents transforms
 		curEntity->applyParentsMatrices(model);
 		
 	
-			
-		if(curEntity->getLookAtTarget() != nullptr)
-		{
-			///// todo
-		}	
+		
+
 		
 		Object      * curObj        = nullptr;
 		ObjectDummy * curDummy = nullptr;

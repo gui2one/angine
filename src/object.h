@@ -124,15 +124,7 @@ class Object : public Entity3D
 		GLint texture_id;
 		Texture texture;
 		
-		
-		
-		//~ glm::mat4 transforms = glm::mat4(1.0);		
-		//~ glm::vec3 position;
-		//~ glm::vec3 scale;
-		//~ glm::vec3 rotation;
-		//~ 
-		//~ void applyTransforms();
-		
+
 		
 		
 		

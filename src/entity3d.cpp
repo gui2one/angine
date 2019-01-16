@@ -39,6 +39,22 @@ void Entity3D::applyTransforms(){
 	temp = glm::scale(temp , p_scale->getValue());
 	
 	transforms = temp;
+	
+	position = p_pos->getValue();
+	rotation = p_rot->getValue();
+	scale = p_scale->getValue();
+}
+
+glm::vec3 Entity3D::getWorldPosition()
+{
+	glm::vec4 temp = glm::vec4(position.x, position.y, position.z,1.0f);
+	glm::mat4 temp_matrix = glm::mat4(1.0f);
+	applyParentsMatrices(temp_matrix);
+	temp_matrix = transforms * temp_matrix;
+	temp = temp * temp_matrix;
+	//~ 
+	return glm::vec3(temp.x, temp.y, temp.z);
+	
 }
 
 std::vector<Entity3D*> Entity3D::getParents()
