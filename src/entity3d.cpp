@@ -6,6 +6,13 @@ Entity3D::Entity3D()
 	position = glm::vec3(0.0f,0.0f,0.0f);
 	rotation = glm::vec3(0.0f,0.0f,0.0f);
 	scale = glm::vec3(1.0f,1.0f,1.0f);	
+	
+	p_pos = new ParamVec3("position", position);
+	param_layout.push(p_pos);
+	p_rot = new ParamVec3("rotation", rotation);
+	param_layout.push(p_rot);
+	p_scale = new ParamVec3("scale", scale);
+	param_layout.push(p_scale);
 }
 
 void Entity3D::setName(std::string str_name)
@@ -24,12 +31,12 @@ void Entity3D::applyTransforms(){
 	
 	glm::mat4 temp = glm::mat4(1.0f);
 	
-	temp = glm::translate(temp, position);
-	temp = glm::rotate(temp, glm::radians(rotation.x), glm::vec3(1.0f, 0.0f, 0.0f));
-	temp = glm::rotate(temp, glm::radians(rotation.y), glm::vec3(0.0f, 1.0f, 0.0f));
-	temp = glm::rotate(temp, glm::radians(rotation.z), glm::vec3(0.0f, 0.0f, 1.0f));
+	temp = glm::translate(temp, p_pos->getValue());
+	temp = glm::rotate(temp, glm::radians(p_rot->getValue().x), glm::vec3(1.0f, 0.0f, 0.0f));
+	temp = glm::rotate(temp, glm::radians(p_rot->getValue().y), glm::vec3(0.0f, 1.0f, 0.0f));
+	temp = glm::rotate(temp, glm::radians(p_rot->getValue().z), glm::vec3(0.0f, 0.0f, 1.0f));
 	
-	temp = glm::scale(temp , scale);
+	temp = glm::scale(temp , p_scale->getValue());
 	
 	transforms = temp;
 }

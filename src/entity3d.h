@@ -1,7 +1,10 @@
 #ifndef ENTITY3D_H
 #define ENTITY3D_H
 
+
 #include "pch.h"
+
+#include "param_layout.h"
 class Entity3D
 {
 	public:
@@ -29,6 +32,12 @@ class Entity3D
 		inline void setID(int _id){	id = _id;}			
 		inline int getID(){	return id;}
 		
+		
+		ParamLayout param_layout;
+		
+		ParamVec3 * p_pos;
+		ParamVec3 * p_rot;
+		ParamVec3 * p_scale;
 		
 		void setName(std::string str_name);
 		char name[100] = {'n','e','w','_','o','b','j','e','c','t'};

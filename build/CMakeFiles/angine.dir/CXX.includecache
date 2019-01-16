@@ -209,6 +209,8 @@ entity3d.h
 /home/pi/projects/angine/src/entity3d.h
 pch.h
 /home/pi/projects/angine/src/pch.h
+param_layout.h
+/home/pi/projects/angine/src/param_layout.h
 
 /home/pi/projects/angine/src/generators/box_mesh.cpp
 box_mesh.h

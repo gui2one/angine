@@ -888,8 +888,11 @@ CMakeFiles/angine.dir/home/pi/projects/angine/src/camera.cpp.o: /home/pi/project
 CMakeFiles/angine.dir/home/pi/projects/angine/src/camera.cpp.o: /home/pi/projects/angine/src/vendor/stb_image.h
 CMakeFiles/angine.dir/home/pi/projects/angine/src/camera.cpp.o: /usr/local/include/GLFW/glfw3.h
 
+CMakeFiles/angine.dir/home/pi/projects/angine/src/entity3d.cpp.o: /home/pi/projects/angine/src/animation/base_keyframe.h
 CMakeFiles/angine.dir/home/pi/projects/angine/src/entity3d.cpp.o: /home/pi/projects/angine/src/entity3d.cpp
 CMakeFiles/angine.dir/home/pi/projects/angine/src/entity3d.cpp.o: /home/pi/projects/angine/src/entity3d.h
+CMakeFiles/angine.dir/home/pi/projects/angine/src/entity3d.cpp.o: /home/pi/projects/angine/src/param.h
+CMakeFiles/angine.dir/home/pi/projects/angine/src/entity3d.cpp.o: /home/pi/projects/angine/src/param_layout.h
 CMakeFiles/angine.dir/home/pi/projects/angine/src/entity3d.cpp.o: /home/pi/projects/angine/src/pch.h
 CMakeFiles/angine.dir/home/pi/projects/angine/src/entity3d.cpp.o: /home/pi/projects/angine/src/vendor/glm/./detail/setup.hpp
 CMakeFiles/angine.dir/home/pi/projects/angine/src/entity3d.cpp.o: /home/pi/projects/angine/src/vendor/glm/./detail/type_mat2x2.hpp
@@ -5052,10 +5055,13 @@ CMakeFiles/angine.dir/home/pi/projects/angine/src/object.cpp.o: /home/pi/project
 CMakeFiles/angine.dir/home/pi/projects/angine/src/object.cpp.o: /home/pi/projects/angine/src/vertex.h
 CMakeFiles/angine.dir/home/pi/projects/angine/src/object.cpp.o: /usr/local/include/GLFW/glfw3.h
 
+CMakeFiles/angine.dir/home/pi/projects/angine/src/object_dummy.cpp.o: /home/pi/projects/angine/src/animation/base_keyframe.h
 CMakeFiles/angine.dir/home/pi/projects/angine/src/object_dummy.cpp.o: /home/pi/projects/angine/src/entity3d.h
 CMakeFiles/angine.dir/home/pi/projects/angine/src/object_dummy.cpp.o: /home/pi/projects/angine/src/mesh.h
 CMakeFiles/angine.dir/home/pi/projects/angine/src/object_dummy.cpp.o: /home/pi/projects/angine/src/object_dummy.cpp
 CMakeFiles/angine.dir/home/pi/projects/angine/src/object_dummy.cpp.o: /home/pi/projects/angine/src/object_dummy.h
+CMakeFiles/angine.dir/home/pi/projects/angine/src/object_dummy.cpp.o: /home/pi/projects/angine/src/param.h
+CMakeFiles/angine.dir/home/pi/projects/angine/src/object_dummy.cpp.o: /home/pi/projects/angine/src/param_layout.h
 CMakeFiles/angine.dir/home/pi/projects/angine/src/object_dummy.cpp.o: /home/pi/projects/angine/src/pch.h
 CMakeFiles/angine.dir/home/pi/projects/angine/src/object_dummy.cpp.o: /home/pi/projects/angine/src/vendor/glm/./detail/setup.hpp
 CMakeFiles/angine.dir/home/pi/projects/angine/src/object_dummy.cpp.o: /home/pi/projects/angine/src/vendor/glm/./detail/type_mat2x2.hpp
@@ -5262,9 +5268,12 @@ CMakeFiles/angine.dir/home/pi/projects/angine/src/object_dummy.cpp.o: /home/pi/p
 CMakeFiles/angine.dir/home/pi/projects/angine/src/object_dummy.cpp.o: /home/pi/projects/angine/src/vertex.h
 CMakeFiles/angine.dir/home/pi/projects/angine/src/object_dummy.cpp.o: /usr/local/include/GLFW/glfw3.h
 
+CMakeFiles/angine.dir/home/pi/projects/angine/src/object_light.cpp.o: /home/pi/projects/angine/src/animation/base_keyframe.h
 CMakeFiles/angine.dir/home/pi/projects/angine/src/object_light.cpp.o: /home/pi/projects/angine/src/entity3d.h
 CMakeFiles/angine.dir/home/pi/projects/angine/src/object_light.cpp.o: /home/pi/projects/angine/src/object_light.cpp
 CMakeFiles/angine.dir/home/pi/projects/angine/src/object_light.cpp.o: /home/pi/projects/angine/src/object_light.h
+CMakeFiles/angine.dir/home/pi/projects/angine/src/object_light.cpp.o: /home/pi/projects/angine/src/param.h
+CMakeFiles/angine.dir/home/pi/projects/angine/src/object_light.cpp.o: /home/pi/projects/angine/src/param_layout.h
 CMakeFiles/angine.dir/home/pi/projects/angine/src/object_light.cpp.o: /home/pi/projects/angine/src/pch.h
 CMakeFiles/angine.dir/home/pi/projects/angine/src/object_light.cpp.o: /home/pi/projects/angine/src/vendor/glm/./detail/setup.hpp
 CMakeFiles/angine.dir/home/pi/projects/angine/src/object_light.cpp.o: /home/pi/projects/angine/src/vendor/glm/./detail/type_mat2x2.hpp

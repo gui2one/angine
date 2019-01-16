@@ -101,7 +101,7 @@ class Window
 		int cur_unique_id = 0;
 		
 		//~ template<typename T>
-		void buildMeshGeneratorParamUi(BaseParam * param, std::function<void()> callback = [](){});
+		void buildParamUi(BaseParam * param, std::function<void()> callback = [](){});
 	private:
 		
 		
