@@ -1003,30 +1003,14 @@ void Window::objectPropertiesDialog()
 							//// if not yourself
 							if( objects[i]->getID() != curEntity->getID())
 							{
-								//// if has already a target , needed , crashing !!
-								//~ if(objects[i]->getParent() != nullptr)
-								//~ {
-									//~ //// finally check if current is already a target of yours in which case
-									//~ ///// it doesn't make any sense to become the target of your child
-									//~ if(curEntity->getID() != objects[i]->getLookAtTarget()->getID())
-									//~ {
-										//~ 
-										//~ if(ImGui::Selectable(objects[i]->name))
-										//~ {
-											//~ printf("Did I just choose a target ?\n");
-											//~ curEntity->setLookAtTarget(objects[i]);
-										//~ }
-									//~ }
-								//~ }else{
-									if(ImGui::Selectable(objects[i]->name))
-									{
-										printf("Did I just choose a target ?\n");
-										objects[i]->applyTransforms();
-										curEntity->setLookAtTarget(objects[i]);
-										glm::vec3 t_pos = objects[i]->getWorldPosition();
-										printf("world pos : %.3f, %.3f, %.3f\n", t_pos.x, t_pos.y, t_pos.z);
-									}									
-								//~ }
+								if(ImGui::Selectable(objects[i]->name))
+								{
+									printf("Did I just choose a target ?\n");
+									objects[i]->applyTransforms();
+									curEntity->setLookAtTarget(objects[i]);
+									glm::vec3 t_pos = objects[i]->getWorldPosition();
+									printf("world pos : %.3f, %.3f, %.3f\n", t_pos.x, t_pos.y, t_pos.z);
+								}
 							}
 						}
 						
@@ -1529,21 +1513,25 @@ void Window::renderObjects()
 		Entity3D* curEntity = objects[i];
 		model = glm::mat4(1.0f);
 		
+	
+
+		//// apply own transforms
+		model = curEntity->transforms * model;
+		
 		if(curEntity->getLookAtTarget() != nullptr)
 		{
 			Entity3D * target = curEntity->getLookAtTarget();
-			model = glm::lookAt(
+			model *= glm::inverse(glm::lookAt(
 				curEntity->getWorldPosition(),
 				target->getWorldPosition(),
-				glm::vec3(0.0f, 0.0f, 1.0f)) * model;
-		}		
-
-
-		//// apply own transforms
-		model = curEntity->transforms * model;			
+				glm::vec3(0.0f, 0.0f, 1.0f)));
+		}						
 		//// apply parents transforms
 		curEntity->applyParentsMatrices(model);
 		
+	
+		
+	
 	
 		
 
