@@ -1117,7 +1117,16 @@ void Window::objectPropertiesDialog()
 							{	
 							
 								static int choice = 0;
-								std::vector<std::string> items = {"...", "Transform", "Inflate", "Twist", "Compute Normals", "Spherify", "Duplicate", "From Polar"};
+								std::vector<std::string> items = {
+										"...", 
+										"Transform", 
+										"Inflate", 
+										"Twist", 
+										"Compute Normals", 
+										"Spherify", 
+										"Duplicate", 
+										"From Polar",
+										"Mirror"};
 								if(ImGui::BeginCombo("filters", items[choice].c_str(), 0))
 								{
 									for (int i = 1; i < items.size(); i++)
@@ -1166,6 +1175,10 @@ void Window::objectPropertiesDialog()
 										curObj->hasFilters = true;
 										curObj->setMeshFilter<FromPolarMeshFilter>();		
 										curObj->meshFilters[ curObj->meshFilters.size()-1]->setName("from_polar");
+									}else if(choice == 8){
+										curObj->hasFilters = true;
+										curObj->setMeshFilter<MirrorMeshFilter>();		
+										curObj->meshFilters[ curObj->meshFilters.size()-1]->setName("mirror");
 									}
 									
 								}

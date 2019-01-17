@@ -23,6 +23,7 @@ set(CMAKE_DEPENDS_CHECK_CXX
   "/home/pi/projects/angine/src/mesh_filters/from_polar_mesh_filter.cpp" "/home/pi/projects/angine/build/CMakeFiles/angine.dir/home/pi/projects/angine/src/mesh_filters/from_polar_mesh_filter.cpp.o"
   "/home/pi/projects/angine/src/mesh_filters/inflate_mesh_filter.cpp" "/home/pi/projects/angine/build/CMakeFiles/angine.dir/home/pi/projects/angine/src/mesh_filters/inflate_mesh_filter.cpp.o"
   "/home/pi/projects/angine/src/mesh_filters/mesh_filter.cpp" "/home/pi/projects/angine/build/CMakeFiles/angine.dir/home/pi/projects/angine/src/mesh_filters/mesh_filter.cpp.o"
+  "/home/pi/projects/angine/src/mesh_filters/mirror_mesh_filter.cpp" "/home/pi/projects/angine/build/CMakeFiles/angine.dir/home/pi/projects/angine/src/mesh_filters/mirror_mesh_filter.cpp.o"
   "/home/pi/projects/angine/src/mesh_filters/spherify_mesh_filter.cpp" "/home/pi/projects/angine/build/CMakeFiles/angine.dir/home/pi/projects/angine/src/mesh_filters/spherify_mesh_filter.cpp.o"
   "/home/pi/projects/angine/src/mesh_filters/transform_mesh_filter.cpp" "/home/pi/projects/angine/build/CMakeFiles/angine.dir/home/pi/projects/angine/src/mesh_filters/transform_mesh_filter.cpp.o"
   "/home/pi/projects/angine/src/mesh_filters/twist_mesh_filter.cpp" "/home/pi/projects/angine/build/CMakeFiles/angine.dir/home/pi/projects/angine/src/mesh_filters/twist_mesh_filter.cpp.o"
