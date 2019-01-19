@@ -641,6 +641,8 @@ pch.h
 /home/pi/projects/angine/src/pch.h
 functional
 -
+algorithm
+-
 animation/base_keyframe.h
 /home/pi/projects/angine/src/animation/base_keyframe.h
 

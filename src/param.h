@@ -3,6 +3,7 @@
 
 #include "pch.h"
 #include <functional>
+#include <algorithm>
 #include "animation/base_keyframe.h"
 
 enum PARAMTYPE{
@@ -28,19 +29,26 @@ class BaseParam{
 		inline void setName(std::string _name){ name = _name; }
 		inline std::string getName(){ return name; }		
 	
-		inline std::vector<BaseKeyframe> getKeyframes(){ return keyframes; }
-		inline void setKeyframes(std::vector<BaseKeyframe> _keys){ keyframes = _keys; }
+		
+		inline std::vector<BaseKeyframe *> getKeyframes(){ return keyframes; }
+		
+		inline void setKeyframes(std::vector<BaseKeyframe *> _keys){ keyframes = _keys; }
 		inline unsigned int getNumKeyframes(){ return (unsigned int)keyframes.size(); }
 		inline void removeAllKeyframes(){ keyframes.clear(); };
 		
-		inline void addKeyframe(BaseKeyframe _key){
+		inline void addKeyframe(BaseKeyframe * _key)
+		{
 			keyframes.push_back(_key);
+			
+			sort(keyframes.begin(), keyframes.end(), [](BaseKeyframe* key1, BaseKeyframe* key2){
+				return key1->getFrame() < key2->getFrame();
+			});
 		}
 	private:	
 	
 		std::string name;
 		PARAMTYPE type = PARAM_DEFAULT;
-		std::vector<BaseKeyframe> keyframes;
+		std::vector<BaseKeyframe *> keyframes;
 		
 };
 
@@ -59,9 +67,52 @@ class ParamFloat : public BaseParam
 		}
 		
 
+		
 		float value;
 		inline void setValue(float _val){ value = _val;}
 		inline float getValue(){ return value;}
+		inline float getValueAtFrame(int _frame){ 
+			
+			if(getNumKeyframes() != 0){
+				
+				
+				std::vector<BaseKeyframe *> keys = getKeyframes();
+				
+ 				for (int i = 0; i < keys.size(); i++)
+				{
+					Keyframe<float> * key_float = nullptr;
+					if(key_float = dynamic_cast<Keyframe<float>*>(keys[i]))
+					{
+						if(key_float->getFrame() == _frame)
+						{
+							return key_float->getValue();
+						}
+					}
+				}
+				
+			}	
+			return value;
+			
+		}
+		
+		inline bool isKeyframe(int _frame)
+		{
+			std::vector<BaseKeyframe *> keys = getKeyframes();
+			for (int i = 0; i < keys.size(); i++)
+			{
+				Keyframe<float> * key_float = nullptr;
+				if(key_float = dynamic_cast<Keyframe<float>*>(keys[i]))
+				{				
+					if(key_float->getFrame() == _frame)
+					{
+						return true;
+					}
+				}
+			}
+			
+			return false;
+			
+		}
 		
 		
 	private:

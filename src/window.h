@@ -96,7 +96,7 @@ class Window
 		void objectListDialog();
 		
 		void timeLineDialog();
-		
+		void evalKeyframes();
 		
 		int cur_object_selected = 0;
 		int cur_mesh_filter_selected = 0;

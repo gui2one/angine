@@ -143,6 +143,13 @@ Window::Window()
 
 	setCamPosFromPolar(camera_u_pos, camera_v_pos, camera_orbit_radius);
 
+	// timeline 
+	
+	time_line.start = 10;
+	time_line.end = 60;
+	time_line.frame_rate = 10.0;
+	
+
 	// default first object
 	Object* obj = new Object();
 	
@@ -152,11 +159,22 @@ Window::Window()
 	obj->setGenerator<CylinderMesh>();
 	
 	
-	std::vector<BaseKeyframe> keyframes;
+	std::vector<BaseKeyframe *> keyframes;
 	
-	Keyframe<float> key_1;
+	Keyframe<float> * key_1 = new Keyframe<float>();
+	key_1->setFrame(time_line.current_frame);
+	key_1->setValue(0.2);
 	keyframes.push_back(key_1);
 	obj->mesh_generator->param_layout.getParam(0)->setKeyframes(keyframes);
+	
+	ParamFloat * p_float = nullptr;
+	if( p_float = dynamic_cast<ParamFloat *>(obj->mesh_generator->param_layout.getParam(0))){
+		
+		
+		float test_val = p_float->getValueAtFrame(time_line.current_frame);
+		printf("key value at frame %d --> %.3f\n", time_line.current_frame, test_val);
+	}
+	
 	obj->rotation.y = -45.0;
 	obj->applyTransforms();
 	obj->generator_type = 6; // really crappy design , do something !!!!
@@ -180,11 +198,7 @@ Window::Window()
 
 
 
-	// timeline 
-	
-	time_line.start = 10;
-	time_line.end = 60;
-	time_line.frame_rate = 10.0;
+
 }
 Entity3D* Window::mouseClickObject()
 {
@@ -761,6 +775,36 @@ void Window::objectListDialog()
 	}
 	ImGui::End();
 }
+
+void Window::evalKeyframes(){
+	for (int i = 0; i < objects.size(); i++)
+	{
+		Entity3D * cur_entity = objects[i];
+		Object *   ptr_object = nullptr;
+		
+		if(ptr_object = dynamic_cast<Object *>(cur_entity))
+		{
+			// check mesh generator
+			for (int param_id = 0; param_id < ptr_object->mesh_generator->param_layout.getSize(); param_id++)
+			{
+				BaseParam * ptr = ptr_object->mesh_generator->param_layout.getParam(param_id);
+				ParamFloat * ptr_float = nullptr;
+				
+				if(ptr_float = dynamic_cast<ParamFloat *>(ptr))
+				{
+					bool has_keys = ptr_float->getNumKeyframes() > 0;
+					ptr_float->setValue( ptr_float->getValueAtFrame(time_line.current_frame));
+					printf("has keyframe = %s\n", (has_keys == true ? "true" : "false"));
+					ptr_object->mesh_generator->need_update = true;
+				}
+			}
+		}
+		
+		
+	}
+	
+}
+
 void Window::buildParamUi(BaseParam * param, std::function<void()> callback){
 			
 	ParamFloat   * p_float  = nullptr;
@@ -776,9 +820,20 @@ void Window::buildParamUi(BaseParam * param, std::function<void()> callback){
 		ImGui::PushStyleColor(ImGuiCol_Text, (ImVec4)ImColor(1.0f, 0.3f, 0.3f, 1.0f));
 	}			
 	
-	if(p_float = dynamic_cast<ParamFloat*>(param)){			
-		if(ImGui::DragFloat(p_float->getName().c_str(), &p_float->value)){
-			callback();
+	if(p_float = dynamic_cast<ParamFloat*>(param))
+	{	
+		
+		float saved_val; // = p_float->getValue();		
+		if(p_float->isKeyframe(time_line.current_frame)){
+			saved_val = p_float->getValueAtFrame(time_line.current_frame);
+		}else{
+			saved_val = p_float->getValue();
+		}
+		if(ImGui::DragFloat(p_float->getName().c_str(), &saved_val)){
+
+				p_float->setValue(saved_val);
+			
+				callback();
 		}				
 	}else if(p_int = dynamic_cast<ParamInt*>(param)){
 		int _val = p_int->value;			
@@ -847,17 +902,42 @@ void Window::buildParamUi(BaseParam * param, std::function<void()> callback){
 	ImGui::PushID(param->getName().c_str());
 	if (ImGui::BeginPopupContextItem("item context menu"))
 	{
+		ParamFloat   * p_float_2  = nullptr;
+		ParamInt     * p_int_2   = nullptr;
+		ParamString  * p_string_2 = nullptr;
+		ParamAction  * p_action_2 = nullptr;
+		ParamBool 	 * p_bool_2   = nullptr;
+		ParamMenu    * p_menu_2   = nullptr;
+		ParamVec3    * p_vec3_2   = nullptr;		
+		
 		if (ImGui::Selectable("Remove All Keyframes")){
 			param->removeAllKeyframes();
 		}
 		if (ImGui::Selectable("Add Keyframe")){
-			Keyframe<float> key;
-			param->addKeyframe(key);
+			
+			if(p_float_2 = dynamic_cast<ParamFloat *>(param)){
+				
+				Keyframe<float>* key = new Keyframe<float>();
+				
+				key->setFrame(time_line.current_frame);
+				key->setValue(p_float_2->getValue());
+				param->addKeyframe(key);
+				callback();
+			}
+			
+			std::vector<BaseKeyframe*> keys = param->getKeyframes();
+			for (int i = 0; i < keys.size(); i++)
+			{
+				printf("key %d : %.3f \n", i, keys[i]->getFrame());
+			}
+			
 		}
 		ImGui::PushItemWidth(-1);
 		//~ ImGui::DragFloat("##Value", &value, 0.1f, 0.0f, 0.0f);
 		ImGui::PopItemWidth();
 		ImGui::EndPopup();
+		
+		
 		
 	}					
 	
@@ -1371,7 +1451,7 @@ void Window::timeLineDialog()
 	
 	ImGui::PushItemWidth(-1);
 	if(ImGui::SliderInt("frame", &time_line.current_frame, time_line.start, time_line.end, "%d")){
-		
+		evalKeyframes();
 	}
 	
 	
@@ -1399,7 +1479,10 @@ void Window::refresh()
 	glfwGetFramebufferSize(win, &width, &height);
 	glViewport(0,0,width, height);
 	
+	
 	time_line.update();
+	
+	
 	
 	camera.setProjection(
 		glm::perspective(camera.fov_angle, (float)width/ (float)height, camera.near, camera.far)

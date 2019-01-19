@@ -10,7 +10,7 @@ class BaseKeyframe
 		virtual ~BaseKeyframe();
 		
 		inline void setFrame(float _frame){ frame = _frame; }
-		inline float setFrame(){ return frame; }
+		inline float getFrame(){ return frame; }
 		
 	private:
 		float frame = 0.0;

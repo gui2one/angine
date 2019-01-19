@@ -16,7 +16,7 @@ class TimeLine
 		int start = 1;
 		int end = 100;
 		float frame_rate = 25.0;
-		int current_frame = 50;
+		int current_frame = 1;
 		int temp_frame = 0;
 	
 		float chrono_start = 0.0;
