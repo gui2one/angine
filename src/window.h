@@ -94,7 +94,10 @@ class Window
 		
 		void objectPropertiesDialog();
 		void objectListDialog();
+		
 		void timeLineDialog();
+		
+		
 		int cur_object_selected = 0;
 		int cur_mesh_filter_selected = 0;
 		

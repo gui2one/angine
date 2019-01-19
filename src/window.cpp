@@ -179,6 +179,12 @@ Window::Window()
 	addObject(dummy);
 
 
+
+	// timeline 
+	
+	time_line.start = 10;
+	time_line.end = 60;
+	time_line.frame_rate = 10.0;
 }
 Entity3D* Window::mouseClickObject()
 {
@@ -1340,13 +1346,22 @@ void Window::timeLineDialog()
 	ImGui::Begin("Timeline");
 	
 
-	
+	ImGui::Columns(3);
 	if(ImGui::Button("play"))
 	{
-
-
+		time_line.play();		
 	}
-	
+	ImGui::NextColumn();
+	if(ImGui::Button("pause"))
+	{
+		time_line.pause();		
+	}	
+	ImGui::NextColumn();
+	if(ImGui::Button("stop"))
+	{
+		time_line.stop();		
+	}
+	ImGui::Columns(1);	
 	//~ ImDrawList* draw_list = ImGui::GetWindowDrawList();
 	//~ const ImVec2 p = ImGui::GetCursorScreenPos();
 	//~ ImVec2 size = ImGui::GetWindowSize();
@@ -1355,7 +1370,7 @@ void Window::timeLineDialog()
 	
 	
 	ImGui::PushItemWidth(-1);
-	if(ImGui::SliderInt("frame", &time_line.current_frame, 1, 100, "%d")){
+	if(ImGui::SliderInt("frame", &time_line.current_frame, time_line.start, time_line.end, "%d")){
 		
 	}
 	
@@ -1383,6 +1398,8 @@ void Window::refresh()
 	
 	glfwGetFramebufferSize(win, &width, &height);
 	glViewport(0,0,width, height);
+	
+	time_line.update();
 	
 	camera.setProjection(
 		glm::perspective(camera.fov_angle, (float)width/ (float)height, camera.near, camera.far)
