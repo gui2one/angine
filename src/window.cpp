@@ -151,6 +151,7 @@ Window::Window()
 	obj->setName("wheel_1");
 	obj->setGenerator<CylinderMesh>();
 	
+	
 	std::vector<BaseKeyframe> keyframes;
 	
 	Keyframe<float> key_1;
@@ -160,6 +161,11 @@ Window::Window()
 	obj->applyTransforms();
 	obj->generator_type = 6; // really crappy design , do something !!!!
 	obj->mesh_generator->need_update = true;
+	
+	//~ obj->setMeshFilter<TransformMeshFilter>();
+	//~ obj->meshFilters[0]->setName("transform");
+
+
 	
 	addObject(obj);
 	
@@ -171,29 +177,7 @@ Window::Window()
 	dummy->position.x = -1.5;
 	dummy->applyTransforms();
 	addObject(dummy);
-	//~ Object* obj2 = new Object();
-	//~ 
-	//~ obj2->init();
-	//~ obj2->setParent(obj);
-	//~ obj2->setGenerator<BoxMesh>();
-	//~ obj2->position.x = 2.0;
-	//~ obj2->applyTransforms();	
-	//~ obj2->generator_type = 6; // really crappy design , do something !!!!
-	//~ obj2->mesh_generator->need_update = true;
-	//~ 
-	//~ addObject(obj2);	
-	//~ 
-	//~ Object* obj3 = new Object();
-	//~ 
-	//~ obj3->init();
-	//~ obj3->setParent(obj2);
-	//~ obj3->setGenerator<CylinderMesh>();
-	//~ obj3->generator_type = 6; // really crappy design , do something !!!!
-	//~ obj3->mesh_generator->need_update = true;
-	//~ 
-	//~ addObject(obj3);		
 
-	//~ selGizmoInit();
 
 }
 Entity3D* Window::mouseClickObject()

@@ -12,9 +12,7 @@ class MirrorMeshFilter: public MeshFilter
 		
 		Mesh applyFilter(Mesh & source_mesh)override;
 		
-		
-		ParamVec3  * p_center_pos;
-		ParamVec3  * p_axis;
+		ParamMenu  * p_axis_menu;
 		ParamFloat * p_distance;
 		
 			

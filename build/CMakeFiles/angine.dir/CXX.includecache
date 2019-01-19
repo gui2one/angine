@@ -521,6 +521,8 @@ mesh_filter.h
 /home/pi/projects/angine/src/mesh_filters/mirror_mesh_filter.cpp
 mirror_mesh_filter.h
 /home/pi/projects/angine/src/mesh_filters/mirror_mesh_filter.h
+algorithm
+-
 
 /home/pi/projects/angine/src/mesh_filters/mirror_mesh_filter.h
 ../pch.h
