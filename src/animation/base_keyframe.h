@@ -13,7 +13,7 @@ class BaseKeyframe
 		inline float getFrame(){ return frame; }
 		
 	private:
-		float frame = 0.0;
+		float frame = 0;
 		/* add your private declarations */
 };
 

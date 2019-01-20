@@ -162,7 +162,7 @@ Window::Window()
 	std::vector<BaseKeyframe *> keyframes;
 	
 	Keyframe<float> * key_1 = new Keyframe<float>();
-	key_1->setFrame(time_line.current_frame);
+	key_1->setFrame((float)time_line.current_frame);
 	key_1->setValue(0.2);
 	keyframes.push_back(key_1);
 	obj->mesh_generator->param_layout.getParam(0)->setKeyframes(keyframes);
@@ -800,19 +800,19 @@ void Window::evalKeyframes(){
 							BaseKeyframe * before_key = nullptr;
 							BaseKeyframe * after_key  = nullptr;
 							
-							int first_keyframe_frame = ptr_float->keyframes[0]->getFrame();
+							float first_keyframe_frame = ptr_float->keyframes[0]->getFrame();
 							
 							
-							int last_keyframe_frame = ptr_float->keyframes[ptr_float->keyframes.size()-1]->getFrame();
+							float last_keyframe_frame = ptr_float->keyframes[ptr_float->keyframes.size()-1]->getFrame();
 							
 							
 							printf("-----------------\n");
-							printf("first frame is : %d\n", first_keyframe_frame);
-							printf("last frame is : %d\n", last_keyframe_frame);
+							printf("first frame is : %.3f\n", first_keyframe_frame);
+							printf("last frame is : %.3f\n", last_keyframe_frame);
 							
 							
 							bool before_found = false;
-							if(time_line.current_frame >= first_keyframe_frame)
+							if((float)time_line.current_frame >= first_keyframe_frame)
 							{
 								for (int key_id = 0; key_id < ptr_float->keyframes.size()-1; key_id++)
 								{
@@ -828,7 +828,7 @@ void Window::evalKeyframes(){
 							}
 							
 							bool after_found = false;
-							if(time_line.current_frame <= last_keyframe_frame)
+							if((float)time_line.current_frame <= last_keyframe_frame)
 							{
 								for (int key_id = ptr_float->keyframes.size(); key_id >= 1; key_id--)
 								{
@@ -842,8 +842,10 @@ void Window::evalKeyframes(){
 									}
 								}
 							}							
-							if(before_key != nullptr){
-								printf("before_key frame is %d\n" , before_key->getFrame());
+							if(before_key != nullptr && after_key != nullptr){
+								printf("---------------\n");
+								printf("\tbefore_key frame is %.3f\n" , before_key->getFrame());
+								printf("\tafter_key frame is %.3f\n" , after_key->getFrame());
 							}
 							
 							
@@ -988,7 +990,7 @@ void Window::buildParamUi(BaseParam * param, std::function<void()> callback){
 				
 				Keyframe<float>* key = new Keyframe<float>();
 				
-				key->setFrame(time_line.current_frame);
+				key->setFrame((float)time_line.current_frame);
 				key->setValue(p_float_2->getValue());
 				param->addKeyframe(key);
 				callback();
