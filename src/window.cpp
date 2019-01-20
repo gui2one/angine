@@ -147,7 +147,7 @@ Window::Window()
 	
 	time_line.start = 10;
 	time_line.end = 60;
-	time_line.frame_rate = 10.0;
+	time_line.frame_rate = 25.0;
 	
 
 	// default first object
@@ -792,75 +792,29 @@ void Window::evalKeyframes(){
 				
 				if(ptr_float = dynamic_cast<ParamFloat *>(ptr))
 				{
-					bool has_keys = ptr_float->getNumKeyframes() > 0;
-					if(has_keys){
-						// there is keyframes, make interpolation
-						if( ptr_float->getNumKeyframes() > 1){
-							//interpolate between nearest key before and after, if any.
-							BaseKeyframe * before_key = nullptr;
-							BaseKeyframe * after_key  = nullptr;
-							
-							float first_keyframe_frame = ptr_float->keyframes[0]->getFrame();
-							
-							
-							float last_keyframe_frame = ptr_float->keyframes[ptr_float->keyframes.size()-1]->getFrame();
-							
-							
-							printf("-----------------\n");
-							printf("first frame is : %.3f\n", first_keyframe_frame);
-							printf("last frame is : %.3f\n", last_keyframe_frame);
-							
-							
-							bool before_found = false;
-							if((float)time_line.current_frame >= first_keyframe_frame)
-							{
-								for (int key_id = 0; key_id < ptr_float->keyframes.size()-1; key_id++)
-								{
-									if(ptr_float->keyframes[key_id+1]->getFrame() > time_line.current_frame)
-									{
-										if(!before_found)
-										{
-											before_key = ptr_float->keyframes[key_id];
-											before_found = true;
-										}
-									}
-								}
-							}
-							
-							bool after_found = false;
-							if((float)time_line.current_frame <= last_keyframe_frame)
-							{
-								for (int key_id = ptr_float->keyframes.size(); key_id >= 1; key_id--)
-								{
-									if(ptr_float->keyframes[key_id-1]->getFrame() < time_line.current_frame)
-									{
-										if(!after_found)
-										{
-											after_key = ptr_float->keyframes[key_id];
-											after_found = true;
-										}
-									}
-								}
-							}							
-							if(before_key != nullptr && after_key != nullptr){
-								printf("---------------\n");
-								printf("\tbefore_key frame is %.3f\n" , before_key->getFrame());
-								printf("\tafter_key frame is %.3f\n" , after_key->getFrame());
-							}
-							
-							
-							
-						}else{
-							// there's only one keyframe, get that value
-							ptr_float->setValue(ptr_float->getValueAtFrame(ptr_float->keyframes[0]->getFrame()));
-						}
-						ptr_object->mesh_generator->need_update = true;
-					}
-					//~ ptr_float->setValue( ptr_float->getValueAtFrame(time_line.current_frame));
-					//~ printf("has keyframe = %s\n", (has_keys == true ? "true" : "false"));
-					
+					ptr_float->setValue( ptr_float->getValueAtFrame(time_line.current_frame));
+					ptr_object->mesh_generator->need_update = true;
 				}
 			}
+			
+			// check mesh filters
+			for (int filter_id = 0; filter_id < ptr_object->meshFilters.size(); filter_id++)
+			{
+				MeshFilter * cur_filter = ptr_object->meshFilters[filter_id];
+				for (int param_id= 0; param_id <  cur_filter->param_layout.getSize(); param_id++)
+				{
+					BaseParam * p = cur_filter->param_layout.getParam(param_id);
+					ParamFloat * ptr_float = nullptr;
+					
+					if(ptr_float = dynamic_cast<ParamFloat *>(p)){
+						ptr_float->setValue( ptr_float->getValueAtFrame(time_line.current_frame));
+						cur_filter->need_update = true;						
+					}
+				
+				}
+				
+			}
+			
 		}
 		
 		
@@ -880,7 +834,10 @@ void Window::buildParamUi(BaseParam * param, std::function<void()> callback){
 	
 	if(param->getNumKeyframes() > 0)
 	{
-		ImGui::PushStyleColor(ImGuiCol_Text, (ImVec4)ImColor(1.0f, 0.3f, 0.3f, 1.0f));
+		if(param->isKeyframe(time_line.current_frame))
+			ImGui::PushStyleColor(ImGuiCol_Text, (ImVec4)ImColor(0.3f, 1.0f, 0.3f, 1.0f));
+		else
+			ImGui::PushStyleColor(ImGuiCol_Text, (ImVec4)ImColor(1.0f, 0.3f, 0.3f, 1.0f));
 	}			
 	
 	if(p_float = dynamic_cast<ParamFloat*>(param))

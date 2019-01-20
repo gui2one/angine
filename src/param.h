@@ -62,6 +62,8 @@ class BaseParam{
 				return key1->getFrame() < key2->getFrame();
 			});
 		}
+		
+		bool isKeyframe(int _frame);
 	private:	
 	
 		std::string name;
@@ -80,8 +82,7 @@ class ParamFloat : public BaseParam
 			setType(PARAM_FLOAT); 
 			setName(_name);
 			value = _val;
-			//~ printf("creating a float type parameter ....\n");
-			//~ printf("\tname : %s -- value : %.3f\n", getName().c_str(), value);
+			
 		}
 		
 
@@ -89,48 +90,10 @@ class ParamFloat : public BaseParam
 		float value;
 		inline void setValue(float _val){ value = _val;}
 		inline float getValue(){ return value;}
-		inline float getValueAtFrame(int _frame){ 
-			
-			if(getNumKeyframes() != 0){
-				
-				
-				std::vector<BaseKeyframe *> keys = getKeyframes();
-				
- 				for (int i = 0; i < keys.size(); i++)
-				{
-					Keyframe<float> * key_float = nullptr;
-					if(key_float = dynamic_cast<Keyframe<float>*>(keys[i]))
-					{
-						if(key_float->getFrame() == _frame)
-						{
-							return key_float->getValue();
-						}
-					}
-				}
-				
-			}	
-			return value;
-			
-		}
+		Keyframe<float>* getKeyframeAtFrame(float _frame);
+		float getValueAtFrame(int _frame);
 		
-		inline bool isKeyframe(int _frame)
-		{
-			std::vector<BaseKeyframe *> keys = getKeyframes();
-			for (int i = 0; i < keys.size(); i++)
-			{
-				Keyframe<float> * key_float = nullptr;
-				if(key_float = dynamic_cast<Keyframe<float>*>(keys[i]))
-				{				
-					if(key_float->getFrame() == _frame)
-					{
-						return true;
-					}
-				}
-			}
-			
-			return false;
-			
-		}
+		
 		
 		
 	private:
