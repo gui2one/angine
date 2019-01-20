@@ -4,6 +4,26 @@
 	//~ printf("Param float empty constructor\n");
 //~ }
 
+void BaseParam::addKeyframe(BaseKeyframe * _key)
+{
+	keyframes.push_back(_key);
+	
+	sort(keyframes.begin(), keyframes.end(), [](BaseKeyframe* key1, BaseKeyframe* key2){
+		return key1->getFrame() < key2->getFrame();
+	});
+}
+
+BaseKeyframe * BaseParam::getKeyframe(int _frame){
+	for (int i = 0; i < keyframes.size(); i++)
+	{
+		if(keyframes[i]->getFrame() == _frame)
+		{
+			return keyframes[i];
+		}
+	}
+	return nullptr;
+	
+}
 
 bool BaseParam::isKeyframe(int _frame)
 {
@@ -22,6 +42,8 @@ bool BaseParam::isKeyframe(int _frame)
 	
 }
 
+
+//// ParamFloat implementation
 Keyframe<float>* ParamFloat::getKeyframeAtFrame(float _frame){
 	
 	if(getNumKeyframes() != 0){

@@ -36,17 +36,7 @@ class BaseParam{
 		
 		
 		inline std::vector<BaseKeyframe *> getKeyframes(){ return keyframes; }
-		inline BaseKeyframe * getKeyframe(int _frame){
-			for (int i = 0; i < keyframes.size(); i++)
-			{
-				if(keyframes[i]->getFrame() == _frame)
-				{
-					return keyframes[i];
-				}
-			}
-			return nullptr;
-			
-		}
+		BaseKeyframe * getKeyframe(int _frame);
 		
 		
 		
@@ -54,15 +44,7 @@ class BaseParam{
 		inline unsigned int getNumKeyframes(){ return (unsigned int)keyframes.size(); }
 		inline void removeAllKeyframes(){ keyframes.clear(); };
 		
-		inline void addKeyframe(BaseKeyframe * _key)
-		{
-			keyframes.push_back(_key);
-			
-			sort(keyframes.begin(), keyframes.end(), [](BaseKeyframe* key1, BaseKeyframe* key2){
-				return key1->getFrame() < key2->getFrame();
-			});
-		}
-		
+		void addKeyframe(BaseKeyframe * _key);
 		bool isKeyframe(int _frame);
 	private:	
 	
@@ -134,7 +116,6 @@ class ParamInt : public BaseParam
 	private:
 
 };
-
 
 class ParamString : public BaseParam
 {
