@@ -29,8 +29,26 @@ class BaseParam{
 		inline void setName(std::string _name){ name = _name; }
 		inline std::string getName(){ return name; }		
 	
+		/////
+		// keyframes
+		//////
+		std::vector<BaseKeyframe *> keyframes;
+		
 		
 		inline std::vector<BaseKeyframe *> getKeyframes(){ return keyframes; }
+		inline BaseKeyframe * getKeyframe(int _frame){
+			for (int i = 0; i < keyframes.size(); i++)
+			{
+				if(keyframes[i]->getFrame() == _frame)
+				{
+					return keyframes[i];
+				}
+			}
+			return nullptr;
+			
+		}
+		
+		
 		
 		inline void setKeyframes(std::vector<BaseKeyframe *> _keys){ keyframes = _keys; }
 		inline unsigned int getNumKeyframes(){ return (unsigned int)keyframes.size(); }
@@ -48,7 +66,7 @@ class BaseParam{
 	
 		std::string name;
 		PARAMTYPE type = PARAM_DEFAULT;
-		std::vector<BaseKeyframe *> keyframes;
+		
 		
 };
 

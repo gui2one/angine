@@ -793,9 +793,70 @@ void Window::evalKeyframes(){
 				if(ptr_float = dynamic_cast<ParamFloat *>(ptr))
 				{
 					bool has_keys = ptr_float->getNumKeyframes() > 0;
-					ptr_float->setValue( ptr_float->getValueAtFrame(time_line.current_frame));
-					printf("has keyframe = %s\n", (has_keys == true ? "true" : "false"));
-					ptr_object->mesh_generator->need_update = true;
+					if(has_keys){
+						// there is keyframes, make interpolation
+						if( ptr_float->getNumKeyframes() > 1){
+							//interpolate between nearest key before and after, if any.
+							BaseKeyframe * before_key = nullptr;
+							BaseKeyframe * after_key  = nullptr;
+							
+							int first_keyframe_frame = ptr_float->keyframes[0]->getFrame();
+							
+							
+							int last_keyframe_frame = ptr_float->keyframes[ptr_float->keyframes.size()-1]->getFrame();
+							
+							
+							printf("-----------------\n");
+							printf("first frame is : %d\n", first_keyframe_frame);
+							printf("last frame is : %d\n", last_keyframe_frame);
+							
+							
+							bool before_found = false;
+							if(time_line.current_frame >= first_keyframe_frame)
+							{
+								for (int key_id = 0; key_id < ptr_float->keyframes.size()-1; key_id++)
+								{
+									if(ptr_float->keyframes[key_id+1]->getFrame() > time_line.current_frame)
+									{
+										if(!before_found)
+										{
+											before_key = ptr_float->keyframes[key_id];
+											before_found = true;
+										}
+									}
+								}
+							}
+							
+							bool after_found = false;
+							if(time_line.current_frame <= last_keyframe_frame)
+							{
+								for (int key_id = ptr_float->keyframes.size(); key_id >= 1; key_id--)
+								{
+									if(ptr_float->keyframes[key_id-1]->getFrame() < time_line.current_frame)
+									{
+										if(!after_found)
+										{
+											after_key = ptr_float->keyframes[key_id];
+											after_found = true;
+										}
+									}
+								}
+							}							
+							if(before_key != nullptr){
+								printf("before_key frame is %d\n" , before_key->getFrame());
+							}
+							
+							
+							
+						}else{
+							// there's only one keyframe, get that value
+							ptr_float->setValue(ptr_float->getValueAtFrame(ptr_float->keyframes[0]->getFrame()));
+						}
+						ptr_object->mesh_generator->need_update = true;
+					}
+					//~ ptr_float->setValue( ptr_float->getValueAtFrame(time_line.current_frame));
+					//~ printf("has keyframe = %s\n", (has_keys == true ? "true" : "false"));
+					
 				}
 			}
 		}
@@ -823,15 +884,23 @@ void Window::buildParamUi(BaseParam * param, std::function<void()> callback){
 	if(p_float = dynamic_cast<ParamFloat*>(param))
 	{	
 		
-		float saved_val; // = p_float->getValue();		
-		if(p_float->isKeyframe(time_line.current_frame)){
-			saved_val = p_float->getValueAtFrame(time_line.current_frame);
-		}else{
-			saved_val = p_float->getValue();
-		}
-		if(ImGui::DragFloat(p_float->getName().c_str(), &saved_val)){
 
-				p_float->setValue(saved_val);
+		if(ImGui::DragFloat(p_float->getName().c_str(), &p_float->value)){
+			if(p_float->isKeyframe(time_line.current_frame)){
+				BaseKeyframe * cur_key = p_float->getKeyframe(time_line.current_frame);
+				
+				if(cur_key)
+				{
+					Keyframe<float>* key_float = nullptr;
+					if(key_float = dynamic_cast<Keyframe<float> *>(cur_key)){
+						printf("setting value for frame %d\n", time_line.current_frame);
+						key_float->setValue(p_float->getValue());
+					}
+					
+				}
+				
+			}
+				
 			
 				callback();
 		}				
@@ -1481,7 +1550,9 @@ void Window::refresh()
 	
 	
 	time_line.update();
-	
+	if(time_line.is_playing){
+		evalKeyframes();
+	}
 	
 	
 	camera.setProjection(

@@ -20,9 +20,9 @@ class TimeLine
 		int temp_frame = 0;
 	
 		float chrono_start = 0.0;
-		
-	private:
 		bool is_playing = false;
+	private:
+		
 		/* add your private declarations */
 };
 
