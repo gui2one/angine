@@ -782,6 +782,18 @@ void Window::evalKeyframes(){
 		Entity3D * cur_entity = objects[i];
 		Object *   ptr_object = nullptr;
 		
+		// check transforms
+		
+		ParamVec3 * p_pos = nullptr;
+		ParamVec3 * p_rot = nullptr;
+		ParamVec3 * p_scale = nullptr;
+		
+		
+		if(p_pos = dynamic_cast<ParamVec3 *>(cur_entity->p_pos)){
+			p_pos->setValue( glm::vec3( p_pos->param_x->getValueAtFrame(time_line.current_frame), p_pos->param_y->getValueAtFrame(time_line.current_frame), p_pos->param_z->getValueAtFrame(time_line.current_frame) ));
+			cur_entity->applyTransforms();
+		}
+		
 		if(ptr_object = dynamic_cast<Object *>(cur_entity))
 		{
 			// check mesh generator
@@ -789,12 +801,14 @@ void Window::evalKeyframes(){
 			{
 				BaseParam * ptr = ptr_object->mesh_generator->param_layout.getParam(param_id);
 				ParamFloat * ptr_float = nullptr;
+
 				
 				if(ptr_float = dynamic_cast<ParamFloat *>(ptr))
 				{
 					ptr_float->setValue( ptr_float->getValueAtFrame(time_line.current_frame));
 					ptr_object->mesh_generator->need_update = true;
 				}
+			
 			}
 			
 			// check mesh filters
@@ -805,129 +819,64 @@ void Window::evalKeyframes(){
 				{
 					BaseParam * p = cur_filter->param_layout.getParam(param_id);
 					ParamFloat * ptr_float = nullptr;
+					ParamVec3 * ptr_vec3 = nullptr;
 					
 					if(ptr_float = dynamic_cast<ParamFloat *>(p)){
 						ptr_float->setValue( ptr_float->getValueAtFrame(time_line.current_frame));
 						cur_filter->need_update = true;						
-					}
-				
-				}
-				
-			}
-			
-		}
-		
-		
-	}
-	
+					}	
+					if(ptr_vec3 = dynamic_cast<ParamVec3 *>(p))
+					{
+						ptr_vec3->param_x->setValue( ptr_vec3->param_x->getValueAtFrame(time_line.current_frame));
+						ptr_vec3->param_y->setValue( ptr_vec3->param_y->getValueAtFrame(time_line.current_frame));
+						ptr_vec3->param_z->setValue( ptr_vec3->param_z->getValueAtFrame(time_line.current_frame));
+						cur_filter->need_update = true;	
+					}									
+				}				
+			}			
+		}		
+	}	
 }
+void Window::buildParamUiKeyframePopupBegin(BaseParam * param)
+{
 
-void Window::buildParamUi(BaseParam * param, std::function<void()> callback){
-			
-	ParamFloat   * p_float  = nullptr;
-	ParamInt     * p_int    = nullptr;
-	ParamString  * p_string = nullptr;
-	ParamAction  * p_action = nullptr;
-	ParamBool 	 * p_bool   = nullptr;
-	ParamMenu    * p_menu   = nullptr;
-	ParamVec3    * p_vec3   = nullptr;
-	
+		
 	if(param->getNumKeyframes() > 0)
 	{
 		if(param->isKeyframe(time_line.current_frame))
 			ImGui::PushStyleColor(ImGuiCol_Text, (ImVec4)ImColor(0.3f, 1.0f, 0.3f, 1.0f));
 		else
 			ImGui::PushStyleColor(ImGuiCol_Text, (ImVec4)ImColor(1.0f, 0.3f, 0.3f, 1.0f));
-	}			
-	
-	if(p_float = dynamic_cast<ParamFloat*>(param))
-	{	
+	}	
 		
+}
 
-		if(ImGui::DragFloat(p_float->getName().c_str(), &p_float->value)){
-			if(p_float->isKeyframe(time_line.current_frame)){
-				BaseKeyframe * cur_key = p_float->getKeyframe(time_line.current_frame);
-				
-				if(cur_key)
-				{
-					Keyframe<float>* key_float = nullptr;
-					if(key_float = dynamic_cast<Keyframe<float> *>(cur_key)){
-						printf("setting value for frame %d\n", time_line.current_frame);
-						key_float->setValue(p_float->getValue());
-					}
-					
-				}
-				
-			}
-				
-			
-				callback();
-		}				
-	}else if(p_int = dynamic_cast<ParamInt*>(param)){
-		int _val = p_int->value;			
-		if(ImGui::DragInt(p_int->getName().c_str(), &_val)){
-			p_int->setValue(_val);
-			callback();
-		}				
-	}else if(p_string = dynamic_cast<ParamString*>(param)){			
-		if(ImGui::InputText(p_string->getName().c_str(), (char*)p_string->value.c_str(), 200))
-		{
-			callback();	
-		}				
-	}else if(p_bool = dynamic_cast<ParamBool*>(param)){			
-		if(ImGui::CheckboxFlags(p_bool->getName().c_str(), (unsigned int*)&p_bool->value, 1))
-		{
-			callback();	
-		}				
-	}else if(p_action = dynamic_cast<ParamAction*>(param)){	
-				
-		ImGui::Text(p_action->getName().c_str());
-		if(ImGui::Button(p_action->getName().c_str())){
-			
-			p_action->value();
-			callback();
-		}				
-	}else if(p_vec3 = dynamic_cast<ParamVec3*>(param)){	
-		
-		float vals[3] = {p_vec3->value.x, p_vec3->value.y, p_vec3->value.z};
-		if(ImGui::DragFloat3(p_vec3->getName().c_str() , vals, 0.1f)){
-			p_vec3->value.x = vals[0];
-			p_vec3->value.y = vals[1];
-			p_vec3->value.z = vals[2];
-			
-			callback();
-		}
-	}else if(p_menu = dynamic_cast<ParamMenu*>(param)){
-	
-		static int choice = 0;
-		if(ImGui::BeginCombo(
-				p_menu->getName().c_str(),
-				p_menu->getValue()[choice].c_str(),
-				0 )
-		)
-		{
-			for (int i = 0; i < p_menu->getValue().size(); i++)
-			{
-				if(ImGui::Selectable(p_menu->getValue()[i].c_str(), choice == i))
-				{								
-					choice = i;
-					p_menu->current_choice = choice;
-					
-					callback();
-				}
-			}
-			
-			ImGui::EndCombo();		
-		}
-	}
-	
+void Window::buildParamUiKeyframePopupEnd(BaseParam * param, std::function<void()> callback, int vec3_ID)
+{
 	if(param->getNumKeyframes() > 0)
 	{
 		ImGui::PopStyleColor();
 	}	
 	
-		
-	ImGui::PushID(param->getName().c_str());
+			
+	
+	if(vec3_ID != -1)
+	{
+		std::string __name = param->getName();
+		if(vec3_ID == 0){
+			__name += "_x";			
+		}else if(vec3_ID == 1){
+			__name += "_y";
+		}else if(vec3_ID == 2){
+			__name += "_z";
+		}
+			
+		//~ printf("adding ::: %s\n", __name.c_str());
+		ImGui::PushID(__name.c_str());					
+	}else{
+				
+		ImGui::PushID(param->getName().c_str());
+	}
 	if (ImGui::BeginPopupContextItem("item context menu"))
 	{
 		ParamFloat   * p_float_2  = nullptr;
@@ -936,7 +885,7 @@ void Window::buildParamUi(BaseParam * param, std::function<void()> callback){
 		ParamAction  * p_action_2 = nullptr;
 		ParamBool 	 * p_bool_2   = nullptr;
 		ParamMenu    * p_menu_2   = nullptr;
-		ParamVec3    * p_vec3_2   = nullptr;		
+		ParamVec3    * p_vec3_2   = nullptr;
 		
 		if (ImGui::Selectable("Remove All Keyframes")){
 			param->removeAllKeyframes();
@@ -961,7 +910,7 @@ void Window::buildParamUi(BaseParam * param, std::function<void()> callback){
 			
 		}
 		ImGui::PushItemWidth(-1);
-		//~ ImGui::DragFloat("##Value", &value, 0.1f, 0.0f, 0.0f);
+		
 		ImGui::PopItemWidth();
 		ImGui::EndPopup();
 		
@@ -969,7 +918,202 @@ void Window::buildParamUi(BaseParam * param, std::function<void()> callback){
 		
 	}					
 	
-	ImGui::PopID();				
+	ImGui::PopID();					
+}
+void Window::buildParamUi(BaseParam * param, std::function<void()> callback){
+			
+	ParamFloat   * p_float  = nullptr;
+	ParamInt     * p_int    = nullptr;
+	ParamString  * p_string = nullptr;
+	ParamAction  * p_action = nullptr;
+	ParamBool 	 * p_bool   = nullptr;
+	ParamMenu    * p_menu   = nullptr;
+	ParamVec3    * p_vec3   = nullptr;
+	
+	//~ if(param->getNumKeyframes() > 0)
+	//~ {
+		//~ if(param->isKeyframe(time_line.current_frame))
+			//~ ImGui::PushStyleColor(ImGuiCol_Text, (ImVec4)ImColor(0.3f, 1.0f, 0.3f, 1.0f));
+		//~ else
+			//~ ImGui::PushStyleColor(ImGuiCol_Text, (ImVec4)ImColor(1.0f, 0.3f, 0.3f, 1.0f));
+	//~ }			
+	
+	if(p_vec3 = dynamic_cast<ParamVec3*>(param))
+	{
+		ImGui::Text(param->getName().c_str());
+		ImGui::Columns(3);
+		// X
+		buildParamUiKeyframePopupBegin(p_vec3->param_x);
+		
+		
+		if(ImGui::DragFloat(p_vec3->param_x->getName().c_str(), &(p_vec3->param_x->value)))
+		{
+			if(p_vec3->param_x->isKeyframe(time_line.current_frame))
+			{
+				BaseKeyframe * cur_key = p_vec3->param_x->getKeyframe(time_line.current_frame);
+				
+				if(cur_key)
+				{
+					Keyframe<float>* key_float = nullptr;
+					if(key_float = dynamic_cast<Keyframe<float> *>(cur_key))
+					{
+						printf("setting value for frame %d\n", time_line.current_frame);
+						key_float->setValue(p_vec3->param_x->getValue());
+					}
+				}
+			}	
+			callback();
+		}						
+		
+		buildParamUiKeyframePopupEnd(p_vec3->param_x, callback, 0);
+		
+		ImGui::NextColumn();
+		// Y
+		buildParamUiKeyframePopupBegin(p_vec3->param_y);
+		
+		//~ _name = p_vec3->getName();
+		//~ _name += p_vec3->param_y->getName();		
+		if(ImGui::DragFloat(p_vec3->param_y->getName().c_str(), &(p_vec3->param_y->value)))
+		{
+			if(p_vec3->param_y->isKeyframe(time_line.current_frame))
+			{
+				BaseKeyframe * cur_key = p_vec3->param_y->getKeyframe(time_line.current_frame);
+				
+				if(cur_key)
+				{
+					Keyframe<float>* key_float = nullptr;
+					if(key_float = dynamic_cast<Keyframe<float> *>(cur_key))
+					{
+						printf("setting value for frame %d\n", time_line.current_frame);
+						key_float->setValue(p_vec3->param_y->getValue());
+					}
+				}
+			}	
+			callback();
+		}						
+		
+		buildParamUiKeyframePopupEnd(p_vec3->param_y, callback, 1);		
+		
+		
+		// Z	
+		ImGui::NextColumn();	
+		buildParamUiKeyframePopupBegin(p_vec3->param_z);
+		
+		//~ _name = p_vec3->getName();
+		//~ _name += p_vec3->param_z->getName();		
+		if(ImGui::DragFloat(p_vec3->param_z->getName().c_str(), &(p_vec3->param_z->value)))
+		{
+			if(p_vec3->param_z->isKeyframe(time_line.current_frame))
+			{
+				BaseKeyframe * cur_key = p_vec3->param_z->getKeyframe(time_line.current_frame);
+				
+				if(cur_key)
+				{
+					Keyframe<float>* key_float = nullptr;
+					if(key_float = dynamic_cast<Keyframe<float> *>(cur_key))
+					{
+						printf("setting value for frame %d\n", time_line.current_frame);
+						key_float->setValue(p_vec3->param_z->getValue());
+					}
+				}
+				
+				
+			}	
+			
+			callback();
+		}						
+		
+		buildParamUiKeyframePopupEnd(p_vec3->param_z, callback, 2);		
+		
+		ImGui::Columns(1);		
+	}else{
+	
+		buildParamUiKeyframePopupBegin(param);
+		
+		if(p_float = dynamic_cast<ParamFloat*>(param))
+		{
+			if(ImGui::DragFloat(p_float->getName().c_str(), &p_float->value))
+			{
+				if(p_float->isKeyframe(time_line.current_frame))
+				{
+					BaseKeyframe * cur_key = p_float->getKeyframe(time_line.current_frame);
+					
+					if(cur_key)
+					{
+						Keyframe<float>* key_float = nullptr;
+						if(key_float = dynamic_cast<Keyframe<float> *>(cur_key))
+						{
+							printf("setting value for frame %d\n", time_line.current_frame);
+							key_float->setValue(p_float->getValue());
+						}
+					}
+				}	
+				callback();
+			}				
+		}else if(p_int = dynamic_cast<ParamInt*>(param)){
+			int _val = p_int->value;			
+			if(ImGui::DragInt(p_int->getName().c_str(), &_val)){
+				p_int->setValue(_val);
+				callback();
+			}				
+		}else if(p_string = dynamic_cast<ParamString*>(param)){			
+			if(ImGui::InputText(p_string->getName().c_str(), (char*)p_string->value.c_str(), 200))
+			{
+				callback();	
+			}				
+		}else if(p_bool = dynamic_cast<ParamBool*>(param)){			
+			if(ImGui::CheckboxFlags(p_bool->getName().c_str(), (unsigned int*)&p_bool->value, 1))
+			{
+				callback();	
+			}				
+		}else if(p_action = dynamic_cast<ParamAction*>(param)){	
+					
+			ImGui::Text(p_action->getName().c_str());
+			if(ImGui::Button(p_action->getName().c_str())){
+				
+				p_action->value();
+				callback();
+			}				
+		}
+		//~ else if(p_vec3 = dynamic_cast<ParamVec3*>(param)){	
+			//~ 
+			//~ float vals[3] = {p_vec3->value.x, p_vec3->value.y, p_vec3->value.z};
+			//~ if(ImGui::DragFloat3(p_vec3->getName().c_str() , vals, 0.1f)){
+				//~ p_vec3->value.x = vals[0];
+				//~ p_vec3->value.y = vals[1];
+				//~ p_vec3->value.z = vals[2];
+				//~ 
+				//~ callback();
+			//~ }
+		//~ }
+		else if(p_menu = dynamic_cast<ParamMenu*>(param)){
+		
+			static int choice = 0;
+			if(ImGui::BeginCombo(
+					p_menu->getName().c_str(),
+					p_menu->getValue()[choice].c_str(),
+					0 )
+			)
+			{
+				for (int i = 0; i < p_menu->getValue().size(); i++)
+				{
+					if(ImGui::Selectable(p_menu->getValue()[i].c_str(), choice == i))
+					{								
+						choice = i;
+						p_menu->current_choice = choice;
+						
+						callback();
+					}
+				}
+				
+				ImGui::EndCombo();		
+			}
+		}
+		
+		
+		buildParamUiKeyframePopupEnd(param, callback);
+	}
+
 }
 
 void Window::objectPropertiesDialog()

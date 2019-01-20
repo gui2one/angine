@@ -161,14 +161,38 @@ class ParamVec3 : public BaseParam
 			setName(_name);
 			value = _val;
 			prefix = _prefix;
+			
+			std::string name_x = _prefix ;
+			name_x += "_x";
+			param_x = new ParamFloat(name_x, _val.x);
+			
+			std::string name_y = _prefix ;
+			name_y += "_y";
+			param_y = new ParamFloat(name_y, _val.y);
+
+			std::string name_z = _prefix ;
+			name_z += "_z";
+			param_z = new ParamFloat(name_z, _val.z);
 			//~ printf("creating a Action type parameter ....\n");
 			//~ printf("\tname : %s -- value : --\n", getName().c_str());			
 		}
 		
 		glm::vec3 value;
+		
+		ParamFloat * param_x;
+		ParamFloat * param_y;
+		ParamFloat * param_z;
 		std::string prefix;
-		inline void setValue(glm::vec3 _val){ value = _val;}
-		inline glm::vec3 getValue(){ return value;}		
+		inline void setValue(glm::vec3 _val){ 
+			
+			param_x->setValue(_val.x);
+			param_y->setValue(_val.y);
+			param_z->setValue(_val.z);
+			
+			value = _val;
+			
+		}
+		inline glm::vec3 getValue(){ return glm::vec3(param_x->getValue(), param_y->getValue(), param_z->getValue());}		
 		
 	
 };

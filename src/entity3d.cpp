@@ -7,11 +7,11 @@ Entity3D::Entity3D()
 	rotation = glm::vec3(0.0f,0.0f,0.0f);
 	scale = glm::vec3(1.0f,1.0f,1.0f);	
 	
-	p_pos = new ParamVec3("position", position);
+	p_pos = new ParamVec3("position", position, "t_");
 	param_layout.push(p_pos);
-	p_rot = new ParamVec3("rotation", rotation);
+	p_rot = new ParamVec3("rotation", rotation, "r_");
 	param_layout.push(p_rot);
-	p_scale = new ParamVec3("scale", scale);
+	p_scale = new ParamVec3("scale", scale,"s_");
 	param_layout.push(p_scale);
 }
 

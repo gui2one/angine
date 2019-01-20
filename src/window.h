@@ -53,17 +53,11 @@ class Window
 		double mouse_delta_x = 0.0;
 		double mouse_delta_y = 0.0;
 		double mouse_old_x, mouse_old_y;
+
 		
-		
-		
-		
-		
-		//~ unsigned int sel_gizmo_vbo;
-		//~ unsigned int sel_gizmo_ibo;
-		//~ void selGizmoInit();
-		//~ void drawSelGizmo();
-		
-		
+		void buildParamUiKeyframePopupBegin(BaseParam * param);
+
+		void buildParamUiKeyframePopupEnd(BaseParam * param,std::function<void()> callback,  int vec3_ID=-1);		
 		
 		int width, height;
 		bool shouldClose();
