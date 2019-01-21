@@ -793,7 +793,14 @@ void Window::evalKeyframes(){
 			p_pos->setValue( glm::vec3( p_pos->param_x->getValueAtFrame(time_line.current_frame), p_pos->param_y->getValueAtFrame(time_line.current_frame), p_pos->param_z->getValueAtFrame(time_line.current_frame) ));
 			cur_entity->applyTransforms();
 		}
-		
+		if(p_rot = dynamic_cast<ParamVec3 *>(cur_entity->p_rot)){
+			p_rot->setValue( glm::vec3( p_rot->param_x->getValueAtFrame(time_line.current_frame), p_rot->param_y->getValueAtFrame(time_line.current_frame), p_rot->param_z->getValueAtFrame(time_line.current_frame) ));
+			cur_entity->applyTransforms();
+		}
+		if(p_scale = dynamic_cast<ParamVec3 *>(cur_entity->p_scale)){
+			p_scale->setValue( glm::vec3( p_scale->param_x->getValueAtFrame(time_line.current_frame), p_scale->param_y->getValueAtFrame(time_line.current_frame), p_scale->param_z->getValueAtFrame(time_line.current_frame) ));
+			cur_entity->applyTransforms();
+		}		
 		if(ptr_object = dynamic_cast<Object *>(cur_entity))
 		{
 			// check mesh generator
