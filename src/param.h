@@ -17,6 +17,11 @@ enum PARAMTYPE{
 	PARAM_MENU
 };
 
+enum INTERPOLATION_TYPE{
+	LINEAR,
+	BEZIER
+};
+
 class BaseParam{
 	public:
 	
@@ -25,6 +30,8 @@ class BaseParam{
 		inline void setType(PARAMTYPE _type){ type = _type; }
 		inline PARAMTYPE getType(){ return type; }
 
+		inline void setInterpolationType(INTERPOLATION_TYPE _type){ interpolation_type = _type; }
+		inline INTERPOLATION_TYPE getInterpolationType(){ return interpolation_type; }
 		
 		inline void setName(std::string _name){ name = _name; }
 		inline std::string getName(){ return name; }		
@@ -50,6 +57,7 @@ class BaseParam{
 	
 		std::string name;
 		PARAMTYPE type = PARAM_DEFAULT;
+		INTERPOLATION_TYPE interpolation_type = LINEAR;
 		
 		
 };

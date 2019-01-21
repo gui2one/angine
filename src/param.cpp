@@ -134,11 +134,16 @@ float ParamFloat::getValueAtFrame(int _frame){
 				float after_value = dynamic_cast<Keyframe<float>*>(after_key)->getValue();								
 
 				//actual interpolation !!!
-				float ratio = (_frame - before_frame) / (after_frame - before_frame);
+				if(getInterpolationType() == LINEAR)
+				{
+					float ratio = (_frame - before_frame) / (after_frame - before_frame);
 
-				float _val = before_value + (after_value - before_value)*ratio;
-				return _val;
-
+					float _val = before_value + (after_value - before_value)*ratio;
+					return _val;
+				}else if(getInterpolationType() == BEZIER)
+				{
+					printf("I have A BEZIER interpolation type\n");
+				}
 				
 			}else if(before_key != nullptr && after_key == nullptr){
 				// get the value of the first key
