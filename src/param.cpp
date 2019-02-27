@@ -42,6 +42,21 @@ bool BaseParam::isKeyframe(int _frame)
 	
 }
 
+void BaseParam::removeKeyframeAtFrame( int _frame) {
+	//~ printf("just delete keyframe %d\n", _frame);
+	for(int i=0; i < keyframes.size(); i++){
+		if( keyframes[i]->getFrame() == _frame) {
+			
+			delete keyframes[i];
+			keyframes.erase( keyframes.begin() + i);
+			
+			printf("just delete keyframe %d \n", _frame);
+			
+			
+		}
+	}
+}
+
 
 //// ParamFloat implementation
 Keyframe<float>* ParamFloat::getKeyframeAtFrame(float _frame){
@@ -83,6 +98,7 @@ float ParamFloat::getValueAtFrame(int _frame){
 		}
 		// there is keyframes, make interpolation
 		else if( getNumKeyframes() > 1){
+			
 			//interpolate between nearest key before and after, if any.
 			BaseKeyframe * before_key = nullptr;
 			BaseKeyframe * after_key  = nullptr;
@@ -96,38 +112,37 @@ float ParamFloat::getValueAtFrame(int _frame){
 			
 			
 			bool before_found = false;
-			if((float)_frame >= first_keyframe_frame)
+
+			for (int key_id = 0; key_id < keyframes.size()-1; key_id++)
 			{
-				for (int key_id = 0; key_id < keyframes.size()-1; key_id++)
+				if(keyframes[key_id+1]->getFrame() > _frame)
 				{
-					if(keyframes[key_id+1]->getFrame() > _frame)
+					if(!before_found)
 					{
-						if(!before_found)
-						{
-							before_key = keyframes[key_id];
-							before_found = true;
-						}
+						//~ printf("FOUND BEFORE KEY\n");
+						before_key = keyframes[key_id];
+						before_found = true;
 					}
 				}
 			}
+	
 			
 			bool after_found = false;
-			if((float)_frame <= last_keyframe_frame)
+
+			for (int key_id = keyframes.size(); key_id >= 1; key_id--)
 			{
-				for (int key_id = keyframes.size(); key_id >= 1; key_id--)
+				if(keyframes[key_id-1]->getFrame() < _frame)
 				{
-					if(keyframes[key_id-1]->getFrame() < _frame)
+					if(!after_found)
 					{
-						if(!after_found)
-						{
-							after_key = keyframes[key_id];
-							after_found = true;
-						}
+						after_key = keyframes[key_id];
+						after_found = true;
 					}
 				}
-			}							
+			}
+						
 			if(before_key != nullptr && after_key != nullptr){
-
+				//~ printf("between keyframes\n");
 				float before_frame = before_key->getFrame();
 				float before_value = dynamic_cast<Keyframe<float>*>(before_key)->getValue();
 				float after_frame = after_key->getFrame();
@@ -145,12 +160,16 @@ float ParamFloat::getValueAtFrame(int _frame){
 					printf("I have A BEZIER interpolation type\n");
 				}
 				
-			}else if(before_key != nullptr && after_key == nullptr){
+			}else if(before_key != nullptr){
 				// get the value of the first key
+				//~ printf("get last key value ?\n");
 				float _val = dynamic_cast<Keyframe<float>*>(keyframes[0])->getValue();
 				return _val;
-			}else if(before_key == nullptr && after_key != nullptr){
+			}else if(after_key != nullptr){
+				
 				// get the value of the last key
+				
+				
 				float _val = dynamic_cast<Keyframe<float>*>(keyframes[getNumKeyframes()-1])->getValue();
 				return _val;
 			}

@@ -58,7 +58,7 @@ class Window
 		void buildParamUiKeyframePopupBegin(BaseParam * param);
 
 		void buildParamUiKeyframePopupEnd(BaseParam * param,std::function<void()> callback,  int vec3_ID=-1);		
-		
+		void drawKeyframes(BaseParam* _param);
 		int width, height;
 		bool shouldClose();
 		

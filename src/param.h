@@ -51,6 +51,8 @@ class BaseParam{
 		inline unsigned int getNumKeyframes(){ return (unsigned int)keyframes.size(); }
 		inline void removeAllKeyframes(){ keyframes.clear(); };
 		
+		void removeKeyframeAtFrame( int _frame);
+		
 		void addKeyframe(BaseKeyframe * _key);
 		bool isKeyframe(int _frame);
 	private:	

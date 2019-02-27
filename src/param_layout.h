@@ -15,6 +15,7 @@ class ParamLayout
 		~ParamLayout();
 		void push(BaseParam* _param);
 		BaseParam* getParam(size_t i);
+		inline std::vector<BaseParam *> getParams() { return params;}
 			
 		inline size_t getSize(){ return params.size();}
 	private:
