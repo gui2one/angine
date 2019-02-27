@@ -1635,6 +1635,7 @@ void Window::drawKeyframes(BaseParam* _param){
 	
 	}	
 }
+
 void Window::timeLineDialog()
 {
 	Entity3D * cur_entity = objects[cur_object_selected];
@@ -1733,13 +1734,13 @@ void Window::timeLineDialog()
 		
 	
 
-	
+
 
 		
 	
-	for (int i = 0; i < cur_entity->param_layout.getSize(); i++)
-	{		
-		BaseParam * cur_param = cur_entity->param_layout.getParam(i);
+	//~ for (int i = 0; i < cur_entity->param_layout.getSize(); i++)
+	//~ {		
+		BaseParam * cur_param = all_params[selected_param];
 		
 		ParamFloat * ptr_float = nullptr;
 		ParamVec3 * ptr_vec3  = nullptr;
@@ -1760,52 +1761,10 @@ void Window::timeLineDialog()
 			drawKeyframes(ptr_vec3->param_y);
 			keys_array.push_back(ptr_vec3->param_z->getKeyframes());
 			drawKeyframes(ptr_vec3->param_z);
-			//~ for(int array_id = 0; array_id < keys_array.size(); array_id++){
-				//~ 
-				//~ std::vector<BaseKeyframe*> cur_keys = keys_array[array_id];
-				//~ for (int key_ID = 0; key_ID < cur_keys.size(); key_ID++)
-				//~ {
-					//~ Keyframe<float> * key_float = dynamic_cast<Keyframe<float> *>(cur_keys[key_ID]);
-					//~ 
-					//~ float frame = key_float->getFrame();
-					//~ float value = key_float->getValue();
-					//~ 
-					
-					//~ 
-					//~ ImVec2 cursor_pos = p;
-					//~ float start_x = cursor_pos.x;
-					//~ float start_y = cursor_pos.y + 10.f;
-					//~ float max_x = start_x+ size.x - 18.0f;
-					//~ float size_y = 50.0f;
-					//~ float key_pos_x = cursor_pos.x + (max_x - cursor_pos.x) * ((frame-(float)time_line.start) / ((float)time_line.end - (float)time_line.start));
-					//~ draw_list->AddRectFilled(ImVec2(key_pos_x, p.y+10.0f), ImVec2(key_pos_x+5.0f, start_y + size_y), ImColor(ImVec4(0.2f,0.2f,0.9f,1.0f)));		
-									//~ 
-					//~ if(key_ID != cur_keys.size()-1)
-					//~ {
-						//~ Keyframe<float> * key_float_after = dynamic_cast<Keyframe<float> *>(cur_keys[key_ID+1]);
-//~ 
-						//~ float frame_after = key_float_after->getFrame();
-						//~ float value_after = key_float_after->getValue();					
-						//~ 
-						//~ float key_after_pos_x = cursor_pos.x + (max_x - cursor_pos.x) * ((frame_after-(float)time_line.start) / ((float)time_line.end - (float)time_line.start));
-//~ 
-						//~ const ImVec2 pos0 = ImVec2(key_pos_x, start_y + (value / 20.0f) * size_y);
-						//~ const ImVec2 cp0 = ImVec2(key_pos_x +30.0f, start_y + (value / 20.0f) * size_y);
-						//~ const ImVec2 cp1 = ImVec2(key_after_pos_x - 30.0f, start_y + (value_after / 20.0f) * size_y);
-						//~ const ImVec2 pos1 = ImVec2(key_after_pos_x, start_y + (value_after / 20.0f) * size_y);
-					//~ 
-						//~ const ImU32 col = ImColor(ImVec4(1.0f,0.0f,0.0f,1.0f));
-						//~ 
-						//~ draw_list->AddBezierCurve(pos0, cp0, cp1, pos1, col, 2.0f);
-						//~ 
-					//~ } 
-				//~ 
-				//~ }
-			//~ 
-			//~ }			
+	
 
 		}
-	}
+	//~ }
 	ImGui::End();
 }
 
