@@ -186,6 +186,8 @@ Window::Window()
 
 
 
+	evalKeyframes();
+
 
 }
 Entity3D* Window::mouseClickObject()
@@ -398,6 +400,8 @@ void Window::mouse_button_callback(GLFWwindow* window, int button, int action, i
 	ImGuiIO &io = ImGui::GetIO();
 	if(io.WantCaptureMouse){
 	
+		
+		printf("mouse pos %f, %f\n", io.MousePos[0], io.MousePos[1]);
 		
 		
 	}else{	
@@ -1591,7 +1595,7 @@ void Window::objectPropertiesDialog()
 	}
 }
 
-void Window::drawKeyframes(BaseParam* _param){
+void Window::drawKeyframes(BaseParam* _param, int selected_key_id){
 	ImDrawList* draw_list = ImGui::GetWindowDrawList();
 	const ImVec2 p = ImGui::GetCursorScreenPos();
 	ImVec2 size = ImGui::GetWindowSize();	
@@ -1611,7 +1615,10 @@ void Window::drawKeyframes(BaseParam* _param){
 		float max_x = start_x+ size.x - 18.0f;
 		float size_y = 50.0f;
 		float key_pos_x = cursor_pos.x + (max_x - cursor_pos.x) * ((frame-(float)time_line.start) / ((float)time_line.end - (float)time_line.start));
-		draw_list->AddRectFilled(ImVec2(key_pos_x, p.y+10.0f), ImVec2(key_pos_x+5.0f, start_y + size_y), ImColor(ImVec4(0.2f,0.2f,0.9f,1.0f)));		
+		draw_list->AddRectFilled(
+			ImVec2(key_pos_x, p.y+10.0f), 
+			ImVec2(key_pos_x+5.0f, start_y + size_y), 
+			selected_key_id == key_ID ? ImColor(ImVec4(0.2f,0.2f,0.9f,1.0f)) : ImColor(ImVec4(0.9f,0.2f,0.2f,1.0f)));		
 						
 		if(key_ID != cur_keys.size()-1)
 		{
@@ -1638,6 +1645,7 @@ void Window::drawKeyframes(BaseParam* _param){
 
 void Window::timeLineDialog()
 {
+	
 	Entity3D * cur_entity = objects[cur_object_selected];
 	
 	ImGui::Begin("Timeline");
@@ -1711,8 +1719,14 @@ void Window::timeLineDialog()
 	}		
 	
 	static int selected_param = 0;
+	
 	if( selected_param >= all_params.size() ){
 		selected_param = all_params.size()-1;
+	}
+	
+	static int selected_key_id = 0;
+	if( selected_key_id >= all_params[selected_param]->keyframes.size()){
+		selected_key_id =  all_params[selected_param]->keyframes.size()-1;
 	}
 	if( ImGui::BeginCombo("params", all_params[selected_param]->getName().c_str(), 1) ){
 		for(int i=0; i< all_params.size(); i++){
@@ -1725,6 +1739,7 @@ void Window::timeLineDialog()
 		ImGui::EndCombo();
 	}	
 	
+
 	
 	ImDrawList* draw_list = ImGui::GetWindowDrawList();
 	const ImVec2 p = ImGui::GetCursorScreenPos();
@@ -1732,39 +1747,57 @@ void Window::timeLineDialog()
 	
 	draw_list->AddRectFilled(ImVec2(p.x, p.y+10.0f), ImVec2(p.x+size.x - 18.0f, p.y+50.0f), ImColor(ImVec4(1.0f,1.0f,0.5f,1.0f)));		
 		
+
+	BaseParam * cur_param = all_params[selected_param];
 	
-
-
-
-		
+	ParamFloat * ptr_float = nullptr;
+	ParamVec3 * ptr_vec3  = nullptr;
 	
-	//~ for (int i = 0; i < cur_entity->param_layout.getSize(); i++)
-	//~ {		
-		BaseParam * cur_param = all_params[selected_param];
+	if(ptr_float = dynamic_cast<ParamFloat *>(cur_param))
+	{
+		std::vector<BaseKeyframe*> keys = ptr_float->getKeyframes();
+		//~ printf("num keyframes = %d\n", keys.size());
+		drawKeyframes(ptr_float, selected_key_id);
 		
-		ParamFloat * ptr_float = nullptr;
-		ParamVec3 * ptr_vec3  = nullptr;
+	}else if(ptr_vec3 = dynamic_cast<ParamVec3 *>(cur_param)){
 		
-		if(ptr_float = dynamic_cast<ParamFloat *>(cur_param))
-		{
-			std::vector<BaseKeyframe*> keys = ptr_float->getKeyframes();
-			//~ printf("num keyframes = %d\n", keys.size());
-			drawKeyframes(ptr_float);
-			
-		}else if(ptr_vec3 = dynamic_cast<ParamVec3 *>(cur_param)){
-			
-			std::vector< std::vector<BaseKeyframe*> > keys_array;
-			
-			keys_array.push_back(ptr_vec3->param_x->getKeyframes());
-			drawKeyframes(ptr_vec3->param_x);
-			keys_array.push_back(ptr_vec3->param_y->getKeyframes());
-			drawKeyframes(ptr_vec3->param_y);
-			keys_array.push_back(ptr_vec3->param_z->getKeyframes());
-			drawKeyframes(ptr_vec3->param_z);
-	
+		std::vector< std::vector<BaseKeyframe*> > keys_array;
+		
+		//~ keys_array.push_back(ptr_vec3->param_x->getKeyframes());
+		drawKeyframes(ptr_vec3->param_x, selected_key_id);
+		//~ keys_array.push_back(ptr_vec3->param_y->getKeyframes());
+		drawKeyframes(ptr_vec3->param_y, selected_key_id);
+		//~ keys_array.push_back(ptr_vec3->param_z->getKeyframes());
+		drawKeyframes(ptr_vec3->param_z, selected_key_id);
 
-		}
-	//~ }
+
+	}
+
+	
+	// make invisible area 
+	ImVec2 canvas_pos = ImGui::GetCursorScreenPos();            // ImDrawList API uses screen coordinates!
+	ImVec2 canvas_size = ImGui::GetContentRegionAvail(); 	
+	ImGui::InvisibleButton("invisible_area", ImVec2(canvas_size[0], 100));
+	
+	if( ImGui::IsItemHovered() ){
+		//~ printf("hovered !!!!\n");
+	 }	
+	
+	
+	ImGui::Separator();
+	
+	if(ImGui::Button("P")){
+		
+		selected_key_id--;
+		printf("previous %d\n", selected_key_id);
+	}
+	ImGui::SameLine();
+	if(ImGui::Button("N")){
+		
+		selected_key_id++;
+		printf("next %d\n", selected_key_id);
+	}	
+	
 	ImGui::End();
 }
 
