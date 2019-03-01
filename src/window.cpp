@@ -1611,14 +1611,14 @@ void Window::drawKeyframes(BaseParam* _param, int selected_key_id){
 		
 		ImVec2 cursor_pos = p;
 		float start_x = cursor_pos.x;
-		float start_y = cursor_pos.y + 10.f;
-		float max_x = start_x+ size.x - 18.0f;
-		float size_y = 50.0f;
+		float start_y = cursor_pos.y;
+		float max_x = start_x+ size.x - 11.0f;
+		float size_y = 11.0f;
 		float key_pos_x = cursor_pos.x + (max_x - cursor_pos.x) * ((frame-(float)time_line.start) / ((float)time_line.end - (float)time_line.start));
 		draw_list->AddRectFilled(
-			ImVec2(key_pos_x, p.y+10.0f), 
-			ImVec2(key_pos_x+5.0f, start_y + size_y), 
-			selected_key_id == key_ID ? ImColor(ImVec4(0.2f,0.2f,0.9f,1.0f)) : ImColor(ImVec4(0.9f,0.2f,0.2f,1.0f)));		
+			ImVec2(key_pos_x, p.y), 
+			ImVec2(key_pos_x+11.0f, start_y + size_y), 
+			selected_key_id == key_ID ? ImColor(ImVec4(0.9f,0.2f,0.9f,1.0f)) : ImColor(ImVec4(0.2f,0.2f,0.9f,1.0f)));		
 						
 		if(key_ID != cur_keys.size()-1)
 		{
@@ -1745,7 +1745,7 @@ void Window::timeLineDialog()
 	const ImVec2 p = ImGui::GetCursorScreenPos();
 	ImVec2 size = ImGui::GetWindowSize();
 	
-	draw_list->AddRectFilled(ImVec2(p.x, p.y+10.0f), ImVec2(p.x+size.x - 18.0f, p.y+50.0f), ImColor(ImVec4(1.0f,1.0f,0.5f,1.0f)));		
+	draw_list->AddRectFilled(ImVec2(p.x, p.y), ImVec2(p.x+size.x - 18.0f, p.y+100.0f), ImColor(ImVec4(1.0f,1.0f,0.5f,1.0f)));		
 		
 
 	BaseParam * cur_param = all_params[selected_param];
@@ -1763,11 +1763,8 @@ void Window::timeLineDialog()
 		
 		std::vector< std::vector<BaseKeyframe*> > keys_array;
 		
-		//~ keys_array.push_back(ptr_vec3->param_x->getKeyframes());
 		drawKeyframes(ptr_vec3->param_x, selected_key_id);
-		//~ keys_array.push_back(ptr_vec3->param_y->getKeyframes());
 		drawKeyframes(ptr_vec3->param_y, selected_key_id);
-		//~ keys_array.push_back(ptr_vec3->param_z->getKeyframes());
 		drawKeyframes(ptr_vec3->param_z, selected_key_id);
 
 
