@@ -1736,10 +1736,25 @@ void Window::timeLineDialog()
 			if(ImGui::Selectable(interpolation_choices[i].c_str(), choice == i))
 			{
 				choice = i;
+				ParamVec3 * p_vec3 = nullptr;
 				if( choice == 0) {
-					cur_param->setInterpolationType(LINEAR);
+					
+					if( p_vec3 = dynamic_cast<ParamVec3 *>(cur_param)){
+						p_vec3->param_x->setInterpolationType(LINEAR);
+						p_vec3->param_y->setInterpolationType(LINEAR);
+						p_vec3->param_z->setInterpolationType(LINEAR);
+					}else{
+						
+						cur_param->setInterpolationType(LINEAR);
+					}
 				}else if( choice == 1){
-					cur_param->setInterpolationType(SMOOTHSTEP);
+					if( p_vec3 = dynamic_cast<ParamVec3 *>(cur_param)){
+						p_vec3->param_x->setInterpolationType(SMOOTHSTEP);
+						p_vec3->param_y->setInterpolationType(SMOOTHSTEP);
+						p_vec3->param_z->setInterpolationType(SMOOTHSTEP);
+					}else{					
+						cur_param->setInterpolationType(SMOOTHSTEP);
+					}
 				}
 				
 				

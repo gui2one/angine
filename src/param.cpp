@@ -76,7 +76,7 @@ static float smoothstep(float edge0, float edge1, float x) {
   // Scale, bias and saturate x to 0..1 range
   x = clamp((x - edge0) / (edge1 - edge0), 0.0, 1.0); 
   // Evaluate polynomial
-  return x * x * (3 - 2 * x);
+  return x * x * (3.0 - 2.0 * x);
 }
 
 
@@ -180,9 +180,10 @@ float ParamFloat::getValueAtFrame(int _frame){
 					
 				}else if(getInterpolationType() == SMOOTHSTEP)
 				{
+					//~ printf("I have A SMOOTHSTEP interpolation type\n");
+					//~ printf("\tValues -> %.4f, %.4f, %.4f\n", before_value, after_value, ratio);
+					return smoothstep(0.0, 1.0, ratio) * (after_value - before_value) + before_value;
 					
-					return smoothstep(before_value, after_value, ratio);
-					printf("I have A SMOOTHSTEP interpolation type\n");
 				}
 				
 			}else if(before_key != nullptr){
