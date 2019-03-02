@@ -19,7 +19,8 @@ enum PARAMTYPE{
 
 enum INTERPOLATION_TYPE{
 	LINEAR,
-	BEZIER
+	BEZIER,
+	SMOOTHSTEP
 };
 
 class BaseParam{
@@ -33,6 +34,7 @@ class BaseParam{
 		inline void setInterpolationType(INTERPOLATION_TYPE _type){ interpolation_type = _type; }
 		inline INTERPOLATION_TYPE getInterpolationType(){ return interpolation_type; }
 		
+		float lerpf(float _a, float _b, float _pos);
 		inline void setName(std::string _name){ name = _name; }
 		inline std::string getName(){ return name; }		
 	

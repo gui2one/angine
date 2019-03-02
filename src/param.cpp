@@ -57,6 +57,29 @@ void BaseParam::removeKeyframeAtFrame( int _frame) {
 	}
 }
 
+float BaseParam::lerpf( float _a, float _b, float _pos){
+
+	float _val = _a + (_b - _a)*_pos;
+	return _val;
+
+	
+}
+
+static float clamp(float x, float lowerlimit, float upperlimit) {
+  if (x < lowerlimit)
+    x = lowerlimit;
+  if (x > upperlimit)
+    x = upperlimit;
+  return x;
+}
+static float smoothstep(float edge0, float edge1, float x) {
+  // Scale, bias and saturate x to 0..1 range
+  x = clamp((x - edge0) / (edge1 - edge0), 0.0, 1.0); 
+  // Evaluate polynomial
+  return x * x * (3 - 2 * x);
+}
+
+
 
 //// ParamFloat implementation
 Keyframe<float>* ParamFloat::getKeyframeAtFrame(float _frame){
@@ -149,15 +172,17 @@ float ParamFloat::getValueAtFrame(int _frame){
 				float after_value = dynamic_cast<Keyframe<float>*>(after_key)->getValue();								
 
 				//actual interpolation !!!
+				float ratio = (_frame - before_frame) / (after_frame - before_frame);
 				if(getInterpolationType() == LINEAR)
 				{
-					float ratio = (_frame - before_frame) / (after_frame - before_frame);
-
-					float _val = before_value + (after_value - before_value)*ratio;
-					return _val;
-				}else if(getInterpolationType() == BEZIER)
+					
+					return lerpf(before_value, after_value, ratio);
+					
+				}else if(getInterpolationType() == SMOOTHSTEP)
 				{
-					printf("I have A BEZIER interpolation type\n");
+					
+					return smoothstep(before_value, after_value, ratio);
+					printf("I have A SMOOTHSTEP interpolation type\n");
 				}
 				
 			}else if(before_key != nullptr){

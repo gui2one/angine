@@ -401,7 +401,7 @@ void Window::mouse_button_callback(GLFWwindow* window, int button, int action, i
 	if(io.WantCaptureMouse){
 	
 		
-		printf("mouse pos %f, %f\n", io.MousePos[0], io.MousePos[1]);
+		//~ printf("mouse pos %f, %f\n", io.MousePos[0], io.MousePos[1]);
 		
 		
 	}else{	
@@ -959,7 +959,7 @@ void Window::buildParamUi(BaseParam * param, std::function<void()> callback){
 					Keyframe<float>* key_float = nullptr;
 					if(key_float = dynamic_cast<Keyframe<float> *>(cur_key))
 					{
-						printf("setting value for frame %d\n", time_line.current_frame);
+						//~ printf("setting value for frame %d\n", time_line.current_frame);
 						key_float->setValue(p_vec3->param_x->getValue());
 					}
 				}
@@ -1679,33 +1679,18 @@ void Window::timeLineDialog()
 	
 	ImGui::Text("%d", time_line.current_frame);
 	
-	std::vector<std::string> interpolation_choices = {"LINEAR", "BEZIER"};
-	static int choice = 0;
-	if(ImGui::BeginCombo("interpolation type", interpolation_choices[choice].c_str(), 1))
-	{
-		
-		for (int i = 0; i < interpolation_choices.size(); i++)
-		{
-			if(ImGui::Selectable(interpolation_choices[i].c_str(), choice == i))
-			{
-				choice = i;
-				
-			}
-		}
-		
-		
-		ImGui::EndCombo();
-	}
+	std::vector<BaseParam *> all_params;
+	
+
 	
 	// build params list
-	std::vector<BaseParam *> all_params;
+	
 	for(int i=0; i< cur_entity->param_layout.getSize(); i++){
 		all_params.push_back(cur_entity->param_layout.getParam(i));
 		//~ if(ImGui::Selectable(cur_entity->param_layout.getParam(i)->getName().c_str(),false)){
 		//~ 
 		//~ }
 	}
-	
 	// check if cur_entity is an Object *
 	Object * p_object = nullptr;
 	if( p_object = dynamic_cast<Object *>(cur_entity)) {
@@ -1716,7 +1701,7 @@ void Window::timeLineDialog()
 			//~ 
 			//~ }
 		}				
-	}		
+	}	
 	
 	static int selected_param = 0;
 	
@@ -1725,7 +1710,7 @@ void Window::timeLineDialog()
 	}
 	
 	static int selected_key_id = 0;
-	if( selected_key_id >= all_params[selected_param]->keyframes.size()){
+	if( selected_key_id > all_params[selected_param]->keyframes.size()-1){
 		selected_key_id =  all_params[selected_param]->keyframes.size()-1;
 	}
 	if( ImGui::BeginCombo("params", all_params[selected_param]->getName().c_str(), 1) ){
@@ -1737,7 +1722,36 @@ void Window::timeLineDialog()
 
 	
 		ImGui::EndCombo();
+	}
+	
+	BaseParam * cur_param = all_params[selected_param];		
+	
+	std::vector<std::string> interpolation_choices = {"LINEAR", "SMOOTHSTEP"};
+	static int choice = 0;
+	if(ImGui::BeginCombo("interpolation type", interpolation_choices[choice].c_str(), 1))
+	{
+		
+		for (int i = 0; i < interpolation_choices.size(); i++)
+		{
+			if(ImGui::Selectable(interpolation_choices[i].c_str(), choice == i))
+			{
+				choice = i;
+				if( choice == 0) {
+					cur_param->setInterpolationType(LINEAR);
+				}else if( choice == 1){
+					cur_param->setInterpolationType(SMOOTHSTEP);
+				}
+				
+				
+			}
+		}
+		
+		
+		ImGui::EndCombo();
 	}	
+		
+	
+
 	
 
 	
@@ -1748,7 +1762,7 @@ void Window::timeLineDialog()
 	draw_list->AddRectFilled(ImVec2(p.x, p.y), ImVec2(p.x+size.x - 18.0f, p.y+100.0f), ImColor(ImVec4(1.0f,1.0f,0.5f,1.0f)));		
 		
 
-	BaseParam * cur_param = all_params[selected_param];
+	
 	
 	ParamFloat * ptr_float = nullptr;
 	ParamVec3 * ptr_vec3  = nullptr;
