@@ -7,6 +7,11 @@ ObjectDummy::ObjectDummy()
 	
 }
 
+ObjectDummy::ObjectDummy(const ObjectDummy & dummy){
+	printf("copying dummy object \n");
+}
+
+
 void ObjectDummy::init()
 {
 	buildVbo();

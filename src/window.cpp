@@ -768,9 +768,26 @@ void Window::objectListDialog()
 	
 	if(ImGui::Button("Duplicate Object")){
 		if(objects.size() > 0){
-			Entity3D new_obj = *duplicateObject(objects[cur_object_selected]);		
-			printf("Name -> %s\n", new_obj.name);
-			//~ addObject(&new_obj);
+			Entity3D new_obj = duplicateObject(*(objects[cur_object_selected]));	
+			Entity3D * ptr = nullptr;
+			ptr = &new_obj;
+				
+			Entity3D * p_entity = nullptr;
+			Object * p_object = nullptr;
+			ObjectDummy * p_dummy = nullptr;
+			
+			if(p_dummy = dynamic_cast<ObjectDummy*>(ptr)){
+				p_dummy->init();
+				addObject(p_dummy);
+				printf("Name -> %s\n", p_dummy->name);
+			}else if(p_entity = dynamic_cast<Entity3D*>(ptr)){
+				//~ p_entity->init();
+				addObject(p_entity);
+				printf("ENTIY Name -> %s\n", p_entity->name);
+			}
+				
+			
+			
 		}
 	}
 	ImGui::End();
@@ -1925,6 +1942,8 @@ void Window::addObject(Entity3D* obj)
 	
 	objects.push_back(obj);
 	
+	//~ printf("added to objects list\n");
+	
 }
 
 
@@ -1951,8 +1970,8 @@ void Window::removeObject(Entity3D* obj)
 			cur_object_selected -= 1;	
 }
 
-Entity3D * Window::duplicateObject(Entity3D* obj){
-	Entity3D * new_obj;
+Entity3D Window::duplicateObject(Entity3D obj){
+	Entity3D new_obj;
 	new_obj = obj;
 	
 	return new_obj;
@@ -1988,7 +2007,7 @@ void Window::renderObjects()
 			
 			glUseProgram(0);
 	////
-	
+	printf("RENDERING ENTIY -----\n");
 	for (int i = 0; i < objects.size(); i++)
 	{	
 

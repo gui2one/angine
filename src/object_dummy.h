@@ -9,7 +9,7 @@ class ObjectDummy: public Entity3D
 {
 	public:
 		ObjectDummy();
-		
+		ObjectDummy(const ObjectDummy & dummy);
 		void init();
 		void buildVbo();
 		void draw();

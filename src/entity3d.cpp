@@ -90,6 +90,11 @@ Entity3D::Entity3D(const Entity3D& entity){
 	Entity3D * parent = entity.parent;
 	Entity3D * look_at_target = entity.look_at_target;
 	
+	glm::mat4 transforms = glm::mat4(1.0);	
+	position = glm::vec3(0.0f,0.0f,0.0f);
+	rotation = glm::vec3(0.0f,0.0f,0.0f);
+	scale = glm::vec3(1.0f,1.0f,1.0f);		
+	
 	ParamVec3 * p_pos;
 	p_pos = entity.p_pos;
 	
@@ -99,7 +104,7 @@ Entity3D::Entity3D(const Entity3D& entity){
 	ParamVec3 * p_scale;	
 	p_scale = entity.p_scale;
 	
-	char name[100] = {'c','o','p','y','_','o','b','j','e','c','t'};
+	setName("copy_name");
 }
 
 Entity3D::~Entity3D()
