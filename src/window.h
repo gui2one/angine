@@ -68,6 +68,7 @@ class Window
 		
 		void addObject(Entity3D* obj);
 		void removeObject(Entity3D* obj);
+		Entity3D * duplicateObject(Entity3D* obj);
 		int findObjectIndexByID(int id);
 		void buildObjectList();
 		

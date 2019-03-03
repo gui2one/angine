@@ -85,6 +85,23 @@ void Entity3D::applyParentsMatrices(glm::mat4 & source_matrix)
 	
 }
 
+Entity3D::Entity3D(const Entity3D& entity){
+	
+	Entity3D * parent = entity.parent;
+	Entity3D * look_at_target = entity.look_at_target;
+	
+	ParamVec3 * p_pos;
+	p_pos = entity.p_pos;
+	
+	ParamVec3 * p_rot;
+	p_rot = entity.p_rot;
+	
+	ParamVec3 * p_scale;	
+	p_scale = entity.p_scale;
+	
+	char name[100] = {'c','o','p','y','_','o','b','j','e','c','t'};
+}
+
 Entity3D::~Entity3D()
 {
 	

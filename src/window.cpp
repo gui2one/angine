@@ -765,6 +765,14 @@ void Window::objectListDialog()
 			removeObject(objects[cur_object_selected]);
 		
 	}
+	
+	if(ImGui::Button("Duplicate Object")){
+		if(objects.size() > 0){
+			Entity3D new_obj = *duplicateObject(objects[cur_object_selected]);		
+			printf("Name -> %s\n", new_obj.name);
+			//~ addObject(&new_obj);
+		}
+	}
 	ImGui::End();
 }
 
@@ -1941,6 +1949,13 @@ void Window::removeObject(Entity3D* obj)
 		
 		if(cur_object_selected > 0)
 			cur_object_selected -= 1;	
+}
+
+Entity3D * Window::duplicateObject(Entity3D* obj){
+	Entity3D * new_obj;
+	new_obj = obj;
+	
+	return new_obj;
 }
 
 void Window::renderObjects()

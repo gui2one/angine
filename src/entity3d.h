@@ -44,6 +44,10 @@ class Entity3D
 		void setName(std::string str_name);
 		char name[100] = {'n','e','w','_','o','b','j','e','c','t'};
 		glm::vec4 color;
+		
+		
+		// copy constructor
+		Entity3D(const Entity3D& entity);
 	private:
 		Entity3D * parent 		 = nullptr;
 		Entity3D * look_at_target = nullptr;
