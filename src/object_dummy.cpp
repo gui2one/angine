@@ -7,8 +7,9 @@ ObjectDummy::ObjectDummy()
 	
 }
 
-ObjectDummy::ObjectDummy(const ObjectDummy & dummy){
+ObjectDummy::ObjectDummy(const ObjectDummy& dummy){
 	printf("copying dummy object \n");
+	//~ unsigned int m_vbo = 0;
 }
 
 
@@ -47,7 +48,7 @@ void ObjectDummy::buildVbo()
 	vertex_data.push_back( 0.0);
 	vertex_data.push_back( 0.5);
 	
-	printf("data size :: %d\n", vertex_data.size());
+	//~ printf("data size :: %d\n", vertex_data.size());
 	
 	glDeleteBuffers(1, &m_vbo);
 	glGenBuffers(1, &m_vbo);

@@ -12,6 +12,10 @@ Object::Object()
 	color = glm::vec4(1.0f,1.0f,1.0f,1.0f);	
 }
 
+Object::Object(const Object& obj){
+	
+}
+
 void Object::moveFilter(int _origin, int _dest)
 {
 	MeshFilter* save = meshFilters[_origin];

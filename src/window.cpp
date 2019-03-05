@@ -768,19 +768,27 @@ void Window::objectListDialog()
 	
 	if(ImGui::Button("Duplicate Object")){
 		if(objects.size() > 0){
-			Entity3D new_obj = duplicateObject(*(objects[cur_object_selected]));	
-			Entity3D * ptr = nullptr;
-			ptr = &new_obj;
+			Entity3D * new_obj = duplicateObject(objects[cur_object_selected]);	
+			
+			
 				
 			Entity3D * p_entity = nullptr;
 			Object * p_object = nullptr;
 			ObjectDummy * p_dummy = nullptr;
 			
-			if(p_dummy = dynamic_cast<ObjectDummy*>(ptr)){
+			if(p_object = dynamic_cast<Object*>(new_obj)){
+				p_object->init();
+				p_object->setGenerator<FileMesh>();
+				p_object->generator_type = 3;
+				p_object->mesh_generator->need_update = true;
+				p_object->shader = default_shader;				
+				addObject(p_object);
+				printf("Object Name -> %s\n", p_object->name);
+			}else if(p_dummy = dynamic_cast<ObjectDummy*>(new_obj)){
 				p_dummy->init();
 				addObject(p_dummy);
-				printf("Name -> %s\n", p_dummy->name);
-			}else if(p_entity = dynamic_cast<Entity3D*>(ptr)){
+				printf("Dummy Name -> %s\n", p_dummy->name);
+			}else if(p_entity = dynamic_cast<Entity3D*>(new_obj)){
 				//~ p_entity->init();
 				addObject(p_entity);
 				printf("ENTIY Name -> %s\n", p_entity->name);
@@ -1970,11 +1978,36 @@ void Window::removeObject(Entity3D* obj)
 			cur_object_selected -= 1;	
 }
 
-Entity3D Window::duplicateObject(Entity3D obj){
-	Entity3D new_obj;
-	new_obj = obj;
+Entity3D* Window::duplicateObject(Entity3D * obj){
 	
-	return new_obj;
+	Entity3D * p = obj;
+	
+	Object * p_object = nullptr;
+	ObjectDummy * p_dummy = nullptr;
+	
+	
+	if(p_object = dynamic_cast<Object*>(p)){
+		
+		Object * new_p_object = new Object((const Object&)*p_object);
+		
+		
+		printf("trying to copy an 'Object'\n");
+		printf("param layout size -> %d\n", new_p_object->param_layout.getSize());
+		//~ Object new_obj;
+		//~ new_obj = *p_object;
+		
+		new_p_object->setName("copied_object");
+		return new_p_object;
+	}else if(p_dummy = dynamic_cast<ObjectDummy*>(p)){
+		printf("trying to copy a 'Dummy'\n");
+		p_dummy->init();
+		
+		return p_dummy;
+	}
+
+	Entity3D null_entity;
+	
+	return nullptr;
 }
 
 void Window::renderObjects()
@@ -2007,7 +2040,7 @@ void Window::renderObjects()
 			
 			glUseProgram(0);
 	////
-	printf("RENDERING ENTIY -----\n");
+	//~ printf("RENDERING ENTITY -----\n");
 	for (int i = 0; i < objects.size(); i++)
 	{	
 
