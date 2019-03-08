@@ -768,30 +768,27 @@ void Window::objectListDialog()
 	
 	if(ImGui::Button("Duplicate Object")){
 		if(objects.size() > 0){
-			Entity3D * new_obj = duplicateObject(objects[cur_object_selected]);	
-			
-			
-				
-			Entity3D * p_entity = nullptr;
+			//~ Entity3D new_obj = duplicateObject(objects[cur_object_selected]);	
+			//~ Entity3D new_obj = *(objects[cur_object_selected]);
+
+			//~ Entity3D * p_entity = &new_obj;
 			Object * p_object = nullptr;
 			ObjectDummy * p_dummy = nullptr;
 			
-			if(p_object = dynamic_cast<Object*>(new_obj)){
-				p_object->init();
-				p_object->setGenerator<FileMesh>();
-				p_object->generator_type = 3;
-				p_object->mesh_generator->need_update = true;
-				p_object->shader = default_shader;				
-				addObject(p_object);
-				printf("Object Name -> %s\n", p_object->name);
-			}else if(p_dummy = dynamic_cast<ObjectDummy*>(new_obj)){
-				p_dummy->init();
-				addObject(p_dummy);
-				printf("Dummy Name -> %s\n", p_dummy->name);
-			}else if(p_entity = dynamic_cast<Entity3D*>(new_obj)){
-				//~ p_entity->init();
-				addObject(p_entity);
-				printf("ENTIY Name -> %s\n", p_entity->name);
+			if(p_object = dynamic_cast<Object*>(objects[cur_object_selected])){
+				Object * object = new Object((const Object&)*p_object);
+				object->init();
+
+				object->mesh_generator->need_update = true;
+				//~ object->shader = default_shader;				
+				addObject(object);
+				printf("Object Name -> %s\n", object->name);
+				printf("ParamLayout Size -> %d\n", (int)(object->param_layout.getSize()));
+			}else if(p_dummy = dynamic_cast<ObjectDummy*>(objects[cur_object_selected])){
+				ObjectDummy dummy = *p_dummy;
+				dummy.init();
+				addObject(&dummy);
+				printf("Dummy Name -> %s\n", dummy.name);
 			}
 				
 			
@@ -1182,19 +1179,19 @@ void Window::objectPropertiesDialog()
 				if( ImGui::BeginTabItem("Transform"))
 				{
 					//// transform stuff
-					buildParamUi(curEntity->p_pos, [curEntity](){						
+					buildParamUi(curEntity->param_layout.getParam(0), [curEntity](){						
 						curEntity->applyTransforms();
 					});
 						
 					ImGui::Separator();	
 					
-					buildParamUi(curEntity->p_rot, [curEntity](){						
+					buildParamUi(curEntity->param_layout.getParam(1), [curEntity](){						
 						curEntity->applyTransforms();
 					});	
 						
 					ImGui::Separator();	
 					
-					buildParamUi(curEntity->p_scale, [curEntity](){						
+					buildParamUi(curEntity->param_layout.getParam(2), [curEntity](){						
 						curEntity->applyTransforms();
 					});						
 					ImGui::Separator();	
@@ -1720,10 +1717,12 @@ void Window::timeLineDialog()
 	
 	for(int i=0; i< cur_entity->param_layout.getSize(); i++){
 		all_params.push_back(cur_entity->param_layout.getParam(i));
-		//~ if(ImGui::Selectable(cur_entity->param_layout.getParam(i)->getName().c_str(),false)){
-		//~ 
-		//~ }
+
 	}
+	
+	//~ all_params.push_back(cur_entity->p_pos);
+	//~ all_params.push_back(cur_entity->p_rot);
+	//~ all_params.push_back(cur_entity->p_scale);
 	// check if cur_entity is an Object *
 	Object * p_object = nullptr;
 	if( p_object = dynamic_cast<Object *>(cur_entity)) {
@@ -1760,8 +1759,8 @@ void Window::timeLineDialog()
 	BaseParam * cur_param = all_params[selected_param];		
 	
 	std::vector<std::string> interpolation_choices = {"LINEAR", "SMOOTHSTEP"};
-	static int choice = 0;
-	if(ImGui::BeginCombo("interpolation type", interpolation_choices[choice].c_str(), 1))
+	static int choice = cur_param->getInterpolationType();
+	if(ImGui::BeginCombo("interpolation type", interpolation_choices[cur_param->getInterpolationType()].c_str(), 1))
 	{
 		
 		for (int i = 0; i < interpolation_choices.size(); i++)
@@ -1773,6 +1772,8 @@ void Window::timeLineDialog()
 				if( choice == 0) {
 					
 					if( p_vec3 = dynamic_cast<ParamVec3 *>(cur_param)){
+						cur_param->setInterpolationType(LINEAR);
+						
 						p_vec3->param_x->setInterpolationType(LINEAR);
 						p_vec3->param_y->setInterpolationType(LINEAR);
 						p_vec3->param_z->setInterpolationType(LINEAR);
@@ -1782,6 +1783,8 @@ void Window::timeLineDialog()
 					}
 				}else if( choice == 1){
 					if( p_vec3 = dynamic_cast<ParamVec3 *>(cur_param)){
+						cur_param->setInterpolationType(SMOOTHSTEP);
+						
 						p_vec3->param_x->setInterpolationType(SMOOTHSTEP);
 						p_vec3->param_y->setInterpolationType(SMOOTHSTEP);
 						p_vec3->param_z->setInterpolationType(SMOOTHSTEP);
@@ -1978,36 +1981,36 @@ void Window::removeObject(Entity3D* obj)
 			cur_object_selected -= 1;	
 }
 
-Entity3D* Window::duplicateObject(Entity3D * obj){
+Entity3D Window::duplicateObject(Entity3D * obj){
 	
 	Entity3D * p = obj;
 	
 	Object * p_object = nullptr;
 	ObjectDummy * p_dummy = nullptr;
 	
-	
+	//~ 
 	if(p_object = dynamic_cast<Object*>(p)){
 		
-		Object * new_p_object = new Object((const Object&)*p_object);
+		Object new_object = *(p_object);
 		
 		
 		printf("trying to copy an 'Object'\n");
-		printf("param layout size -> %d\n", new_p_object->param_layout.getSize());
-		//~ Object new_obj;
-		//~ new_obj = *p_object;
+		printf("param layout size -> %d\n", new_object.param_layout.getSize());
+		//~ 
 		
-		new_p_object->setName("copied_object");
-		return new_p_object;
+		new_object.setName("copied_object");
+		return new_object;
 	}else if(p_dummy = dynamic_cast<ObjectDummy*>(p)){
+		ObjectDummy dum = *(p_dummy);
 		printf("trying to copy a 'Dummy'\n");
-		p_dummy->init();
+		//~ dum.init();
 		
-		return p_dummy;
+		return dum;
 	}
 
 	Entity3D null_entity;
 	
-	return nullptr;
+	return null_entity;
 }
 
 void Window::renderObjects()

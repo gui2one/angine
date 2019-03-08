@@ -19,7 +19,6 @@ enum PARAMTYPE{
 
 enum INTERPOLATION_TYPE{
 	LINEAR,
-	BEZIER,
 	SMOOTHSTEP
 };
 
@@ -27,16 +26,17 @@ class BaseParam{
 	public:
 	
 		inline BaseParam(){}
+		BaseParam(const BaseParam& other);
 		inline virtual ~BaseParam(){}
 		inline void setType(PARAMTYPE _type){ type = _type; }
-		inline PARAMTYPE getType(){ return type; }
+		inline PARAMTYPE getType() const { return type; }
 
 		inline void setInterpolationType(INTERPOLATION_TYPE _type){ interpolation_type = _type; }
-		inline INTERPOLATION_TYPE getInterpolationType(){ return interpolation_type; }
+		inline INTERPOLATION_TYPE getInterpolationType() const { return interpolation_type; }
 		
 		float lerpf(float _a, float _b, float _pos);
 		inline void setName(std::string _name){ name = _name; }
-		inline std::string getName(){ return name; }		
+		inline std::string getName() const { return name; }		
 	
 		/////
 		// keyframes
@@ -78,6 +78,8 @@ class ParamFloat : public BaseParam
 			value = _val;
 			
 		}
+		
+		ParamFloat( const ParamFloat& other);
 		
 
 		
@@ -189,6 +191,7 @@ class ParamVec3 : public BaseParam
 			//~ printf("\tname : %s -- value : --\n", getName().c_str());			
 		}
 		
+		ParamVec3(const ParamVec3& other);
 		glm::vec3 value;
 		
 		ParamFloat * param_x;

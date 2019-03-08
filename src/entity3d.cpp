@@ -15,6 +15,34 @@ Entity3D::Entity3D()
 	param_layout.push(p_scale);
 }
 
+// copy constructor
+Entity3D::Entity3D(const Entity3D& other){
+	
+	printf("Entity3D COPY CONSTRUCTOR\n");
+	Entity3D * parent = other.parent;
+	Entity3D * look_at_target = other.look_at_target;
+	
+	transforms = other.transforms;	
+	position = other.position;
+	rotation = other.rotation;
+	scale = other.scale;
+	
+	//~ ParamLayout param_layout(other.param_layout);
+	//~ param_layout = other.param_layout;
+	
+	//~ param_layout.clearParams();
+	p_pos = new ParamVec3(*other.p_pos);	
+	param_layout.push(p_pos);
+	
+	p_rot = new ParamVec3(*other.p_rot);	
+	param_layout.push(p_rot);
+	
+	p_scale = new ParamVec3(*other.p_scale);	
+	param_layout.push(p_scale);
+	
+	setName("copy_name");
+}
+
 void Entity3D::setName(std::string str_name)
 {
 
@@ -85,27 +113,6 @@ void Entity3D::applyParentsMatrices(glm::mat4 & source_matrix)
 	
 }
 
-Entity3D::Entity3D(const Entity3D& entity){
-	
-	Entity3D * parent = entity.parent;
-	Entity3D * look_at_target = entity.look_at_target;
-	
-	glm::mat4 transforms = glm::mat4(1.0);	
-	position = glm::vec3(0.0f,0.0f,0.0f);
-	rotation = glm::vec3(0.0f,0.0f,0.0f);
-	scale = glm::vec3(1.0f,1.0f,1.0f);		
-	
-	ParamVec3 * p_pos;
-	p_pos = entity.p_pos;
-	
-	ParamVec3 * p_rot;
-	p_rot = entity.p_rot;
-	
-	ParamVec3 * p_scale;	
-	p_scale = entity.p_scale;
-	
-	setName("copy_name");
-}
 
 Entity3D::~Entity3D()
 {

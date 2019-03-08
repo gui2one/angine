@@ -8,7 +8,10 @@ GeoSphereMesh::GeoSphereMesh()
 	p_radius = new ParamFloat("radius", 0.5);
 	param_layout.push(p_radius);
 }
-
+GeoSphereMesh::GeoSphereMesh(const GeoSphereMesh& other){
+	p_radius = new ParamFloat(*other.p_radius);
+	param_layout.push(p_radius);	
+}
 
 GeoSphereMesh::~GeoSphereMesh()
 {

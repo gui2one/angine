@@ -9,20 +9,25 @@
 #include "../param_layout.h"
 
 
-
+enum MESH_GENERATOR_TYPE{
+	SPHERE_MESH_GENERATOR,
+	GEOSPHERE_MESH_GENERATOR,
+	GRID_MESH_GENERATOR,
+	BOX_MESH_GENERATOR,
+	CYLINDER_MESH_GENERATOR,
+	FILE_MESH_GENERATOR
+	
+};
 
 class MeshGenerator
 {
 	public:
 		MeshGenerator();
-		inline virtual ~MeshGenerator(){
-			for (size_t i = 0; i < param_layout.getSize(); i++)
-			{
-				delete param_layout.getParam(i);
-			}
-			
-			printf("Just delete paramLayout content\n");			
-		}
+		MeshGenerator(const MeshGenerator& other);
+		virtual ~MeshGenerator();
+		
+		
+		
 		inline virtual Mesh generate(){}
 
 		bool need_update = false;
@@ -34,6 +39,8 @@ class MeshGenerator
 		
 		
 	private:
+	
+	MESH_GENERATOR_TYPE type;
 		/* add your private declarations */
 };
 

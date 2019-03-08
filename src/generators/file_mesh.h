@@ -9,6 +9,7 @@ class FileMesh : public MeshGenerator
 {
 	public:
 		FileMesh();
+		FileMesh(const FileMesh& other);
 		virtual ~FileMesh();
 		
 		Mesh generate() override;

@@ -12,12 +12,13 @@ class ParamLayout
 {
 	public:
 		ParamLayout();	
+		ParamLayout(const ParamLayout& other);
 		~ParamLayout();
 		void push(BaseParam* _param);
-		BaseParam* getParam(size_t i);
+		BaseParam* getParam(size_t i) const;
 		inline std::vector<BaseParam *> getParams() { return params;}
-			
-		inline size_t getSize(){ return params.size();}
+		inline void clearParams(){ params.clear();}
+		inline size_t getSize() const{ return params.size();}
 	private:
 	
 		std::vector<BaseParam *> params;

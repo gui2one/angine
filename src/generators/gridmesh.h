@@ -8,6 +8,7 @@ class GridMesh : public MeshGenerator
 {
 	public:
 		GridMesh();
+		GridMesh(const GridMesh& other);
 		virtual ~GridMesh();
 		
 		inline Mesh generate() override{

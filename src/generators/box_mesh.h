@@ -13,6 +13,7 @@ class BoxMesh : public MeshGenerator
 {
 	public:
 		BoxMesh();
+		BoxMesh(const BoxMesh& other);
 		virtual ~BoxMesh();
 		
 		inline Mesh generate() override{

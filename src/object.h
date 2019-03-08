@@ -43,7 +43,7 @@ class Object : public Entity3D
 {
 	public :
 		Object();
-		Object(const Object& obj);
+		Object(const Object& other);
 		~Object();
 
 		std::vector<uniform> getShaderUniforms();

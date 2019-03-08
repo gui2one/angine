@@ -9,6 +9,8 @@ class Entity3D
 {
 	public:
 		Entity3D();
+		// copy constructor
+		Entity3D(const Entity3D& other);		
 		virtual ~Entity3D();
 	
 		glm::mat4 transforms = glm::mat4(1.0);		
@@ -46,8 +48,7 @@ class Entity3D
 		glm::vec4 color;
 		
 		
-		// copy constructor
-		Entity3D(const Entity3D& entity);
+
 	private:
 		Entity3D * parent 		 = nullptr;
 		Entity3D * look_at_target = nullptr;

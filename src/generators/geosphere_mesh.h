@@ -8,6 +8,7 @@ class GeoSphereMesh : public MeshGenerator
 {
 	public:
 		GeoSphereMesh();
+		GeoSphereMesh(const GeoSphereMesh& other);
 		virtual ~GeoSphereMesh();
 		
 		inline Mesh generate() override

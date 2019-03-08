@@ -10,6 +10,7 @@ class CylinderMesh : public MeshGenerator
 {
 	public:
 		CylinderMesh();
+		CylinderMesh(const CylinderMesh& other);
 		virtual ~CylinderMesh();
 		
 		

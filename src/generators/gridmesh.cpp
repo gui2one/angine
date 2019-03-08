@@ -11,11 +11,24 @@ GridMesh::GridMesh()
 	
 	p_width = new ParamFloat("width", 1.0);
 	param_layout.push(p_width);
+	
 	p_length = new ParamFloat("length", 1.0);
 	param_layout.push(p_length);
 }
 
-
+GridMesh::GridMesh(const GridMesh& other){
+	p_rows = new ParamInt(*other.p_rows);
+	param_layout.push(p_rows);
+	
+	p_cols = new ParamInt(*other.p_cols);
+	param_layout.push(p_cols);
+	
+	p_width = new ParamFloat(*other.p_width);
+	param_layout.push(p_width);
+	
+	p_length = new ParamFloat(*other.p_length);
+	param_layout.push(p_length);	
+}
 Mesh GridMesh::generateGrid(int rows, int cols, float width, float length)
 {
 	

@@ -17,6 +17,14 @@ FileMesh::FileMesh()
 	param_layout.push(p_load_action);
 }
 
+FileMesh::FileMesh(const FileMesh& other){
+	
+	p_file_path = new ParamString(*other.p_file_path);
+	param_layout.push(p_file_path);
+	
+	p_load_action = new ParamAction(*other.p_load_action);	
+	param_layout.push(p_load_action);	
+}
 Mesh FileMesh::generate(){
 	Mesh mesh;
 	

@@ -23,8 +23,30 @@ BoxMesh::BoxMesh()
 	p_segs_length = new ParamInt("segs_length",4);
 	param_layout.push(p_segs_length);			
 	
-	ParamBool* test = new ParamBool("test",true);
-	param_layout.push(test);
+	//~ ParamBool* test = new ParamBool("test",true);
+	//~ param_layout.push(test);
+}
+
+BoxMesh::BoxMesh(const BoxMesh& other){
+
+	p_width = new ParamFloat(*other.p_width);
+	param_layout.push(p_width);
+
+	p_height = new ParamFloat(*other.p_height);
+	param_layout.push(p_height);	
+	
+	p_length = new ParamFloat(*other.p_length);
+	param_layout.push(p_length);		
+	
+	
+	p_segs_width = new ParamInt(*other.p_segs_width);
+	param_layout.push(p_segs_width);
+
+	p_segs_height = new ParamInt(*other.p_segs_height);
+	param_layout.push(p_segs_height);	
+	
+	p_segs_length = new ParamInt(*other.p_segs_length);
+	param_layout.push(p_segs_length);				
 }
 
 static void rotate_vertices(std::vector<Vertex> & verts, float angle, glm::vec3 axis)

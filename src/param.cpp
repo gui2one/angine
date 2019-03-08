@@ -4,6 +4,32 @@
 	//~ printf("Param float empty constructor\n");
 //~ }
 
+BaseParam::BaseParam(const BaseParam& other){
+	printf("BaseParam COPY CONSTRUCTOR\n");
+	setName(other.getName());
+	std::vector<BaseKeyframe*> keyframes;
+	setInterpolationType( other.getInterpolationType());
+	for (int i = 0; i < other.keyframes.size(); i++)
+	{
+		Keyframe<float>* p_key_float = nullptr;
+		
+		if(p_key_float = dynamic_cast<Keyframe<float> *>(other.keyframes[i])){
+			printf("||||||||||||||| this a float keyframe |||||||||||||||\n");
+			Keyframe<float> * new_key = new Keyframe<float>(*p_key_float);
+			addKeyframe(new_key);
+		}
+	}
+	
+	//~ BaseParam p = param;
+	//~ BaseParam * p_ptr = &p;
+	//~ ParamFloat * p_float = nullptr;
+	//~ 
+	//~ if(p_float = dynamic_cast<ParamFloat*>(p_ptr)){
+		//~ printf("cast as a ParamFloat !!!!!! yes !!!!!\n");
+	//~ }
+	
+}
+
 void BaseParam::addKeyframe(BaseKeyframe * _key)
 {
 	keyframes.push_back(_key);
@@ -80,6 +106,11 @@ static float smoothstep(float edge0, float edge1, float x) {
 }
 
 
+// COPY CONSTRUCTOR FOR ParamFloat
+ParamFloat::ParamFloat( const ParamFloat& other):BaseParam(other){
+	printf("ParamFloat COPY CONSTRUCTOR\n");
+	setValue(other.value);
+}
 
 //// ParamFloat implementation
 Keyframe<float>* ParamFloat::getKeyframeAtFrame(float _frame){
@@ -215,4 +246,11 @@ float ParamFloat::getValueAtFrame(int _frame){
 }
 
 
+ParamVec3::ParamVec3(const ParamVec3& other):BaseParam(other){
+	printf("ParamVec3 COPY CONSTRUCTOR\n");
+	//~ setName(other.getName());
+	param_x = new ParamFloat(*other.param_x);
+	param_y = new ParamFloat(*other.param_y);
+	param_z = new ParamFloat(*other.param_z);
+}
 

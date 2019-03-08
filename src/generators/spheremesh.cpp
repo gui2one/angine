@@ -7,6 +7,7 @@ SphereMesh::SphereMesh()
 	
 	p_cols = new ParamInt("cols", 24);
 	param_layout.push(p_cols);
+	
 	p_rows = new ParamInt("rows", 16);
 	param_layout.push(p_rows);
 	
@@ -20,6 +21,23 @@ SphereMesh::SphereMesh()
 	param_layout.push(p_v_ratio);		
 }
 
+SphereMesh::SphereMesh(const SphereMesh& other){
+	
+	p_cols = new ParamInt(*other.p_cols);
+	param_layout.push(p_cols);
+	
+	p_rows = new ParamInt(*other.p_rows);
+	param_layout.push(p_rows);
+	
+	p_radius = new ParamFloat(*other.p_radius);
+	param_layout.push(p_radius);
+	
+	p_u_ratio = new ParamFloat(*other.p_u_ratio);
+	param_layout.push(p_u_ratio);
+	
+	p_v_ratio = new ParamFloat(*other.p_v_ratio);
+	param_layout.push(p_v_ratio);		
+}
 
 SphereMesh::~SphereMesh()
 {

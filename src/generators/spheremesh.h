@@ -8,6 +8,7 @@ class SphereMesh : public MeshGenerator
 {
 	public:
 		SphereMesh();
+		SphereMesh(const SphereMesh& other);
 		virtual ~SphereMesh();
 		
 		inline Mesh generate() override

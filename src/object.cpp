@@ -12,7 +12,97 @@ Object::Object()
 	color = glm::vec4(1.0f,1.0f,1.0f,1.0f);	
 }
 
-Object::Object(const Object& obj){
+Object::Object(const Object& other): Entity3D(other){
+	printf("-------> copying Object members <------------\n");
+	init();
+	mesh = other.mesh;
+	shader = other.shader;
+	color = other.color;	
+	
+	
+	
+	//~ mesh_generator = new MeshGenerator((const MeshGenerator&)*other.mesh_generator);
+	//~ has_generator = true;
+	//~ mesh.vertices.clear();
+	//~ mesh.indices.clear();
+	//~ mesh_generator->generate();	
+	MeshGenerator * gen_ptr = other.mesh_generator;
+	SphereMesh * sphere_ptr = nullptr;
+	GeoSphereMesh * geosphere_ptr = nullptr;
+	GridMesh * grid_ptr = nullptr;
+	BoxMesh * box_ptr = nullptr;
+	CylinderMesh * cyl_ptr = nullptr;
+	FileMesh * file_ptr = nullptr;
+	
+	if( sphere_ptr = dynamic_cast<SphereMesh*>(gen_ptr)){
+		printf("this is a cylinderMesh generator type\n");
+		mesh_generator = new SphereMesh((const SphereMesh&)*other.mesh_generator);
+		generator_type = 1;
+		has_generator = true;
+		
+		mesh.vertices.clear();
+		mesh.indices.clear();
+		mesh_generator->generate();
+		
+	}else if( geosphere_ptr = dynamic_cast<GeoSphereMesh*>(gen_ptr)){
+		printf("this is a GeoSphereMesh generator type\n");
+		mesh_generator = new GeoSphereMesh((const GeoSphereMesh&)*other.mesh_generator);
+		generator_type = 2;
+		has_generator = true;
+		
+		mesh.vertices.clear();
+		mesh.indices.clear();
+		mesh_generator->generate();
+		
+	}else if( grid_ptr = dynamic_cast<GridMesh*>(gen_ptr)){
+		printf("this is a GridMesh Mesh generator type\n");
+		mesh_generator = new GridMesh((const GridMesh&)*other.mesh_generator);
+		generator_type = 3;
+		has_generator = true;
+		
+		mesh.vertices.clear();
+		mesh.indices.clear();
+		mesh_generator->generate();
+		
+	}else if( box_ptr = dynamic_cast<BoxMesh*>(gen_ptr)){
+		printf("this is a BoxMesh generator type\n");
+		mesh_generator = new BoxMesh((const BoxMesh&)*other.mesh_generator);
+		generator_type = 4;
+		has_generator = true;
+		
+		mesh.vertices.clear();
+		mesh.indices.clear();
+		mesh_generator->generate();
+		
+	}else if( cyl_ptr = dynamic_cast<CylinderMesh*>(gen_ptr)){
+		printf("this is a cylinderMesh generator type\n");
+		mesh_generator = new CylinderMesh((const CylinderMesh&)*other.mesh_generator);
+		generator_type = 5;
+		has_generator = true;
+		
+		mesh.vertices.clear();
+		mesh.indices.clear();
+		mesh_generator->generate();
+		
+	}else if( file_ptr = dynamic_cast<FileMesh*>(gen_ptr)){
+		printf("this is a cylinderMesh generator type\n");
+		mesh_generator = new FileMesh((const FileMesh&)*other.mesh_generator);
+		generator_type = 6;
+		has_generator = true;
+		
+		mesh.vertices.clear();
+		mesh.indices.clear();
+		mesh_generator->generate();
+		
+	}
+
+	for (int i = 0; i < other.meshFilters.size(); i++)
+	{
+		MeshFilter mesh_filter = *other.meshFilters[i];
+		meshFilters.push_back(&mesh_filter);
+	}
+	
+	
 	
 }
 
