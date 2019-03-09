@@ -23,8 +23,7 @@ BoxMesh::BoxMesh()
 	p_segs_length = new ParamInt("segs_length",4);
 	param_layout.push(p_segs_length);			
 	
-	//~ ParamBool* test = new ParamBool("test",true);
-	//~ param_layout.push(test);
+
 }
 
 BoxMesh::BoxMesh(const BoxMesh& other){
@@ -88,7 +87,7 @@ static TRI_PLANE make_plane(int rows, int cols)
 {
 	
 	TRI_PLANE plane_data;
-	// make a unit plane at 0.5 in z to serve a a primitive for every other plane by rotation
+	// make a unit plane at 0.5 in z to serve as a primitive for every other plane by rotation
 	for (int y = 0; y < rows; y++)
 	{
 		for (int x = 0; x < cols; x++)
@@ -231,28 +230,7 @@ Mesh BoxMesh::generateBox(float width, float height, float length, int segs_widt
 	id_offset += segs_height * segs_width;
 	
 	indices.insert(indices.end(), frontIDS.begin(), frontIDS.end());	
-	//~ for (unsigned int y = 0; y < rows-1; y++)
-	//~ {
-		//~ for (unsigned int x = 0; x < cols-1; x++)
-		//~ {
-			//~ unsigned int curIndex = x + y * cols;
-			//~ plane_indices.push_back(curIndex);
-			//~ plane_indices.push_back(curIndex+cols);
-			//~ plane_indices.push_back(curIndex+cols+1);
-			//~ 
-			//~ plane_indices.push_back(curIndex+cols+1);
-			//~ plane_indices.push_back(curIndex+1);
-			//~ plane_indices.push_back(curIndex);			
-		//~ }		
-	//~ }	
-	//~ 
-	//~ std::vector<unsigned int> topIndices = plane_indices;
-	//~ offset_indices(topIndices, 0);
-	//~ indices.insert(indices.end(), topIndices.begin(), topIndices.end());
-//~ 
-	//~ std::vector<unsigned int> backIndices = plane_indices;
-	//~ offset_indices(backIndices, cols * rows);
-	//~ indices.insert(indices.end(), backIndices.begin(), backIndices.end());	
+
 	
 	
 	
