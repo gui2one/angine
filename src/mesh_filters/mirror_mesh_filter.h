@@ -9,6 +9,7 @@ class MirrorMeshFilter: public MeshFilter
 {
 	public:
 		MirrorMeshFilter();
+		MirrorMeshFilter(const MirrorMeshFilter& other);
 		
 		Mesh applyFilter(Mesh & source_mesh)override;
 		

@@ -13,6 +13,7 @@ class ComputeNormalsMeshFilter: public MeshFilter
 {
 	public:
 		ComputeNormalsMeshFilter();
+		ComputeNormalsMeshFilter(const ComputeNormalsMeshFilter& other);
 		
 		Mesh applyFilter(Mesh & source_mesh)override;		
 			

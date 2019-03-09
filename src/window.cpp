@@ -160,7 +160,7 @@ Window::Window()
 		
 		
 		float test_val = p_float->getValueAtFrame(time_line.current_frame);
-		printf("key value at frame %d --> %.3f\n", time_line.current_frame, test_val);
+		//~ printf("key value at frame %d --> %.3f\n", time_line.current_frame, test_val);
 	}
 	
 	obj->rotation.y = -45.0;
@@ -180,7 +180,7 @@ Window::Window()
 	dummy->setName("null_1");
 	dummy->init();
 	
-	dummy->position.x = -1.5;
+	dummy->p_pos->param_x->setValue(-1.5);
 	dummy->applyTransforms();
 	addObject(dummy);
 
@@ -768,10 +768,7 @@ void Window::objectListDialog()
 	
 	if(ImGui::Button("Duplicate Object")){
 		if(objects.size() > 0){
-			//~ Entity3D new_obj = duplicateObject(objects[cur_object_selected]);	
-			//~ Entity3D new_obj = *(objects[cur_object_selected]);
 
-			//~ Entity3D * p_entity = &new_obj;
 			Object * p_object = nullptr;
 			ObjectDummy * p_dummy = nullptr;
 			
@@ -780,15 +777,14 @@ void Window::objectListDialog()
 				object->init();
 
 				object->mesh_generator->need_update = true;
-				//~ object->shader = default_shader;				
+
 				addObject(object);
-				printf("Object Name -> %s\n", object->name);
-				printf("ParamLayout Size -> %d\n", (int)(object->param_layout.getSize()));
+
 			}else if(p_dummy = dynamic_cast<ObjectDummy*>(objects[cur_object_selected])){
-				ObjectDummy dummy = *p_dummy;
-				dummy.init();
-				addObject(&dummy);
-				printf("Dummy Name -> %s\n", dummy.name);
+				ObjectDummy * dummy = new ObjectDummy((const ObjectDummy&)*p_dummy);
+				dummy->init();
+				addObject(dummy);
+				//~ printf("Dummy Name -> %s\n", dummy->name);
 			}
 				
 			
@@ -1709,158 +1705,173 @@ void Window::timeLineDialog()
 	
 	ImGui::Text("%d", time_line.current_frame);
 	
-	std::vector<BaseParam *> all_params;
-	
-
-	
-	// build params list
-	
-	for(int i=0; i< cur_entity->param_layout.getSize(); i++){
-		all_params.push_back(cur_entity->param_layout.getParam(i));
-
-	}
-	
-	//~ all_params.push_back(cur_entity->p_pos);
-	//~ all_params.push_back(cur_entity->p_rot);
-	//~ all_params.push_back(cur_entity->p_scale);
-	// check if cur_entity is an Object *
-	Object * p_object = nullptr;
-	if( p_object = dynamic_cast<Object *>(cur_entity)) {
-		
-		for(int i=0; i< p_object->mesh_generator->param_layout.getSize(); i++){
-			all_params.push_back(p_object->mesh_generator->param_layout.getParam(i));
-			//~ if(ImGui::Selectable(p_object->mesh_generator->param_layout.getParam(i)->getName().c_str(),false)){
-			//~ 
-			//~ }
-		}				
-	}	
-	
-	static int selected_param = 0;
-	
-	if( selected_param >= all_params.size() ){
-		selected_param = all_params.size()-1;
-	}
-	
-	static int selected_key_id = 0;
-	if( selected_key_id > all_params[selected_param]->keyframes.size()-1){
-		selected_key_id =  all_params[selected_param]->keyframes.size()-1;
-	}
-	if( ImGui::BeginCombo("params", all_params[selected_param]->getName().c_str(), 1) ){
-		for(int i=0; i< all_params.size(); i++){
-			if(ImGui::Selectable(all_params[i]->getName().c_str(),selected_param == i)){
-				selected_param = i;
-			}
-		}
-
-	
-		ImGui::EndCombo();
-	}
-	
-	BaseParam * cur_param = all_params[selected_param];		
-	
-	std::vector<std::string> interpolation_choices = {"LINEAR", "SMOOTHSTEP"};
-	static int choice = cur_param->getInterpolationType();
-	if(ImGui::BeginCombo("interpolation type", interpolation_choices[cur_param->getInterpolationType()].c_str(), 1))
+	if(objects.size() > 0)
 	{
+		std::vector<BaseParam *> all_params;
 		
-		for (int i = 0; i < interpolation_choices.size(); i++)
-		{
-			if(ImGui::Selectable(interpolation_choices[i].c_str(), choice == i))
+
+		
+		// build params list
+		
+		for(int i=0; i< cur_entity->param_layout.getSize(); i++){
+			all_params.push_back(cur_entity->param_layout.getParam(i));
+
+		}
+		
+		//~ all_params.push_back(cur_entity->p_pos);
+		//~ all_params.push_back(cur_entity->p_rot);
+		//~ all_params.push_back(cur_entity->p_scale);
+		// check if cur_entity is an Object *
+		Object * p_object = nullptr;
+		if( p_object = dynamic_cast<Object *>(cur_entity)) {
+			
+			for(int i=0; i< p_object->mesh_generator->param_layout.getSize(); i++){
+				all_params.push_back(p_object->mesh_generator->param_layout.getParam(i));
+				//~ if(ImGui::Selectable(p_object->mesh_generator->param_layout.getParam(i)->getName().c_str(),false)){
+				//~ 
+				//~ }
+			}		
+			
+			for (int i = 0; i < p_object->meshFilters.size(); i++)
 			{
-				choice = i;
-				ParamVec3 * p_vec3 = nullptr;
-				if( choice == 0) {
-					
-					if( p_vec3 = dynamic_cast<ParamVec3 *>(cur_param)){
-						cur_param->setInterpolationType(LINEAR);
-						
-						p_vec3->param_x->setInterpolationType(LINEAR);
-						p_vec3->param_y->setInterpolationType(LINEAR);
-						p_vec3->param_z->setInterpolationType(LINEAR);
-					}else{
-						
-						cur_param->setInterpolationType(LINEAR);
-					}
-				}else if( choice == 1){
-					if( p_vec3 = dynamic_cast<ParamVec3 *>(cur_param)){
-						cur_param->setInterpolationType(SMOOTHSTEP);
-						
-						p_vec3->param_x->setInterpolationType(SMOOTHSTEP);
-						p_vec3->param_y->setInterpolationType(SMOOTHSTEP);
-						p_vec3->param_z->setInterpolationType(SMOOTHSTEP);
-					}else{					
-						cur_param->setInterpolationType(SMOOTHSTEP);
-					}
+				
+				for (int j = 0; j < p_object->meshFilters[i]->param_layout.getSize(); j++)
+				{
+					all_params.push_back(p_object->meshFilters[i]->param_layout.getParam(j));
 				}
 				
-				
 			}
+					
+		}	
+		
+		static int selected_param = 0;
+		
+		if( selected_param >= all_params.size() ){
+			selected_param = all_params.size()-1;
 		}
 		
-		
-		ImGui::EndCombo();
-	}	
-		
-	
+		static int selected_key_id = 0;
+		if( selected_key_id > all_params[selected_param]->keyframes.size()-1){
+			selected_key_id =  all_params[selected_param]->keyframes.size()-1;
+		}
+		if( ImGui::BeginCombo("params", all_params[selected_param]->getName().c_str(), 1) ){
+			for(int i=0; i< all_params.size(); i++){
+				if(ImGui::Selectable(all_params[i]->getName().c_str(),selected_param == i)){
+					selected_param = i;
+				}
+			}
 
-	
-
-	
-	ImDrawList* draw_list = ImGui::GetWindowDrawList();
-	const ImVec2 p = ImGui::GetCursorScreenPos();
-	ImVec2 size = ImGui::GetWindowSize();
-	
-	draw_list->AddRectFilled(ImVec2(p.x, p.y), ImVec2(p.x+size.x - 18.0f, p.y+100.0f), ImColor(ImVec4(1.0f,1.0f,0.5f,1.0f)));		
+		
+			ImGui::EndCombo();
+		}
+		
+		BaseParam * cur_param = all_params[selected_param];		
+		
+		std::vector<std::string> interpolation_choices = {"LINEAR", "SMOOTHSTEP"};
+		static int choice = cur_param->getInterpolationType();
+		if(ImGui::BeginCombo("interpolation type", interpolation_choices[cur_param->getInterpolationType()].c_str(), 1))
+		{
+			
+			for (int i = 0; i < interpolation_choices.size(); i++)
+			{
+				if(ImGui::Selectable(interpolation_choices[i].c_str(), choice == i))
+				{
+					choice = i;
+					ParamVec3 * p_vec3 = nullptr;
+					if( choice == 0) {
+						
+						if( p_vec3 = dynamic_cast<ParamVec3 *>(cur_param)){
+							cur_param->setInterpolationType(LINEAR);
+							
+							p_vec3->param_x->setInterpolationType(LINEAR);
+							p_vec3->param_y->setInterpolationType(LINEAR);
+							p_vec3->param_z->setInterpolationType(LINEAR);
+						}else{
+							
+							cur_param->setInterpolationType(LINEAR);
+						}
+					}else if( choice == 1){
+						if( p_vec3 = dynamic_cast<ParamVec3 *>(cur_param)){
+							cur_param->setInterpolationType(SMOOTHSTEP);
+							
+							p_vec3->param_x->setInterpolationType(SMOOTHSTEP);
+							p_vec3->param_y->setInterpolationType(SMOOTHSTEP);
+							p_vec3->param_z->setInterpolationType(SMOOTHSTEP);
+						}else{					
+							cur_param->setInterpolationType(SMOOTHSTEP);
+						}
+					}
+					
+					
+				}
+			}
+			
+			
+			ImGui::EndCombo();
+		}	
+			
 		
 
-	
-	
-	ParamFloat * ptr_float = nullptr;
-	ParamVec3 * ptr_vec3  = nullptr;
-	
-	if(ptr_float = dynamic_cast<ParamFloat *>(cur_param))
-	{
-		std::vector<BaseKeyframe*> keys = ptr_float->getKeyframes();
-		//~ printf("num keyframes = %d\n", keys.size());
-		drawKeyframes(ptr_float, selected_key_id);
 		
-	}else if(ptr_vec3 = dynamic_cast<ParamVec3 *>(cur_param)){
+
 		
-		std::vector< std::vector<BaseKeyframe*> > keys_array;
+		ImDrawList* draw_list = ImGui::GetWindowDrawList();
+		const ImVec2 p = ImGui::GetCursorScreenPos();
+		ImVec2 size = ImGui::GetWindowSize();
 		
-		drawKeyframes(ptr_vec3->param_x, selected_key_id);
-		drawKeyframes(ptr_vec3->param_y, selected_key_id);
-		drawKeyframes(ptr_vec3->param_z, selected_key_id);
+		draw_list->AddRectFilled(ImVec2(p.x, p.y), ImVec2(p.x+size.x - 18.0f, p.y+100.0f), ImColor(ImVec4(1.0f,1.0f,0.5f,1.0f)));		
+			
+
+		
+		
+		ParamFloat * ptr_float = nullptr;
+		ParamVec3 * ptr_vec3  = nullptr;
+		
+		if(ptr_float = dynamic_cast<ParamFloat *>(cur_param))
+		{
+			std::vector<BaseKeyframe*> keys = ptr_float->getKeyframes();
+			//~ printf("num keyframes = %d\n", keys.size());
+			drawKeyframes(ptr_float, selected_key_id);
+			
+		}else if(ptr_vec3 = dynamic_cast<ParamVec3 *>(cur_param)){
+			
+			std::vector< std::vector<BaseKeyframe*> > keys_array;
+			
+			drawKeyframes(ptr_vec3->param_x, selected_key_id);
+			drawKeyframes(ptr_vec3->param_y, selected_key_id);
+			drawKeyframes(ptr_vec3->param_z, selected_key_id);
 
 
+		}
+
+		
+		// make invisible area 
+		ImVec2 canvas_pos = ImGui::GetCursorScreenPos();            // ImDrawList API uses screen coordinates!
+		ImVec2 canvas_size = ImGui::GetContentRegionAvail(); 	
+		ImGui::InvisibleButton("invisible_area", ImVec2(canvas_size[0], 100));
+		
+		if( ImGui::IsItemHovered() ){
+			//~ printf("hovered !!!!\n");
+		 }	
+		
+		
+		ImGui::Separator();
+		
+		if(ImGui::Button("P")){
+			
+			selected_key_id--;
+			printf("previous %d\n", selected_key_id);
+		}
+		ImGui::SameLine();
+		if(ImGui::Button("N")){
+			
+			selected_key_id++;
+			printf("next %d\n", selected_key_id);
+		}	
+		
 	}
-
-	
-	// make invisible area 
-	ImVec2 canvas_pos = ImGui::GetCursorScreenPos();            // ImDrawList API uses screen coordinates!
-	ImVec2 canvas_size = ImGui::GetContentRegionAvail(); 	
-	ImGui::InvisibleButton("invisible_area", ImVec2(canvas_size[0], 100));
-	
-	if( ImGui::IsItemHovered() ){
-		//~ printf("hovered !!!!\n");
-	 }	
-	
-	
-	ImGui::Separator();
-	
-	if(ImGui::Button("P")){
+		ImGui::End();
 		
-		selected_key_id--;
-		printf("previous %d\n", selected_key_id);
-	}
-	ImGui::SameLine();
-	if(ImGui::Button("N")){
-		
-		selected_key_id++;
-		printf("next %d\n", selected_key_id);
-	}	
-	
-	ImGui::End();
 }
 
 void Window::refresh()
@@ -1979,6 +1990,8 @@ void Window::removeObject(Entity3D* obj)
 		
 		if(cur_object_selected > 0)
 			cur_object_selected -= 1;	
+			
+		//~ printf("Objects number is %d \n", objects.size());
 }
 
 Entity3D Window::duplicateObject(Entity3D * obj){
@@ -2015,42 +2028,44 @@ Entity3D Window::duplicateObject(Entity3D * obj){
 
 void Window::renderObjects()
 {
-	glm::mat4 view = glm::mat4(1.0f);
-	glm::mat4 model =  glm::mat4(1.0f);
-	//~ projection*= glm::perspective(45.0f, (float)width / (float)height, 0.01f, 100.0f);
+
+		glm::mat4 view = glm::mat4(1.0f);
+		glm::mat4 model =  glm::mat4(1.0f);
+		//~ projection*= glm::perspective(45.0f, (float)width / (float)height, 0.01f, 100.0f);
+
+		
+		glm::vec3 up_vector = glm::vec3(0.0f,0.0f,1.0f);
+
+		view *= glm::lookAt(
+								camera.position, 
+								camera.target_position, 
+								glm::normalize(up_vector)
+							);			
+
+
+		
+		// draw world grid
+				point_shader.useProgram();
+				glUniformMatrix4fv(glGetUniformLocation(point_shader.m_id,"projection"), 1, GL_FALSE, glm::value_ptr(camera.projection));	
+				glUniformMatrix4fv(glGetUniformLocation(point_shader.m_id,"model"), 1, GL_FALSE, glm::value_ptr(model));	
+				glUniformMatrix4fv(glGetUniformLocation(point_shader.m_id,"view"), 1, GL_FALSE, glm::value_ptr(view));	
+										
+				GLuint COLOR_LOC = glGetUniformLocation(point_shader.m_id,"u_color");
+				glUniform4f(COLOR_LOC, 1.0, 1.0, 1.0, 0.5);	
+				
+				drawWorldGrid();
+				
+				glUseProgram(0);
+		////
 
 	
-	glm::vec3 up_vector = glm::vec3(0.0f,0.0f,1.0f);
-
-	view *= glm::lookAt(
-							camera.position, 
-							camera.target_position, 
-							glm::normalize(up_vector)
-						);			
-
-
-	
-	// draw world grid
-			point_shader.useProgram();
-			glUniformMatrix4fv(glGetUniformLocation(point_shader.m_id,"projection"), 1, GL_FALSE, glm::value_ptr(camera.projection));	
-			glUniformMatrix4fv(glGetUniformLocation(point_shader.m_id,"model"), 1, GL_FALSE, glm::value_ptr(model));	
-			glUniformMatrix4fv(glGetUniformLocation(point_shader.m_id,"view"), 1, GL_FALSE, glm::value_ptr(view));	
-									
-			GLuint COLOR_LOC = glGetUniformLocation(point_shader.m_id,"u_color");
-			glUniform4f(COLOR_LOC, 1.0, 1.0, 1.0, 0.5);	
-			
-			drawWorldGrid();
-			
-			glUseProgram(0);
-	////
-	//~ printf("RENDERING ENTITY -----\n");
 	for (int i = 0; i < objects.size(); i++)
 	{	
-
+		//~ printf("RENDERING ENTITY %d -----\n", i);
 		Entity3D* curEntity = objects[i];
 		model = glm::mat4(1.0f);
 		
-	
+		
 
 		//// apply own transforms
 		model = curEntity->transforms * model;

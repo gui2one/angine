@@ -5,6 +5,11 @@ MeshFilter::MeshFilter()
 	
 }
 
+MeshFilter::MeshFilter(const MeshFilter& other){
+	//~ printf("MeshFilter COPY CONSTRUCTOR\n");
+	
+	setName(other.name);
+}
 void MeshFilter::setName(std::string str_name)
 {
 	//~ for (int i = 0; i < 200; i++)

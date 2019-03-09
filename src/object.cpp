@@ -13,7 +13,7 @@ Object::Object()
 }
 
 Object::Object(const Object& other): Entity3D(other){
-	printf("-------> copying Object members <------------\n");
+	//~ printf("-------> copying Object members <------------\n");
 	init();
 	mesh = other.mesh;
 	shader = other.shader;
@@ -35,7 +35,7 @@ Object::Object(const Object& other): Entity3D(other){
 	FileMesh * file_ptr = nullptr;
 	
 	if( sphere_ptr = dynamic_cast<SphereMesh*>(gen_ptr)){
-		printf("this is a cylinderMesh generator type\n");
+		//~ printf("this is a SphereMesh generator type\n");
 		mesh_generator = new SphereMesh((const SphereMesh&)*other.mesh_generator);
 		generator_type = 1;
 		has_generator = true;
@@ -45,7 +45,7 @@ Object::Object(const Object& other): Entity3D(other){
 		mesh_generator->generate();
 		
 	}else if( geosphere_ptr = dynamic_cast<GeoSphereMesh*>(gen_ptr)){
-		printf("this is a GeoSphereMesh generator type\n");
+		//~ printf("this is a GeoSphereMesh generator type\n");
 		mesh_generator = new GeoSphereMesh((const GeoSphereMesh&)*other.mesh_generator);
 		generator_type = 2;
 		has_generator = true;
@@ -55,7 +55,7 @@ Object::Object(const Object& other): Entity3D(other){
 		mesh_generator->generate();
 		
 	}else if( grid_ptr = dynamic_cast<GridMesh*>(gen_ptr)){
-		printf("this is a GridMesh Mesh generator type\n");
+		//~ printf("this is a GridMesh Mesh generator type\n");
 		mesh_generator = new GridMesh((const GridMesh&)*other.mesh_generator);
 		generator_type = 3;
 		has_generator = true;
@@ -65,7 +65,7 @@ Object::Object(const Object& other): Entity3D(other){
 		mesh_generator->generate();
 		
 	}else if( box_ptr = dynamic_cast<BoxMesh*>(gen_ptr)){
-		printf("this is a BoxMesh generator type\n");
+		//~ printf("this is a BoxMesh generator type\n");
 		mesh_generator = new BoxMesh((const BoxMesh&)*other.mesh_generator);
 		generator_type = 4;
 		has_generator = true;
@@ -75,7 +75,7 @@ Object::Object(const Object& other): Entity3D(other){
 		mesh_generator->generate();
 		
 	}else if( cyl_ptr = dynamic_cast<CylinderMesh*>(gen_ptr)){
-		printf("this is a cylinderMesh generator type\n");
+		//~ printf("this is a cylinderMesh generator type\n");
 		mesh_generator = new CylinderMesh((const CylinderMesh&)*other.mesh_generator);
 		generator_type = 5;
 		has_generator = true;
@@ -85,7 +85,7 @@ Object::Object(const Object& other): Entity3D(other){
 		mesh_generator->generate();
 		
 	}else if( file_ptr = dynamic_cast<FileMesh*>(gen_ptr)){
-		printf("this is a cylinderMesh generator type\n");
+		//~ printf("this is a FileMesh generator type\n");
 		mesh_generator = new FileMesh((const FileMesh&)*other.mesh_generator);
 		generator_type = 6;
 		has_generator = true;
@@ -98,8 +98,68 @@ Object::Object(const Object& other): Entity3D(other){
 
 	for (int i = 0; i < other.meshFilters.size(); i++)
 	{
-		MeshFilter mesh_filter = *other.meshFilters[i];
-		meshFilters.push_back(&mesh_filter);
+		//~ MeshFilter mesh_filter = *other.meshFilters[i];
+		//~ meshFilters.push_back(&mesh_filter);
+		
+		MeshFilter * filter_ptr = other.meshFilters[i];
+		TransformMeshFilter * transform_ptr = nullptr;
+		InflateMeshFilter * inflate_ptr = nullptr;
+		TwistMeshFilter * twist_ptr = nullptr;
+		ComputeNormalsMeshFilter * compute_normals_ptr = nullptr;
+		SpherifyMeshFilter * spherify_ptr = nullptr;
+		DuplicateMeshFilter * duplicate_ptr = nullptr;
+		FromPolarMeshFilter * from_polar_ptr = nullptr;
+		MirrorMeshFilter * mirror_ptr = nullptr;
+		
+		if(transform_ptr = dynamic_cast<TransformMeshFilter*>(filter_ptr)){
+			//~ printf("this is a TransformMeshFilter ; yes !!!!!\n");
+			TransformMeshFilter * new_filter = new TransformMeshFilter((const TransformMeshFilter&)*other.meshFilters[i]);
+			new_filter->applyFilter(mesh);
+			meshFilters.push_back(new_filter);
+			hasFilters = true;
+		}else if(inflate_ptr = dynamic_cast<InflateMeshFilter*>(filter_ptr)){
+			//~ printf("this is a InflateMeshFilter ; yes !!!!!\n");
+			InflateMeshFilter * new_filter = new InflateMeshFilter((const InflateMeshFilter&)*other.meshFilters[i]);
+			new_filter->applyFilter(mesh);
+			meshFilters.push_back(new_filter);
+			hasFilters = true;
+		}else if(twist_ptr = dynamic_cast<TwistMeshFilter*>(filter_ptr)){
+			//~ printf("this is a TwistMeshFilter ; yes !!!!!\n");
+			TwistMeshFilter * new_filter = new TwistMeshFilter((const TwistMeshFilter&)*other.meshFilters[i]);
+			new_filter->applyFilter(mesh);
+			meshFilters.push_back(new_filter);
+			hasFilters = true;
+		}else if(compute_normals_ptr = dynamic_cast<ComputeNormalsMeshFilter*>(filter_ptr)){
+			//~ printf("this is a Compute Normals Filter ; yes !!!!!\n");
+			ComputeNormalsMeshFilter * new_filter = new ComputeNormalsMeshFilter((const ComputeNormalsMeshFilter&)*other.meshFilters[i]);
+			new_filter->applyFilter(mesh);
+			meshFilters.push_back(new_filter);
+			hasFilters = true;
+		}else if(spherify_ptr = dynamic_cast<SpherifyMeshFilter*>(filter_ptr)){
+			//~ printf("this is a Compute Normals Filter ; yes !!!!!\n");
+			SpherifyMeshFilter * new_filter = new SpherifyMeshFilter((const SpherifyMeshFilter&)*other.meshFilters[i]);
+			new_filter->applyFilter(mesh);
+			meshFilters.push_back(new_filter);
+			hasFilters = true;
+		}else if(duplicate_ptr = dynamic_cast<DuplicateMeshFilter*>(filter_ptr)){
+			//~ printf("this is a DuplicateMeshFilter ; yes !!!!!\n");
+			DuplicateMeshFilter * new_filter = new DuplicateMeshFilter((const DuplicateMeshFilter&)*other.meshFilters[i]);
+			new_filter->applyFilter(mesh);
+			meshFilters.push_back(new_filter);
+			hasFilters = true;
+		}else if(from_polar_ptr = dynamic_cast<FromPolarMeshFilter*>(filter_ptr)){
+			//~ printf("this is a FromPolarMeshFilter ; yes !!!!!\n");
+			FromPolarMeshFilter * new_filter = new FromPolarMeshFilter((const FromPolarMeshFilter&)*other.meshFilters[i]);
+			new_filter->applyFilter(mesh);
+			meshFilters.push_back(new_filter);
+			hasFilters = true;
+		}else if(mirror_ptr = dynamic_cast<MirrorMeshFilter*>(filter_ptr)){
+			//~ printf("this is a MirrorMeshFilter ; yes !!!!!\n");
+			MirrorMeshFilter * new_filter = new MirrorMeshFilter((const MirrorMeshFilter&)*other.meshFilters[i]);
+			new_filter->applyFilter(mesh);
+			meshFilters.push_back(new_filter);
+			hasFilters = true;
+		}
 	}
 	
 	

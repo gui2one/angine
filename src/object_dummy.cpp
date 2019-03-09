@@ -7,20 +7,10 @@ ObjectDummy::ObjectDummy()
 	
 }
 
-ObjectDummy::ObjectDummy(const ObjectDummy& other){
-	printf("ObjectDummy COPY CONSTRUCTOR\n");
-	param_layout = other.param_layout;
+ObjectDummy::ObjectDummy(const ObjectDummy& other) : Entity3D(other){
+	//~ printf("ObjectDummy COPY CONSTRUCTOR\n");
 	
-	
-	
-	//~ for (int i = 0; i < dummy.param_layout.getSize(); i++)
-	//~ {
-		//~ param_layout.push(dummy.param_layout.getParam(i));
-	//~ }
-	
-	printf("PARAM LAYOUT size --> %d\n", param_layout.getSize());
-	
-	m_vbo = other.m_vbo;
+	//~ init();
 }
 
 

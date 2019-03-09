@@ -9,6 +9,7 @@ class SpherifyMeshFilter: public MeshFilter
 {
 	public:
 		SpherifyMeshFilter();
+		SpherifyMeshFilter(const SpherifyMeshFilter& other);
 		
 		Mesh applyFilter(Mesh & source_mesh)override;
 		

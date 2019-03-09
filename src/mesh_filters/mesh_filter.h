@@ -12,7 +12,7 @@ class MeshFilter{
 	
 	public :
 		MeshFilter();
-		
+		MeshFilter(const MeshFilter& other);
 		virtual Mesh applyFilter(Mesh & mesh);
 		inline virtual ~MeshFilter(){
 			for (size_t i = 0; i < param_layout.getSize(); i++)

@@ -19,7 +19,7 @@ CylinderMesh::CylinderMesh(): MeshGenerator()
 
 
 CylinderMesh::CylinderMesh(const CylinderMesh& other):MeshGenerator(other){
-	printf("CylinderMesh COPY CONSTRUCTOR\n");
+	//~ printf("CylinderMesh COPY CONSTRUCTOR\n");
 	param_radius = new ParamFloat(*other.param_radius); 
 	//~ param_radius->setValue(other.param_radius->value);
 	param_layout.push(param_radius);

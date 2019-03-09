@@ -9,6 +9,7 @@ class FromPolarMeshFilter: public MeshFilter
 {
 	public:
 		FromPolarMeshFilter();
+		FromPolarMeshFilter(const FromPolarMeshFilter& other);
 		
 		Mesh applyFilter(Mesh & source_mesh)override;
 		

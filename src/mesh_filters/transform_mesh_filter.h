@@ -9,6 +9,7 @@ class TransformMeshFilter: public MeshFilter
 {
 	public:
 		TransformMeshFilter();
+		TransformMeshFilter(const TransformMeshFilter& other);
 		
 		Mesh applyFilter(Mesh & source_mesh)override;
 		

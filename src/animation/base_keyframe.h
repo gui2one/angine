@@ -24,7 +24,7 @@ class Keyframe : public BaseKeyframe
 	public :
 		inline Keyframe<T>() : BaseKeyframe(){}
 		inline Keyframe<T>(const Keyframe<T>& other): BaseKeyframe(other){
-			printf("!! Keyframe<float> copy constructor !!!!!!!!!!!!!!n");
+			//~ printf("!! Keyframe<float> copy constructor !!!!!!!!!!!!!!\n");
 			setValue(other.getValue());
 		}
 		inline void setValue(T _val){ value = _val; }

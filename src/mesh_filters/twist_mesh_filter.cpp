@@ -4,17 +4,22 @@
 TwistMeshFilter::TwistMeshFilter()
 	: MeshFilter()
 {
-	//~ Param<float> amount{"amount",0.0};
-	//~ paramsFloat.push_back(amount);
-	//~ 
-	//~ Param<int> axis_choice{"axis choice",0};
-	//~ paramsInt.push_back(axis_choice);	
+
 
 	p_amount = new ParamFloat("amount", 0.1);
 	param_layout.push(p_amount);
 	
 	p_axis_choice = new ParamInt("axis choice", 0);
 	param_layout.push(p_axis_choice);	
+}
+
+TwistMeshFilter::TwistMeshFilter(const TwistMeshFilter& other): MeshFilter(other){
+	
+	p_amount = new ParamFloat(*other.p_amount);
+	param_layout.push(p_amount);
+	
+	p_axis_choice = new ParamInt(*other.p_axis_choice);
+	param_layout.push(p_axis_choice);		
 }
 
 Mesh TwistMeshFilter::applyFilter(Mesh & source_mesh)

@@ -25,6 +25,23 @@ DuplicateMeshFilter::DuplicateMeshFilter()
 	param_layout.push(p_scale);	
 }
 
+DuplicateMeshFilter::DuplicateMeshFilter(const DuplicateMeshFilter& other):MeshFilter(other){
+	p_num = new ParamInt(*other.p_num);
+	param_layout.push(p_num);
+	
+	p_menu = new ParamMenu(*other.p_menu);
+	param_layout.push(p_menu);
+	
+	p_translate = new ParamVec3(*other.p_translate);
+	param_layout.push(p_translate);
+	
+	p_rotate = new ParamVec3(*other.p_rotate);
+	param_layout.push(p_rotate);	
+	
+	p_scale = new ParamVec3(*other.p_scale);
+	param_layout.push(p_scale);		
+}
+
 static void offset_indices(std::vector<unsigned int> & indices, int offset)
 {
 	for (int i = 0; i < indices.size(); i++)

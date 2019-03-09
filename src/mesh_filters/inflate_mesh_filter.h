@@ -9,6 +9,7 @@ class InflateMeshFilter: public MeshFilter
 {
 	public:
 		InflateMeshFilter();
+		InflateMeshFilter(const InflateMeshFilter& other);
 		
 		Mesh applyFilter(Mesh & source_mesh)override;
 		

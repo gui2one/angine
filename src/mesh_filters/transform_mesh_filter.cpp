@@ -20,6 +20,21 @@ TransformMeshFilter::TransformMeshFilter()
 	param_layout.push(p_scale);	
 }
 
+TransformMeshFilter::TransformMeshFilter(const TransformMeshFilter& other):MeshFilter(other){
+	
+	p_menu = new ParamMenu(*other.p_menu);
+	param_layout.push(p_menu);
+
+	p_translate = new ParamVec3(*other.p_translate);
+	param_layout.push(p_translate);
+	
+	p_rotate = new ParamVec3(*other.p_rotate);
+	param_layout.push(p_rotate);	
+	
+	p_scale = new ParamVec3(*other.p_scale);
+	param_layout.push(p_scale);		
+}
+
 Mesh TransformMeshFilter::applyFilter(Mesh & source_mesh)
 {
 	Mesh mesh;

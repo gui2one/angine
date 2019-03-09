@@ -13,6 +13,16 @@ MirrorMeshFilter::MirrorMeshFilter()
 
 }
 
+MirrorMeshFilter::MirrorMeshFilter(const MirrorMeshFilter& other):MeshFilter(other){
+	
+	p_axis_menu = new ParamMenu(*other.p_axis_menu);
+	param_layout.push(p_axis_menu);
+
+	
+	p_distance = new ParamFloat(*other.p_distance);
+	param_layout.push(p_distance);
+}
+
 static void offset_indices(std::vector<unsigned int> & indices, int offset)
 {
 	for (int i = 0; i < indices.size(); i++)

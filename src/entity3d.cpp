@@ -18,7 +18,7 @@ Entity3D::Entity3D()
 // copy constructor
 Entity3D::Entity3D(const Entity3D& other){
 	
-	printf("Entity3D COPY CONSTRUCTOR\n");
+	//~ printf("Entity3D COPY CONSTRUCTOR\n");
 	Entity3D * parent = other.parent;
 	Entity3D * look_at_target = other.look_at_target;
 	
@@ -26,11 +26,7 @@ Entity3D::Entity3D(const Entity3D& other){
 	position = other.position;
 	rotation = other.rotation;
 	scale = other.scale;
-	
-	//~ ParamLayout param_layout(other.param_layout);
-	//~ param_layout = other.param_layout;
-	
-	//~ param_layout.clearParams();
+
 	p_pos = new ParamVec3(*other.p_pos);	
 	param_layout.push(p_pos);
 	

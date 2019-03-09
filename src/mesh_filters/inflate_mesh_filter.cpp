@@ -10,6 +10,11 @@ InflateMeshFilter::InflateMeshFilter()
 
 }
 
+InflateMeshFilter::InflateMeshFilter(const InflateMeshFilter& other): MeshFilter(other){
+	p_amount = new ParamFloat(*other.p_amount);
+	param_layout.push(p_amount);	
+}
+
 Mesh InflateMeshFilter::applyFilter(Mesh & source_mesh)
 {
 	Mesh mesh;

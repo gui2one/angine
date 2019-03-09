@@ -10,6 +10,7 @@ class TwistMeshFilter: public MeshFilter
 {
 	public:
 		TwistMeshFilter();
+		TwistMeshFilter(const TwistMeshFilter& other);
 		
 		Mesh applyFilter(Mesh & source_mesh) override;
 			

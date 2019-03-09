@@ -9,6 +9,7 @@ class DuplicateMeshFilter: public MeshFilter
 {
 	public:
 		DuplicateMeshFilter();
+		DuplicateMeshFilter(const DuplicateMeshFilter& other);
 		
 		Mesh applyFilter(Mesh & source_mesh)override;
 		

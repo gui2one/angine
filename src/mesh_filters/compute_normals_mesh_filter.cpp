@@ -8,6 +8,11 @@ ComputeNormalsMeshFilter::ComputeNormalsMeshFilter()
 	param_layout.push(p_invert);
 }
 
+ComputeNormalsMeshFilter::ComputeNormalsMeshFilter(const ComputeNormalsMeshFilter& other): MeshFilter(other){
+	p_invert = new ParamBool(*other.p_invert);
+	param_layout.push(p_invert);	
+}
+
 Mesh ComputeNormalsMeshFilter::applyFilter(Mesh & source_mesh)
 {
 			Mesh mesh;
