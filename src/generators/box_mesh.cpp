@@ -259,6 +259,7 @@ Mesh BoxMesh::generateBox(float width, float height, float length, int segs_widt
 	mesh.vertices = vertices;
 	mesh.indices = indices;
 	
+	mesh.computeNormals();
 	
 	return mesh;
 }

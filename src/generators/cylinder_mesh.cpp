@@ -175,7 +175,7 @@ Mesh CylinderMesh::generateCylinder(float radius, float height, int segs_height,
 	mesh.vertices = vertices;
 	mesh.indices = indices;
 	
-	
+	mesh.computeNormals();
 	return mesh;
 }
 

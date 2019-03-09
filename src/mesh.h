@@ -12,6 +12,8 @@
 class Mesh{
 	public :
 		Mesh();
+		
+		void computeNormals();
 		//~ ~Mesh();
 		
 		void clearAll();
