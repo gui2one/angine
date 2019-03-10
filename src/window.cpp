@@ -7,6 +7,8 @@
 
 #include <array>
 
+#include "gizmos/gizmo.h"
+
 #include "object.h"
 #include "object_dummy.h"
 #include "object_light.h"
@@ -91,6 +93,10 @@ Window::Window()
 	glfwSetScrollCallback(win, scroll_callback);
 	
 	
+	wireframe_shader.loadVertexShaderSource("../src/res/shaders/wireframe_shader.vert");
+	wireframe_shader.loadFragmentShaderSource("../src/res/shaders/wireframe_shader.frag");		
+	wireframe_shader.createShader();
+		
 	point_shader.loadVertexShaderSource("../src/res/shaders/line_shader.vert");
 	point_shader.loadFragmentShaderSource("../src/res/shaders/line_shader.frag");		
 	point_shader.createShader();	
@@ -137,6 +143,11 @@ Window::Window()
 	time_line.end = 60;
 	time_line.frame_rate = 25.0;
 	
+
+	// gizmo test
+	Gizmo * gizmo = new Gizmo();
+	gizmo->buildVbo();
+	gizmos.push_back(gizmo);
 
 	// default first object
 	Object* obj = new Object();
@@ -2028,7 +2039,7 @@ Entity3D Window::duplicateObject(Entity3D * obj){
 
 void Window::renderObjects()
 {
-
+		glEnable(GL_DEPTH_TEST);
 		glm::mat4 view = glm::mat4(1.0f);
 		glm::mat4 model =  glm::mat4(1.0f);
 		//~ projection*= glm::perspective(45.0f, (float)width / (float)height, 0.01f, 100.0f);
@@ -2118,13 +2129,13 @@ void Window::renderObjects()
 				
 			if(curObj->bDisplayWireframe)
 			{
-				point_shader.useProgram();
-				glUniformMatrix4fv(glGetUniformLocation(point_shader.m_id,"projection"), 1, GL_FALSE, glm::value_ptr(camera.projection));	
-				glUniformMatrix4fv(glGetUniformLocation(point_shader.m_id,"model"), 1, GL_FALSE, glm::value_ptr(model));	
-				glUniformMatrix4fv(glGetUniformLocation(point_shader.m_id,"view"), 1, GL_FALSE, glm::value_ptr(view));					
+				wireframe_shader.useProgram();
+				glUniformMatrix4fv(glGetUniformLocation(wireframe_shader.m_id,"projection"), 1, GL_FALSE, glm::value_ptr(camera.projection));	
+				glUniformMatrix4fv(glGetUniformLocation(wireframe_shader.m_id,"model"), 1, GL_FALSE, glm::value_ptr(model));	
+				glUniformMatrix4fv(glGetUniformLocation(wireframe_shader.m_id,"view"), 1, GL_FALSE, glm::value_ptr(view));					
 
-				glUniform3f(glGetUniformLocation(point_shader.m_id,"u_camera_pos"), camera.position.x, camera.position.y, camera.position.z);	
-				COLOR_LOC = glGetUniformLocation(point_shader.m_id,"u_color");
+				glUniform3f(glGetUniformLocation(wireframe_shader.m_id,"u_camera_pos"), camera.position.x, camera.position.y, camera.position.z);	
+				COLOR_LOC = glGetUniformLocation(wireframe_shader.m_id,"u_color");
 				glPointSize(5);
 				glUniform4f(COLOR_LOC, 0.0,0.0,1.0,1.0);
 				
@@ -2184,6 +2195,32 @@ void Window::renderObjects()
 			glUseProgram(0);
 		}
 	}
+
+	glDisable(GL_DEPTH_TEST);
+	for (int i = 0; i < gizmos.size(); i++)
+	{
+		
+		if( cur_object_selected != -1){
+			
+			model = glm::mat4(1.0f);
+			model = objects[cur_object_selected]->transforms * model;
+			
+			
+			point_shader.useProgram();
+			
+			glUniformMatrix4fv(glGetUniformLocation(point_shader.m_id,"projection"), 1, GL_FALSE, glm::value_ptr(camera.projection));	
+			//~ glUniformMatrix4fv(glGetUniformLocation(point_shader.m_id,"model"), 1, GL_FALSE, glm::value_ptr(model));	
+			glUniformMatrix4fv(glGetUniformLocation(point_shader.m_id,"view"), 1, GL_FALSE, glm::value_ptr(view));	
+									
+			//~ GLuint COLOR_LOC = glGetUniformLocation(point_shader.m_id,"u_color");
+			//~ 
+			//~ glUniform4f(COLOR_LOC, 1.0, 0.0, 0.0, 1.0);			
+			gizmos[i]->draw(point_shader, *objects[cur_object_selected]);
+			
+			glUseProgram(0);
+		}
+	}
+	
 }
 
 Window::~Window()

@@ -5,6 +5,8 @@
 #include <type_traits>
 #include "pch.h"
 
+#include "gizmos/gizmo.h"
+
 #include "object.h"
 #include "shader.h"
 #include "texture.h"
@@ -72,11 +74,13 @@ class Window
 		int findObjectIndexByID(int id);
 		void buildObjectList();
 		
+		
+		std::vector<Gizmo *> gizmos;
 				
 		void renderObjects();
 		
 
-		Shader default_shader,point_shader;
+		Shader default_shader,point_shader, wireframe_shader;
 		
 		//~ unsigned int shader_id;
 		

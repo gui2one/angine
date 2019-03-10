@@ -308,42 +308,7 @@ void Object::buildVbo()
 	
 	
 	
-	//~ std::vector<uniform> us;
-	//~ us = getShaderUniforms();
-	//~ 
-	//~ for (int i = 0; i < us.size(); i++)
-	//~ {	
-		//~ std::cout << "Uniform --> "  << us[i].uniform_name << "\n";
-		//~ std::cout << "\tLength --> "  << us[i].length << "\n";
-		//~ std::cout << "\tSize --> "  << us[i].size << "\n";
-		//~ 
-		//~ switch(us[i].type){
-			//~ case GL_FLOAT:
-				//~ std::cout << "\tType --> float\n";
-				//~ break;						
-			//~ case GL_FLOAT_VEC2:
-				//~ std::cout << "\tType --> vec2\n";
-				//~ break;			
-			//~ case GL_FLOAT_VEC3:
-				//~ std::cout << "\tType --> vec3\n";
-				//~ break;
-			//~ case GL_FLOAT_VEC4:
-				//~ std::cout << "\tType --> vec4\n";
-				//~ break;					
-			//~ case GL_FLOAT_MAT4:
-				//~ std::cout << "\tType --> mat4\n";
-				//~ break;					
-							//~ 
-			//~ case GL_SAMPLER_2D:
-				//~ std::cout << "\tType --> sampler2D\n";
-				//~ break;								
-			//~ default:
-				//~ std::cout << "\tType --> UNKNOWN\n";
-				//~ break;
-		//~ }
-		//~ 
-	//~ }
-	//~ 
+	
 	
 	for (int i = 0; i < mesh.vertices.size(); i++)
 	{

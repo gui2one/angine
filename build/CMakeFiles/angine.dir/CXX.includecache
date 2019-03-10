@@ -300,6 +300,22 @@ spheremesh.h
 mesh_generator.h
 /home/pi/projects/angine/src/generators/mesh_generator.h
 
+/home/pi/projects/angine/src/gizmos/gizmo.cpp
+gizmo.h
+/home/pi/projects/angine/src/gizmos/gizmo.h
+../utils/mesh_utils.h
+/home/pi/projects/angine/src/utils/mesh_utils.h
+
+/home/pi/projects/angine/src/gizmos/gizmo.h
+../pch.h
+/home/pi/projects/angine/src/pch.h
+../mesh.h
+/home/pi/projects/angine/src/mesh.h
+../entity3d.h
+/home/pi/projects/angine/src/entity3d.h
+../shader.h
+/home/pi/projects/angine/src/shader.h
+
 /home/pi/projects/angine/src/include/assimp/./Compiler/poppack1.h
 
 /home/pi/projects/angine/src/include/assimp/./Compiler/pushpack1.h
@@ -703,6 +719,16 @@ pch.h
 /home/pi/projects/angine/src/pch.h
 iostream
 -
+
+/home/pi/projects/angine/src/utils/mesh_utils.cpp
+mesh_utils.h
+/home/pi/projects/angine/src/utils/mesh_utils.h
+
+/home/pi/projects/angine/src/utils/mesh_utils.h
+../pch.h
+/home/pi/projects/angine/src/pch.h
+../mesh.h
+/home/pi/projects/angine/src/mesh.h
 
 /home/pi/projects/angine/src/utils/objLoader.cpp
 objLoader.h
@@ -2349,6 +2375,8 @@ algorithm
 -
 array
 -
+gizmos/gizmo.h
+/home/pi/projects/angine/src/gizmos/gizmo.h
 object.h
 /home/pi/projects/angine/src/object.h
 object_dummy.h
@@ -2371,6 +2399,8 @@ type_traits
 -
 pch.h
 /home/pi/projects/angine/src/pch.h
+gizmos/gizmo.h
+/home/pi/projects/angine/src/gizmos/gizmo.h
 object.h
 /home/pi/projects/angine/src/object.h
 shader.h

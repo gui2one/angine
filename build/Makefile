@@ -460,6 +460,33 @@ home/pi/projects/angine/src/generators/spheremesh.cpp.s:
 	$(MAKE) -f CMakeFiles/angine.dir/build.make CMakeFiles/angine.dir/home/pi/projects/angine/src/generators/spheremesh.cpp.s
 .PHONY : home/pi/projects/angine/src/generators/spheremesh.cpp.s
 
+home/pi/projects/angine/src/gizmos/gizmo.o: home/pi/projects/angine/src/gizmos/gizmo.cpp.o
+
+.PHONY : home/pi/projects/angine/src/gizmos/gizmo.o
+
+# target to build an object file
+home/pi/projects/angine/src/gizmos/gizmo.cpp.o:
+	$(MAKE) -f CMakeFiles/angine.dir/build.make CMakeFiles/angine.dir/home/pi/projects/angine/src/gizmos/gizmo.cpp.o
+.PHONY : home/pi/projects/angine/src/gizmos/gizmo.cpp.o
+
+home/pi/projects/angine/src/gizmos/gizmo.i: home/pi/projects/angine/src/gizmos/gizmo.cpp.i
+
+.PHONY : home/pi/projects/angine/src/gizmos/gizmo.i
+
+# target to preprocess a source file
+home/pi/projects/angine/src/gizmos/gizmo.cpp.i:
+	$(MAKE) -f CMakeFiles/angine.dir/build.make CMakeFiles/angine.dir/home/pi/projects/angine/src/gizmos/gizmo.cpp.i
+.PHONY : home/pi/projects/angine/src/gizmos/gizmo.cpp.i
+
+home/pi/projects/angine/src/gizmos/gizmo.s: home/pi/projects/angine/src/gizmos/gizmo.cpp.s
+
+.PHONY : home/pi/projects/angine/src/gizmos/gizmo.s
+
+# target to generate assembly for a file
+home/pi/projects/angine/src/gizmos/gizmo.cpp.s:
+	$(MAKE) -f CMakeFiles/angine.dir/build.make CMakeFiles/angine.dir/home/pi/projects/angine/src/gizmos/gizmo.cpp.s
+.PHONY : home/pi/projects/angine/src/gizmos/gizmo.cpp.s
+
 home/pi/projects/angine/src/main.o: home/pi/projects/angine/src/main.cpp.o
 
 .PHONY : home/pi/projects/angine/src/main.o
@@ -973,6 +1000,33 @@ home/pi/projects/angine/src/texture.cpp.s:
 	$(MAKE) -f CMakeFiles/angine.dir/build.make CMakeFiles/angine.dir/home/pi/projects/angine/src/texture.cpp.s
 .PHONY : home/pi/projects/angine/src/texture.cpp.s
 
+home/pi/projects/angine/src/utils/mesh_utils.o: home/pi/projects/angine/src/utils/mesh_utils.cpp.o
+
+.PHONY : home/pi/projects/angine/src/utils/mesh_utils.o
+
+# target to build an object file
+home/pi/projects/angine/src/utils/mesh_utils.cpp.o:
+	$(MAKE) -f CMakeFiles/angine.dir/build.make CMakeFiles/angine.dir/home/pi/projects/angine/src/utils/mesh_utils.cpp.o
+.PHONY : home/pi/projects/angine/src/utils/mesh_utils.cpp.o
+
+home/pi/projects/angine/src/utils/mesh_utils.i: home/pi/projects/angine/src/utils/mesh_utils.cpp.i
+
+.PHONY : home/pi/projects/angine/src/utils/mesh_utils.i
+
+# target to preprocess a source file
+home/pi/projects/angine/src/utils/mesh_utils.cpp.i:
+	$(MAKE) -f CMakeFiles/angine.dir/build.make CMakeFiles/angine.dir/home/pi/projects/angine/src/utils/mesh_utils.cpp.i
+.PHONY : home/pi/projects/angine/src/utils/mesh_utils.cpp.i
+
+home/pi/projects/angine/src/utils/mesh_utils.s: home/pi/projects/angine/src/utils/mesh_utils.cpp.s
+
+.PHONY : home/pi/projects/angine/src/utils/mesh_utils.s
+
+# target to generate assembly for a file
+home/pi/projects/angine/src/utils/mesh_utils.cpp.s:
+	$(MAKE) -f CMakeFiles/angine.dir/build.make CMakeFiles/angine.dir/home/pi/projects/angine/src/utils/mesh_utils.cpp.s
+.PHONY : home/pi/projects/angine/src/utils/mesh_utils.cpp.s
+
 home/pi/projects/angine/src/utils/objLoader.o: home/pi/projects/angine/src/utils/objLoader.cpp.o
 
 .PHONY : home/pi/projects/angine/src/utils/objLoader.o
@@ -1262,6 +1316,9 @@ help:
 	@echo "... home/pi/projects/angine/src/generators/spheremesh.o"
 	@echo "... home/pi/projects/angine/src/generators/spheremesh.i"
 	@echo "... home/pi/projects/angine/src/generators/spheremesh.s"
+	@echo "... home/pi/projects/angine/src/gizmos/gizmo.o"
+	@echo "... home/pi/projects/angine/src/gizmos/gizmo.i"
+	@echo "... home/pi/projects/angine/src/gizmos/gizmo.s"
 	@echo "... home/pi/projects/angine/src/main.o"
 	@echo "... home/pi/projects/angine/src/main.i"
 	@echo "... home/pi/projects/angine/src/main.s"
@@ -1319,6 +1376,9 @@ help:
 	@echo "... home/pi/projects/angine/src/texture.o"
 	@echo "... home/pi/projects/angine/src/texture.i"
 	@echo "... home/pi/projects/angine/src/texture.s"
+	@echo "... home/pi/projects/angine/src/utils/mesh_utils.o"
+	@echo "... home/pi/projects/angine/src/utils/mesh_utils.i"
+	@echo "... home/pi/projects/angine/src/utils/mesh_utils.s"
 	@echo "... home/pi/projects/angine/src/utils/objLoader.o"
 	@echo "... home/pi/projects/angine/src/utils/objLoader.i"
 	@echo "... home/pi/projects/angine/src/utils/objLoader.s"

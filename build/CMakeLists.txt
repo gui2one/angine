@@ -40,6 +40,7 @@ add_executable(angine
 
 
 	
+	../src/utils/mesh_utils.cpp
 	
 	../src/camera.cpp
 	../src/shader.cpp
@@ -55,6 +56,7 @@ add_executable(angine
 	
 	../src/utils/objLoader.cpp
 	
+	../src/gizmos/gizmo.cpp
 	
 	../src/mesh.cpp
 	../src/generators/mesh_generator.cpp
