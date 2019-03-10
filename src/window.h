@@ -38,7 +38,7 @@ class Window
 		
 		
 		Entity3D* mouseClickObject();
-		
+		void mouseClickGizmo();
 		void initWorldGrid();
 		void drawWorldGrid();
 		unsigned int world_grid_vbo, world_grid_ibo;
@@ -97,7 +97,7 @@ class Window
 		void timeLineDialog();
 		void evalKeyframes();
 		
-		int cur_object_selected = 0;
+		int cur_object_selected = -1;
 		int cur_mesh_filter_selected = 0;
 		
 		int cur_unique_id = 0;

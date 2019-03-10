@@ -3,8 +3,7 @@
 
 
 
-Object::Object() 
-	: Entity3D()
+Object::Object(): Entity3D()
 {
 	//~ std::cout << "--- Object CREATED ---\n";
 	
@@ -250,7 +249,8 @@ void Object::init()
 	//~ printf("--- END object initialization \n");
 }
 
-void Object::initShader(){
+void Object::initShader()
+{
 	
 	shader.loadVertexShaderSource("../src/res/shaders/basic_shader.vert");
 	shader.loadFragmentShaderSource("../src/res/shaders/basic_shader.frag");	
@@ -433,14 +433,13 @@ void Object::buildVbo()
 	//~ printf("--- END VBO initialization \n");
 }
 
-
-
 BoundingBox Object::getBoundingBox()
 {
 	return boundingBox;
 }
 
-BoundingBox Object::computeAABB(){
+BoundingBox Object::computeAABB()
+{
 	//~ std::cout << "Computing BBOX\n";
 	
 	glm::mat4 all_transforms = glm::mat4(1.0f);
@@ -550,7 +549,6 @@ void Object::printMeshData()
 	
 }
 
-
 void Object::draw(GLuint mode)
 {
 		
@@ -605,7 +603,6 @@ void Object::draw(GLuint mode)
 		
 }
 
-
 void Object::drawBoundingBox()
 {
 		//~ lineShader.useProgram();
@@ -639,7 +636,8 @@ void Object::drawNormals()
 		glUseProgram(0);
 }
 
-void Object::drawPoints(){
+void Object::drawPoints()
+{
 		//~ lineShader.useProgram();
 		//~ glUniform4f(glGetUniformLocation(shader.m_id,"u_color"), 0.0,1.0,0.5,1.0);
 		glBindBuffer(GL_ARRAY_BUFFER, m_vbo);

@@ -30,7 +30,7 @@ class Gizmo
 		unsigned int m_ibo, m_vbo;
 		glm::vec3 getWorldPosition();
 
-		void draw(Shader & _shader, Entity3D& target_object);
+		void draw(Shader & _shader);
 		
 		inline void setID(int _id){	id = _id;}			
 		inline int getID(){	return id;}
@@ -40,6 +40,8 @@ class Gizmo
 		char name[100] = {'n','e','w','_','o','b','j','e','c','t'};
 		glm::vec4 color;
 		
+		
+		Entity3D* target_object = nullptr;
 		
 
 	private:

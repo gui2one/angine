@@ -51,7 +51,8 @@ void Entity3D::setName(std::string str_name)
 	
 }
 
-void Entity3D::applyTransforms(){
+void Entity3D::applyTransforms()
+{
 	
 	glm::mat4 temp = glm::mat4(1.0f);
 	

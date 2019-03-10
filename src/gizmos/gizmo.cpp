@@ -97,13 +97,14 @@ void Gizmo::buildVbo()
 }
 
 
-void Gizmo::draw(Shader & _shader, Entity3D& target_object){
+void Gizmo::draw(Shader & _shader){
 	//~ shader.useProgram();
 		
 
 		glm::mat4 model = glm::mat4(1.0f);
-		model = target_object.transforms * model;
 		
+		model = target_object->transforms * model;
+		target_object->applyParentsMatrices(model);
 		// rotate to lay down X Axis
 		model = glm::rotate(model, (float)(PI) * 0.5f, glm::vec3(0.0f, 1.0f, 0.0f));
 		
@@ -130,7 +131,8 @@ void Gizmo::draw(Shader & _shader, Entity3D& target_object){
 
 		// rotate to lay down Y Axis
 		model = glm::mat4(1.0f);
-		model = target_object.transforms * model;
+		model = target_object->transforms * model;
+		target_object->applyParentsMatrices(model);
 		model = glm::rotate(model, (float)(PI) * -0.5f, glm::vec3(1.0f, 0.0f, 0.0f));
 
 		glUniformMatrix4fv(glGetUniformLocation(_shader.m_id,"model"), 1, GL_FALSE, glm::value_ptr(model));	
@@ -158,7 +160,9 @@ void Gizmo::draw(Shader & _shader, Entity3D& target_object){
 		
 		// rotate to lay down Z Axis : do not rotate, already in the right place
 		model = glm::mat4(1.0f);
-		model = target_object.transforms * model;
+		
+		model = target_object->transforms * model;
+		target_object->applyParentsMatrices(model);
 		//model = glm::rotate(model, (float)(PI) * -0.5f, glm::vec3(1.0f, 0.0f, 0.0f));
 
 		glUniformMatrix4fv(glGetUniformLocation(_shader.m_id,"model"), 1, GL_FALSE, glm::value_ptr(model));	

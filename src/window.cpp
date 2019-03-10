@@ -201,6 +201,78 @@ Window::Window()
 
 
 }
+
+void Window::mouseClickGizmo(){
+	double pos_x, pos_y;
+	glfwGetCursorPos(win, &pos_x, &pos_y);
+	if( cur_object_selected != -1){
+		
+		for (int i = 0; i < gizmos.size(); i++)
+		{
+			printf("click Gizmo !!!\n");
+			
+			glm::mat4 projection = camera.projection;
+			glm::mat4 view = glm::mat4(1.0f);
+
+			
+			
+			// not sure why I need this, but it gets rid off a nasty offset 
+			// found a solution here : https://stackoverflow.com/questions/48514387/can-anyone-explain-this-small-offset-from-ray-casting-by-mouse-click?rq=1
+			// but the guy says he forced projection[3][3] to be 0.0, I have to do 1.0f for this to work
+			
+			projection[3][3] = 1.0f; 
+			//~ 
+			//~ /////
+			//~ 
+			//~ 
+			glm::vec3 up_vector = glm::vec3(0.0f,0.0f,1.0f);
+
+			view *= glm::lookAt(
+									camera.position, 
+									camera.target_position, 
+									glm::normalize(up_vector)
+								);			
+			
+			float x = (2.0f * pos_x) / width - 1.0f;
+			float y = 1.0f - (2.0f * pos_y) / height;			
+			
+			//~ glm::vec3 target_pos = gizmos[i]->target_object->getWorldPosition();
+			glm::mat4 target_transforms = glm::mat4(1.0f);
+			gizmos[i]->target_object->applyTransforms();
+			target_transforms = gizmos[i]->target_object->transforms * target_transforms;			
+			gizmos[i]->target_object->applyParentsMatrices(target_transforms);
+			
+
+			glm::vec3 world_pos = glm::vec3( 
+				target_transforms[3][0],
+				target_transforms[3][1],
+				target_transforms[3][2]
+			);
+			printf("target_pos : %.3f, %.3f, %.3f \n", world_pos.x, world_pos.y, world_pos.z);
+			
+			glm::vec3 planeN = glm::vec3(0.0f, 0.0f, 1.0f);
+			
+			glm::vec3 planeP = world_pos;
+			glm::vec3 pointP = glm::vec3(x, y , 1.0f);
+			glm::vec3 rayDir = glm::vec3(0.0f, 0.0f , -1.0f);			
+								
+			glm::vec4 tempPointP = inverse(projection * view)* glm::vec4(pointP.x, pointP.y, pointP.z, 1.0f) ;
+			tempPointP /= tempPointP.w *0.5f;
+			//~ 
+			//~ 
+			
+			//~ 
+			glm::vec3 hitP = glm::vec3(0.0f);
+			int hit = ray_plane_intersect(planeN, planeP, camera.position, tempPointP, hitP);	
+			
+			if(hit){
+				printf("------> gizmo hit <--------\n");
+				printf("\thitP : %.3f, %.3f, %.3f\n", hitP.x - world_pos.x, hitP.y - world_pos.y, hitP.z - world_pos.z);
+			}			
+		}
+	}
+	
+}
 Entity3D* Window::mouseClickObject()
 {
 	double pos_x, pos_y;
@@ -278,6 +350,11 @@ Entity3D* Window::mouseClickObject()
 			}
 		}
 	}
+	
+	printf("cur_object_selected is %d\n", cur_object_selected);
+	cur_object_selected = -1;
+	
+	//return nullptr;
 	
 }
 
@@ -434,6 +511,7 @@ void Window::mouse_button_callback(GLFWwindow* window, int button, int action, i
 		}
 		
 		if(button == GLFW_MOUSE_BUTTON_LEFT && action == GLFW_PRESS){
+			app->mouseClickGizmo();
 			app->mouseClickObject();
 			
 
@@ -1159,7 +1237,7 @@ void Window::objectPropertiesDialog()
 {	
 	ImGui::Begin("Properties");
 	
-	if( objects.size() == 0){
+	if( objects.size() == 0 || cur_object_selected == -1){
 		ImGui::Text("No Object");
 		ImGui::End();		
 		
@@ -1683,7 +1761,7 @@ void Window::drawKeyframes(BaseParam* _param, int selected_key_id){
 void Window::timeLineDialog()
 {
 	
-	Entity3D * cur_entity = objects[cur_object_selected];
+	
 	
 	ImGui::Begin("Timeline");
 	
@@ -1716,7 +1794,9 @@ void Window::timeLineDialog()
 	
 	ImGui::Text("%d", time_line.current_frame);
 	
-	if(objects.size() > 0)
+	Entity3D * cur_entity = objects[cur_object_selected];
+	
+	if(objects.size() > 0 && cur_object_selected != -1)
 	{
 		std::vector<BaseParam *> all_params;
 		
@@ -2197,14 +2277,22 @@ void Window::renderObjects()
 	}
 
 	glDisable(GL_DEPTH_TEST);
+	
 	for (int i = 0; i < gizmos.size(); i++)
 	{
 		
 		if( cur_object_selected != -1){
 			
 			model = glm::mat4(1.0f);
+			
 			model = objects[cur_object_selected]->transforms * model;
 			
+			objects[cur_object_selected]->applyTransforms();
+			objects[cur_object_selected]->applyParentsMatrices(model);
+			
+			
+			gizmos[i]->target_object = objects[cur_object_selected];
+			gizmos[i]->transforms = model;
 			
 			point_shader.useProgram();
 			
@@ -2215,7 +2303,7 @@ void Window::renderObjects()
 			//~ GLuint COLOR_LOC = glGetUniformLocation(point_shader.m_id,"u_color");
 			//~ 
 			//~ glUniform4f(COLOR_LOC, 1.0, 0.0, 0.0, 1.0);			
-			gizmos[i]->draw(point_shader, *objects[cur_object_selected]);
+			gizmos[i]->draw(point_shader);
 			
 			glUseProgram(0);
 		}
