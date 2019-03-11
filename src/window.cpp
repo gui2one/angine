@@ -202,7 +202,7 @@ Window::Window()
 
 }
 
-void Window::mouseClickGizmo(){
+bool Window::mouseClickGizmo(){
 	double pos_x, pos_y;
 	glfwGetCursorPos(win, &pos_x, &pos_y);
 	if( cur_object_selected != -1){
@@ -242,15 +242,20 @@ void Window::mouseClickGizmo(){
 			target_transforms = gizmos[i]->target_object->transforms * target_transforms;			
 			gizmos[i]->target_object->applyParentsMatrices(target_transforms);
 			
+			glm::vec4 z_axis = glm::vec4(0.0f, 0.0f, 1.0f, 1.0f);
+			glm::vec3 z_axis_vec3;
+			
+			z_axis_vec3 = z_axis * glm::inverse(target_transforms);
 
 			glm::vec3 world_pos = glm::vec3( 
 				target_transforms[3][0],
 				target_transforms[3][1],
 				target_transforms[3][2]
 			);
+			printf("z_axis_vec3 : %.3f, %.3f, %.3f \n", z_axis_vec3.x, z_axis_vec3.y, z_axis_vec3.z);
 			printf("target_pos : %.3f, %.3f, %.3f \n", world_pos.x, world_pos.y, world_pos.z);
 			
-			glm::vec3 planeN = glm::vec3(0.0f, 0.0f, 1.0f);
+			glm::vec3 planeN = glm::normalize(z_axis_vec3);
 			
 			glm::vec3 planeP = world_pos;
 			glm::vec3 pointP = glm::vec3(x, y , 1.0f);
@@ -265,12 +270,36 @@ void Window::mouseClickGizmo(){
 			glm::vec3 hitP = glm::vec3(0.0f);
 			int hit = ray_plane_intersect(planeN, planeP, camera.position, tempPointP, hitP);	
 			
+			glm::vec4 local_pos = glm::vec4(hitP.x, hitP.y, hitP.z, 1.0f);
+			
+			glm::vec3 local_pos_vec3 = glm::inverse(target_transforms) * local_pos ;
 			if(hit){
 				printf("------> gizmo hit <--------\n");
-				printf("\thitP : %.3f, %.3f, %.3f\n", hitP.x - world_pos.x, hitP.y - world_pos.y, hitP.z - world_pos.z);
+				//~ printf("\thitP : %.3f, %.3f, %.3f\n", hitP.x - world_pos.x, hitP.y - world_pos.y, hitP.z - world_pos.z);
+				printf("\tlocal_pos_vec3 : %.3f, %.3f, %.3f\n", local_pos_vec3.x, local_pos_vec3.y, local_pos_vec3.z);
+				if( fabs(local_pos_vec3.x) > fabs(local_pos_vec3.y)
+					&&  fabs(local_pos_vec3.y) < 0.1)
+				{
+					printf("local X : %.3f, local Y : %.3f\n", fabs(local_pos_vec3.x), fabs(local_pos_vec3.y));
+					printf("nearest is X axis\n");
+					return true;
+				} else if(fabs(local_pos_vec3.x) < fabs(local_pos_vec3.y)
+				&&  fabs(local_pos_vec3.x) < 0.1)
+				{
+					
+					printf("local X : %.3f, local Y : %.3f\n", fabs(local_pos_vec3.x), fabs(local_pos_vec3.y));
+					printf("nearest is Y axis\n");
+					return true;
+				}else{
+					return false;
+				}
+				
+				
 			}			
 		}
 	}
+	
+	return false;
 	
 }
 Entity3D* Window::mouseClickObject()
@@ -511,8 +540,12 @@ void Window::mouse_button_callback(GLFWwindow* window, int button, int action, i
 		}
 		
 		if(button == GLFW_MOUSE_BUTTON_LEFT && action == GLFW_PRESS){
-			app->mouseClickGizmo();
-			app->mouseClickObject();
+			bool is_gizmo = app->mouseClickGizmo();
+			
+			if(!is_gizmo)
+			{
+				app->mouseClickObject();
+			}
 			
 
 		}
@@ -2303,7 +2336,7 @@ void Window::renderObjects()
 			//~ GLuint COLOR_LOC = glGetUniformLocation(point_shader.m_id,"u_color");
 			//~ 
 			//~ glUniform4f(COLOR_LOC, 1.0, 0.0, 0.0, 1.0);			
-			gizmos[i]->draw(point_shader);
+			gizmos[i]->draw(point_shader, camera);
 			
 			glUseProgram(0);
 		}

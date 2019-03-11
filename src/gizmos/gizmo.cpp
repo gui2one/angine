@@ -97,16 +97,26 @@ void Gizmo::buildVbo()
 }
 
 
-void Gizmo::draw(Shader & _shader){
+void Gizmo::draw(Shader & _shader, Camera & camera){
 	//~ shader.useProgram();
 		
 
 		glm::mat4 model = glm::mat4(1.0f);
 		
 		model = target_object->transforms * model;
+		
 		target_object->applyParentsMatrices(model);
+		
+		glm::vec3 world_pos = glm::vec3( model[3][0], model[3][1], model[3][2]);
+		
+		float cam_distance = glm::distance(world_pos, camera.position);
+		//~ printf("cam distance -> %.3f \n", cam_distance);
+		float dist_square = cam_distance * cam_distance;
+		float scale = cam_distance * 0.2;
+		model = glm::scale(model, glm::vec3(scale, scale, scale));
 		// rotate to lay down X Axis
 		model = glm::rotate(model, (float)(PI) * 0.5f, glm::vec3(0.0f, 1.0f, 0.0f));
+		
 		
 		glUniformMatrix4fv(glGetUniformLocation(_shader.m_id,"model"), 1, GL_FALSE, glm::value_ptr(model));	
 		GLuint COLOR_LOC = glGetUniformLocation(_shader.m_id,"u_color");		
@@ -133,6 +143,7 @@ void Gizmo::draw(Shader & _shader){
 		model = glm::mat4(1.0f);
 		model = target_object->transforms * model;
 		target_object->applyParentsMatrices(model);
+		model = glm::scale(model, glm::vec3(scale, scale, scale));
 		model = glm::rotate(model, (float)(PI) * -0.5f, glm::vec3(1.0f, 0.0f, 0.0f));
 
 		glUniformMatrix4fv(glGetUniformLocation(_shader.m_id,"model"), 1, GL_FALSE, glm::value_ptr(model));	
@@ -163,6 +174,7 @@ void Gizmo::draw(Shader & _shader){
 		
 		model = target_object->transforms * model;
 		target_object->applyParentsMatrices(model);
+		model = glm::scale(model, glm::vec3(scale, scale, scale));
 		//model = glm::rotate(model, (float)(PI) * -0.5f, glm::vec3(1.0f, 0.0f, 0.0f));
 
 		glUniformMatrix4fv(glGetUniformLocation(_shader.m_id,"model"), 1, GL_FALSE, glm::value_ptr(model));	

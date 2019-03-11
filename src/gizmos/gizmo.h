@@ -6,6 +6,7 @@
 #include "../mesh.h"
 #include "../entity3d.h"
 #include "../shader.h"
+#include "../camera.h"
 
 //~ #include "param_layout.h"
 class Gizmo
@@ -30,7 +31,7 @@ class Gizmo
 		unsigned int m_ibo, m_vbo;
 		glm::vec3 getWorldPosition();
 
-		void draw(Shader & _shader);
+		void draw(Shader & _shader, Camera & camera);
 		
 		inline void setID(int _id){	id = _id;}			
 		inline int getID(){	return id;}

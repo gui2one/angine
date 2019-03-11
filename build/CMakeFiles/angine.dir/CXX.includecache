@@ -315,6 +315,8 @@ gizmo.h
 /home/pi/projects/angine/src/entity3d.h
 ../shader.h
 /home/pi/projects/angine/src/shader.h
+../camera.h
+/home/pi/projects/angine/src/camera.h
 
 /home/pi/projects/angine/src/include/assimp/./Compiler/poppack1.h
 

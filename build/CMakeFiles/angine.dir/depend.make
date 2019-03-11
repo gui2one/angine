@@ -2622,6 +2622,7 @@ CMakeFiles/angine.dir/home/pi/projects/angine/src/generators/spheremesh.cpp.o: /
 CMakeFiles/angine.dir/home/pi/projects/angine/src/generators/spheremesh.cpp.o: /usr/local/include/GLFW/glfw3.h
 
 CMakeFiles/angine.dir/home/pi/projects/angine/src/gizmos/gizmo.cpp.o: /home/pi/projects/angine/src/animation/base_keyframe.h
+CMakeFiles/angine.dir/home/pi/projects/angine/src/gizmos/gizmo.cpp.o: /home/pi/projects/angine/src/camera.h
 CMakeFiles/angine.dir/home/pi/projects/angine/src/gizmos/gizmo.cpp.o: /home/pi/projects/angine/src/entity3d.h
 CMakeFiles/angine.dir/home/pi/projects/angine/src/gizmos/gizmo.cpp.o: /home/pi/projects/angine/src/gizmos/gizmo.cpp
 CMakeFiles/angine.dir/home/pi/projects/angine/src/gizmos/gizmo.cpp.o: /home/pi/projects/angine/src/gizmos/gizmo.h

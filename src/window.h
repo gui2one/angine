@@ -38,7 +38,7 @@ class Window
 		
 		
 		Entity3D* mouseClickObject();
-		void mouseClickGizmo();
+		bool mouseClickGizmo();
 		void initWorldGrid();
 		void drawWorldGrid();
 		unsigned int world_grid_vbo, world_grid_ibo;
