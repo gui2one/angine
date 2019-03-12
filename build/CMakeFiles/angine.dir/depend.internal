@@ -206,6 +206,7 @@ CMakeFiles/angine.dir/home/pi/projects/angine/src/animation/base_keyframe.cpp.o
  /home/pi/projects/angine/src/vendor/glm/vec3.hpp
  /home/pi/projects/angine/src/vendor/glm/vec4.hpp
  /home/pi/projects/angine/src/vendor/glm/vector_relational.hpp
+ /home/pi/projects/angine/src/vendor/nlohmann/json.hpp
  /home/pi/projects/angine/src/vendor/stb_image.h
  /usr/local/include/GLFW/glfw3.h
 CMakeFiles/angine.dir/home/pi/projects/angine/src/animation/time_line.cpp.o
@@ -413,6 +414,7 @@ CMakeFiles/angine.dir/home/pi/projects/angine/src/animation/time_line.cpp.o
  /home/pi/projects/angine/src/vendor/glm/vec3.hpp
  /home/pi/projects/angine/src/vendor/glm/vec4.hpp
  /home/pi/projects/angine/src/vendor/glm/vector_relational.hpp
+ /home/pi/projects/angine/src/vendor/nlohmann/json.hpp
  /home/pi/projects/angine/src/vendor/stb_image.h
  /usr/local/include/GLFW/glfw3.h
 CMakeFiles/angine.dir/home/pi/projects/angine/src/application.cpp.o
@@ -679,6 +681,7 @@ CMakeFiles/angine.dir/home/pi/projects/angine/src/application.cpp.o
  /home/pi/projects/angine/src/vendor/glm/vec3.hpp
  /home/pi/projects/angine/src/vendor/glm/vec4.hpp
  /home/pi/projects/angine/src/vendor/glm/vector_relational.hpp
+ /home/pi/projects/angine/src/vendor/nlohmann/json.hpp
  /home/pi/projects/angine/src/vendor/stb_image.h
  /home/pi/projects/angine/src/vertex.h
  /home/pi/projects/angine/src/window.h
@@ -888,6 +891,7 @@ CMakeFiles/angine.dir/home/pi/projects/angine/src/camera.cpp.o
  /home/pi/projects/angine/src/vendor/glm/vec3.hpp
  /home/pi/projects/angine/src/vendor/glm/vec4.hpp
  /home/pi/projects/angine/src/vendor/glm/vector_relational.hpp
+ /home/pi/projects/angine/src/vendor/nlohmann/json.hpp
  /home/pi/projects/angine/src/vendor/stb_image.h
  /usr/local/include/GLFW/glfw3.h
 CMakeFiles/angine.dir/home/pi/projects/angine/src/entity3d.cpp.o
@@ -1098,6 +1102,7 @@ CMakeFiles/angine.dir/home/pi/projects/angine/src/entity3d.cpp.o
  /home/pi/projects/angine/src/vendor/glm/vec3.hpp
  /home/pi/projects/angine/src/vendor/glm/vec4.hpp
  /home/pi/projects/angine/src/vendor/glm/vector_relational.hpp
+ /home/pi/projects/angine/src/vendor/nlohmann/json.hpp
  /home/pi/projects/angine/src/vendor/stb_image.h
  /usr/local/include/GLFW/glfw3.h
 CMakeFiles/angine.dir/home/pi/projects/angine/src/generators/box_mesh.cpp.o
@@ -1310,6 +1315,7 @@ CMakeFiles/angine.dir/home/pi/projects/angine/src/generators/box_mesh.cpp.o
  /home/pi/projects/angine/src/vendor/glm/vec3.hpp
  /home/pi/projects/angine/src/vendor/glm/vec4.hpp
  /home/pi/projects/angine/src/vendor/glm/vector_relational.hpp
+ /home/pi/projects/angine/src/vendor/nlohmann/json.hpp
  /home/pi/projects/angine/src/vendor/stb_image.h
  /home/pi/projects/angine/src/vertex.h
  /usr/local/include/GLFW/glfw3.h
@@ -1523,6 +1529,7 @@ CMakeFiles/angine.dir/home/pi/projects/angine/src/generators/cylinder_mesh.cpp.o
  /home/pi/projects/angine/src/vendor/glm/vec3.hpp
  /home/pi/projects/angine/src/vendor/glm/vec4.hpp
  /home/pi/projects/angine/src/vendor/glm/vector_relational.hpp
+ /home/pi/projects/angine/src/vendor/nlohmann/json.hpp
  /home/pi/projects/angine/src/vendor/stb_image.h
  /home/pi/projects/angine/src/vertex.h
  /usr/local/include/GLFW/glfw3.h
@@ -1767,6 +1774,7 @@ CMakeFiles/angine.dir/home/pi/projects/angine/src/generators/file_mesh.cpp.o
  /home/pi/projects/angine/src/vendor/glm/vec3.hpp
  /home/pi/projects/angine/src/vendor/glm/vec4.hpp
  /home/pi/projects/angine/src/vendor/glm/vector_relational.hpp
+ /home/pi/projects/angine/src/vendor/nlohmann/json.hpp
  /home/pi/projects/angine/src/vendor/stb_image.h
  /home/pi/projects/angine/src/vertex.h
  /usr/local/include/GLFW/glfw3.h
@@ -1980,6 +1988,7 @@ CMakeFiles/angine.dir/home/pi/projects/angine/src/generators/geosphere_mesh.cpp.
  /home/pi/projects/angine/src/vendor/glm/vec3.hpp
  /home/pi/projects/angine/src/vendor/glm/vec4.hpp
  /home/pi/projects/angine/src/vendor/glm/vector_relational.hpp
+ /home/pi/projects/angine/src/vendor/nlohmann/json.hpp
  /home/pi/projects/angine/src/vendor/stb_image.h
  /home/pi/projects/angine/src/vertex.h
  /usr/local/include/GLFW/glfw3.h
@@ -2193,6 +2202,7 @@ CMakeFiles/angine.dir/home/pi/projects/angine/src/generators/gridmesh.cpp.o
  /home/pi/projects/angine/src/vendor/glm/vec3.hpp
  /home/pi/projects/angine/src/vendor/glm/vec4.hpp
  /home/pi/projects/angine/src/vendor/glm/vector_relational.hpp
+ /home/pi/projects/angine/src/vendor/nlohmann/json.hpp
  /home/pi/projects/angine/src/vendor/stb_image.h
  /home/pi/projects/angine/src/vertex.h
  /usr/local/include/GLFW/glfw3.h
@@ -2405,6 +2415,7 @@ CMakeFiles/angine.dir/home/pi/projects/angine/src/generators/mesh_generator.cpp.
  /home/pi/projects/angine/src/vendor/glm/vec3.hpp
  /home/pi/projects/angine/src/vendor/glm/vec4.hpp
  /home/pi/projects/angine/src/vendor/glm/vector_relational.hpp
+ /home/pi/projects/angine/src/vendor/nlohmann/json.hpp
  /home/pi/projects/angine/src/vendor/stb_image.h
  /home/pi/projects/angine/src/vertex.h
  /usr/local/include/GLFW/glfw3.h
@@ -2618,6 +2629,7 @@ CMakeFiles/angine.dir/home/pi/projects/angine/src/generators/spheremesh.cpp.o
  /home/pi/projects/angine/src/vendor/glm/vec3.hpp
  /home/pi/projects/angine/src/vendor/glm/vec4.hpp
  /home/pi/projects/angine/src/vendor/glm/vector_relational.hpp
+ /home/pi/projects/angine/src/vendor/nlohmann/json.hpp
  /home/pi/projects/angine/src/vendor/stb_image.h
  /home/pi/projects/angine/src/vertex.h
  /usr/local/include/GLFW/glfw3.h
@@ -2834,6 +2846,7 @@ CMakeFiles/angine.dir/home/pi/projects/angine/src/gizmos/gizmo.cpp.o
  /home/pi/projects/angine/src/vendor/glm/vec3.hpp
  /home/pi/projects/angine/src/vendor/glm/vec4.hpp
  /home/pi/projects/angine/src/vendor/glm/vector_relational.hpp
+ /home/pi/projects/angine/src/vendor/nlohmann/json.hpp
  /home/pi/projects/angine/src/vendor/stb_image.h
  /home/pi/projects/angine/src/vertex.h
  /usr/local/include/GLFW/glfw3.h
@@ -3101,6 +3114,7 @@ CMakeFiles/angine.dir/home/pi/projects/angine/src/main.cpp.o
  /home/pi/projects/angine/src/vendor/glm/vec3.hpp
  /home/pi/projects/angine/src/vendor/glm/vec4.hpp
  /home/pi/projects/angine/src/vendor/glm/vector_relational.hpp
+ /home/pi/projects/angine/src/vendor/nlohmann/json.hpp
  /home/pi/projects/angine/src/vendor/stb_image.h
  /home/pi/projects/angine/src/vertex.h
  /home/pi/projects/angine/src/window.h
@@ -3310,6 +3324,7 @@ CMakeFiles/angine.dir/home/pi/projects/angine/src/mesh.cpp.o
  /home/pi/projects/angine/src/vendor/glm/vec3.hpp
  /home/pi/projects/angine/src/vendor/glm/vec4.hpp
  /home/pi/projects/angine/src/vendor/glm/vector_relational.hpp
+ /home/pi/projects/angine/src/vendor/nlohmann/json.hpp
  /home/pi/projects/angine/src/vendor/stb_image.h
  /home/pi/projects/angine/src/vertex.h
  /usr/local/include/GLFW/glfw3.h
@@ -3523,6 +3538,7 @@ CMakeFiles/angine.dir/home/pi/projects/angine/src/mesh_filters/compute_normals_m
  /home/pi/projects/angine/src/vendor/glm/vec3.hpp
  /home/pi/projects/angine/src/vendor/glm/vec4.hpp
  /home/pi/projects/angine/src/vendor/glm/vector_relational.hpp
+ /home/pi/projects/angine/src/vendor/nlohmann/json.hpp
  /home/pi/projects/angine/src/vendor/stb_image.h
  /home/pi/projects/angine/src/vertex.h
  /usr/local/include/GLFW/glfw3.h
@@ -3736,6 +3752,7 @@ CMakeFiles/angine.dir/home/pi/projects/angine/src/mesh_filters/duplicate_mesh_fi
  /home/pi/projects/angine/src/vendor/glm/vec3.hpp
  /home/pi/projects/angine/src/vendor/glm/vec4.hpp
  /home/pi/projects/angine/src/vendor/glm/vector_relational.hpp
+ /home/pi/projects/angine/src/vendor/nlohmann/json.hpp
  /home/pi/projects/angine/src/vendor/stb_image.h
  /home/pi/projects/angine/src/vertex.h
  /usr/local/include/GLFW/glfw3.h
@@ -3949,6 +3966,7 @@ CMakeFiles/angine.dir/home/pi/projects/angine/src/mesh_filters/from_polar_mesh_f
  /home/pi/projects/angine/src/vendor/glm/vec3.hpp
  /home/pi/projects/angine/src/vendor/glm/vec4.hpp
  /home/pi/projects/angine/src/vendor/glm/vector_relational.hpp
+ /home/pi/projects/angine/src/vendor/nlohmann/json.hpp
  /home/pi/projects/angine/src/vendor/stb_image.h
  /home/pi/projects/angine/src/vertex.h
  /usr/local/include/GLFW/glfw3.h
@@ -4162,6 +4180,7 @@ CMakeFiles/angine.dir/home/pi/projects/angine/src/mesh_filters/inflate_mesh_filt
  /home/pi/projects/angine/src/vendor/glm/vec3.hpp
  /home/pi/projects/angine/src/vendor/glm/vec4.hpp
  /home/pi/projects/angine/src/vendor/glm/vector_relational.hpp
+ /home/pi/projects/angine/src/vendor/nlohmann/json.hpp
  /home/pi/projects/angine/src/vendor/stb_image.h
  /home/pi/projects/angine/src/vertex.h
  /usr/local/include/GLFW/glfw3.h
@@ -4374,6 +4393,7 @@ CMakeFiles/angine.dir/home/pi/projects/angine/src/mesh_filters/mesh_filter.cpp.o
  /home/pi/projects/angine/src/vendor/glm/vec3.hpp
  /home/pi/projects/angine/src/vendor/glm/vec4.hpp
  /home/pi/projects/angine/src/vendor/glm/vector_relational.hpp
+ /home/pi/projects/angine/src/vendor/nlohmann/json.hpp
  /home/pi/projects/angine/src/vendor/stb_image.h
  /home/pi/projects/angine/src/vertex.h
  /usr/local/include/GLFW/glfw3.h
@@ -4587,6 +4607,7 @@ CMakeFiles/angine.dir/home/pi/projects/angine/src/mesh_filters/mirror_mesh_filte
  /home/pi/projects/angine/src/vendor/glm/vec3.hpp
  /home/pi/projects/angine/src/vendor/glm/vec4.hpp
  /home/pi/projects/angine/src/vendor/glm/vector_relational.hpp
+ /home/pi/projects/angine/src/vendor/nlohmann/json.hpp
  /home/pi/projects/angine/src/vendor/stb_image.h
  /home/pi/projects/angine/src/vertex.h
  /usr/local/include/GLFW/glfw3.h
@@ -4800,6 +4821,7 @@ CMakeFiles/angine.dir/home/pi/projects/angine/src/mesh_filters/spherify_mesh_fil
  /home/pi/projects/angine/src/vendor/glm/vec3.hpp
  /home/pi/projects/angine/src/vendor/glm/vec4.hpp
  /home/pi/projects/angine/src/vendor/glm/vector_relational.hpp
+ /home/pi/projects/angine/src/vendor/nlohmann/json.hpp
  /home/pi/projects/angine/src/vendor/stb_image.h
  /home/pi/projects/angine/src/vertex.h
  /usr/local/include/GLFW/glfw3.h
@@ -5013,6 +5035,7 @@ CMakeFiles/angine.dir/home/pi/projects/angine/src/mesh_filters/transform_mesh_fi
  /home/pi/projects/angine/src/vendor/glm/vec3.hpp
  /home/pi/projects/angine/src/vendor/glm/vec4.hpp
  /home/pi/projects/angine/src/vendor/glm/vector_relational.hpp
+ /home/pi/projects/angine/src/vendor/nlohmann/json.hpp
  /home/pi/projects/angine/src/vendor/stb_image.h
  /home/pi/projects/angine/src/vertex.h
  /usr/local/include/GLFW/glfw3.h
@@ -5226,6 +5249,7 @@ CMakeFiles/angine.dir/home/pi/projects/angine/src/mesh_filters/twist_mesh_filter
  /home/pi/projects/angine/src/vendor/glm/vec3.hpp
  /home/pi/projects/angine/src/vendor/glm/vec4.hpp
  /home/pi/projects/angine/src/vendor/glm/vector_relational.hpp
+ /home/pi/projects/angine/src/vendor/nlohmann/json.hpp
  /home/pi/projects/angine/src/vendor/stb_image.h
  /home/pi/projects/angine/src/vertex.h
  /usr/local/include/GLFW/glfw3.h
@@ -5486,6 +5510,7 @@ CMakeFiles/angine.dir/home/pi/projects/angine/src/object.cpp.o
  /home/pi/projects/angine/src/vendor/glm/vec3.hpp
  /home/pi/projects/angine/src/vendor/glm/vec4.hpp
  /home/pi/projects/angine/src/vendor/glm/vector_relational.hpp
+ /home/pi/projects/angine/src/vendor/nlohmann/json.hpp
  /home/pi/projects/angine/src/vendor/stb_image.h
  /home/pi/projects/angine/src/vertex.h
  /usr/local/include/GLFW/glfw3.h
@@ -5699,6 +5724,7 @@ CMakeFiles/angine.dir/home/pi/projects/angine/src/object_dummy.cpp.o
  /home/pi/projects/angine/src/vendor/glm/vec3.hpp
  /home/pi/projects/angine/src/vendor/glm/vec4.hpp
  /home/pi/projects/angine/src/vendor/glm/vector_relational.hpp
+ /home/pi/projects/angine/src/vendor/nlohmann/json.hpp
  /home/pi/projects/angine/src/vendor/stb_image.h
  /home/pi/projects/angine/src/vertex.h
  /usr/local/include/GLFW/glfw3.h
@@ -5911,6 +5937,7 @@ CMakeFiles/angine.dir/home/pi/projects/angine/src/object_light.cpp.o
  /home/pi/projects/angine/src/vendor/glm/vec3.hpp
  /home/pi/projects/angine/src/vendor/glm/vec4.hpp
  /home/pi/projects/angine/src/vendor/glm/vector_relational.hpp
+ /home/pi/projects/angine/src/vendor/nlohmann/json.hpp
  /home/pi/projects/angine/src/vendor/stb_image.h
  /usr/local/include/GLFW/glfw3.h
 CMakeFiles/angine.dir/home/pi/projects/angine/src/param.cpp.o
@@ -6119,6 +6146,7 @@ CMakeFiles/angine.dir/home/pi/projects/angine/src/param.cpp.o
  /home/pi/projects/angine/src/vendor/glm/vec3.hpp
  /home/pi/projects/angine/src/vendor/glm/vec4.hpp
  /home/pi/projects/angine/src/vendor/glm/vector_relational.hpp
+ /home/pi/projects/angine/src/vendor/nlohmann/json.hpp
  /home/pi/projects/angine/src/vendor/stb_image.h
  /usr/local/include/GLFW/glfw3.h
 CMakeFiles/angine.dir/home/pi/projects/angine/src/param_layout.cpp.o
@@ -6328,6 +6356,7 @@ CMakeFiles/angine.dir/home/pi/projects/angine/src/param_layout.cpp.o
  /home/pi/projects/angine/src/vendor/glm/vec3.hpp
  /home/pi/projects/angine/src/vendor/glm/vec4.hpp
  /home/pi/projects/angine/src/vendor/glm/vector_relational.hpp
+ /home/pi/projects/angine/src/vendor/nlohmann/json.hpp
  /home/pi/projects/angine/src/vendor/stb_image.h
  /usr/local/include/GLFW/glfw3.h
 CMakeFiles/angine.dir/home/pi/projects/angine/src/shader.cpp.o
@@ -6539,6 +6568,7 @@ CMakeFiles/angine.dir/home/pi/projects/angine/src/texture.cpp.o
  /home/pi/projects/angine/src/vendor/glm/vec3.hpp
  /home/pi/projects/angine/src/vendor/glm/vec4.hpp
  /home/pi/projects/angine/src/vendor/glm/vector_relational.hpp
+ /home/pi/projects/angine/src/vendor/nlohmann/json.hpp
  /home/pi/projects/angine/src/vendor/stb_image.h
  /usr/local/include/GLFW/glfw3.h
 CMakeFiles/angine.dir/home/pi/projects/angine/src/utils/mesh_utils.cpp.o
@@ -6747,6 +6777,7 @@ CMakeFiles/angine.dir/home/pi/projects/angine/src/utils/mesh_utils.cpp.o
  /home/pi/projects/angine/src/vendor/glm/vec3.hpp
  /home/pi/projects/angine/src/vendor/glm/vec4.hpp
  /home/pi/projects/angine/src/vendor/glm/vector_relational.hpp
+ /home/pi/projects/angine/src/vendor/nlohmann/json.hpp
  /home/pi/projects/angine/src/vendor/stb_image.h
  /home/pi/projects/angine/src/vertex.h
  /usr/local/include/GLFW/glfw3.h
@@ -6983,10 +7014,12 @@ CMakeFiles/angine.dir/home/pi/projects/angine/src/utils/objLoader.cpp.o
  /home/pi/projects/angine/src/vendor/glm/vec3.hpp
  /home/pi/projects/angine/src/vendor/glm/vec4.hpp
  /home/pi/projects/angine/src/vendor/glm/vector_relational.hpp
+ /home/pi/projects/angine/src/vendor/nlohmann/json.hpp
  /home/pi/projects/angine/src/vendor/stb_image.h
  /home/pi/projects/angine/src/vertex.h
  /usr/local/include/GLFW/glfw3.h
 CMakeFiles/angine.dir/home/pi/projects/angine/src/vendor/imgui/imgui.cpp.o
+ ../src/vendor/stb_image.h
  /home/pi/projects/angine/src/vendor/imgui/imconfig.h
  /home/pi/projects/angine/src/vendor/imgui/imgui.cpp
  /home/pi/projects/angine/src/vendor/imgui/imgui.h
@@ -7289,6 +7322,7 @@ CMakeFiles/angine.dir/home/pi/projects/angine/src/window.cpp.o
  /home/pi/projects/angine/src/vendor/glm/vec3.hpp
  /home/pi/projects/angine/src/vendor/glm/vec4.hpp
  /home/pi/projects/angine/src/vendor/glm/vector_relational.hpp
+ /home/pi/projects/angine/src/vendor/nlohmann/json.hpp
  /home/pi/projects/angine/src/vendor/stb_image.h
  /home/pi/projects/angine/src/vertex.h
  /home/pi/projects/angine/src/window.cpp

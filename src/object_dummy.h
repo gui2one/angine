@@ -15,6 +15,8 @@ class ObjectDummy: public Entity3D
 		void draw();
 		
 		unsigned int m_vbo;
+		
+		json toJSON();
 			
 	private:
 		/* add your private declarations */

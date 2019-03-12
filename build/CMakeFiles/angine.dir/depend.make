@@ -205,6 +205,7 @@ CMakeFiles/angine.dir/home/pi/projects/angine/src/animation/base_keyframe.cpp.o:
 CMakeFiles/angine.dir/home/pi/projects/angine/src/animation/base_keyframe.cpp.o: /home/pi/projects/angine/src/vendor/glm/vec3.hpp
 CMakeFiles/angine.dir/home/pi/projects/angine/src/animation/base_keyframe.cpp.o: /home/pi/projects/angine/src/vendor/glm/vec4.hpp
 CMakeFiles/angine.dir/home/pi/projects/angine/src/animation/base_keyframe.cpp.o: /home/pi/projects/angine/src/vendor/glm/vector_relational.hpp
+CMakeFiles/angine.dir/home/pi/projects/angine/src/animation/base_keyframe.cpp.o: /home/pi/projects/angine/src/vendor/nlohmann/json.hpp
 CMakeFiles/angine.dir/home/pi/projects/angine/src/animation/base_keyframe.cpp.o: /home/pi/projects/angine/src/vendor/stb_image.h
 CMakeFiles/angine.dir/home/pi/projects/angine/src/animation/base_keyframe.cpp.o: /usr/local/include/GLFW/glfw3.h
 
@@ -412,6 +413,7 @@ CMakeFiles/angine.dir/home/pi/projects/angine/src/animation/time_line.cpp.o: /ho
 CMakeFiles/angine.dir/home/pi/projects/angine/src/animation/time_line.cpp.o: /home/pi/projects/angine/src/vendor/glm/vec3.hpp
 CMakeFiles/angine.dir/home/pi/projects/angine/src/animation/time_line.cpp.o: /home/pi/projects/angine/src/vendor/glm/vec4.hpp
 CMakeFiles/angine.dir/home/pi/projects/angine/src/animation/time_line.cpp.o: /home/pi/projects/angine/src/vendor/glm/vector_relational.hpp
+CMakeFiles/angine.dir/home/pi/projects/angine/src/animation/time_line.cpp.o: /home/pi/projects/angine/src/vendor/nlohmann/json.hpp
 CMakeFiles/angine.dir/home/pi/projects/angine/src/animation/time_line.cpp.o: /home/pi/projects/angine/src/vendor/stb_image.h
 CMakeFiles/angine.dir/home/pi/projects/angine/src/animation/time_line.cpp.o: /usr/local/include/GLFW/glfw3.h
 
@@ -678,6 +680,7 @@ CMakeFiles/angine.dir/home/pi/projects/angine/src/application.cpp.o: /home/pi/pr
 CMakeFiles/angine.dir/home/pi/projects/angine/src/application.cpp.o: /home/pi/projects/angine/src/vendor/glm/vec3.hpp
 CMakeFiles/angine.dir/home/pi/projects/angine/src/application.cpp.o: /home/pi/projects/angine/src/vendor/glm/vec4.hpp
 CMakeFiles/angine.dir/home/pi/projects/angine/src/application.cpp.o: /home/pi/projects/angine/src/vendor/glm/vector_relational.hpp
+CMakeFiles/angine.dir/home/pi/projects/angine/src/application.cpp.o: /home/pi/projects/angine/src/vendor/nlohmann/json.hpp
 CMakeFiles/angine.dir/home/pi/projects/angine/src/application.cpp.o: /home/pi/projects/angine/src/vendor/stb_image.h
 CMakeFiles/angine.dir/home/pi/projects/angine/src/application.cpp.o: /home/pi/projects/angine/src/vertex.h
 CMakeFiles/angine.dir/home/pi/projects/angine/src/application.cpp.o: /home/pi/projects/angine/src/window.h
@@ -887,6 +890,7 @@ CMakeFiles/angine.dir/home/pi/projects/angine/src/camera.cpp.o: /home/pi/project
 CMakeFiles/angine.dir/home/pi/projects/angine/src/camera.cpp.o: /home/pi/projects/angine/src/vendor/glm/vec3.hpp
 CMakeFiles/angine.dir/home/pi/projects/angine/src/camera.cpp.o: /home/pi/projects/angine/src/vendor/glm/vec4.hpp
 CMakeFiles/angine.dir/home/pi/projects/angine/src/camera.cpp.o: /home/pi/projects/angine/src/vendor/glm/vector_relational.hpp
+CMakeFiles/angine.dir/home/pi/projects/angine/src/camera.cpp.o: /home/pi/projects/angine/src/vendor/nlohmann/json.hpp
 CMakeFiles/angine.dir/home/pi/projects/angine/src/camera.cpp.o: /home/pi/projects/angine/src/vendor/stb_image.h
 CMakeFiles/angine.dir/home/pi/projects/angine/src/camera.cpp.o: /usr/local/include/GLFW/glfw3.h
 
@@ -1097,6 +1101,7 @@ CMakeFiles/angine.dir/home/pi/projects/angine/src/entity3d.cpp.o: /home/pi/proje
 CMakeFiles/angine.dir/home/pi/projects/angine/src/entity3d.cpp.o: /home/pi/projects/angine/src/vendor/glm/vec3.hpp
 CMakeFiles/angine.dir/home/pi/projects/angine/src/entity3d.cpp.o: /home/pi/projects/angine/src/vendor/glm/vec4.hpp
 CMakeFiles/angine.dir/home/pi/projects/angine/src/entity3d.cpp.o: /home/pi/projects/angine/src/vendor/glm/vector_relational.hpp
+CMakeFiles/angine.dir/home/pi/projects/angine/src/entity3d.cpp.o: /home/pi/projects/angine/src/vendor/nlohmann/json.hpp
 CMakeFiles/angine.dir/home/pi/projects/angine/src/entity3d.cpp.o: /home/pi/projects/angine/src/vendor/stb_image.h
 CMakeFiles/angine.dir/home/pi/projects/angine/src/entity3d.cpp.o: /usr/local/include/GLFW/glfw3.h
 
@@ -1309,6 +1314,7 @@ CMakeFiles/angine.dir/home/pi/projects/angine/src/generators/box_mesh.cpp.o: /ho
 CMakeFiles/angine.dir/home/pi/projects/angine/src/generators/box_mesh.cpp.o: /home/pi/projects/angine/src/vendor/glm/vec3.hpp
 CMakeFiles/angine.dir/home/pi/projects/angine/src/generators/box_mesh.cpp.o: /home/pi/projects/angine/src/vendor/glm/vec4.hpp
 CMakeFiles/angine.dir/home/pi/projects/angine/src/generators/box_mesh.cpp.o: /home/pi/projects/angine/src/vendor/glm/vector_relational.hpp
+CMakeFiles/angine.dir/home/pi/projects/angine/src/generators/box_mesh.cpp.o: /home/pi/projects/angine/src/vendor/nlohmann/json.hpp
 CMakeFiles/angine.dir/home/pi/projects/angine/src/generators/box_mesh.cpp.o: /home/pi/projects/angine/src/vendor/stb_image.h
 CMakeFiles/angine.dir/home/pi/projects/angine/src/generators/box_mesh.cpp.o: /home/pi/projects/angine/src/vertex.h
 CMakeFiles/angine.dir/home/pi/projects/angine/src/generators/box_mesh.cpp.o: /usr/local/include/GLFW/glfw3.h
@@ -1522,6 +1528,7 @@ CMakeFiles/angine.dir/home/pi/projects/angine/src/generators/cylinder_mesh.cpp.o
 CMakeFiles/angine.dir/home/pi/projects/angine/src/generators/cylinder_mesh.cpp.o: /home/pi/projects/angine/src/vendor/glm/vec3.hpp
 CMakeFiles/angine.dir/home/pi/projects/angine/src/generators/cylinder_mesh.cpp.o: /home/pi/projects/angine/src/vendor/glm/vec4.hpp
 CMakeFiles/angine.dir/home/pi/projects/angine/src/generators/cylinder_mesh.cpp.o: /home/pi/projects/angine/src/vendor/glm/vector_relational.hpp
+CMakeFiles/angine.dir/home/pi/projects/angine/src/generators/cylinder_mesh.cpp.o: /home/pi/projects/angine/src/vendor/nlohmann/json.hpp
 CMakeFiles/angine.dir/home/pi/projects/angine/src/generators/cylinder_mesh.cpp.o: /home/pi/projects/angine/src/vendor/stb_image.h
 CMakeFiles/angine.dir/home/pi/projects/angine/src/generators/cylinder_mesh.cpp.o: /home/pi/projects/angine/src/vertex.h
 CMakeFiles/angine.dir/home/pi/projects/angine/src/generators/cylinder_mesh.cpp.o: /usr/local/include/GLFW/glfw3.h
@@ -1766,6 +1773,7 @@ CMakeFiles/angine.dir/home/pi/projects/angine/src/generators/file_mesh.cpp.o: /h
 CMakeFiles/angine.dir/home/pi/projects/angine/src/generators/file_mesh.cpp.o: /home/pi/projects/angine/src/vendor/glm/vec3.hpp
 CMakeFiles/angine.dir/home/pi/projects/angine/src/generators/file_mesh.cpp.o: /home/pi/projects/angine/src/vendor/glm/vec4.hpp
 CMakeFiles/angine.dir/home/pi/projects/angine/src/generators/file_mesh.cpp.o: /home/pi/projects/angine/src/vendor/glm/vector_relational.hpp
+CMakeFiles/angine.dir/home/pi/projects/angine/src/generators/file_mesh.cpp.o: /home/pi/projects/angine/src/vendor/nlohmann/json.hpp
 CMakeFiles/angine.dir/home/pi/projects/angine/src/generators/file_mesh.cpp.o: /home/pi/projects/angine/src/vendor/stb_image.h
 CMakeFiles/angine.dir/home/pi/projects/angine/src/generators/file_mesh.cpp.o: /home/pi/projects/angine/src/vertex.h
 CMakeFiles/angine.dir/home/pi/projects/angine/src/generators/file_mesh.cpp.o: /usr/local/include/GLFW/glfw3.h
@@ -1979,6 +1987,7 @@ CMakeFiles/angine.dir/home/pi/projects/angine/src/generators/geosphere_mesh.cpp.
 CMakeFiles/angine.dir/home/pi/projects/angine/src/generators/geosphere_mesh.cpp.o: /home/pi/projects/angine/src/vendor/glm/vec3.hpp
 CMakeFiles/angine.dir/home/pi/projects/angine/src/generators/geosphere_mesh.cpp.o: /home/pi/projects/angine/src/vendor/glm/vec4.hpp
 CMakeFiles/angine.dir/home/pi/projects/angine/src/generators/geosphere_mesh.cpp.o: /home/pi/projects/angine/src/vendor/glm/vector_relational.hpp
+CMakeFiles/angine.dir/home/pi/projects/angine/src/generators/geosphere_mesh.cpp.o: /home/pi/projects/angine/src/vendor/nlohmann/json.hpp
 CMakeFiles/angine.dir/home/pi/projects/angine/src/generators/geosphere_mesh.cpp.o: /home/pi/projects/angine/src/vendor/stb_image.h
 CMakeFiles/angine.dir/home/pi/projects/angine/src/generators/geosphere_mesh.cpp.o: /home/pi/projects/angine/src/vertex.h
 CMakeFiles/angine.dir/home/pi/projects/angine/src/generators/geosphere_mesh.cpp.o: /usr/local/include/GLFW/glfw3.h
@@ -2192,6 +2201,7 @@ CMakeFiles/angine.dir/home/pi/projects/angine/src/generators/gridmesh.cpp.o: /ho
 CMakeFiles/angine.dir/home/pi/projects/angine/src/generators/gridmesh.cpp.o: /home/pi/projects/angine/src/vendor/glm/vec3.hpp
 CMakeFiles/angine.dir/home/pi/projects/angine/src/generators/gridmesh.cpp.o: /home/pi/projects/angine/src/vendor/glm/vec4.hpp
 CMakeFiles/angine.dir/home/pi/projects/angine/src/generators/gridmesh.cpp.o: /home/pi/projects/angine/src/vendor/glm/vector_relational.hpp
+CMakeFiles/angine.dir/home/pi/projects/angine/src/generators/gridmesh.cpp.o: /home/pi/projects/angine/src/vendor/nlohmann/json.hpp
 CMakeFiles/angine.dir/home/pi/projects/angine/src/generators/gridmesh.cpp.o: /home/pi/projects/angine/src/vendor/stb_image.h
 CMakeFiles/angine.dir/home/pi/projects/angine/src/generators/gridmesh.cpp.o: /home/pi/projects/angine/src/vertex.h
 CMakeFiles/angine.dir/home/pi/projects/angine/src/generators/gridmesh.cpp.o: /usr/local/include/GLFW/glfw3.h
@@ -2404,6 +2414,7 @@ CMakeFiles/angine.dir/home/pi/projects/angine/src/generators/mesh_generator.cpp.
 CMakeFiles/angine.dir/home/pi/projects/angine/src/generators/mesh_generator.cpp.o: /home/pi/projects/angine/src/vendor/glm/vec3.hpp
 CMakeFiles/angine.dir/home/pi/projects/angine/src/generators/mesh_generator.cpp.o: /home/pi/projects/angine/src/vendor/glm/vec4.hpp
 CMakeFiles/angine.dir/home/pi/projects/angine/src/generators/mesh_generator.cpp.o: /home/pi/projects/angine/src/vendor/glm/vector_relational.hpp
+CMakeFiles/angine.dir/home/pi/projects/angine/src/generators/mesh_generator.cpp.o: /home/pi/projects/angine/src/vendor/nlohmann/json.hpp
 CMakeFiles/angine.dir/home/pi/projects/angine/src/generators/mesh_generator.cpp.o: /home/pi/projects/angine/src/vendor/stb_image.h
 CMakeFiles/angine.dir/home/pi/projects/angine/src/generators/mesh_generator.cpp.o: /home/pi/projects/angine/src/vertex.h
 CMakeFiles/angine.dir/home/pi/projects/angine/src/generators/mesh_generator.cpp.o: /usr/local/include/GLFW/glfw3.h
@@ -2617,6 +2628,7 @@ CMakeFiles/angine.dir/home/pi/projects/angine/src/generators/spheremesh.cpp.o: /
 CMakeFiles/angine.dir/home/pi/projects/angine/src/generators/spheremesh.cpp.o: /home/pi/projects/angine/src/vendor/glm/vec3.hpp
 CMakeFiles/angine.dir/home/pi/projects/angine/src/generators/spheremesh.cpp.o: /home/pi/projects/angine/src/vendor/glm/vec4.hpp
 CMakeFiles/angine.dir/home/pi/projects/angine/src/generators/spheremesh.cpp.o: /home/pi/projects/angine/src/vendor/glm/vector_relational.hpp
+CMakeFiles/angine.dir/home/pi/projects/angine/src/generators/spheremesh.cpp.o: /home/pi/projects/angine/src/vendor/nlohmann/json.hpp
 CMakeFiles/angine.dir/home/pi/projects/angine/src/generators/spheremesh.cpp.o: /home/pi/projects/angine/src/vendor/stb_image.h
 CMakeFiles/angine.dir/home/pi/projects/angine/src/generators/spheremesh.cpp.o: /home/pi/projects/angine/src/vertex.h
 CMakeFiles/angine.dir/home/pi/projects/angine/src/generators/spheremesh.cpp.o: /usr/local/include/GLFW/glfw3.h
@@ -2833,6 +2845,7 @@ CMakeFiles/angine.dir/home/pi/projects/angine/src/gizmos/gizmo.cpp.o: /home/pi/p
 CMakeFiles/angine.dir/home/pi/projects/angine/src/gizmos/gizmo.cpp.o: /home/pi/projects/angine/src/vendor/glm/vec3.hpp
 CMakeFiles/angine.dir/home/pi/projects/angine/src/gizmos/gizmo.cpp.o: /home/pi/projects/angine/src/vendor/glm/vec4.hpp
 CMakeFiles/angine.dir/home/pi/projects/angine/src/gizmos/gizmo.cpp.o: /home/pi/projects/angine/src/vendor/glm/vector_relational.hpp
+CMakeFiles/angine.dir/home/pi/projects/angine/src/gizmos/gizmo.cpp.o: /home/pi/projects/angine/src/vendor/nlohmann/json.hpp
 CMakeFiles/angine.dir/home/pi/projects/angine/src/gizmos/gizmo.cpp.o: /home/pi/projects/angine/src/vendor/stb_image.h
 CMakeFiles/angine.dir/home/pi/projects/angine/src/gizmos/gizmo.cpp.o: /home/pi/projects/angine/src/vertex.h
 CMakeFiles/angine.dir/home/pi/projects/angine/src/gizmos/gizmo.cpp.o: /usr/local/include/GLFW/glfw3.h
@@ -3100,6 +3113,7 @@ CMakeFiles/angine.dir/home/pi/projects/angine/src/main.cpp.o: /home/pi/projects/
 CMakeFiles/angine.dir/home/pi/projects/angine/src/main.cpp.o: /home/pi/projects/angine/src/vendor/glm/vec3.hpp
 CMakeFiles/angine.dir/home/pi/projects/angine/src/main.cpp.o: /home/pi/projects/angine/src/vendor/glm/vec4.hpp
 CMakeFiles/angine.dir/home/pi/projects/angine/src/main.cpp.o: /home/pi/projects/angine/src/vendor/glm/vector_relational.hpp
+CMakeFiles/angine.dir/home/pi/projects/angine/src/main.cpp.o: /home/pi/projects/angine/src/vendor/nlohmann/json.hpp
 CMakeFiles/angine.dir/home/pi/projects/angine/src/main.cpp.o: /home/pi/projects/angine/src/vendor/stb_image.h
 CMakeFiles/angine.dir/home/pi/projects/angine/src/main.cpp.o: /home/pi/projects/angine/src/vertex.h
 CMakeFiles/angine.dir/home/pi/projects/angine/src/main.cpp.o: /home/pi/projects/angine/src/window.h
@@ -3309,6 +3323,7 @@ CMakeFiles/angine.dir/home/pi/projects/angine/src/mesh.cpp.o: /home/pi/projects/
 CMakeFiles/angine.dir/home/pi/projects/angine/src/mesh.cpp.o: /home/pi/projects/angine/src/vendor/glm/vec3.hpp
 CMakeFiles/angine.dir/home/pi/projects/angine/src/mesh.cpp.o: /home/pi/projects/angine/src/vendor/glm/vec4.hpp
 CMakeFiles/angine.dir/home/pi/projects/angine/src/mesh.cpp.o: /home/pi/projects/angine/src/vendor/glm/vector_relational.hpp
+CMakeFiles/angine.dir/home/pi/projects/angine/src/mesh.cpp.o: /home/pi/projects/angine/src/vendor/nlohmann/json.hpp
 CMakeFiles/angine.dir/home/pi/projects/angine/src/mesh.cpp.o: /home/pi/projects/angine/src/vendor/stb_image.h
 CMakeFiles/angine.dir/home/pi/projects/angine/src/mesh.cpp.o: /home/pi/projects/angine/src/vertex.h
 CMakeFiles/angine.dir/home/pi/projects/angine/src/mesh.cpp.o: /usr/local/include/GLFW/glfw3.h
@@ -3522,6 +3537,7 @@ CMakeFiles/angine.dir/home/pi/projects/angine/src/mesh_filters/compute_normals_m
 CMakeFiles/angine.dir/home/pi/projects/angine/src/mesh_filters/compute_normals_mesh_filter.cpp.o: /home/pi/projects/angine/src/vendor/glm/vec3.hpp
 CMakeFiles/angine.dir/home/pi/projects/angine/src/mesh_filters/compute_normals_mesh_filter.cpp.o: /home/pi/projects/angine/src/vendor/glm/vec4.hpp
 CMakeFiles/angine.dir/home/pi/projects/angine/src/mesh_filters/compute_normals_mesh_filter.cpp.o: /home/pi/projects/angine/src/vendor/glm/vector_relational.hpp
+CMakeFiles/angine.dir/home/pi/projects/angine/src/mesh_filters/compute_normals_mesh_filter.cpp.o: /home/pi/projects/angine/src/vendor/nlohmann/json.hpp
 CMakeFiles/angine.dir/home/pi/projects/angine/src/mesh_filters/compute_normals_mesh_filter.cpp.o: /home/pi/projects/angine/src/vendor/stb_image.h
 CMakeFiles/angine.dir/home/pi/projects/angine/src/mesh_filters/compute_normals_mesh_filter.cpp.o: /home/pi/projects/angine/src/vertex.h
 CMakeFiles/angine.dir/home/pi/projects/angine/src/mesh_filters/compute_normals_mesh_filter.cpp.o: /usr/local/include/GLFW/glfw3.h
@@ -3735,6 +3751,7 @@ CMakeFiles/angine.dir/home/pi/projects/angine/src/mesh_filters/duplicate_mesh_fi
 CMakeFiles/angine.dir/home/pi/projects/angine/src/mesh_filters/duplicate_mesh_filter.cpp.o: /home/pi/projects/angine/src/vendor/glm/vec3.hpp
 CMakeFiles/angine.dir/home/pi/projects/angine/src/mesh_filters/duplicate_mesh_filter.cpp.o: /home/pi/projects/angine/src/vendor/glm/vec4.hpp
 CMakeFiles/angine.dir/home/pi/projects/angine/src/mesh_filters/duplicate_mesh_filter.cpp.o: /home/pi/projects/angine/src/vendor/glm/vector_relational.hpp
+CMakeFiles/angine.dir/home/pi/projects/angine/src/mesh_filters/duplicate_mesh_filter.cpp.o: /home/pi/projects/angine/src/vendor/nlohmann/json.hpp
 CMakeFiles/angine.dir/home/pi/projects/angine/src/mesh_filters/duplicate_mesh_filter.cpp.o: /home/pi/projects/angine/src/vendor/stb_image.h
 CMakeFiles/angine.dir/home/pi/projects/angine/src/mesh_filters/duplicate_mesh_filter.cpp.o: /home/pi/projects/angine/src/vertex.h
 CMakeFiles/angine.dir/home/pi/projects/angine/src/mesh_filters/duplicate_mesh_filter.cpp.o: /usr/local/include/GLFW/glfw3.h
@@ -3948,6 +3965,7 @@ CMakeFiles/angine.dir/home/pi/projects/angine/src/mesh_filters/from_polar_mesh_f
 CMakeFiles/angine.dir/home/pi/projects/angine/src/mesh_filters/from_polar_mesh_filter.cpp.o: /home/pi/projects/angine/src/vendor/glm/vec3.hpp
 CMakeFiles/angine.dir/home/pi/projects/angine/src/mesh_filters/from_polar_mesh_filter.cpp.o: /home/pi/projects/angine/src/vendor/glm/vec4.hpp
 CMakeFiles/angine.dir/home/pi/projects/angine/src/mesh_filters/from_polar_mesh_filter.cpp.o: /home/pi/projects/angine/src/vendor/glm/vector_relational.hpp
+CMakeFiles/angine.dir/home/pi/projects/angine/src/mesh_filters/from_polar_mesh_filter.cpp.o: /home/pi/projects/angine/src/vendor/nlohmann/json.hpp
 CMakeFiles/angine.dir/home/pi/projects/angine/src/mesh_filters/from_polar_mesh_filter.cpp.o: /home/pi/projects/angine/src/vendor/stb_image.h
 CMakeFiles/angine.dir/home/pi/projects/angine/src/mesh_filters/from_polar_mesh_filter.cpp.o: /home/pi/projects/angine/src/vertex.h
 CMakeFiles/angine.dir/home/pi/projects/angine/src/mesh_filters/from_polar_mesh_filter.cpp.o: /usr/local/include/GLFW/glfw3.h
@@ -4161,6 +4179,7 @@ CMakeFiles/angine.dir/home/pi/projects/angine/src/mesh_filters/inflate_mesh_filt
 CMakeFiles/angine.dir/home/pi/projects/angine/src/mesh_filters/inflate_mesh_filter.cpp.o: /home/pi/projects/angine/src/vendor/glm/vec3.hpp
 CMakeFiles/angine.dir/home/pi/projects/angine/src/mesh_filters/inflate_mesh_filter.cpp.o: /home/pi/projects/angine/src/vendor/glm/vec4.hpp
 CMakeFiles/angine.dir/home/pi/projects/angine/src/mesh_filters/inflate_mesh_filter.cpp.o: /home/pi/projects/angine/src/vendor/glm/vector_relational.hpp
+CMakeFiles/angine.dir/home/pi/projects/angine/src/mesh_filters/inflate_mesh_filter.cpp.o: /home/pi/projects/angine/src/vendor/nlohmann/json.hpp
 CMakeFiles/angine.dir/home/pi/projects/angine/src/mesh_filters/inflate_mesh_filter.cpp.o: /home/pi/projects/angine/src/vendor/stb_image.h
 CMakeFiles/angine.dir/home/pi/projects/angine/src/mesh_filters/inflate_mesh_filter.cpp.o: /home/pi/projects/angine/src/vertex.h
 CMakeFiles/angine.dir/home/pi/projects/angine/src/mesh_filters/inflate_mesh_filter.cpp.o: /usr/local/include/GLFW/glfw3.h
@@ -4373,6 +4392,7 @@ CMakeFiles/angine.dir/home/pi/projects/angine/src/mesh_filters/mesh_filter.cpp.o
 CMakeFiles/angine.dir/home/pi/projects/angine/src/mesh_filters/mesh_filter.cpp.o: /home/pi/projects/angine/src/vendor/glm/vec3.hpp
 CMakeFiles/angine.dir/home/pi/projects/angine/src/mesh_filters/mesh_filter.cpp.o: /home/pi/projects/angine/src/vendor/glm/vec4.hpp
 CMakeFiles/angine.dir/home/pi/projects/angine/src/mesh_filters/mesh_filter.cpp.o: /home/pi/projects/angine/src/vendor/glm/vector_relational.hpp
+CMakeFiles/angine.dir/home/pi/projects/angine/src/mesh_filters/mesh_filter.cpp.o: /home/pi/projects/angine/src/vendor/nlohmann/json.hpp
 CMakeFiles/angine.dir/home/pi/projects/angine/src/mesh_filters/mesh_filter.cpp.o: /home/pi/projects/angine/src/vendor/stb_image.h
 CMakeFiles/angine.dir/home/pi/projects/angine/src/mesh_filters/mesh_filter.cpp.o: /home/pi/projects/angine/src/vertex.h
 CMakeFiles/angine.dir/home/pi/projects/angine/src/mesh_filters/mesh_filter.cpp.o: /usr/local/include/GLFW/glfw3.h
@@ -4586,6 +4606,7 @@ CMakeFiles/angine.dir/home/pi/projects/angine/src/mesh_filters/mirror_mesh_filte
 CMakeFiles/angine.dir/home/pi/projects/angine/src/mesh_filters/mirror_mesh_filter.cpp.o: /home/pi/projects/angine/src/vendor/glm/vec3.hpp
 CMakeFiles/angine.dir/home/pi/projects/angine/src/mesh_filters/mirror_mesh_filter.cpp.o: /home/pi/projects/angine/src/vendor/glm/vec4.hpp
 CMakeFiles/angine.dir/home/pi/projects/angine/src/mesh_filters/mirror_mesh_filter.cpp.o: /home/pi/projects/angine/src/vendor/glm/vector_relational.hpp
+CMakeFiles/angine.dir/home/pi/projects/angine/src/mesh_filters/mirror_mesh_filter.cpp.o: /home/pi/projects/angine/src/vendor/nlohmann/json.hpp
 CMakeFiles/angine.dir/home/pi/projects/angine/src/mesh_filters/mirror_mesh_filter.cpp.o: /home/pi/projects/angine/src/vendor/stb_image.h
 CMakeFiles/angine.dir/home/pi/projects/angine/src/mesh_filters/mirror_mesh_filter.cpp.o: /home/pi/projects/angine/src/vertex.h
 CMakeFiles/angine.dir/home/pi/projects/angine/src/mesh_filters/mirror_mesh_filter.cpp.o: /usr/local/include/GLFW/glfw3.h
@@ -4799,6 +4820,7 @@ CMakeFiles/angine.dir/home/pi/projects/angine/src/mesh_filters/spherify_mesh_fil
 CMakeFiles/angine.dir/home/pi/projects/angine/src/mesh_filters/spherify_mesh_filter.cpp.o: /home/pi/projects/angine/src/vendor/glm/vec3.hpp
 CMakeFiles/angine.dir/home/pi/projects/angine/src/mesh_filters/spherify_mesh_filter.cpp.o: /home/pi/projects/angine/src/vendor/glm/vec4.hpp
 CMakeFiles/angine.dir/home/pi/projects/angine/src/mesh_filters/spherify_mesh_filter.cpp.o: /home/pi/projects/angine/src/vendor/glm/vector_relational.hpp
+CMakeFiles/angine.dir/home/pi/projects/angine/src/mesh_filters/spherify_mesh_filter.cpp.o: /home/pi/projects/angine/src/vendor/nlohmann/json.hpp
 CMakeFiles/angine.dir/home/pi/projects/angine/src/mesh_filters/spherify_mesh_filter.cpp.o: /home/pi/projects/angine/src/vendor/stb_image.h
 CMakeFiles/angine.dir/home/pi/projects/angine/src/mesh_filters/spherify_mesh_filter.cpp.o: /home/pi/projects/angine/src/vertex.h
 CMakeFiles/angine.dir/home/pi/projects/angine/src/mesh_filters/spherify_mesh_filter.cpp.o: /usr/local/include/GLFW/glfw3.h
@@ -5012,6 +5034,7 @@ CMakeFiles/angine.dir/home/pi/projects/angine/src/mesh_filters/transform_mesh_fi
 CMakeFiles/angine.dir/home/pi/projects/angine/src/mesh_filters/transform_mesh_filter.cpp.o: /home/pi/projects/angine/src/vendor/glm/vec3.hpp
 CMakeFiles/angine.dir/home/pi/projects/angine/src/mesh_filters/transform_mesh_filter.cpp.o: /home/pi/projects/angine/src/vendor/glm/vec4.hpp
 CMakeFiles/angine.dir/home/pi/projects/angine/src/mesh_filters/transform_mesh_filter.cpp.o: /home/pi/projects/angine/src/vendor/glm/vector_relational.hpp
+CMakeFiles/angine.dir/home/pi/projects/angine/src/mesh_filters/transform_mesh_filter.cpp.o: /home/pi/projects/angine/src/vendor/nlohmann/json.hpp
 CMakeFiles/angine.dir/home/pi/projects/angine/src/mesh_filters/transform_mesh_filter.cpp.o: /home/pi/projects/angine/src/vendor/stb_image.h
 CMakeFiles/angine.dir/home/pi/projects/angine/src/mesh_filters/transform_mesh_filter.cpp.o: /home/pi/projects/angine/src/vertex.h
 CMakeFiles/angine.dir/home/pi/projects/angine/src/mesh_filters/transform_mesh_filter.cpp.o: /usr/local/include/GLFW/glfw3.h
@@ -5225,6 +5248,7 @@ CMakeFiles/angine.dir/home/pi/projects/angine/src/mesh_filters/twist_mesh_filter
 CMakeFiles/angine.dir/home/pi/projects/angine/src/mesh_filters/twist_mesh_filter.cpp.o: /home/pi/projects/angine/src/vendor/glm/vec3.hpp
 CMakeFiles/angine.dir/home/pi/projects/angine/src/mesh_filters/twist_mesh_filter.cpp.o: /home/pi/projects/angine/src/vendor/glm/vec4.hpp
 CMakeFiles/angine.dir/home/pi/projects/angine/src/mesh_filters/twist_mesh_filter.cpp.o: /home/pi/projects/angine/src/vendor/glm/vector_relational.hpp
+CMakeFiles/angine.dir/home/pi/projects/angine/src/mesh_filters/twist_mesh_filter.cpp.o: /home/pi/projects/angine/src/vendor/nlohmann/json.hpp
 CMakeFiles/angine.dir/home/pi/projects/angine/src/mesh_filters/twist_mesh_filter.cpp.o: /home/pi/projects/angine/src/vendor/stb_image.h
 CMakeFiles/angine.dir/home/pi/projects/angine/src/mesh_filters/twist_mesh_filter.cpp.o: /home/pi/projects/angine/src/vertex.h
 CMakeFiles/angine.dir/home/pi/projects/angine/src/mesh_filters/twist_mesh_filter.cpp.o: /usr/local/include/GLFW/glfw3.h
@@ -5485,6 +5509,7 @@ CMakeFiles/angine.dir/home/pi/projects/angine/src/object.cpp.o: /home/pi/project
 CMakeFiles/angine.dir/home/pi/projects/angine/src/object.cpp.o: /home/pi/projects/angine/src/vendor/glm/vec3.hpp
 CMakeFiles/angine.dir/home/pi/projects/angine/src/object.cpp.o: /home/pi/projects/angine/src/vendor/glm/vec4.hpp
 CMakeFiles/angine.dir/home/pi/projects/angine/src/object.cpp.o: /home/pi/projects/angine/src/vendor/glm/vector_relational.hpp
+CMakeFiles/angine.dir/home/pi/projects/angine/src/object.cpp.o: /home/pi/projects/angine/src/vendor/nlohmann/json.hpp
 CMakeFiles/angine.dir/home/pi/projects/angine/src/object.cpp.o: /home/pi/projects/angine/src/vendor/stb_image.h
 CMakeFiles/angine.dir/home/pi/projects/angine/src/object.cpp.o: /home/pi/projects/angine/src/vertex.h
 CMakeFiles/angine.dir/home/pi/projects/angine/src/object.cpp.o: /usr/local/include/GLFW/glfw3.h
@@ -5698,6 +5723,7 @@ CMakeFiles/angine.dir/home/pi/projects/angine/src/object_dummy.cpp.o: /home/pi/p
 CMakeFiles/angine.dir/home/pi/projects/angine/src/object_dummy.cpp.o: /home/pi/projects/angine/src/vendor/glm/vec3.hpp
 CMakeFiles/angine.dir/home/pi/projects/angine/src/object_dummy.cpp.o: /home/pi/projects/angine/src/vendor/glm/vec4.hpp
 CMakeFiles/angine.dir/home/pi/projects/angine/src/object_dummy.cpp.o: /home/pi/projects/angine/src/vendor/glm/vector_relational.hpp
+CMakeFiles/angine.dir/home/pi/projects/angine/src/object_dummy.cpp.o: /home/pi/projects/angine/src/vendor/nlohmann/json.hpp
 CMakeFiles/angine.dir/home/pi/projects/angine/src/object_dummy.cpp.o: /home/pi/projects/angine/src/vendor/stb_image.h
 CMakeFiles/angine.dir/home/pi/projects/angine/src/object_dummy.cpp.o: /home/pi/projects/angine/src/vertex.h
 CMakeFiles/angine.dir/home/pi/projects/angine/src/object_dummy.cpp.o: /usr/local/include/GLFW/glfw3.h
@@ -5910,6 +5936,7 @@ CMakeFiles/angine.dir/home/pi/projects/angine/src/object_light.cpp.o: /home/pi/p
 CMakeFiles/angine.dir/home/pi/projects/angine/src/object_light.cpp.o: /home/pi/projects/angine/src/vendor/glm/vec3.hpp
 CMakeFiles/angine.dir/home/pi/projects/angine/src/object_light.cpp.o: /home/pi/projects/angine/src/vendor/glm/vec4.hpp
 CMakeFiles/angine.dir/home/pi/projects/angine/src/object_light.cpp.o: /home/pi/projects/angine/src/vendor/glm/vector_relational.hpp
+CMakeFiles/angine.dir/home/pi/projects/angine/src/object_light.cpp.o: /home/pi/projects/angine/src/vendor/nlohmann/json.hpp
 CMakeFiles/angine.dir/home/pi/projects/angine/src/object_light.cpp.o: /home/pi/projects/angine/src/vendor/stb_image.h
 CMakeFiles/angine.dir/home/pi/projects/angine/src/object_light.cpp.o: /usr/local/include/GLFW/glfw3.h
 
@@ -6118,6 +6145,7 @@ CMakeFiles/angine.dir/home/pi/projects/angine/src/param.cpp.o: /home/pi/projects
 CMakeFiles/angine.dir/home/pi/projects/angine/src/param.cpp.o: /home/pi/projects/angine/src/vendor/glm/vec3.hpp
 CMakeFiles/angine.dir/home/pi/projects/angine/src/param.cpp.o: /home/pi/projects/angine/src/vendor/glm/vec4.hpp
 CMakeFiles/angine.dir/home/pi/projects/angine/src/param.cpp.o: /home/pi/projects/angine/src/vendor/glm/vector_relational.hpp
+CMakeFiles/angine.dir/home/pi/projects/angine/src/param.cpp.o: /home/pi/projects/angine/src/vendor/nlohmann/json.hpp
 CMakeFiles/angine.dir/home/pi/projects/angine/src/param.cpp.o: /home/pi/projects/angine/src/vendor/stb_image.h
 CMakeFiles/angine.dir/home/pi/projects/angine/src/param.cpp.o: /usr/local/include/GLFW/glfw3.h
 
@@ -6327,6 +6355,7 @@ CMakeFiles/angine.dir/home/pi/projects/angine/src/param_layout.cpp.o: /home/pi/p
 CMakeFiles/angine.dir/home/pi/projects/angine/src/param_layout.cpp.o: /home/pi/projects/angine/src/vendor/glm/vec3.hpp
 CMakeFiles/angine.dir/home/pi/projects/angine/src/param_layout.cpp.o: /home/pi/projects/angine/src/vendor/glm/vec4.hpp
 CMakeFiles/angine.dir/home/pi/projects/angine/src/param_layout.cpp.o: /home/pi/projects/angine/src/vendor/glm/vector_relational.hpp
+CMakeFiles/angine.dir/home/pi/projects/angine/src/param_layout.cpp.o: /home/pi/projects/angine/src/vendor/nlohmann/json.hpp
 CMakeFiles/angine.dir/home/pi/projects/angine/src/param_layout.cpp.o: /home/pi/projects/angine/src/vendor/stb_image.h
 CMakeFiles/angine.dir/home/pi/projects/angine/src/param_layout.cpp.o: /usr/local/include/GLFW/glfw3.h
 
@@ -6538,6 +6567,7 @@ CMakeFiles/angine.dir/home/pi/projects/angine/src/texture.cpp.o: /home/pi/projec
 CMakeFiles/angine.dir/home/pi/projects/angine/src/texture.cpp.o: /home/pi/projects/angine/src/vendor/glm/vec3.hpp
 CMakeFiles/angine.dir/home/pi/projects/angine/src/texture.cpp.o: /home/pi/projects/angine/src/vendor/glm/vec4.hpp
 CMakeFiles/angine.dir/home/pi/projects/angine/src/texture.cpp.o: /home/pi/projects/angine/src/vendor/glm/vector_relational.hpp
+CMakeFiles/angine.dir/home/pi/projects/angine/src/texture.cpp.o: /home/pi/projects/angine/src/vendor/nlohmann/json.hpp
 CMakeFiles/angine.dir/home/pi/projects/angine/src/texture.cpp.o: /home/pi/projects/angine/src/vendor/stb_image.h
 CMakeFiles/angine.dir/home/pi/projects/angine/src/texture.cpp.o: /usr/local/include/GLFW/glfw3.h
 
@@ -6746,6 +6776,7 @@ CMakeFiles/angine.dir/home/pi/projects/angine/src/utils/mesh_utils.cpp.o: /home/
 CMakeFiles/angine.dir/home/pi/projects/angine/src/utils/mesh_utils.cpp.o: /home/pi/projects/angine/src/vendor/glm/vec3.hpp
 CMakeFiles/angine.dir/home/pi/projects/angine/src/utils/mesh_utils.cpp.o: /home/pi/projects/angine/src/vendor/glm/vec4.hpp
 CMakeFiles/angine.dir/home/pi/projects/angine/src/utils/mesh_utils.cpp.o: /home/pi/projects/angine/src/vendor/glm/vector_relational.hpp
+CMakeFiles/angine.dir/home/pi/projects/angine/src/utils/mesh_utils.cpp.o: /home/pi/projects/angine/src/vendor/nlohmann/json.hpp
 CMakeFiles/angine.dir/home/pi/projects/angine/src/utils/mesh_utils.cpp.o: /home/pi/projects/angine/src/vendor/stb_image.h
 CMakeFiles/angine.dir/home/pi/projects/angine/src/utils/mesh_utils.cpp.o: /home/pi/projects/angine/src/vertex.h
 CMakeFiles/angine.dir/home/pi/projects/angine/src/utils/mesh_utils.cpp.o: /usr/local/include/GLFW/glfw3.h
@@ -6982,10 +7013,12 @@ CMakeFiles/angine.dir/home/pi/projects/angine/src/utils/objLoader.cpp.o: /home/p
 CMakeFiles/angine.dir/home/pi/projects/angine/src/utils/objLoader.cpp.o: /home/pi/projects/angine/src/vendor/glm/vec3.hpp
 CMakeFiles/angine.dir/home/pi/projects/angine/src/utils/objLoader.cpp.o: /home/pi/projects/angine/src/vendor/glm/vec4.hpp
 CMakeFiles/angine.dir/home/pi/projects/angine/src/utils/objLoader.cpp.o: /home/pi/projects/angine/src/vendor/glm/vector_relational.hpp
+CMakeFiles/angine.dir/home/pi/projects/angine/src/utils/objLoader.cpp.o: /home/pi/projects/angine/src/vendor/nlohmann/json.hpp
 CMakeFiles/angine.dir/home/pi/projects/angine/src/utils/objLoader.cpp.o: /home/pi/projects/angine/src/vendor/stb_image.h
 CMakeFiles/angine.dir/home/pi/projects/angine/src/utils/objLoader.cpp.o: /home/pi/projects/angine/src/vertex.h
 CMakeFiles/angine.dir/home/pi/projects/angine/src/utils/objLoader.cpp.o: /usr/local/include/GLFW/glfw3.h
 
+CMakeFiles/angine.dir/home/pi/projects/angine/src/vendor/imgui/imgui.cpp.o: ../src/vendor/stb_image.h
 CMakeFiles/angine.dir/home/pi/projects/angine/src/vendor/imgui/imgui.cpp.o: /home/pi/projects/angine/src/vendor/imgui/imconfig.h
 CMakeFiles/angine.dir/home/pi/projects/angine/src/vendor/imgui/imgui.cpp.o: /home/pi/projects/angine/src/vendor/imgui/imgui.cpp
 CMakeFiles/angine.dir/home/pi/projects/angine/src/vendor/imgui/imgui.cpp.o: /home/pi/projects/angine/src/vendor/imgui/imgui.h
@@ -7288,6 +7321,7 @@ CMakeFiles/angine.dir/home/pi/projects/angine/src/window.cpp.o: /home/pi/project
 CMakeFiles/angine.dir/home/pi/projects/angine/src/window.cpp.o: /home/pi/projects/angine/src/vendor/glm/vec3.hpp
 CMakeFiles/angine.dir/home/pi/projects/angine/src/window.cpp.o: /home/pi/projects/angine/src/vendor/glm/vec4.hpp
 CMakeFiles/angine.dir/home/pi/projects/angine/src/window.cpp.o: /home/pi/projects/angine/src/vendor/glm/vector_relational.hpp
+CMakeFiles/angine.dir/home/pi/projects/angine/src/window.cpp.o: /home/pi/projects/angine/src/vendor/nlohmann/json.hpp
 CMakeFiles/angine.dir/home/pi/projects/angine/src/window.cpp.o: /home/pi/projects/angine/src/vendor/stb_image.h
 CMakeFiles/angine.dir/home/pi/projects/angine/src/window.cpp.o: /home/pi/projects/angine/src/vertex.h
 CMakeFiles/angine.dir/home/pi/projects/angine/src/window.cpp.o: /home/pi/projects/angine/src/window.cpp

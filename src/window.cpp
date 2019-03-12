@@ -23,7 +23,7 @@
 #include <unistd.h>
 #include <sys/stat.h>
 
-////
+
 
 static int ray_plane_intersect(glm::vec3 planeN, glm::vec3 planeP, glm::vec3 pointP, glm::vec3 rayDir, glm::vec3& hitP)
 {
@@ -33,6 +33,18 @@ static int ray_plane_intersect(glm::vec3 planeN, glm::vec3 planeP, glm::vec3 poi
     
     hitP = pointP + ( K * rayDir);
     return  K>= 0.0 && K <= 1.0;
+}
+
+static void vec_mult_by_matrix( glm::vec3 & _vec, glm::mat4 & _mat, bool invert = false){
+	
+	glm::vec4 vec4 = glm::vec4(_vec.x, _vec.y, _vec.z,1.0f);
+	glm::vec3 output;
+	if( invert){
+		_vec = vec4 * glm::inverse(_mat);
+	} else{
+		_vec = vec4 * _mat;
+	}
+
 }
 
 
@@ -66,7 +78,16 @@ static std::vector<std::string> split(const std::string& str, std::string delimi
 
 Window::Window()
 {
+	auto j = json::parse("{ \"happy\": true, \"pi\": 3.141 }");
 
+	j["my_property"] = true;
+	// explicit conversion to string
+	std::string s = j.dump();    // {\"happy\":true,\"pi\":3.141}
+
+	// serialization with pretty printing
+	// pass in the amount of spaces to indent
+	std::cout << j.dump(4) << std::endl;
+	
 	if(!glfwInit()){
 		std::cout<<"Problem with GLFW\n";
 		glfwTerminate();		
@@ -242,22 +263,22 @@ bool Window::mouseClickGizmo(){
 			target_transforms = gizmos[i]->target_object->transforms * target_transforms;			
 			gizmos[i]->target_object->applyParentsMatrices(target_transforms);
 			
-			glm::vec4 z_axis = glm::vec4(0.0f, 0.0f, 1.0f, 1.0f);
-			glm::vec3 z_axis_vec3;
-			
-			z_axis_vec3 = z_axis * glm::inverse(target_transforms);
+			glm::vec3 z_axis_2 = glm::vec3(0.0f, 0.0f, 1.0f);
+			vec_mult_by_matrix(z_axis_2, target_transforms, true);
 
-			glm::vec3 world_pos = glm::vec3( 
-				target_transforms[3][0],
-				target_transforms[3][1],
-				target_transforms[3][2]
-			);
-			printf("z_axis_vec3 : %.3f, %.3f, %.3f \n", z_axis_vec3.x, z_axis_vec3.y, z_axis_vec3.z);
-			printf("target_pos : %.3f, %.3f, %.3f \n", world_pos.x, world_pos.y, world_pos.z);
+			glm::vec3 test = gizmos[i]->target_object->getWorldPosition();
+			printf("world pos test --> %.3f, %.3f, %.3f\n", test.x, test.y, test.z);
+			//~ glm::vec3 world_pos = glm::vec3( 
+				//~ target_transforms[3][0],
+				//~ target_transforms[3][1],
+				//~ target_transforms[3][2]
+			//~ );
+			printf("z_axis_vec3 : %.3f, %.3f, %.3f \n", z_axis_2.x, z_axis_2.y, z_axis_2.z);
+			//~ printf("target_pos : %.3f, %.3f, %.3f \n", world_pos.x, world_pos.y, world_pos.z);
 			
-			glm::vec3 planeN = glm::normalize(z_axis_vec3);
+			glm::vec3 planeN = glm::normalize(z_axis_2);
 			
-			glm::vec3 planeP = world_pos;
+			glm::vec3 planeP = test;
 			glm::vec3 pointP = glm::vec3(x, y , 1.0f);
 			glm::vec3 rayDir = glm::vec3(0.0f, 0.0f , -1.0f);			
 								
@@ -1275,11 +1296,32 @@ void Window::objectPropertiesDialog()
 		ImGui::End();		
 		
 	}else{
+		
+
 
 		char text[500];
 		sprintf(text, "object %d", cur_object_selected);
 		Entity3D* curEntity = objects[cur_object_selected];
 		
+		Object * p_object = nullptr;
+		ObjectDummy * p_dummy = nullptr;
+		if( p_object = dynamic_cast<Object *>(curEntity)){
+			
+			if(ImGui::Button("to json")){
+				json j = p_object->toJSON();
+				std::string s = j.dump(4);
+				
+				printf("%s\n", s.c_str());
+			}		
+		}else if( p_dummy = dynamic_cast<ObjectDummy *>(curEntity)){
+			
+			if(ImGui::Button("to json")){
+				json j = p_dummy->toJSON();
+				std::string s = j.dump(4);
+				
+				printf("%s\n", s.c_str());
+			}		
+		}
 		// current object name
 		if( ImGui::InputText(":name" , curEntity->name,IM_ARRAYSIZE(curEntity->name)))
 		{

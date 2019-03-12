@@ -73,6 +73,12 @@ void ObjectDummy::draw()
 		glUseProgram(0);		
 }
 
-
+json ObjectDummy::toJSON()
+{
+	json j;
+	j["name"] = name;
+	
+	return j;
+}
 
 

@@ -131,6 +131,7 @@ class Object : public Entity3D
 		
 		BoundingBox boundingBox;
 		
+		json toJSON();
 		
 		
 		private:

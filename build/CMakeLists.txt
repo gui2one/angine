@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 2.8)
 
 
-project(angine)
+project(angine CXX)
 set(CMAKE_BUILD_TYPE Release)
 set(CMAKE_CXX_FLAGS -std=c++11)
 
@@ -9,9 +9,18 @@ add_library(PCHLib
 	../src/pch.cpp
 )
 
+#~ add_subdirectory(../src/vendor/nlohmann)
+
+add_library(JSONLib
+	../src/vendor/nlohmann/impl.cpp
+)
+
+
 include_directories(../src/include/)
 include_directories(/usr/local/include)
 include_directories(../src/vendor/imgui/)
+include_directories(../src/vendor/)
+include_directories(../src/vendor/nlohmann)
 
 link_directories(../src/libs/)
 link_directories(../src/libs/osd/)
@@ -26,7 +35,7 @@ add_executable(angine
 	../src/param.cpp
 	
 	
-	
+	#~ ../src/vendor/nlohmann/json.hpp
 	
 	../src/vendor/imgui/imgui_impl_opengl3.cpp
 	../src/vendor/imgui/imgui_impl_glfw.cpp
@@ -81,7 +90,7 @@ add_executable(angine
 
 
 target_link_libraries(angine PCHLib)
-
+target_link_libraries(angine JSONLib)
 target_link_libraries(angine -losdCPU) # open subdiv
 
 target_link_libraries(angine -lassimp)

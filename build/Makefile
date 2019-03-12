@@ -124,6 +124,19 @@ angine/fast:
 .PHONY : angine/fast
 
 #=============================================================================
+# Target rules for targets named JSONLib
+
+# Build rule for target.
+JSONLib: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 JSONLib
+.PHONY : JSONLib
+
+# fast build rule for target.
+JSONLib/fast:
+	$(MAKE) -f CMakeFiles/JSONLib.dir/build.make CMakeFiles/JSONLib.dir/build
+.PHONY : JSONLib/fast
+
+#=============================================================================
 # Target rules for targets named PCHLib
 
 # Build rule for target.
@@ -1216,6 +1229,33 @@ home/pi/projects/angine/src/vendor/imgui/imgui_widgets.cpp.s:
 	$(MAKE) -f CMakeFiles/angine.dir/build.make CMakeFiles/angine.dir/home/pi/projects/angine/src/vendor/imgui/imgui_widgets.cpp.s
 .PHONY : home/pi/projects/angine/src/vendor/imgui/imgui_widgets.cpp.s
 
+home/pi/projects/angine/src/vendor/nlohmann/impl.o: home/pi/projects/angine/src/vendor/nlohmann/impl.cpp.o
+
+.PHONY : home/pi/projects/angine/src/vendor/nlohmann/impl.o
+
+# target to build an object file
+home/pi/projects/angine/src/vendor/nlohmann/impl.cpp.o:
+	$(MAKE) -f CMakeFiles/JSONLib.dir/build.make CMakeFiles/JSONLib.dir/home/pi/projects/angine/src/vendor/nlohmann/impl.cpp.o
+.PHONY : home/pi/projects/angine/src/vendor/nlohmann/impl.cpp.o
+
+home/pi/projects/angine/src/vendor/nlohmann/impl.i: home/pi/projects/angine/src/vendor/nlohmann/impl.cpp.i
+
+.PHONY : home/pi/projects/angine/src/vendor/nlohmann/impl.i
+
+# target to preprocess a source file
+home/pi/projects/angine/src/vendor/nlohmann/impl.cpp.i:
+	$(MAKE) -f CMakeFiles/JSONLib.dir/build.make CMakeFiles/JSONLib.dir/home/pi/projects/angine/src/vendor/nlohmann/impl.cpp.i
+.PHONY : home/pi/projects/angine/src/vendor/nlohmann/impl.cpp.i
+
+home/pi/projects/angine/src/vendor/nlohmann/impl.s: home/pi/projects/angine/src/vendor/nlohmann/impl.cpp.s
+
+.PHONY : home/pi/projects/angine/src/vendor/nlohmann/impl.s
+
+# target to generate assembly for a file
+home/pi/projects/angine/src/vendor/nlohmann/impl.cpp.s:
+	$(MAKE) -f CMakeFiles/JSONLib.dir/build.make CMakeFiles/JSONLib.dir/home/pi/projects/angine/src/vendor/nlohmann/impl.cpp.s
+.PHONY : home/pi/projects/angine/src/vendor/nlohmann/impl.cpp.s
+
 home/pi/projects/angine/src/vendor/stb_image.o: home/pi/projects/angine/src/vendor/stb_image.cpp.o
 
 .PHONY : home/pi/projects/angine/src/vendor/stb_image.o
@@ -1277,8 +1317,9 @@ help:
 	@echo "... clean"
 	@echo "... depend"
 	@echo "... edit_cache"
-	@echo "... rebuild_cache"
 	@echo "... angine"
+	@echo "... rebuild_cache"
+	@echo "... JSONLib"
 	@echo "... PCHLib"
 	@echo "... home/pi/projects/angine/src/animation/base_keyframe.o"
 	@echo "... home/pi/projects/angine/src/animation/base_keyframe.i"
@@ -1400,6 +1441,9 @@ help:
 	@echo "... home/pi/projects/angine/src/vendor/imgui/imgui_widgets.o"
 	@echo "... home/pi/projects/angine/src/vendor/imgui/imgui_widgets.i"
 	@echo "... home/pi/projects/angine/src/vendor/imgui/imgui_widgets.s"
+	@echo "... home/pi/projects/angine/src/vendor/nlohmann/impl.o"
+	@echo "... home/pi/projects/angine/src/vendor/nlohmann/impl.i"
+	@echo "... home/pi/projects/angine/src/vendor/nlohmann/impl.s"
 	@echo "... home/pi/projects/angine/src/vendor/stb_image.o"
 	@echo "... home/pi/projects/angine/src/vendor/stb_image.i"
 	@echo "... home/pi/projects/angine/src/vendor/stb_image.s"

@@ -53,11 +53,14 @@ set(CMAKE_CXX_TARGET_INCLUDE_PATH
   "../src/include"
   "/usr/local/include"
   "../src/vendor/imgui"
+  "../src/vendor"
+  "../src/vendor/nlohmann"
   )
 
 # Targets to which this target links.
 set(CMAKE_TARGET_LINKED_INFO_FILES
   "/home/pi/projects/angine/build/CMakeFiles/PCHLib.dir/DependInfo.cmake"
+  "/home/pi/projects/angine/build/CMakeFiles/JSONLib.dir/DependInfo.cmake"
   )
 
 # Fortran module output directory.

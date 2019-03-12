@@ -21,3 +21,9 @@
 #include "vendor/glm/gtc/type_ptr.hpp"
 
 #define PI 3.14159265359
+
+#include "vendor/nlohmann/json.hpp"
+
+// for convenience
+using json = nlohmann::json;
+////

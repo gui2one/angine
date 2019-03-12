@@ -652,6 +652,14 @@ void Object::drawPoints()
 		glUseProgram(0);	
 }
 
+json Object::toJSON()
+{
+	json j;
+	j["name"] = name;
+	
+	return j;
+}
+
 Object::~Object()
 {
 	delete mesh_generator;

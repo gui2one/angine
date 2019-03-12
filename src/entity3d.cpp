@@ -72,13 +72,23 @@ void Entity3D::applyTransforms()
 
 glm::vec3 Entity3D::getWorldPosition()
 {
-	glm::vec4 temp = glm::vec4(position.x, position.y, position.z,1.0f);
-	glm::mat4 temp_matrix = glm::mat4(1.0f);
-	applyParentsMatrices(temp_matrix);
-	temp_matrix = transforms * temp_matrix;
-	temp = temp * temp_matrix;
+	
+	//~ glm::vec3 output_vec;
+	//~ glm::vec4 temp = glm::vec4(position.x, position.y, position.z,1.0f);
+	//~ glm::mat4 temp_matrix = glm::mat4(1.0f);
+	//~ applyParentsMatrices(temp_matrix);
+	//~ temp_matrix = transforms * temp_matrix;
+	//~ output_vec = temp * glm::inverse(temp_matrix);
 	//~ 
-	return glm::vec3(temp.x, temp.y, temp.z);
+	//applyTransforms();
+	glm::mat4 input = transforms;
+	
+	applyParentsMatrices(input);
+	return glm::vec3( 
+		input[3][0],
+		input[3][1],
+		input[3][2]
+	);
 	
 }
 
@@ -104,6 +114,7 @@ void Entity3D::applyParentsMatrices(glm::mat4 & source_matrix)
 	
 	for (int i = 0; i < parents.size(); i++)
 	{
+		//~ printf("||||||||||| applying parents matrices\n");
 		source_matrix = parents[i]->transforms * source_matrix;
 	}	
 	
