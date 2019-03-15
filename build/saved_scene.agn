@@ -10,6 +10,7 @@
                                 0.20000000298023224
                             ]
                         ],
+                        "keyframes_interpolation": 0,
                         "name": "radius"
                     },
                     {
@@ -38,14 +39,16 @@
                 0.0,
                 1.0,
                 0.0,
-                0.0,
+                2.0,
                 0.0,
                 0.0,
                 1.0
-            ]
+            ],
+            "type": "OBJECT"
         },
         {
-            "name": "null_1ject"
+            "name": "null_1ject",
+            "type": "OBJECT_DUMMY"
         }
     ]
 }

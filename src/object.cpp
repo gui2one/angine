@@ -655,6 +655,7 @@ void Object::drawPoints()
 json Object::toJSON()
 {
 	json j;
+	j["type"] = "OBJECT";
 	j["name"] = name;
 	j["transforms"] = {
 		transforms[0][0], transforms[0][1],transforms[0][2],transforms[0][3],

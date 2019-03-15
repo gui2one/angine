@@ -106,7 +106,7 @@ json BaseParam::toJSON(){
 		}
 	
 
-		
+		j["keyframes_interpolation"] = getInterpolationType();
 		j["keyframes"] = keys_j;
 	}
 	j["name"] = name;

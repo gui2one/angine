@@ -1085,6 +1085,14 @@ void Window::buildParamUiKeyframePopupEnd(BaseParam * param, std::function<void(
 				key->setValue(p_float_2->getValue());
 				param->addKeyframe(key);
 				callback();
+			}else if(p_int_2 = dynamic_cast<ParamInt *>(param)){
+				
+				Keyframe<int>* key = new Keyframe<int>();
+				
+				key->setFrame((int)time_line.current_frame);
+				key->setValue(p_int_2->getValue());
+				param->addKeyframe(key);
+				callback();
 			}
 			
 			std::vector<BaseKeyframe*> keys = param->getKeyframes();
@@ -1816,43 +1824,88 @@ void Window::drawKeyframes(BaseParam* _param, int selected_key_id)
 	std::vector<BaseKeyframe*> cur_keys = _param->keyframes;
 	for (int key_ID = 0; key_ID < cur_keys.size(); key_ID++)
 	{
-		Keyframe<float> * key_float = dynamic_cast<Keyframe<float> *>(cur_keys[key_ID]);
 		
-		float frame = key_float->getFrame();
-		float value = key_float->getValue();
+		BaseKeyframe * cur_key = cur_keys[key_ID];
+		Keyframe<float> * key_float = nullptr;
+		Keyframe<int> * key_int = nullptr;
 		
-		//~ printf("Key frame -> %.3f, value -> %.3f\n", frame, value);
-		
-		ImVec2 cursor_pos = p;
-		float start_x = cursor_pos.x;
-		float start_y = cursor_pos.y;
-		float max_x = start_x+ size.x - 11.0f;
-		float size_y = 11.0f;
-		float key_pos_x = cursor_pos.x + (max_x - cursor_pos.x) * ((frame-(float)time_line.start) / ((float)time_line.end - (float)time_line.start));
-		draw_list->AddRectFilled(
-			ImVec2(key_pos_x, p.y), 
-			ImVec2(key_pos_x+11.0f, start_y + size_y), 
-			selected_key_id == key_ID ? ImColor(ImVec4(0.9f,0.2f,0.9f,1.0f)) : ImColor(ImVec4(0.2f,0.2f,0.9f,1.0f)));		
-						
-		if(key_ID != cur_keys.size()-1)
-		{
-			Keyframe<float> * key_float_after = dynamic_cast<Keyframe<float> *>(cur_keys[key_ID+1]);
+		if( key_float = dynamic_cast<Keyframe<float> *>(cur_key)){
+			
+			
+			float frame = key_float->getFrame();
+			float value = key_float->getValue();
+			
+			//~ printf("Key frame -> %.3f, value -> %.3f\n", frame, value);
+			
+			ImVec2 cursor_pos = p;
+			float start_x = cursor_pos.x;
+			float start_y = cursor_pos.y;
+			float max_x = start_x+ size.x - 11.0f;
+			float size_y = 11.0f;
+			float key_pos_x = cursor_pos.x + (max_x - cursor_pos.x) * ((frame-(float)time_line.start) / ((float)time_line.end - (float)time_line.start));
+			draw_list->AddRectFilled(
+				ImVec2(key_pos_x, p.y), 
+				ImVec2(key_pos_x+11.0f, start_y + size_y), 
+				selected_key_id == key_ID ? ImColor(ImVec4(0.9f,0.2f,0.9f,1.0f)) : ImColor(ImVec4(0.2f,0.2f,0.9f,1.0f)));		
+							
+			if(key_ID != cur_keys.size()-1)
+			{
+				Keyframe<float> * key_float_after = dynamic_cast<Keyframe<float> *>(cur_keys[key_ID+1]);
 
-			float frame_after = key_float_after->getFrame();
-			float value_after = key_float_after->getValue();					
-			
-			float key_after_pos_x = cursor_pos.x + (max_x - cursor_pos.x) * ((frame_after-(float)time_line.start) / ((float)time_line.end - (float)time_line.start));
+				float frame_after = key_float_after->getFrame();
+				float value_after = key_float_after->getValue();					
+				
+				float key_after_pos_x = cursor_pos.x + (max_x - cursor_pos.x) * ((frame_after-(float)time_line.start) / ((float)time_line.end - (float)time_line.start));
 
-			const ImVec2 pos0 = ImVec2(key_pos_x, start_y + (value / 20.0f) * size_y);
-			const ImVec2 cp0 = ImVec2(key_pos_x +30.0f, start_y + (value / 20.0f) * size_y);
-			const ImVec2 cp1 = ImVec2(key_after_pos_x - 30.0f, start_y + (value_after / 20.0f) * size_y);
-			const ImVec2 pos1 = ImVec2(key_after_pos_x, start_y + (value_after / 20.0f) * size_y);
-		
-			const ImU32 col = ImColor(ImVec4(1.0f,0.0f,0.0f,1.0f));
+				const ImVec2 pos0 = ImVec2(key_pos_x, start_y + (value / 20.0f) * size_y);
+				const ImVec2 cp0 = ImVec2(key_pos_x +30.0f, start_y + (value / 20.0f) * size_y);
+				const ImVec2 cp1 = ImVec2(key_after_pos_x - 30.0f, start_y + (value_after / 20.0f) * size_y);
+				const ImVec2 pos1 = ImVec2(key_after_pos_x, start_y + (value_after / 20.0f) * size_y);
 			
-			draw_list->AddBezierCurve(pos0, cp0, cp1, pos1, col, 2.0f);
+				const ImU32 col = ImColor(ImVec4(1.0f,0.0f,0.0f,1.0f));
+				
+				draw_list->AddBezierCurve(pos0, cp0, cp1, pos1, col, 2.0f);
+				
+			} 
+		}else if( key_int = dynamic_cast<Keyframe<int> *>(cur_key)){
 			
-		} 
+			
+			float frame = key_int->getFrame();
+			int value = key_int->getValue();
+			
+			//~ printf("Key frame -> %.3f, value -> %.3f\n", frame, value);
+			
+			ImVec2 cursor_pos = p;
+			float start_x = cursor_pos.x;
+			float start_y = cursor_pos.y;
+			float max_x = start_x+ size.x - 11.0f;
+			float size_y = 11.0f;
+			float key_pos_x = cursor_pos.x + (max_x - cursor_pos.x) * ((frame-(float)time_line.start) / ((float)time_line.end - (float)time_line.start));
+			draw_list->AddRectFilled(
+				ImVec2(key_pos_x, p.y), 
+				ImVec2(key_pos_x+11.0f, start_y + size_y), 
+				selected_key_id == key_ID ? ImColor(ImVec4(0.9f,0.2f,0.9f,1.0f)) : ImColor(ImVec4(0.2f,0.2f,0.9f,1.0f)));		
+							
+			if(key_ID != cur_keys.size()-1)
+			{
+				Keyframe<int> * key_int_after = dynamic_cast<Keyframe<int> *>(cur_keys[key_ID+1]);
+
+				float frame_after = key_int_after->getFrame();
+				int value_after = key_int_after->getValue();					
+				
+				float key_after_pos_x = cursor_pos.x + (max_x - cursor_pos.x) * ((frame_after-(float)time_line.start) / ((float)time_line.end - (float)time_line.start));
+
+				const ImVec2 pos0 = ImVec2(key_pos_x, start_y + ((float)value / 20.0f) * size_y);
+				const ImVec2 cp0 = ImVec2(key_pos_x +30.0f, start_y + ((float)value / 20.0f) * size_y);
+				const ImVec2 cp1 = ImVec2(key_after_pos_x - 30.0f, start_y + ((float)value_after / 20.0f) * size_y);
+				const ImVec2 pos1 = ImVec2(key_after_pos_x, start_y + ((float)value_after / 20.0f) * size_y);
+			
+				const ImU32 col = ImColor(ImVec4(1.0f,0.0f,0.0f,1.0f));
+				
+				draw_list->AddBezierCurve(pos0, cp0, cp1, pos1, col, 2.0f);
+				
+			} 
+		}
 	
 	}	
 }
@@ -2015,6 +2068,7 @@ void Window::timeLineDialog()
 		
 		
 		ParamFloat * ptr_float = nullptr;
+		ParamInt * ptr_int = nullptr;
 		ParamVec3 * ptr_vec3  = nullptr;
 		
 		if(ptr_float = dynamic_cast<ParamFloat *>(cur_param))
@@ -2022,6 +2076,12 @@ void Window::timeLineDialog()
 			std::vector<BaseKeyframe*> keys = ptr_float->getKeyframes();
 			//~ printf("num keyframes = %d\n", keys.size());
 			drawKeyframes(ptr_float, selected_key_id);
+			
+		}else if(ptr_int = dynamic_cast<ParamInt *>(cur_param))
+		{
+			std::vector<BaseKeyframe*> keys = ptr_int->getKeyframes();
+			//~ printf("num keyframes = %d\n", keys.size());
+			drawKeyframes(ptr_int, selected_key_id);
 			
 		}else if(ptr_vec3 = dynamic_cast<ParamVec3 *>(cur_param)){
 			
@@ -2179,6 +2239,9 @@ void Window::removeObject(Entity3D* obj)
 		
 		if(cur_object_selected > 0)
 			cur_object_selected -= 1;	
+			
+		if( objects.size() == 0)
+			cur_object_selected = -1;
 			
 		//~ printf("Objects number is %d \n", objects.size());
 }
@@ -2428,6 +2491,7 @@ void Window::saveToFile()
 			
 			json j = p_object->toJSON();	
 			
+			
 			if(p_object->has_generator){
 				j["mesh_generator"] = p_object->mesh_generator->toJSON();
 			}
@@ -2439,6 +2503,7 @@ void Window::saveToFile()
 		}else if( p_dummy = dynamic_cast<ObjectDummy *>(curEntity)){
 			
 			json j = p_dummy->toJSON();
+			
 			//~ std::string s = j.dump(4);
 			
 			entities.push_back(j);
@@ -2474,7 +2539,44 @@ void Window::loadFromFile(std::string file_path)
   j = json::parse(s);
   
   std::cout << j.dump(2).c_str();
+  
+  
   std::cout << "\n";
+  
+  
+  for (int i = 0; i < j["entities"].size(); i++)
+  {
+	  json cur_j = j["entities"][i];
+	  //~ printf("%s\n", j["entities"][i].dump(2).c_str());
+	  std::cout << cur_j["name"].get<std::string>();
+	  std::cout << "\n";
+	  
+	  
+	  if( cur_j["type"].get<std::string>() == "OBJECT"){
+		  
+		printf("building new OBJECT\n");
+		Object * new_obj = new Object();
+		new_obj->setName(cur_j["name"].get<std::string>());
+		new_obj->init();
+
+		new_obj->shader = default_shader;
+		
+		new_obj->setGenerator<CylinderMesh>();
+		new_obj->generator_type = 6; // really crappy design , do something !!!!
+		new_obj->mesh_generator->need_update = true;		  
+		  
+		addObject(new_obj);
+		  
+		  
+		  
+	  }else if( cur_j["type"].get<std::string>() == "OBJECT_DUMMY"){
+		  printf("building new OBJECT DUMMY\n");
+		ObjectDummy * new_obj = new ObjectDummy();
+		new_obj->setName(cur_j["name"].get<std::string>());
+		new_obj->init();
+		addObject(new_obj);
+	  }
+  }
   
 	
 }

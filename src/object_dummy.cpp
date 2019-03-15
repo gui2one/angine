@@ -76,6 +76,7 @@ void ObjectDummy::draw()
 json ObjectDummy::toJSON()
 {
 	json j;
+	j["type"] = "OBJECT_DUMMY";
 	j["name"] = name;
 	
 	return j;
