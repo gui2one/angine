@@ -79,15 +79,15 @@ static std::vector<std::string> split(const std::string& str, std::string delimi
 
 Window::Window()
 {
-	auto j = json::parse("{ \"happy\": true, \"pi\": 3.141 }");
-
-	j["my_property"] = true;
-	// explicit conversion to string
-	std::string s = j.dump();    // {\"happy\":true,\"pi\":3.141}
-
-	// serialization with pretty printing
-	// pass in the amount of spaces to indent
-	std::cout << j.dump(4) << std::endl;
+	//~ auto j = json::parse("{ \"happy\": true, \"pi\": 3.141 }");
+//~ 
+	//~ j["my_property"] = true;
+	//~ // explicit conversion to string
+	//~ std::string s = j.dump();    // {\"happy\":true,\"pi\":3.141}
+//~ 
+	//~ // serialization with pretty printing
+	//~ // pass in the amount of spaces to indent
+	//~ std::cout << j.dump(4) << std::endl;
 	
 	if(!glfwInit()){
 		std::cout<<"Problem with GLFW\n";
