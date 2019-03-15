@@ -3,7 +3,7 @@
 
 CylinderMesh::CylinderMesh(): MeshGenerator()
 {	
-	
+	setType(CYLINDER_MESH_GENERATOR);
 	param_radius = new ParamFloat("radius", 0.666); 	
 	param_layout.push(param_radius);
 	
@@ -19,6 +19,7 @@ CylinderMesh::CylinderMesh(): MeshGenerator()
 
 
 CylinderMesh::CylinderMesh(const CylinderMesh& other):MeshGenerator(other){
+	setType(CYLINDER_MESH_GENERATOR);
 	//~ printf("CylinderMesh COPY CONSTRUCTOR\n");
 	param_radius = new ParamFloat(*other.param_radius); 
 	//~ param_radius->setValue(other.param_radius->value);
@@ -178,6 +179,14 @@ Mesh CylinderMesh::generateCylinder(float radius, float height, int segs_height,
 	mesh.computeNormals();
 	return mesh;
 }
+
+//~ json CylinderMesh::toJSON(){
+	//~ for (int i = 0; i < param_layout.getSize(); i++)
+	//~ {
+		//~ if(
+	//~ }
+	//~ 
+//~ }
 
 CylinderMesh::~CylinderMesh()
 {

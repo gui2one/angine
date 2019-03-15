@@ -13,6 +13,35 @@ MeshGenerator::MeshGenerator(const MeshGenerator& other){
 	//~ param_layout = other.param_layout;	
 }
 
+json MeshGenerator::toJSON()
+{
+	json j;
+	//~ j["name"] = name;
+	std::vector<json> all_params;
+	j["type"] = type;
+	for (int i = 0; i < param_layout.getSize(); i++)
+	{
+		BaseParam * p_parm = param_layout.getParam(i);
+		ParamFloat * p_float = nullptr;
+		ParamInt * p_int = nullptr;
+
+		if(p_float = dynamic_cast<ParamFloat*>(p_parm)){
+
+			all_params.push_back(p_float->toJSON());
+		}else if(p_int = dynamic_cast<ParamInt*>(p_parm)){
+			
+			all_params.push_back(p_int->toJSON());
+		}
+
+		//~ printf("param to JSON\n");
+	}
+	
+	j["params"] = all_params;
+	
+	return j;
+	
+	
+}
 MeshGenerator::~MeshGenerator(){
 	for (size_t i = 0; i < param_layout.getSize(); i++)
 	{

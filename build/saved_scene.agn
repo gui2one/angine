@@ -1,0 +1,51 @@
+{
+    "entities": [
+        {
+            "mesh_generator": {
+                "params": [
+                    {
+                        "keyframes": [
+                            [
+                                1.0,
+                                0.20000000298023224
+                            ]
+                        ],
+                        "name": "radius"
+                    },
+                    {
+                        "name": "height"
+                    },
+                    {
+                        "name": "segs_height"
+                    },
+                    {
+                        "name": "segs_radius"
+                    }
+                ],
+                "type": 4
+            },
+            "name": "wheel_1ect",
+            "transforms": [
+                1.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                1.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                1.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                1.0
+            ]
+        },
+        {
+            "name": "null_1ject"
+        }
+    ]
+}

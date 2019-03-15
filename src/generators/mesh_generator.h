@@ -29,18 +29,20 @@ class MeshGenerator
 		
 		
 		inline virtual Mesh generate(){}
-
+		virtual json toJSON();
 		bool need_update = false;
 		
 		Mesh mesh_cache;
 		
 		ParamLayout param_layout;
 
+		inline void setType(MESH_GENERATOR_TYPE _type){ type = _type;}
+		inline MESH_GENERATOR_TYPE getType() const { return type;}
 		
 		
 	private:
 	
-	MESH_GENERATOR_TYPE type;
+		MESH_GENERATOR_TYPE type;
 		/* add your private declarations */
 };
 

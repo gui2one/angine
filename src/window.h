@@ -23,6 +23,12 @@
 #include "imgui_impl_glfw.h"
 #include "imgui_impl_opengl3.h"
 
+#include "vendor/nlohmann/json.hpp"
+
+// for convenience
+using json = nlohmann::json;
+////
+
 class Window
 {
 	public:
@@ -104,6 +110,9 @@ class Window
 		
 		//~ template<typename T>
 		void buildParamUi(BaseParam * param, std::function<void()> callback = [](){});
+		
+		void saveToFile();
+		void loadFromFile(std::string file_path);
 	private:
 		
 		

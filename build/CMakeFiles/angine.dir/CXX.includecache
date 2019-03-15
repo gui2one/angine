@@ -657,6 +657,8 @@ mesh_filters/mirror_mesh_filter.h
 /home/pi/projects/angine/src/mesh_filters/mirror_mesh_filter.h
 entity3d.h
 /home/pi/projects/angine/src/entity3d.h
+vendor/nlohmann/json.hpp
+/home/pi/projects/angine/src/vendor/nlohmann/json.hpp
 
 /home/pi/projects/angine/src/object_dummy.cpp
 object_dummy.h
@@ -669,6 +671,8 @@ mesh.h
 /home/pi/projects/angine/src/mesh.h
 entity3d.h
 /home/pi/projects/angine/src/entity3d.h
+vendor/nlohmann/json.hpp
+/home/pi/projects/angine/src/vendor/nlohmann/json.hpp
 
 /home/pi/projects/angine/src/object_light.cpp
 object_light.h
@@ -2697,6 +2701,8 @@ window.h
 /home/pi/projects/angine/src/window.h
 iostream
 -
+fstream
+-
 typeinfo
 -
 sstream
@@ -2747,6 +2753,8 @@ imgui_impl_glfw.h
 /home/pi/projects/angine/src/imgui_impl_glfw.h
 imgui_impl_opengl3.h
 /home/pi/projects/angine/src/imgui_impl_opengl3.h
+vendor/nlohmann/json.hpp
+/home/pi/projects/angine/src/vendor/nlohmann/json.hpp
 
 /usr/local/include/GLFW/glfw3.h
 stddef.h

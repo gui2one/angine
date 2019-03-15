@@ -84,6 +84,36 @@ float BaseParam::lerpf( float _a, float _b, float _pos){
 	
 }
 
+json BaseParam::toJSON(){
+	json j;
+	std::vector<json> keys_j;
+	
+	if( getNumKeyframes() > 0){
+		
+		for (int i = 0; i < getNumKeyframes(); i++)
+		{
+			Keyframe<float>* p_float_key = nullptr;
+			Keyframe<int>* p_int_key = nullptr;
+			if( p_float_key = dynamic_cast<Keyframe<float > *>(keyframes[i])){
+				
+				
+				keys_j.push_back({p_float_key->getFrame(), p_float_key->getValue()});
+			}else if( p_int_key = dynamic_cast<Keyframe<int > *>(keyframes[i])){
+				
+				
+				keys_j.push_back({p_int_key->getFrame(), p_int_key->getValue()});
+			}
+		}
+	
+
+		
+		j["keyframes"] = keys_j;
+	}
+	j["name"] = name;
+	return j;
+	
+}
+
 static float clamp(float x, float lowerlimit, float upperlimit) {
   if (x < lowerlimit)
     x = lowerlimit;

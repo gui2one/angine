@@ -656,7 +656,13 @@ json Object::toJSON()
 {
 	json j;
 	j["name"] = name;
-	
+	j["transforms"] = {
+		transforms[0][0], transforms[0][1],transforms[0][2],transforms[0][3],
+		transforms[1][0], transforms[1][1],transforms[1][2],transforms[1][3],
+		transforms[2][0], transforms[2][1],transforms[2][2],transforms[2][3],
+		transforms[3][0], transforms[3][1],transforms[3][2],transforms[3][3]
+		
+	};
 	return j;
 }
 

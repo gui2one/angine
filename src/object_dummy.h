@@ -5,6 +5,12 @@
 #include "mesh.h"
 #include "entity3d.h"
 
+#include "vendor/nlohmann/json.hpp"
+
+// for convenience
+using json = nlohmann::json;
+////
+
 class ObjectDummy: public Entity3D
 {
 	public:

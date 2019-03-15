@@ -30,10 +30,14 @@ class CylinderMesh : public MeshGenerator
 		};
 		Mesh generateCylinder(float radius = 0.5, float height = 1.0, int segs_height = 5, int segs_radius = 20);
 		
+		//~ json toJSON()override;
+		
 		ParamFloat* param_radius;
 		ParamFloat* param_height;
 		ParamInt* param_segs_height;
 		ParamInt* param_segs_radius;
+		
+		
 	private:
 		/* add your private declarations */
 };

@@ -27,6 +27,13 @@
 #include "mesh_filters/mirror_mesh_filter.h"
 
 #include "entity3d.h"
+
+#include "vendor/nlohmann/json.hpp"
+
+// for convenience
+using json = nlohmann::json;
+////
+
 struct uniform{
 	std::string uniform_name;
 	GLsizei length;

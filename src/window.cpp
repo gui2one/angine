@@ -1,6 +1,7 @@
 #include "window.h"
 
 #include <iostream>
+#include <fstream>
 #include <typeinfo>
 #include <sstream>
 #include <algorithm>
@@ -223,7 +224,8 @@ Window::Window()
 
 }
 
-bool Window::mouseClickGizmo(){
+bool Window::mouseClickGizmo()
+{
 	double pos_x, pos_y;
 	glfwGetCursorPos(win, &pos_x, &pos_y);
 	if( cur_object_selected != -1){
@@ -323,6 +325,7 @@ bool Window::mouseClickGizmo(){
 	return false;
 	
 }
+
 Entity3D* Window::mouseClickObject()
 {
 	double pos_x, pos_y;
@@ -485,6 +488,7 @@ void Window::drawWorldGrid()
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
 	
 }
+
 void Window::cursor_pos_callback(GLFWwindow* window, double xpos, double ypos)
 {
 	Window* app = static_cast<Window*>(glfwGetWindowUserPointer(window));
@@ -531,6 +535,7 @@ void Window::scroll_callback(GLFWwindow* window, double xoffset, double yoffset)
 		app->setCamPosFromPolar(app->camera_u_pos, app->camera_v_pos, app->camera_orbit_radius);
 	}
 }
+
 void Window::mouse_button_callback(GLFWwindow* window, int button, int action, int mods)
 {
 	Window* app = static_cast<Window*>(glfwGetWindowUserPointer(window));
@@ -585,8 +590,6 @@ void Window::char_mods_callback(GLFWwindow* window, unsigned int key, int mod)
 	}
 	
 }
-
-
 
 void Window::setCamPosFromPolar(float u, float v, float _radius)
 {
@@ -838,8 +841,17 @@ void Window::buildObjectList()
 
 void Window::objectListDialog()
 {
+	
+
 	ImGui::Begin("Object List");
 	
+	if( ImGui::Button("save to file") ){
+		saveToFile();
+	}	
+	
+	if( ImGui::Button("load from file") ){
+		loadFromFile("saved_scene.agn");
+	}		
 	if(ImGui::ListBoxHeader("", 5))
 	{
 		for (int i = 0; i < objects.size(); i++)
@@ -937,7 +949,8 @@ void Window::objectListDialog()
 	ImGui::End();
 }
 
-void Window::evalKeyframes(){
+void Window::evalKeyframes()
+{
 	for (int i = 0; i < objects.size(); i++)
 	{
 		Entity3D * cur_entity = objects[i];
@@ -1005,6 +1018,7 @@ void Window::evalKeyframes(){
 		}		
 	}	
 }
+
 void Window::buildParamUiKeyframePopupBegin(BaseParam * param)
 {
 
@@ -1091,7 +1105,9 @@ void Window::buildParamUiKeyframePopupEnd(BaseParam * param, std::function<void(
 	
 	ImGui::PopID();					
 }
-void Window::buildParamUi(BaseParam * param, std::function<void()> callback){
+
+void Window::buildParamUi(BaseParam * param, std::function<void()> callback)
+{
 			
 	ParamFloat   * p_float  = nullptr;
 	ParamInt     * p_int    = nullptr;
@@ -1309,8 +1325,15 @@ void Window::objectPropertiesDialog()
 			
 			if(ImGui::Button("to json")){
 				json j = p_object->toJSON();
-				std::string s = j.dump(4);
 				
+				
+				
+				
+				if(p_object->has_generator){
+					j["mesh_generator"] = p_object->mesh_generator->toJSON();
+				}
+				
+				std::string s = j.dump(4);
 				printf("%s\n", s.c_str());
 			}		
 		}else if( p_dummy = dynamic_cast<ObjectDummy *>(curEntity)){
@@ -1785,7 +1808,8 @@ void Window::objectPropertiesDialog()
 	}
 }
 
-void Window::drawKeyframes(BaseParam* _param, int selected_key_id){
+void Window::drawKeyframes(BaseParam* _param, int selected_key_id)
+{
 	ImDrawList* draw_list = ImGui::GetWindowDrawList();
 	const ImVec2 p = ImGui::GetCursorScreenPos();
 	ImVec2 size = ImGui::GetWindowSize();	
@@ -2134,7 +2158,6 @@ void Window::addObject(Entity3D* obj)
 	
 }
 
-
 void Window::removeObject(Entity3D* obj)
 {
 		//// check for children and reset parent to nullptr if needed
@@ -2160,7 +2183,8 @@ void Window::removeObject(Entity3D* obj)
 		//~ printf("Objects number is %d \n", objects.size());
 }
 
-Entity3D Window::duplicateObject(Entity3D * obj){
+Entity3D Window::duplicateObject(Entity3D * obj)
+{
 	
 	Entity3D * p = obj;
 	
@@ -2383,6 +2407,75 @@ void Window::renderObjects()
 			glUseProgram(0);
 		}
 	}
+	
+}
+
+void Window::saveToFile()
+{
+	std::ofstream out_file; 
+	json main_json;
+	std::vector<json> entities;
+	for (int i = 0; i < objects.size(); i++)
+	{
+		
+	
+	
+		Entity3D* curEntity = objects[i];
+		
+		Object * p_object = nullptr;
+		ObjectDummy * p_dummy = nullptr;
+		if( p_object = dynamic_cast<Object *>(curEntity)){
+			
+			json j = p_object->toJSON();	
+			
+			if(p_object->has_generator){
+				j["mesh_generator"] = p_object->mesh_generator->toJSON();
+			}
+			
+			entities.push_back(j);
+			//~ std::string s = j.dump(4);
+			//~ printf("%s\n", s.c_str());
+		
+		}else if( p_dummy = dynamic_cast<ObjectDummy *>(curEntity)){
+			
+			json j = p_dummy->toJSON();
+			//~ std::string s = j.dump(4);
+			
+			entities.push_back(j);
+			//~ printf("%s\n", s.c_str());
+	
+		}	
+	}
+	
+	main_json["entities"] = entities;
+	
+	out_file.open("saved_scene.agn");
+	out_file << main_json.dump(4);
+	out_file.close();
+}
+
+void Window::loadFromFile(std::string file_path)
+{
+	std::ifstream in_file(file_path);
+	std::string line;
+	std::string s;
+	
+	json j;
+  if (in_file.is_open())
+  {
+    while ( getline (in_file,line) )
+    {
+		s += line;
+		//~ std::cout << line << '\n';
+    }
+    in_file.close();
+  }	
+  
+  j = json::parse(s);
+  
+  std::cout << j.dump(2).c_str();
+  std::cout << "\n";
+  
 	
 }
 

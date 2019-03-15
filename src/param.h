@@ -57,6 +57,8 @@ class BaseParam{
 		
 		void addKeyframe(BaseKeyframe * _key);
 		bool isKeyframe(int _frame);
+		
+		virtual json toJSON();
 	private:	
 	
 		std::string name;
