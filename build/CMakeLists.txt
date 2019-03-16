@@ -88,9 +88,9 @@ add_executable(angine
 	
 )
 
-
+target_link_libraries(angine PRIVATE JSONLib)
 target_link_libraries(angine PCHLib)
-target_link_libraries(angine JSONLib)
+
 target_link_libraries(angine -losdCPU) # open subdiv
 
 target_link_libraries(angine -lassimp)

@@ -141,6 +141,7 @@ class Object : public Entity3D
 		json toJSON();
 		void fromJSON(json _j, Shader& _shader);
 		
+		
 		private:
 			GLuint renderMode = GL_TRIANGLES;
 			//~ Entity3D* parent = nullptr;

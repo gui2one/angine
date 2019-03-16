@@ -110,7 +110,7 @@ json BaseParam::toJSON(){
 		j["keyframes"] = keys_j;
 	}
 	j["name"] = name;
-	
+	j["type"] = getType();
 
 	if( getNumKeyframes() == 0)
 	{

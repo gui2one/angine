@@ -2442,7 +2442,7 @@ void Window::saveToFile()
 			
 			json j = p_object->toJSON();	
 			
-			
+
 			//~ if(p_object->has_generator){
 				//~ j["mesh_generator"] = p_object->mesh_generator->toJSON();
 			//~ }
@@ -2531,6 +2531,8 @@ void Window::loadFromFile(std::string file_path)
 	  }
   }
   
+  
+  evalKeyframes();
 	
 }
 

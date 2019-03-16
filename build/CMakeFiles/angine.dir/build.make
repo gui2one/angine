@@ -1130,8 +1130,8 @@ angine: CMakeFiles/angine.dir/home/pi/projects/angine/src/mesh_filters/duplicate
 angine: CMakeFiles/angine.dir/home/pi/projects/angine/src/mesh_filters/from_polar_mesh_filter.cpp.o
 angine: CMakeFiles/angine.dir/home/pi/projects/angine/src/mesh_filters/mirror_mesh_filter.cpp.o
 angine: CMakeFiles/angine.dir/build.make
-angine: libPCHLib.a
 angine: libJSONLib.a
+angine: libPCHLib.a
 angine: CMakeFiles/angine.dir/link.txt
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/pi/projects/angine/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_42) "Linking CXX executable angine"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/angine.dir/link.txt --verbose=$(VERBOSE)

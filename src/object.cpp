@@ -702,11 +702,71 @@ void Object::fromJSON(json _j, Shader& _shader)
 	
 	for (int i = 0; i < params.size(); i++)
 	{
-		mesh_generator->param_layout.params
+		printf("%s \n", params[i]->getName().c_str());
+		printf("is int ? -- %s\n", params_j[i].is_number() == true ? "true": "false");
+		
+		ParamFloat * p_float = nullptr;
+		ParamInt * p_int = nullptr;
+		
+		printf("Param type is --> %d\n", params_j[i]["type"].get<int>());
+		
+		switch(params_j[i]["type"].get<int>()) {
+			case PARAM_FLOAT :
+				
+				
+				if( p_float = dynamic_cast<ParamFloat*>(params[i]))
+				{
+					try {
+						std::vector<json> keys_j = params_j[i].at("keyframes");
+						
+						printf("num Keyframes is == %d \n", keys_j.size());
+						
+						p_float->keyframes.clear();
+						p_float->setInterpolationType((INTERPOLATION_TYPE)params_j[i].at("keyframes_interpolation").get<int>());
+						for (int k = 0; k < keys_j.size(); k++)
+						{
+							Keyframe<float> * new_key = new Keyframe<float>();
+							new_key->setFrame(keys_j[k][0].get<float>());
+							
+							printf("key value is --> %f \n", keys_j[k][1].get<float>());
+							new_key->setValue((float)(keys_j[k][1].get<float>()));
+							p_float->keyframes.push_back( new_key );
+						}
+						
+						
+							
+						
+						
+					}catch (nlohmann::detail::out_of_range e){
+						printf("there was an execption thrown \n");
+						printf("trying to set value directly !!!!!! \n");
+						p_float->value = params_j[i]["value"].get<float>();
+					}
+					printf("this is a ParamFloat \n");
+
+				}
+				
+				break;
+			case PARAM_INT :			
+				printf("this is a ParamInt \n");
+				//~ if( p_int = dynamic_cast<ParamInt*>(params[i])) {
+					//~ p_int->value = params_j[i]["value"].get<int>();
+				//~ }			
+				
+				break;
+			default :
+				printf("default case \n");
+				break;
+			
+		}
+		
 	}
 	
 	  	
 }
+
+
+
 Object::~Object()
 {
 	delete mesh_generator;
