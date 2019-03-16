@@ -3,12 +3,16 @@
 #define PI 3.14159265359
 GeoSphereMesh::GeoSphereMesh()
 {	
-
+	setType(GEOSPHERE_MESH_GENERATOR);
 	
 	p_radius = new ParamFloat("radius", 0.5);
 	param_layout.push(p_radius);
 }
-GeoSphereMesh::GeoSphereMesh(const GeoSphereMesh& other){
+
+GeoSphereMesh::GeoSphereMesh(const GeoSphereMesh& other)
+{
+	setType(GEOSPHERE_MESH_GENERATOR);
+	
 	p_radius = new ParamFloat(*other.p_radius);
 	param_layout.push(p_radius);	
 }

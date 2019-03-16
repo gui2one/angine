@@ -110,6 +110,20 @@ json BaseParam::toJSON(){
 		j["keyframes"] = keys_j;
 	}
 	j["name"] = name;
+	
+
+	if( getNumKeyframes() == 0)
+	{
+		BaseParam * cur_param = this;
+		ParamFloat * p_float = nullptr;
+		ParamInt * p_int = nullptr;
+
+		if(p_float = dynamic_cast<ParamFloat*>(cur_param)){
+			j["value"] = p_float->value;
+		}else if(p_int = dynamic_cast<ParamInt*>(cur_param)){
+			j["value"] = p_int->value;
+		}
+	}
 	return j;
 	
 }

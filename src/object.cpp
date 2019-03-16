@@ -664,9 +664,40 @@ json Object::toJSON()
 		transforms[3][0], transforms[3][1],transforms[3][2],transforms[3][3]
 		
 	};
+	if(has_generator){
+		j["mesh_generator"] = mesh_generator->toJSON();
+	}		
 	return j;
 }
 
+void Object::fromJSON(json _j, Shader& _shader)
+{
+	printf("OBJECT fromJSON function fired !!!! \n");
+	setName(_j["name"].get<std::string>());
+	init();
+	
+	shader = _shader;
+
+	switch(_j["mesh_generator"]["type"].get<int>())
+	{
+		case CYLINDER_MESH_GENERATOR:
+			printf("--- setting Cylinder mesh generator up \n");
+			setGenerator<CylinderMesh>();
+			generator_type = CYLINDER_MESH_GENERATOR; // really crappy design , do something !!!!
+			mesh_generator->need_update = true;		  
+			break;
+		case SPHERE_MESH_GENERATOR :
+			printf("--- setting Cylinder mesh generator up \n");
+			setGenerator<SphereMesh>();
+			generator_type = SPHERE_MESH_GENERATOR; // really crappy design , do something !!!!
+			mesh_generator->need_update = true;		  	
+			break;
+		default : 
+			break;
+		
+	}
+	  	
+}
 Object::~Object()
 {
 	delete mesh_generator;

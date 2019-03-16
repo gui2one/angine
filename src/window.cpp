@@ -48,7 +48,6 @@ static void vec_mult_by_matrix( glm::vec3 & _vec, glm::mat4 & _mat, bool invert 
 
 }
 
-
 static std::vector<std::string> split(const std::string& str, std::string delimiter = " "){
 	
 	std::vector<std::string> tokens;
@@ -76,18 +75,8 @@ static std::vector<std::string> split(const std::string& str, std::string delimi
 	return tokens;
 }
 
-
 Window::Window()
 {
-	//~ auto j = json::parse("{ \"happy\": true, \"pi\": 3.141 }");
-//~ 
-	//~ j["my_property"] = true;
-	//~ // explicit conversion to string
-	//~ std::string s = j.dump();    // {\"happy\":true,\"pi\":3.141}
-//~ 
-	//~ // serialization with pretty printing
-	//~ // pass in the amount of spaces to indent
-	//~ std::cout << j.dump(4) << std::endl;
 	
 	if(!glfwInit()){
 		std::cout<<"Problem with GLFW\n";
@@ -142,11 +131,7 @@ Window::Window()
 	IMGUI_CHECKVERSION();
 	ImGui::CreateContext();
 	ImGuiIO &io = ImGui::GetIO(); (void)io;
-	
 
-	
-	//~ io.Fonts->Build();
-	
 	
 	const char* glsl_version = "#version 130";
 
@@ -201,11 +186,6 @@ Window::Window()
 	obj->generator_type = 6; // really crappy design , do something !!!!
 	obj->mesh_generator->need_update = true;
 	
-	//~ obj->setMeshFilter<TransformMeshFilter>();
-	//~ obj->meshFilters[0]->setName("transform");
-
-
-	
 	addObject(obj);
 	
 	
@@ -217,10 +197,7 @@ Window::Window()
 	dummy->applyTransforms();
 	addObject(dummy);
 
-
-
 	evalKeyframes();
-
 
 }
 
@@ -259,7 +236,7 @@ bool Window::mouseClickGizmo()
 			float x = (2.0f * pos_x) / width - 1.0f;
 			float y = 1.0f - (2.0f * pos_y) / height;			
 			
-			//~ glm::vec3 target_pos = gizmos[i]->target_object->getWorldPosition();
+
 			glm::mat4 target_transforms = glm::mat4(1.0f);
 			gizmos[i]->target_object->applyTransforms();
 			target_transforms = gizmos[i]->target_object->transforms * target_transforms;			
@@ -270,13 +247,9 @@ bool Window::mouseClickGizmo()
 
 			glm::vec3 test = gizmos[i]->target_object->getWorldPosition();
 			printf("world pos test --> %.3f, %.3f, %.3f\n", test.x, test.y, test.z);
-			//~ glm::vec3 world_pos = glm::vec3( 
-				//~ target_transforms[3][0],
-				//~ target_transforms[3][1],
-				//~ target_transforms[3][2]
-			//~ );
+
 			printf("z_axis_vec3 : %.3f, %.3f, %.3f \n", z_axis_2.x, z_axis_2.y, z_axis_2.z);
-			//~ printf("target_pos : %.3f, %.3f, %.3f \n", world_pos.x, world_pos.y, world_pos.z);
+			
 			
 			glm::vec3 planeN = glm::normalize(z_axis_2);
 			
@@ -286,10 +259,7 @@ bool Window::mouseClickGizmo()
 								
 			glm::vec4 tempPointP = inverse(projection * view)* glm::vec4(pointP.x, pointP.y, pointP.z, 1.0f) ;
 			tempPointP /= tempPointP.w *0.5f;
-			//~ 
-			//~ 
-			
-			//~ 
+
 			glm::vec3 hitP = glm::vec3(0.0f);
 			int hit = ray_plane_intersect(planeN, planeP, camera.position, tempPointP, hitP);	
 			
@@ -298,7 +268,7 @@ bool Window::mouseClickGizmo()
 			glm::vec3 local_pos_vec3 = glm::inverse(target_transforms) * local_pos ;
 			if(hit){
 				printf("------> gizmo hit <--------\n");
-				//~ printf("\thitP : %.3f, %.3f, %.3f\n", hitP.x - world_pos.x, hitP.y - world_pos.y, hitP.z - world_pos.z);
+			
 				printf("\tlocal_pos_vec3 : %.3f, %.3f, %.3f\n", local_pos_vec3.x, local_pos_vec3.y, local_pos_vec3.z);
 				if( fabs(local_pos_vec3.x) > fabs(local_pos_vec3.y)
 					&&  fabs(local_pos_vec3.y) < 0.1)
@@ -342,7 +312,7 @@ Entity3D* Window::mouseClickObject()
 			glm::vec3 bbox_pos = AABB.position;
 			glm::vec3 bbox_size = AABB.size;
 			glm::vec3 bbox_center = bbox_pos + glm::vec3(bbox_size.x/2.0f, bbox_size.y/2.0f, bbox_size.y/2.0f) ;	
-			//~ printf("position  : %.3f, %.3f, %.3f\n", bbox_pos.x, bbox_pos.y, bbox_pos.z);
+
 			
 			
 			float x = (2.0f * pos_x) / width - 1.0f;
@@ -362,10 +332,7 @@ Entity3D* Window::mouseClickObject()
 			// but the guy says he forced projection[3][3] to be 0.0, I have to do 1.0f for this to work
 			
 			projection[3][3] = 1.0f; 
-			//~ 
-			//~ /////
-			//~ 
-			//~ 
+
 			glm::vec3 up_vector = glm::vec3(0.0f,0.0f,1.0f);
 
 			view *= glm::lookAt(
@@ -376,10 +343,7 @@ Entity3D* Window::mouseClickObject()
 								
 			glm::vec4 tempPointP = inverse(projection * view)* glm::vec4(pointP.x, pointP.y, pointP.z, 1.0f) ;
 			tempPointP /= tempPointP.w *0.5f;
-			//~ 
-			//~ 
-			
-			//~ 
+
 			glm::vec3 hitP = glm::vec3(0.0f);
 			int hit = ray_plane_intersect(planeN, planeP, camera.position, tempPointP, hitP);		
 			
@@ -393,7 +357,7 @@ Entity3D* Window::mouseClickObject()
 						
 						if( hitP.z > bbox_pos.z && hitP.z < bbox_pos.z + bbox_size.z)
 						{					
-							//~ printf("hit !!!!! object number %d\n", i);
+		
 							cur_object_selected = i;
 							return objects[i];
 						}
@@ -407,17 +371,13 @@ Entity3D* Window::mouseClickObject()
 	printf("cur_object_selected is %d\n", cur_object_selected);
 	cur_object_selected = -1;
 	
-	//return nullptr;
+
 	
 }
 
 void Window::initWorldGrid()
 {
 
-	//// build verts
-	//~ struct vert{
-		//~ float x, y, z;
-	//~ };
 	std::vector<float> verts;
 
 	for (int x = 0; x <= 10; x++)
@@ -526,9 +486,7 @@ void Window::scroll_callback(GLFWwindow* window, double xoffset, double yoffset)
 {
 	Window* app = static_cast<Window*>(glfwGetWindowUserPointer(window));
 	ImGuiIO &io = ImGui::GetIO();
-	if(io.WantCaptureMouse){
-	
-		
+	if(io.WantCaptureMouse){		
 		//~ printf("ImGui captured mouse\n");
 	}else{	
 		app->camera_orbit_radius -= yoffset*0.2;
@@ -541,28 +499,23 @@ void Window::mouse_button_callback(GLFWwindow* window, int button, int action, i
 	Window* app = static_cast<Window*>(glfwGetWindowUserPointer(window));
 	
 	ImGuiIO &io = ImGui::GetIO();
-	if(io.WantCaptureMouse){
-	
-		
-		//~ printf("mouse pos %f, %f\n", io.MousePos[0], io.MousePos[1]);
-		
-		
+	if(io.WantCaptureMouse)
+	{
+		//~ printf("mouse pos %f, %f\n", io.MousePos[0], io.MousePos[1]);		
 	}else{	
 		
 		
-		if(button == GLFW_MOUSE_BUTTON_RIGHT && action == GLFW_PRESS ){
-			
+		if(button == GLFW_MOUSE_BUTTON_RIGHT && action == GLFW_PRESS )
+		{
 			app->right_mouse_button_down = true;
 			
 			glfwGetCursorPos(window, &app->mouse_pos_x, &app->mouse_pos_y);
 			app->mouse_old_x = app->mouse_pos_x;
-			app->mouse_old_y = app->mouse_pos_y;
-			
+			app->mouse_old_y = app->mouse_pos_y;			
 			
 		}else if(button == GLFW_MOUSE_BUTTON_RIGHT && action == GLFW_RELEASE ){
 			
-			app->right_mouse_button_down = false;
-			
+			app->right_mouse_button_down = false;			
 		}
 		
 		if(button == GLFW_MOUSE_BUTTON_LEFT && action == GLFW_PRESS){
@@ -571,9 +524,7 @@ void Window::mouse_button_callback(GLFWwindow* window, int button, int action, i
 			if(!is_gizmo)
 			{
 				app->mouseClickObject();
-			}
-			
-
+			}			
 		}
 	}
 }
@@ -2492,9 +2443,9 @@ void Window::saveToFile()
 			json j = p_object->toJSON();	
 			
 			
-			if(p_object->has_generator){
-				j["mesh_generator"] = p_object->mesh_generator->toJSON();
-			}
+			//~ if(p_object->has_generator){
+				//~ j["mesh_generator"] = p_object->mesh_generator->toJSON();
+			//~ }
 			
 			entities.push_back(j);
 			//~ std::string s = j.dump(4);
@@ -2554,17 +2505,19 @@ void Window::loadFromFile(std::string file_path)
 	  
 	  if( cur_j["type"].get<std::string>() == "OBJECT"){
 		  
+		
 		printf("building new OBJECT\n");
 		Object * new_obj = new Object();
-		new_obj->setName(cur_j["name"].get<std::string>());
-		new_obj->init();
-
-		new_obj->shader = default_shader;
-		
-		new_obj->setGenerator<CylinderMesh>();
-		new_obj->generator_type = 6; // really crappy design , do something !!!!
-		new_obj->mesh_generator->need_update = true;		  
-		  
+		new_obj->fromJSON(cur_j, default_shader);
+		//~ new_obj->setName(cur_j["name"].get<std::string>());
+		//~ new_obj->init();
+//~ 
+		//~ new_obj->shader = default_shader;
+		//~ 
+		//~ new_obj->setGenerator<CylinderMesh>();
+		//~ new_obj->generator_type = 6; // really crappy design , do something !!!!
+		//~ new_obj->mesh_generator->need_update = true;		  
+		  //~ 
 		addObject(new_obj);
 		  
 		  

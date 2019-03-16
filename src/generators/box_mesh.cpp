@@ -3,6 +3,7 @@
 
 BoxMesh::BoxMesh()
 {
+	setType(BOX_MESH_GENERATOR);
 
 	p_width = new ParamFloat("width",1.0);
 	param_layout.push(p_width);
@@ -26,7 +27,9 @@ BoxMesh::BoxMesh()
 
 }
 
-BoxMesh::BoxMesh(const BoxMesh& other){
+BoxMesh::BoxMesh(const BoxMesh& other)
+{
+	setType(BOX_MESH_GENERATOR);
 
 	p_width = new ParamFloat(*other.p_width);
 	param_layout.push(p_width);

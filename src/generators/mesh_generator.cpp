@@ -42,6 +42,12 @@ json MeshGenerator::toJSON()
 	
 	
 }
+
+void MeshGenerator::fromJSON(json _j)
+{
+	printf("MeshGenerator fromJSON function fired\n");
+	//~ return new CylinderMeshGenerator();
+}
 MeshGenerator::~MeshGenerator(){
 	for (size_t i = 0; i < param_layout.getSize(); i++)
 	{

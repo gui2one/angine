@@ -4,7 +4,7 @@
 FileMesh::FileMesh()
 {
 
-
+	setType(FILE_MESH_GENERATOR);
 	
 	p_file_path = new ParamString("file_path", "/home/pi/projects/angine/src/res/obj/monkey.obj");
 	param_layout.push(p_file_path);
@@ -18,6 +18,8 @@ FileMesh::FileMesh()
 }
 
 FileMesh::FileMesh(const FileMesh& other){
+	
+	setType(FILE_MESH_GENERATOR);
 	
 	p_file_path = new ParamString(*other.p_file_path);
 	param_layout.push(p_file_path);

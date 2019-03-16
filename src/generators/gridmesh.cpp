@@ -3,6 +3,8 @@
 
 GridMesh::GridMesh()
 {
+	setType(GRID_MESH_GENERATOR);
+	
 	p_rows = new ParamInt("rows", 2, 2);
 	param_layout.push(p_rows);
 	
@@ -16,7 +18,10 @@ GridMesh::GridMesh()
 	param_layout.push(p_length);
 }
 
-GridMesh::GridMesh(const GridMesh& other){
+GridMesh::GridMesh(const GridMesh& other)
+{
+	setType(GRID_MESH_GENERATOR);
+	
 	p_rows = new ParamInt(*other.p_rows);
 	param_layout.push(p_rows);
 	

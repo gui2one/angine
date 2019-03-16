@@ -4,6 +4,7 @@
 SphereMesh::SphereMesh()
 {
 
+	setType(SPHERE_MESH_GENERATOR);
 	
 	p_cols = new ParamInt("cols", 24);
 	param_layout.push(p_cols);
@@ -21,7 +22,9 @@ SphereMesh::SphereMesh()
 	param_layout.push(p_v_ratio);		
 }
 
-SphereMesh::SphereMesh(const SphereMesh& other){
+SphereMesh::SphereMesh(const SphereMesh& other)
+{
+	setType(SPHERE_MESH_GENERATOR);
 	
 	p_cols = new ParamInt(*other.p_cols);
 	param_layout.push(p_cols);

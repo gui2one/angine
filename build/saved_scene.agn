@@ -4,26 +4,27 @@
             "mesh_generator": {
                 "params": [
                     {
-                        "keyframes": [
-                            [
-                                1.0,
-                                0.20000000298023224
-                            ]
-                        ],
-                        "keyframes_interpolation": 0,
-                        "name": "radius"
+                        "name": "cols",
+                        "value": 24
                     },
                     {
-                        "name": "height"
+                        "name": "rows",
+                        "value": 16
                     },
                     {
-                        "name": "segs_height"
+                        "name": "radius",
+                        "value": 0.5
                     },
                     {
-                        "name": "segs_radius"
+                        "name": "U ratio",
+                        "value": 1.0
+                    },
+                    {
+                        "name": "V ratio",
+                        "value": 1.0
                     }
                 ],
-                "type": 4
+                "type": 0
             },
             "name": "wheel_1ect",
             "transforms": [
@@ -39,7 +40,7 @@
                 0.0,
                 1.0,
                 0.0,
-                2.0,
+                0.0,
                 0.0,
                 0.0,
                 1.0

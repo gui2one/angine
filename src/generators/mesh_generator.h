@@ -30,6 +30,7 @@ class MeshGenerator
 		
 		inline virtual Mesh generate(){}
 		virtual json toJSON();
+		virtual void fromJSON(json _j);
 		bool need_update = false;
 		
 		Mesh mesh_cache;
