@@ -696,6 +696,15 @@ void Object::fromJSON(json _j, Shader& _shader)
 			break;
 		
 	}
+	
+	std::vector<json> params_j = _j["mesh_generator"]["params"];
+	std::vector<BaseParam*> params = mesh_generator->param_layout.getParams();
+	
+	for (int i = 0; i < params.size(); i++)
+	{
+		mesh_generator->param_layout.params
+	}
+	
 	  	
 }
 Object::~Object()
