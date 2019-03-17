@@ -7,39 +7,17 @@
                         "keyframes": [
                             [
                                 1.0,
-                                0.10000000149011612
-                            ],
-                            [
-                                34.0,
-                                0.5
-                            ],
-                            [
-                                60.0,
-                                0.10000000149011612
+                                0.20000000298023224
                             ]
                         ],
-                        "keyframes_interpolation": 1,
+                        "keyframes_interpolation": 0,
                         "name": "radius",
                         "type": 1
                     },
                     {
-                        "keyframes": [
-                            [
-                                1.0,
-                                1.0
-                            ],
-                            [
-                                34.0,
-                                0.20000000298023224
-                            ],
-                            [
-                                60.0,
-                                1.0
-                            ]
-                        ],
-                        "keyframes_interpolation": 1,
                         "name": "height",
-                        "type": 1
+                        "type": 1,
+                        "value": 0.20000000298023224
                     },
                     {
                         "name": "segs_height",
@@ -55,6 +33,21 @@
                 "type": 4
             },
             "name": "wheel_1ect",
+            "position": [
+                0.0,
+                0.0,
+                0.0
+            ],
+            "rotation": [
+                0.0,
+                0.0,
+                0.0
+            ],
+            "scale": [
+                1.0,
+                1.0,
+                1.0
+            ],
             "transforms": [
                 1.0,
                 0.0,
@@ -73,10 +66,161 @@
                 0.0,
                 1.0
             ],
+            "transforms_params": [
+                {
+                    "position": [
+                        {
+                            "name": "t__x",
+                            "type": 1,
+                            "value": 0.0
+                        },
+                        {
+                            "name": "t__y",
+                            "type": 1,
+                            "value": 0.0
+                        },
+                        {
+                            "name": "t__z",
+                            "type": 1,
+                            "value": 0.0
+                        }
+                    ]
+                },
+                {
+                    "rotation": [
+                        {
+                            "name": "r__x",
+                            "type": 1,
+                            "value": 0.0
+                        },
+                        {
+                            "name": "r__y",
+                            "type": 1,
+                            "value": 0.0
+                        },
+                        {
+                            "name": "r__z",
+                            "type": 1,
+                            "value": 0.0
+                        }
+                    ]
+                },
+                {
+                    "scale": [
+                        {
+                            "name": "s__x",
+                            "type": 1,
+                            "value": 1.0
+                        },
+                        {
+                            "name": "s__y",
+                            "type": 1,
+                            "value": 1.0
+                        },
+                        {
+                            "name": "s__z",
+                            "type": 1,
+                            "value": 1.0
+                        }
+                    ]
+                }
+            ],
             "type": "OBJECT"
         },
         {
             "name": "null_1ject",
+            "position": [
+                -1.5,
+                0.0,
+                0.0
+            ],
+            "rotation": [
+                0.0,
+                0.0,
+                0.0
+            ],
+            "scale": [
+                1.0,
+                1.0,
+                1.0
+            ],
+            "transforms": [
+                1.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                1.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                1.0,
+                0.0,
+                -1.5,
+                0.0,
+                0.0,
+                1.0
+            ],
+            "transforms_params": [
+                {
+                    "position": [
+                        {
+                            "name": "t__x",
+                            "type": 1,
+                            "value": -1.5
+                        },
+                        {
+                            "name": "t__y",
+                            "type": 1,
+                            "value": 0.0
+                        },
+                        {
+                            "name": "t__z",
+                            "type": 1,
+                            "value": 0.0
+                        }
+                    ]
+                },
+                {
+                    "rotation": [
+                        {
+                            "name": "r__x",
+                            "type": 1,
+                            "value": 0.0
+                        },
+                        {
+                            "name": "r__y",
+                            "type": 1,
+                            "value": 0.0
+                        },
+                        {
+                            "name": "r__z",
+                            "type": 1,
+                            "value": 0.0
+                        }
+                    ]
+                },
+                {
+                    "scale": [
+                        {
+                            "name": "s__x",
+                            "type": 1,
+                            "value": 1.0
+                        },
+                        {
+                            "name": "s__y",
+                            "type": 1,
+                            "value": 1.0
+                        },
+                        {
+                            "name": "s__z",
+                            "type": 1,
+                            "value": 1.0
+                        }
+                    ]
+                }
+            ],
             "type": "OBJECT_DUMMY"
         }
     ]

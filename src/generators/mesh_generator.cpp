@@ -17,26 +17,30 @@ json MeshGenerator::toJSON()
 {
 	json j;
 	//~ j["name"] = name;
-	std::vector<json> all_params;
-	j["type"] = type;
-	for (int i = 0; i < param_layout.getSize(); i++)
-	{
-		BaseParam * p_parm = param_layout.getParam(i);
-		ParamFloat * p_float = nullptr;
-		ParamInt * p_int = nullptr;
-
-		if(p_float = dynamic_cast<ParamFloat*>(p_parm)){
-
-			all_params.push_back(p_float->toJSON());
-		}else if(p_int = dynamic_cast<ParamInt*>(p_parm)){
-			
-			all_params.push_back(p_int->toJSON());
-		}
-
-		//~ printf("param to JSON\n");
-	}
 	
-	j["params"] = all_params;
+	j["type"] = type;
+	
+	j["params"] = param_layout.toJSON();
+	//~ 
+	//~ std::vector<json> all_params;
+	//~ for (int i = 0; i < param_layout.getSize(); i++)
+	//~ {
+		//~ BaseParam * p_parm = param_layout.getParam(i);
+		//~ ParamFloat * p_float = nullptr;
+		//~ ParamInt * p_int = nullptr;
+//~ 
+		//~ if(p_float = dynamic_cast<ParamFloat*>(p_parm)){
+//~ 
+			//~ all_params.push_back(p_float->toJSON());
+		//~ }else if(p_int = dynamic_cast<ParamInt*>(p_parm)){
+			//~ 
+			//~ all_params.push_back(p_int->toJSON());
+		//~ }
+//~ 
+		
+	//~ }
+	//~ 
+	//~ j["params"] = all_params;
 	
 	return j;
 	

@@ -2509,15 +2509,6 @@ void Window::loadFromFile(std::string file_path)
 		printf("building new OBJECT\n");
 		Object * new_obj = new Object();
 		new_obj->fromJSON(cur_j, default_shader);
-		//~ new_obj->setName(cur_j["name"].get<std::string>());
-		//~ new_obj->init();
-//~ 
-		//~ new_obj->shader = default_shader;
-		//~ 
-		//~ new_obj->setGenerator<CylinderMesh>();
-		//~ new_obj->generator_type = 6; // really crappy design , do something !!!!
-		//~ new_obj->mesh_generator->need_update = true;		  
-		  //~ 
 		addObject(new_obj);
 		  
 		  

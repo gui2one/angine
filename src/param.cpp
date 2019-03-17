@@ -117,11 +117,15 @@ json BaseParam::toJSON(){
 		BaseParam * cur_param = this;
 		ParamFloat * p_float = nullptr;
 		ParamInt * p_int = nullptr;
+		ParamVec3 * p_vec3 = nullptr;
 
 		if(p_float = dynamic_cast<ParamFloat*>(cur_param)){
 			j["value"] = p_float->value;
 		}else if(p_int = dynamic_cast<ParamInt*>(cur_param)){
 			j["value"] = p_int->value;
+		}else if(p_vec3 = dynamic_cast<ParamVec3*>(cur_param)){
+			j["value"] = {p_vec3->param_x->getValue(), p_vec3->param_y->getValue(), p_vec3->param_z->getValue()};
+			//~ j["value"] = {2.0,2.0,2.0};
 		}
 	}
 	return j;
@@ -290,4 +294,5 @@ ParamVec3::ParamVec3(const ParamVec3& other):BaseParam(other){
 	param_y = new ParamFloat(*other.param_y);
 	param_z = new ParamFloat(*other.param_z);
 }
+
 

@@ -19,6 +19,9 @@ class ParamLayout
 		inline std::vector<BaseParam *> getParams() { return params;}
 		inline void clearParams(){ params.clear();}
 		inline size_t getSize() const{ return params.size();}
+		
+		std::vector<json> toJSON();
+		void fromJSON(std::vector<json>& _json_vector);
 	private:
 	
 		std::vector<BaseParam *> params;

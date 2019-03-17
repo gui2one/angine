@@ -725,6 +725,8 @@ vendor/stb_image.h
 /home/pi/projects/angine/src/vendor/stb_image.h
 vendor/glm/glm.hpp
 /home/pi/projects/angine/src/vendor/glm/glm.hpp
+vendor/glm/gtx/matrix_decompose.hpp
+/home/pi/projects/angine/src/vendor/glm/gtx/matrix_decompose.hpp
 vendor/glm/gtc/matrix_transform.hpp
 /home/pi/projects/angine/src/vendor/glm/gtc/matrix_transform.hpp
 vendor/glm/gtc/type_ptr.hpp
@@ -1923,6 +1925,28 @@ cstring
 /home/pi/projects/angine/src/vendor/glm/ext/vector_uint1.hpp
 ../ext/vector_uint1_precision.hpp
 /home/pi/projects/angine/src/vendor/glm/ext/vector_uint1_precision.hpp
+
+/home/pi/projects/angine/src/vendor/glm/gtx/matrix_decompose.hpp
+../mat4x4.hpp
+/home/pi/projects/angine/src/vendor/glm/mat4x4.hpp
+../vec3.hpp
+/home/pi/projects/angine/src/vendor/glm/vec3.hpp
+../vec4.hpp
+/home/pi/projects/angine/src/vendor/glm/vec4.hpp
+../geometric.hpp
+/home/pi/projects/angine/src/vendor/glm/geometric.hpp
+../gtc/quaternion.hpp
+/home/pi/projects/angine/src/vendor/glm/gtc/quaternion.hpp
+../gtc/matrix_transform.hpp
+/home/pi/projects/angine/src/vendor/glm/gtc/matrix_transform.hpp
+matrix_decompose.inl
+/home/pi/projects/angine/src/vendor/glm/gtx/matrix_decompose.inl
+
+/home/pi/projects/angine/src/vendor/glm/gtx/matrix_decompose.inl
+../gtc/constants.hpp
+/home/pi/projects/angine/src/vendor/glm/gtc/constants.hpp
+../gtc/epsilon.hpp
+/home/pi/projects/angine/src/vendor/glm/gtc/epsilon.hpp
 
 /home/pi/projects/angine/src/vendor/glm/integer.hpp
 detail/qualifier.hpp

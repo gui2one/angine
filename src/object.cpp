@@ -664,6 +664,12 @@ json Object::toJSON()
 		transforms[3][0], transforms[3][1],transforms[3][2],transforms[3][3]
 		
 	};
+
+	j["transforms_params"] = param_layout.toJSON();
+	j["position"] = {position.x, position.y, position.z};
+	j["rotation"] = {rotation.x, rotation.y, rotation.z};
+	j["scale"] = {scale.x, scale.y, scale.z};
+
 	if(has_generator){
 		j["mesh_generator"] = mesh_generator->toJSON();
 	}		
@@ -698,71 +704,30 @@ void Object::fromJSON(json _j, Shader& _shader)
 	}
 	
 	std::vector<json> params_j = _j["mesh_generator"]["params"];
-	std::vector<BaseParam*> params = mesh_generator->param_layout.getParams();
-	
-	for (int i = 0; i < params.size(); i++)
-	{
-		printf("%s \n", params[i]->getName().c_str());
-		printf("is int ? -- %s\n", params_j[i].is_number() == true ? "true": "false");
-		
-		ParamFloat * p_float = nullptr;
-		ParamInt * p_int = nullptr;
-		
-		printf("Param type is --> %d\n", params_j[i]["type"].get<int>());
-		
-		switch(params_j[i]["type"].get<int>()) {
-			case PARAM_FLOAT :
-				
-				
-				if( p_float = dynamic_cast<ParamFloat*>(params[i]))
-				{
-					try {
-						std::vector<json> keys_j = params_j[i].at("keyframes");
-						
-						printf("num Keyframes is == %d \n", keys_j.size());
-						
-						p_float->keyframes.clear();
-						p_float->setInterpolationType((INTERPOLATION_TYPE)params_j[i].at("keyframes_interpolation").get<int>());
-						for (int k = 0; k < keys_j.size(); k++)
-						{
-							Keyframe<float> * new_key = new Keyframe<float>();
-							new_key->setFrame(keys_j[k][0].get<float>());
-							
-							printf("key value is --> %f \n", keys_j[k][1].get<float>());
-							new_key->setValue((float)(keys_j[k][1].get<float>()));
-							p_float->keyframes.push_back( new_key );
-						}
-						
-						
-							
-						
-						
-					}catch (nlohmann::detail::out_of_range e){
-						printf("there was an execption thrown \n");
-						printf("trying to set value directly !!!!!! \n");
-						p_float->value = params_j[i]["value"].get<float>();
-					}
-					printf("this is a ParamFloat \n");
+	mesh_generator->param_layout.fromJSON(params_j);
 
-				}
-				
-				break;
-			case PARAM_INT :			
-				printf("this is a ParamInt \n");
-				//~ if( p_int = dynamic_cast<ParamInt*>(params[i])) {
-					//~ p_int->value = params_j[i]["value"].get<int>();
-				//~ }			
-				
-				break;
-			default :
-				printf("default case \n");
-				break;
-			
-		}
-		
-	}
+	std::vector<json> trans_params_j = _j["transforms_params"];
+	param_layout.fromJSON(trans_params_j);	
 	
-	  	
+	//~ p_pos->setValue(glm::vec3( 
+		//~ _j["position"][0].get<float>(),
+		//~ _j["position"][1].get<float>(),
+		//~ _j["position"][2].get<float>()
+	//~ ));
+	//~ 
+	//~ p_rot->setValue(glm::vec3( 
+		//~ _j["rotation"][0].get<float>(),
+		//~ _j["rotation"][1].get<float>(),
+		//~ _j["rotation"][2].get<float>()
+	//~ ));	
+	//~ 
+	//~ p_scale->setValue(glm::vec3( 
+		//~ _j["scale"][0].get<float>(),
+		//~ _j["scale"][1].get<float>(),
+		//~ _j["scale"][2].get<float>()
+	//~ ));		
+	
+	applyTransforms();
 }
 
 

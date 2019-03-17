@@ -194,6 +194,8 @@ class ParamVec3 : public BaseParam
 		}
 		
 		ParamVec3(const ParamVec3& other);
+		
+		
 		glm::vec3 value;
 		
 		ParamFloat * param_x;

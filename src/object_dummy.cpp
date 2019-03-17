@@ -77,8 +77,20 @@ json ObjectDummy::toJSON()
 {
 	json j;
 	j["type"] = "OBJECT_DUMMY";
-	j["name"] = name;
-	
+	j["name"] = name;	
+
+	j["transforms"] = {
+		transforms[0][0], transforms[0][1],transforms[0][2],transforms[0][3],
+		transforms[1][0], transforms[1][1],transforms[1][2],transforms[1][3],
+		transforms[2][0], transforms[2][1],transforms[2][2],transforms[2][3],
+		transforms[3][0], transforms[3][1],transforms[3][2],transforms[3][3]
+		
+	};
+
+	j["transforms_params"] = param_layout.toJSON();
+	j["position"] = {position.x, position.y, position.z};
+	j["rotation"] = {rotation.x, rotation.y, rotation.z};
+	j["scale"] = {scale.x, scale.y, scale.z};	
 	return j;
 }
 
