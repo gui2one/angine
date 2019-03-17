@@ -2516,8 +2516,8 @@ void Window::loadFromFile(std::string file_path)
 	  }else if( cur_j["type"].get<std::string>() == "OBJECT_DUMMY"){
 		  printf("building new OBJECT DUMMY\n");
 		ObjectDummy * new_obj = new ObjectDummy();
-		new_obj->setName(cur_j["name"].get<std::string>());
-		new_obj->init();
+		new_obj->fromJSON(cur_j);
+
 		addObject(new_obj);
 	  }
   }

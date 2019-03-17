@@ -23,6 +23,7 @@ class ObjectDummy: public Entity3D
 		unsigned int m_vbo;
 		
 		json toJSON();
+		void fromJSON(json& _json);
 			
 	private:
 		/* add your private declarations */

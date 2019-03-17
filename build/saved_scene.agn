@@ -68,11 +68,23 @@
             ],
             "transforms_params": [
                 {
-                    "position": [
+                    "name": "position",
+                    "type": 2,
+                    "value": [
                         {
+                            "keyframes": [
+                                [
+                                    1.0,
+                                    1.0
+                                ],
+                                [
+                                    60.0,
+                                    0.0
+                                ]
+                            ],
+                            "keyframes_interpolation": 0,
                             "name": "t__x",
-                            "type": 1,
-                            "value": 0.0
+                            "type": 1
                         },
                         {
                             "name": "t__y",
@@ -87,7 +99,9 @@
                     ]
                 },
                 {
-                    "rotation": [
+                    "name": "rotation",
+                    "type": 2,
+                    "value": [
                         {
                             "name": "r__x",
                             "type": 1,
@@ -106,7 +120,9 @@
                     ]
                 },
                 {
-                    "scale": [
+                    "name": "scale",
+                    "type": 2,
+                    "value": [
                         {
                             "name": "s__x",
                             "type": 1,
@@ -128,22 +144,7 @@
             "type": "OBJECT"
         },
         {
-            "name": "null_1ject",
-            "position": [
-                -1.5,
-                0.0,
-                0.0
-            ],
-            "rotation": [
-                0.0,
-                0.0,
-                0.0
-            ],
-            "scale": [
-                1.0,
-                1.0,
-                1.0
-            ],
+            "name": "new_object",
             "transforms": [
                 1.0,
                 0.0,
@@ -157,23 +158,35 @@
                 0.0,
                 1.0,
                 0.0,
-                -1.5,
                 0.0,
+                1.0,
                 0.0,
                 1.0
             ],
             "transforms_params": [
                 {
-                    "position": [
+                    "name": "position",
+                    "type": 2,
+                    "value": [
                         {
                             "name": "t__x",
                             "type": 1,
-                            "value": -1.5
+                            "value": 0.0
                         },
                         {
+                            "keyframes": [
+                                [
+                                    1.0,
+                                    0.0
+                                ],
+                                [
+                                    60.0,
+                                    1.0
+                                ]
+                            ],
+                            "keyframes_interpolation": 0,
                             "name": "t__y",
-                            "type": 1,
-                            "value": 0.0
+                            "type": 1
                         },
                         {
                             "name": "t__z",
@@ -183,7 +196,9 @@
                     ]
                 },
                 {
-                    "rotation": [
+                    "name": "rotation",
+                    "type": 2,
+                    "value": [
                         {
                             "name": "r__x",
                             "type": 1,
@@ -202,7 +217,9 @@
                     ]
                 },
                 {
-                    "scale": [
+                    "name": "scale",
+                    "type": 2,
+                    "value": [
                         {
                             "name": "s__x",
                             "type": 1,

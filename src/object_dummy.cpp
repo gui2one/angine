@@ -88,10 +88,21 @@ json ObjectDummy::toJSON()
 	};
 
 	j["transforms_params"] = param_layout.toJSON();
-	j["position"] = {position.x, position.y, position.z};
-	j["rotation"] = {rotation.x, rotation.y, rotation.z};
-	j["scale"] = {scale.x, scale.y, scale.z};	
+	//~ j["position"] = {position.x, position.y, position.z};
+	//~ j["rotation"] = {rotation.x, rotation.y, rotation.z};
+	//~ j["scale"] = {scale.x, scale.y, scale.z};	
 	return j;
+}
+
+void ObjectDummy::fromJSON(json& _json)
+{
+	
+	std::vector<json> trans_params_j = _json["transforms_params"];
+	param_layout.fromJSON(trans_params_j);		
+	
+	setName(_json["name"].get<std::string>());
+	init();
+	applyTransforms();
 }
 
 
