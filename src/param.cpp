@@ -121,6 +121,7 @@ json BaseParam::toJSON(){
 		ParamBool * p_bool = nullptr;
 		ParamString * p_string = nullptr;
 		ParamAction * p_action = nullptr;
+		ParamMenu * p_menu = nullptr;
 		
 		if(p_float = dynamic_cast<ParamFloat*>(cur_param)){
 			j["value"] = p_float->value;
@@ -134,6 +135,8 @@ json BaseParam::toJSON(){
 			j["value"] = p_string->getValue();
 		}else if(p_action = dynamic_cast<ParamAction*>(cur_param)){
 			j["value"] = "action value";
+		}else if(p_menu = dynamic_cast<ParamMenu*>(cur_param)){
+			j["value"] = p_menu->getValue();
 		}
 	}
 	return j;
@@ -142,7 +145,7 @@ json BaseParam::toJSON(){
 
 void BaseParam::fromJSON(json & _json)
 {
-		printf("Param Name is %s \n", getName().c_str());
+		//~ printf("Param Name is %s \n", getName().c_str());
 		//~ printf("is int ? -- %s\n", _json.is_number() == true ? "true": "false");
 		
 		ParamFloat * p_float = nullptr;
@@ -152,6 +155,7 @@ void BaseParam::fromJSON(json & _json)
 		ParamString * p_string = nullptr;
 		
 		ParamAction * p_action = nullptr;
+		ParamMenu * p_menu = nullptr;
 		
 		//~ printf("Param type is --> %d\n", _json["type"].get<int>());
 		
@@ -164,7 +168,7 @@ void BaseParam::fromJSON(json & _json)
 					try {
 						std::vector<json> keys_j = _json.at("keyframes");
 						
-						printf("num Keyframes is == %d \n", keys_j.size());
+						//~ printf("num Keyframes is == %d \n", keys_j.size());
 						
 						p_float->keyframes.clear();
 						p_float->setInterpolationType((INTERPOLATION_TYPE)_json.at("keyframes_interpolation").get<int>());
@@ -183,8 +187,8 @@ void BaseParam::fromJSON(json & _json)
 						
 						
 					}catch (nlohmann::detail::out_of_range e){
-						printf("there was an execption thrown NO KEYFRAMES on float\n");
-						printf("trying to set value directly !!!!!! \n");
+						//~ printf("there was an execption thrown NO KEYFRAMES on float\n");
+						//~ printf("trying to set value directly !!!!!! \n");
 						p_float->value = _json["value"].get<float>();
 					}
 					//~ printf("this is a ParamFloat \n");
@@ -201,7 +205,7 @@ void BaseParam::fromJSON(json & _json)
 					try {
 						std::vector<json> keys_j = _json.at("keyframes");
 						
-						printf("num Keyframes is == %d \n", keys_j.size());
+						//~ printf("num Keyframes is == %d \n", keys_j.size());
 						
 						p_int->keyframes.clear();
 						p_int->setInterpolationType((INTERPOLATION_TYPE)_json.at("keyframes_interpolation").get<int>());
@@ -210,7 +214,7 @@ void BaseParam::fromJSON(json & _json)
 							Keyframe<int> * new_key = new Keyframe<int>();
 							new_key->setFrame(keys_j[k][0].get<float>());
 							
-							printf("key value is --> %f \n", keys_j[k][1].get<int>());
+							//~ printf("key value is --> %f \n", keys_j[k][1].get<int>());
 							new_key->setValue((int)(keys_j[k][1].get<int>()));
 							p_int->keyframes.push_back( new_key );
 						}
@@ -220,8 +224,8 @@ void BaseParam::fromJSON(json & _json)
 						
 						
 					}catch (nlohmann::detail::out_of_range e){
-						printf("there was an execption thrown \n");
-						printf("trying to set value directly !!!!!! \n");
+						//~ printf("there was an execption thrown \n");
+						//~ printf("trying to set value directly !!!!!! \n");
 						p_int->value = _json["value"].get<int>();
 					}	
 					
@@ -236,7 +240,7 @@ void BaseParam::fromJSON(json & _json)
 					try {
 						std::vector<json> keys_j = _json.at("keyframes");
 						
-						printf("num Keyframes is == %d \n", keys_j.size());
+						//~ printf("num Keyframes is == %d \n", keys_j.size());
 						
 						p_vec3->keyframes.clear();
 						p_vec3->setInterpolationType((INTERPOLATION_TYPE)_json.at("keyframes_interpolation").get<int>());
@@ -245,7 +249,7 @@ void BaseParam::fromJSON(json & _json)
 							Keyframe<int> * new_key = new Keyframe<int>();
 							new_key->setFrame(keys_j[k][0].get<float>());
 							
-							printf("key value is --> %f \n", keys_j[k][1].get<int>());
+							//~ printf("key value is --> %f \n", keys_j[k][1].get<int>());
 							new_key->setValue((int)(keys_j[k][1].get<int>()));
 							p_vec3->keyframes.push_back( new_key );
 						}
@@ -255,8 +259,8 @@ void BaseParam::fromJSON(json & _json)
 						
 						
 					}catch (nlohmann::detail::out_of_range e){
-						printf("there was an execption thrown for a VEC3\n");
-						printf("trying to set value directly !!!!!! \n");
+						//~ printf("there was an execption thrown for a VEC3\n");
+						//~ printf("trying to set value directly !!!!!! \n");
 						p_vec3->param_x->fromJSON(_json["value"][0]);
 						p_vec3->param_y->fromJSON(_json["value"][1]);
 						p_vec3->param_z->fromJSON(_json["value"][2]);
@@ -267,35 +271,45 @@ void BaseParam::fromJSON(json & _json)
 				break;
 				
 				
-			//~ case PARAM_BOOL :
-			//~ 
-				//~ if( p_bool = dynamic_cast<ParamBool*>(this))
-				//~ {
-//~ 
-					//~ printf("there was an execption thrown for a BOOL\n");
-					//~ printf("trying to set value directly !!!!!! \n");
-					//~ p_bool->setValue(_json["value"].get<bool>());					
-				//~ }				
-				//~ break;	
-				//~ 
+			case PARAM_BOOL :
+			
+				if( p_bool = dynamic_cast<ParamBool*>(this))
+				{
+
+					
+					printf("trying to set a BOOL value directly !!!!!! \n");
+					p_bool->setValue(_json["value"].get<bool>());					
+				}				
+				break;	
+				
 			case PARAM_STRING :
 				if( p_string = dynamic_cast<ParamString*>(this))
 				{		
-					printf("file_path value is --> %s\n",_json["value"].get<std::string>().c_str());			
+					//~ printf("file_path value is --> %s\n",_json["value"].get<std::string>().c_str());			
 					p_string->setValue( _json["value"].get<std::string>());
 				}
 				break;
 			case PARAM_ACTION :
 				if( p_action = dynamic_cast<ParamAction*>(this))
 				{		
-					printf("ACTION PARAM !!!!!!!\n");			
+					//~ printf("ACTION PARAM !!!!!!!\n");			
 
 				}
 				break;
+				
+			case PARAM_MENU :
+				if( p_menu = dynamic_cast<ParamMenu*>(this))
+				{		
+					//~ p_menu->setValue( _json["value"].get<int>());
+					
+				}
+				break;
+								
+								
 								
 				
 			default :
-				printf("default case \n");
+				//~ printf("default case \n");
 				break;
 			
 		}	

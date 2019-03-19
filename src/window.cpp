@@ -2498,10 +2498,6 @@ void Window::loadFromFile(std::string file_path)
   for (int i = 0; i < j["entities"].size(); i++)
   {
 	  json cur_j = j["entities"][i];
-	  //~ printf("%s\n", j["entities"][i].dump(2).c_str());
-	  std::cout << cur_j["name"].get<std::string>();
-	  std::cout << "\n";
-	  
 	  
 	  if( cur_j["type"].get<std::string>() == "OBJECT"){
 		  
@@ -2517,7 +2513,6 @@ void Window::loadFromFile(std::string file_path)
 		  printf("building new OBJECT DUMMY\n");
 		ObjectDummy * new_obj = new ObjectDummy();
 		new_obj->fromJSON(cur_j);
-
 		addObject(new_obj);
 	  }
   }

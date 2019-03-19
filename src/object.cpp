@@ -686,7 +686,7 @@ json Object::toJSON()
 
 void Object::fromJSON(json _j, Shader& _shader)
 {
-	printf("OBJECT fromJSON function fired !!!! \n");
+	//~ printf("OBJECT fromJSON function fired !!!! \n");
 	setName(_j["name"].get<std::string>());
 	init();
 	
@@ -695,41 +695,41 @@ void Object::fromJSON(json _j, Shader& _shader)
 	switch(_j["mesh_generator"]["type"].get<int>())
 	{
 		case SPHERE_MESH_GENERATOR :
-			printf("--- setting Cylinder mesh generator up \n");
+			//~ printf("--- setting Sphere mesh generator up \n");
 			setGenerator<SphereMesh>();
 			generator_type = SPHERE_MESH_GENERATOR; // really crappy design , do something !!!!
 			mesh_generator->need_update = true;		  	
 			break;		
 		case GEOSPHERE_MESH_GENERATOR :
-			printf("--- setting Cylinder mesh generator up \n");
+			//~ printf("--- setting GeoSphere mesh generator up \n");
 			setGenerator<GeoSphereMesh>();
 			generator_type = GEOSPHERE_MESH_GENERATOR; // really crappy design , do something !!!!
 			mesh_generator->need_update = true;		  	
 			break;	
 			
 		case GRID_MESH_GENERATOR :
-			printf("--- setting Cylinder mesh generator up \n");
+			//~ printf("--- setting Grid mesh generator up \n");
 			setGenerator<GridMesh>();
 			generator_type = GRID_MESH_GENERATOR; // really crappy design , do something !!!!
 			mesh_generator->need_update = true;		  	
 			break;				
 
 		case BOX_MESH_GENERATOR :
-			printf("--- setting Cylinder mesh generator up \n");
+			//~ printf("--- setting Box mesh generator up \n");
 			setGenerator<BoxMesh>();
 			generator_type = BOX_MESH_GENERATOR; // really crappy design , do something !!!!
 			mesh_generator->need_update = true;		  	
 			break;		
 			
 		case CYLINDER_MESH_GENERATOR:
-			printf("--- setting Cylinder mesh generator up \n");
+			//~ printf("--- setting Cylinder mesh generator up \n");
 			setGenerator<CylinderMesh>();
 			generator_type = CYLINDER_MESH_GENERATOR; // really crappy design , do something !!!!
 			mesh_generator->need_update = true;		  
 			break;		
 			
 		case FILE_MESH_GENERATOR:
-			printf("--- setting Cylinder mesh generator up \n");
+			//~ printf("--- setting File mesh generator up \n");
 			setGenerator<FileMesh>();
 			generator_type = FILE_MESH_GENERATOR; // really crappy design , do something !!!!
 			mesh_generator->need_update = true;		  
@@ -747,6 +747,88 @@ void Object::fromJSON(json _j, Shader& _shader)
 
 	
 	applyTransforms();
+	
+	for (int i = 0; i < _j["mesh_filters"].size(); i++)
+	{
+		json cur_j = _j["mesh_filters"][i];
+		printf("filter name is %s\n", cur_j["name"].get<std::string>().c_str());
+		printf("filter type is %d\n", cur_j["type"].get<int>());
+		printf("---------------------\n");
+		
+		ComputeNormalsMeshFilter * p_normals = nullptr;
+		DuplicateMeshFilter * p_duplicate = nullptr;
+		SpherifyMeshFilter * p_spherify = nullptr;
+		TransformMeshFilter * p_transform = nullptr;
+		std::vector<json> json_vector = cur_j["params"];
+		switch(cur_j["type"].get<int>()){
+			
+			case COMPUTE_NORMALS_MESH_FILTER : 
+				printf("COMPUTE_NORMALS_MESH_FILTER detected \n");
+				p_normals = new ComputeNormalsMeshFilter();	
+				p_normals->param_layout.fromJSON(json_vector);
+				mesh = p_normals->applyFilter(mesh);
+				//~ p_spherify->need_update = true;
+				p_normals->setName(cur_j["name"]);
+				meshFilters.push_back(p_normals);		
+							
+				break;
+			case DUPLICATE_MESH_FILTER : 
+				printf("DUPLICATE_MESH_FILTER detected \n");
+				p_duplicate = new DuplicateMeshFilter();	
+				p_duplicate->param_layout.fromJSON(json_vector);
+				mesh = p_duplicate->applyFilter(mesh);
+				//~ p_spherify->need_update = true;
+				p_duplicate->setName(cur_j["name"]);
+				meshFilters.push_back(p_duplicate);		
+								
+				break;				
+			case FROM_POLAR_MESH_FILTER : 
+				printf("FROM_POLAR_MESH_FILTER detected \n");
+				break;	
+			case INFLATE_MESH_FILTER : 
+				printf("INFLATE_MESH_FILTER detected \n");
+				break;	
+			case MIRROR_MESH_FILTER : 
+				printf("MIRROR_MESH_FILTER detected \n");
+				break;	
+			case SPHERIFY_MESH_FILTER : 
+				printf("SPHERIFY_MESH_FILTER detected \n");
+				p_spherify = new SpherifyMeshFilter();	
+				p_spherify->param_layout.fromJSON(json_vector);
+				mesh = p_spherify->applyFilter(mesh);
+				//~ p_spherify->need_update = true;
+				p_spherify->setName(cur_j["name"]);
+				meshFilters.push_back(p_spherify);		
+					
+				
+				break;	
+			case TRANSFORM_MESH_FILTER : 
+				printf("TRANSFORM_MESH_FILTER detected \n");
+				p_transform = new TransformMeshFilter();
+				
+				
+				
+				p_transform->param_layout.fromJSON(json_vector);
+				p_transform->applyFilter(mesh);
+				meshFilters.push_back(p_transform);
+				printf("\tjust applied mesh Filter \n");
+				
+				break;	
+			case TWIST_MESH_FILTER : 
+				printf("TWIST_MESH_FILTER detected \n");
+				break;	
+				
+			default :
+				break;
+				
+				
+		}
+	}
+	
+	if(_j["mesh_filters"].size() > 0){
+		hasFilters = true;
+	}
+	
 }
 
 
