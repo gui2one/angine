@@ -4,6 +4,8 @@
 TransformMeshFilter::TransformMeshFilter()
 	: MeshFilter()
 {
+	setType(TRANSFORM_MESH_FILTER);
+	
 	p_menu = new ParamMenu(
 			"transform order", 
 			std::vector<std::string>{

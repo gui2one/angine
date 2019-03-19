@@ -53,13 +53,18 @@ std::vector<json> ParamLayout::toJSON()
 		ParamFloat * p_float = nullptr;
 		ParamInt * p_int = nullptr;
 		ParamVec3 * p_vec3 = nullptr;
+		ParamBool * p_bool = nullptr;
+		ParamString * p_string = nullptr;
+		ParamAction * p_action = nullptr;
 
 		if(p_float = dynamic_cast<ParamFloat*>(p_parm)){
 
 			all_params.push_back(p_float->toJSON());
+			
 		}else if(p_int = dynamic_cast<ParamInt*>(p_parm)){
 			
 			all_params.push_back(p_int->toJSON());
+			
 		}else if(p_vec3 = dynamic_cast<ParamVec3*>(p_parm)){
 			
 			json vec3_j;
@@ -71,9 +76,19 @@ std::vector<json> ParamLayout::toJSON()
 				p_vec3->param_z->toJSON()
 			};
 			all_params.push_back(vec3_j);
-			//~ all_params.push_back(p_vec3->param_x->toJSON());
-			//~ all_params.push_back(p_vec3->param_y->toJSON());
-			//~ all_params.push_back(p_vec3->param_z->toJSON());
+
+		}else if(p_bool = dynamic_cast<ParamBool*>(p_parm)){
+			
+			all_params.push_back(p_bool->toJSON());
+			
+		}else if(p_string = dynamic_cast<ParamString*>(p_parm)){
+			
+			all_params.push_back(p_string->toJSON());
+			
+		}else if(p_action = dynamic_cast<ParamAction*>(p_parm)){
+			
+			all_params.push_back(p_action->toJSON());
+			
 		}
 
 		//~ printf("param to JSON\n");

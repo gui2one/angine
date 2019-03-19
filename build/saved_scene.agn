@@ -1,69 +1,64 @@
 {
     "entities": [
         {
+            "mesh_filters": [],
             "mesh_generator": {
                 "params": [
                     {
-                        "keyframes": [
-                            [
-                                1.0,
-                                0.20000000298023224
-                            ]
-                        ],
-                        "keyframes_interpolation": 0,
-                        "name": "radius",
-                        "type": 1
+                        "name": "rows",
+                        "type": 4,
+                        "value": 2
                     },
                     {
-                        "name": "height",
+                        "name": "cols",
+                        "type": 4,
+                        "value": 2
+                    },
+                    {
+                        "name": "width",
                         "type": 1,
-                        "value": 0.20000000298023224
+                        "value": 1.0
                     },
                     {
-                        "name": "segs_height",
-                        "type": 4,
-                        "value": 5
-                    },
-                    {
-                        "name": "segs_radius",
-                        "type": 4,
-                        "value": 30
+                        "name": "length",
+                        "type": 1,
+                        "value": 1.0
                     }
                 ],
-                "type": 4
+                "type": 2
             },
             "name": "wheel_1ect",
             "position": [
                 0.0,
                 0.0,
-                0.0
+                1.0
             ],
             "rotation": [
-                0.0,
+                90.0,
                 0.0,
                 0.0
             ],
             "scale": [
-                1.0,
-                1.0,
-                1.0
+                0.30000001192092896,
+                0.30000001192092896,
+                0.30000001192092896
             ],
             "transforms": [
+                0.29999998211860657,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                -1.311341701892843e-08,
+                0.30000001192092896,
+                0.0,
+                0.0,
+                -0.30000001192092896,
+                -1.311341701892843e-08,
+                0.0,
+                0.0,
+                0.0,
                 1.0,
-                0.0,
-                0.0,
-                0.0,
-                0.0,
-                1.0,
-                0.0,
-                0.0,
-                0.0,
-                0.0,
-                1.0,
-                0.0,
-                0.0,
-                0.0,
-                0.0,
                 1.0
             ],
             "transforms_params": [
@@ -72,19 +67,9 @@
                     "type": 2,
                     "value": [
                         {
-                            "keyframes": [
-                                [
-                                    1.0,
-                                    1.0
-                                ],
-                                [
-                                    60.0,
-                                    0.0
-                                ]
-                            ],
-                            "keyframes_interpolation": 0,
                             "name": "t__x",
-                            "type": 1
+                            "type": 1,
+                            "value": 0.0
                         },
                         {
                             "name": "t__y",
@@ -94,7 +79,7 @@
                         {
                             "name": "t__z",
                             "type": 1,
-                            "value": 0.0
+                            "value": 1.0
                         }
                     ]
                 },
@@ -105,7 +90,7 @@
                         {
                             "name": "r__x",
                             "type": 1,
-                            "value": 0.0
+                            "value": 90.0
                         },
                         {
                             "name": "r__y",
@@ -126,17 +111,17 @@
                         {
                             "name": "s__x",
                             "type": 1,
-                            "value": 1.0
+                            "value": 0.30000001192092896
                         },
                         {
                             "name": "s__y",
                             "type": 1,
-                            "value": 1.0
+                            "value": 0.30000001192092896
                         },
                         {
                             "name": "s__z",
                             "type": 1,
-                            "value": 1.0
+                            "value": 0.30000001192092896
                         }
                     ]
                 }
@@ -144,7 +129,7 @@
             "type": "OBJECT"
         },
         {
-            "name": "new_object",
+            "name": "null_1ject",
             "transforms": [
                 1.0,
                 0.0,
@@ -158,8 +143,8 @@
                 0.0,
                 1.0,
                 0.0,
+                -1.5,
                 0.0,
-                1.0,
                 0.0,
                 1.0
             ],
@@ -171,22 +156,12 @@
                         {
                             "name": "t__x",
                             "type": 1,
-                            "value": 0.0
+                            "value": -1.5
                         },
                         {
-                            "keyframes": [
-                                [
-                                    1.0,
-                                    0.0
-                                ],
-                                [
-                                    60.0,
-                                    1.0
-                                ]
-                            ],
-                            "keyframes_interpolation": 0,
                             "name": "t__y",
-                            "type": 1
+                            "type": 1,
+                            "value": 0.0
                         },
                         {
                             "name": "t__z",

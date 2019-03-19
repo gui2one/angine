@@ -118,14 +118,22 @@ json BaseParam::toJSON(){
 		ParamFloat * p_float = nullptr;
 		ParamInt * p_int = nullptr;
 		ParamVec3 * p_vec3 = nullptr;
-
+		ParamBool * p_bool = nullptr;
+		ParamString * p_string = nullptr;
+		ParamAction * p_action = nullptr;
+		
 		if(p_float = dynamic_cast<ParamFloat*>(cur_param)){
 			j["value"] = p_float->value;
 		}else if(p_int = dynamic_cast<ParamInt*>(cur_param)){
 			j["value"] = p_int->value;
 		}else if(p_vec3 = dynamic_cast<ParamVec3*>(cur_param)){
-			j["value"] = {p_vec3->param_x->getValue(), p_vec3->param_y->getValue(), p_vec3->param_z->getValue()};
-			//~ j["value"] = {2.0,2.0,2.0};
+			j["value"] = {p_vec3->param_x->getValue(), p_vec3->param_y->getValue(), p_vec3->param_z->getValue()};		
+		}else if(p_bool = dynamic_cast<ParamBool*>(cur_param)){
+			j["value"] = p_bool->getValue();		
+		}else if(p_string = dynamic_cast<ParamString*>(cur_param)){
+			j["value"] = p_string->getValue();
+		}else if(p_action = dynamic_cast<ParamAction*>(cur_param)){
+			j["value"] = "action value";
 		}
 	}
 	return j;
@@ -134,14 +142,18 @@ json BaseParam::toJSON(){
 
 void BaseParam::fromJSON(json & _json)
 {
-		printf("%s \n", getName().c_str());
-		printf("is int ? -- %s\n", _json.is_number() == true ? "true": "false");
+		printf("Param Name is %s \n", getName().c_str());
+		//~ printf("is int ? -- %s\n", _json.is_number() == true ? "true": "false");
 		
 		ParamFloat * p_float = nullptr;
 		ParamInt * p_int = nullptr;
 		ParamVec3 * p_vec3 = nullptr;
+		ParamBool * p_bool = nullptr;
+		ParamString * p_string = nullptr;
 		
-		printf("Param type is --> %d\n", _json["type"].get<int>());
+		ParamAction * p_action = nullptr;
+		
+		//~ printf("Param type is --> %d\n", _json["type"].get<int>());
 		
 		switch(_json["type"].get<int>()) {
 			
@@ -161,7 +173,7 @@ void BaseParam::fromJSON(json & _json)
 							Keyframe<float> * new_key = new Keyframe<float>();
 							new_key->setFrame(keys_j[k][0].get<float>());
 							
-							printf("key value is --> %f \n", keys_j[k][1].get<float>());
+							//~ printf("key value is --> %f \n", keys_j[k][1].get<float>());
 							new_key->setValue((float)(keys_j[k][1].get<float>()));
 							p_float->keyframes.push_back( new_key );
 						}
@@ -175,14 +187,14 @@ void BaseParam::fromJSON(json & _json)
 						printf("trying to set value directly !!!!!! \n");
 						p_float->value = _json["value"].get<float>();
 					}
-					printf("this is a ParamFloat \n");
+					//~ printf("this is a ParamFloat \n");
 
 				}
 				
 				break;
 				
 			case PARAM_INT :			
-				printf("this is a ParamInt \n");
+				//~ printf("this is a ParamInt \n");
 				
 				if( p_int = dynamic_cast<ParamInt*>(this))
 				{
@@ -248,15 +260,40 @@ void BaseParam::fromJSON(json & _json)
 						p_vec3->param_x->fromJSON(_json["value"][0]);
 						p_vec3->param_y->fromJSON(_json["value"][1]);
 						p_vec3->param_z->fromJSON(_json["value"][2]);
-						//~ p_vec3->setValue(glm::vec3(
-							//~ _json["value"][0]["value"].get<float>(),
-							//~ _json["value"][1]["value"].get<float>(),
-							//~ _json["value"][2]["value"].get<float>()
-						//~ ));
+
 					}	
 					
 				}				
 				break;
+				
+				
+			//~ case PARAM_BOOL :
+			//~ 
+				//~ if( p_bool = dynamic_cast<ParamBool*>(this))
+				//~ {
+//~ 
+					//~ printf("there was an execption thrown for a BOOL\n");
+					//~ printf("trying to set value directly !!!!!! \n");
+					//~ p_bool->setValue(_json["value"].get<bool>());					
+				//~ }				
+				//~ break;	
+				//~ 
+			case PARAM_STRING :
+				if( p_string = dynamic_cast<ParamString*>(this))
+				{		
+					printf("file_path value is --> %s\n",_json["value"].get<std::string>().c_str());			
+					p_string->setValue( _json["value"].get<std::string>());
+				}
+				break;
+			case PARAM_ACTION :
+				if( p_action = dynamic_cast<ParamAction*>(this))
+				{		
+					printf("ACTION PARAM !!!!!!!\n");			
+
+				}
+				break;
+								
+				
 			default :
 				printf("default case \n");
 				break;

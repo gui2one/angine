@@ -5,7 +5,8 @@ TwistMeshFilter::TwistMeshFilter()
 	: MeshFilter()
 {
 
-
+	setType(TWIST_MESH_FILTER);
+	
 	p_amount = new ParamFloat("amount", 0.1);
 	param_layout.push(p_amount);
 	

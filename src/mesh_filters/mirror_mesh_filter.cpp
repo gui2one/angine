@@ -3,7 +3,7 @@
 MirrorMeshFilter::MirrorMeshFilter()
 	: MeshFilter()
 {
-	
+	setType(MIRROR_MESH_FILTER);
 	p_axis_menu = new ParamMenu("axis", {"X", "Y", "Z"});
 	param_layout.push(p_axis_menu);
 

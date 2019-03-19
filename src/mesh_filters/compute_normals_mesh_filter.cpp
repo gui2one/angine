@@ -4,6 +4,8 @@
 ComputeNormalsMeshFilter::ComputeNormalsMeshFilter()
 	: MeshFilter()
 {
+	
+	setType(COMPUTE_NORMALS_MESH_FILTER);
 	p_invert = new ParamBool("Invert normals", false);
 	param_layout.push(p_invert);
 }

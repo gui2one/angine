@@ -4,6 +4,7 @@
 InflateMeshFilter::InflateMeshFilter()
 	: MeshFilter()
 {
+	setType(INFLATE_MESH_FILTER);
 	
 	p_amount = new ParamFloat("amount",0.0);
 	param_layout.push(p_amount);

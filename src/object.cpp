@@ -673,6 +673,14 @@ json Object::toJSON()
 	if(has_generator){
 		j["mesh_generator"] = mesh_generator->toJSON();
 	}		
+	
+	std::vector<json> filters_j;
+	for (int i = 0; i < meshFilters.size(); i++)
+	{
+		filters_j.push_back(meshFilters[i]->toJSON());
+	}
+	
+	j["mesh_filters"] = filters_j;
 	return j;
 }
 
@@ -686,18 +694,46 @@ void Object::fromJSON(json _j, Shader& _shader)
 
 	switch(_j["mesh_generator"]["type"].get<int>())
 	{
-		case CYLINDER_MESH_GENERATOR:
-			printf("--- setting Cylinder mesh generator up \n");
-			setGenerator<CylinderMesh>();
-			generator_type = CYLINDER_MESH_GENERATOR; // really crappy design , do something !!!!
-			mesh_generator->need_update = true;		  
-			break;
 		case SPHERE_MESH_GENERATOR :
 			printf("--- setting Cylinder mesh generator up \n");
 			setGenerator<SphereMesh>();
 			generator_type = SPHERE_MESH_GENERATOR; // really crappy design , do something !!!!
 			mesh_generator->need_update = true;		  	
-			break;
+			break;		
+		case GEOSPHERE_MESH_GENERATOR :
+			printf("--- setting Cylinder mesh generator up \n");
+			setGenerator<GeoSphereMesh>();
+			generator_type = GEOSPHERE_MESH_GENERATOR; // really crappy design , do something !!!!
+			mesh_generator->need_update = true;		  	
+			break;	
+			
+		case GRID_MESH_GENERATOR :
+			printf("--- setting Cylinder mesh generator up \n");
+			setGenerator<GridMesh>();
+			generator_type = GRID_MESH_GENERATOR; // really crappy design , do something !!!!
+			mesh_generator->need_update = true;		  	
+			break;				
+
+		case BOX_MESH_GENERATOR :
+			printf("--- setting Cylinder mesh generator up \n");
+			setGenerator<BoxMesh>();
+			generator_type = BOX_MESH_GENERATOR; // really crappy design , do something !!!!
+			mesh_generator->need_update = true;		  	
+			break;		
+			
+		case CYLINDER_MESH_GENERATOR:
+			printf("--- setting Cylinder mesh generator up \n");
+			setGenerator<CylinderMesh>();
+			generator_type = CYLINDER_MESH_GENERATOR; // really crappy design , do something !!!!
+			mesh_generator->need_update = true;		  
+			break;		
+			
+		case FILE_MESH_GENERATOR:
+			printf("--- setting Cylinder mesh generator up \n");
+			setGenerator<FileMesh>();
+			generator_type = FILE_MESH_GENERATOR; // really crappy design , do something !!!!
+			mesh_generator->need_update = true;		  
+			break;						
 		default : 
 			break;
 		
@@ -707,25 +743,8 @@ void Object::fromJSON(json _j, Shader& _shader)
 	mesh_generator->param_layout.fromJSON(params_j);
 
 	std::vector<json> trans_params_j = _j["transforms_params"];
-	param_layout.fromJSON(trans_params_j);	
-	
-	//~ p_pos->setValue(glm::vec3( 
-		//~ _j["position"][0].get<float>(),
-		//~ _j["position"][1].get<float>(),
-		//~ _j["position"][2].get<float>()
-	//~ ));
-	//~ 
-	//~ p_rot->setValue(glm::vec3( 
-		//~ _j["rotation"][0].get<float>(),
-		//~ _j["rotation"][1].get<float>(),
-		//~ _j["rotation"][2].get<float>()
-	//~ ));	
-	//~ 
-	//~ p_scale->setValue(glm::vec3( 
-		//~ _j["scale"][0].get<float>(),
-		//~ _j["scale"][1].get<float>(),
-		//~ _j["scale"][2].get<float>()
-	//~ ));		
+	param_layout.fromJSON(trans_params_j);		
+
 	
 	applyTransforms();
 }

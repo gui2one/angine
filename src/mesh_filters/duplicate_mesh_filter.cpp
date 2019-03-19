@@ -4,6 +4,7 @@
 DuplicateMeshFilter::DuplicateMeshFilter()
 	: MeshFilter()
 {
+	setType(DUPLICATE_MESH_FILTER);
 	p_num = new ParamInt("number of copies", 2);
 	param_layout.push(p_num);
 	

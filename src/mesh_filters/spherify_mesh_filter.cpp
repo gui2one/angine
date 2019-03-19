@@ -4,6 +4,8 @@
 SpherifyMeshFilter::SpherifyMeshFilter()
 	: MeshFilter()
 {
+	setType(SPHERIFY_MESH_FILTER);
+	
 	p_radius = new ParamFloat("radius", 0.5);
 	param_layout.push(p_radius);
 }

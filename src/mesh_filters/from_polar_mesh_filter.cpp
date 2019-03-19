@@ -4,6 +4,7 @@
 FromPolarMeshFilter::FromPolarMeshFilter()
 	: MeshFilter()
 {
+	setType(FROM_POLAR_MESH_FILTER);
 	p_menu = new ParamMenu(
 			"transform order", 
 			std::vector<std::string>{

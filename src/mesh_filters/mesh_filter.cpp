@@ -27,3 +27,21 @@ void MeshFilter::setName(std::string str_name)
 Mesh MeshFilter::applyFilter(Mesh & mesh){
 	
 }
+
+json MeshFilter::toJSON()
+{
+	json j;
+	
+	
+	j["name"] = name;
+	j["params"] = param_layout.toJSON();
+	j["type"] = getType();
+	//~ printf("params num is --> %d\n", param_layout.getSize());
+	
+	return j;
+}
+
+void MeshFilter::fromJSON(json& _json)
+{
+	
+}
