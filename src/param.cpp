@@ -136,6 +136,7 @@ json BaseParam::toJSON(){
 		}else if(p_action = dynamic_cast<ParamAction*>(cur_param)){
 			j["value"] = "action value";
 		}else if(p_menu = dynamic_cast<ParamMenu*>(cur_param)){
+			printf("saving ParamMenu !!!!\n");
 			j["value"] = p_menu->getValue();
 		}
 	}

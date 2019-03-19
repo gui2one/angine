@@ -4,7 +4,7 @@ MirrorMeshFilter::MirrorMeshFilter()
 	: MeshFilter()
 {
 	setType(MIRROR_MESH_FILTER);
-	p_axis_menu = new ParamMenu("axis", {"X", "Y", "Z"});
+	p_axis_menu = new ParamMenu("axis", {"X", "Y", "Z"}, 0);
 	param_layout.push(p_axis_menu);
 
 	
@@ -42,17 +42,17 @@ Mesh MirrorMeshFilter::applyFilter(Mesh & source_mesh)
 	
 		glm::mat4 matrix = glm::mat4(1.0f);
 		
-		if( p_axis_menu->current_choice == 0)
+		if( p_axis_menu->getValue() == 0)
 		{
 			matrix = glm::translate(matrix, glm::vec3(p_distance->getValue(),0.0f,0.0f) );
 			matrix = glm::scale(matrix,glm::vec3(-1.0f , 1.0f, 1.0f));
 		}
-		else if(p_axis_menu->current_choice == 1)
+		else if(p_axis_menu->getValue() == 1)
 		{
 			matrix = glm::translate(matrix, glm::vec3(0.0f,p_distance->getValue(),0.0f) );
 			matrix = glm::scale(matrix,glm::vec3(1.0f , -1.0f, 1.0f));
 		}
-		else if(p_axis_menu->current_choice == 2)
+		else if(p_axis_menu->getValue() == 2)
 		{
 			matrix = glm::translate(matrix, glm::vec3(0.0f,0.0f,p_distance->getValue()) );
 			matrix = glm::scale(matrix,glm::vec3(1.0f ,  1.0f,-1.0f));

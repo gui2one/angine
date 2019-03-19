@@ -757,8 +757,12 @@ void Object::fromJSON(json _j, Shader& _shader)
 		
 		ComputeNormalsMeshFilter * p_normals = nullptr;
 		DuplicateMeshFilter * p_duplicate = nullptr;
+		FromPolarMeshFilter * p_from_polar = nullptr;
+		InflateMeshFilter * p_inflate = nullptr;
+		MirrorMeshFilter * p_mirror = nullptr;
 		SpherifyMeshFilter * p_spherify = nullptr;
 		TransformMeshFilter * p_transform = nullptr;
+		TwistMeshFilter * p_twist = nullptr;
 		std::vector<json> json_vector = cur_j["params"];
 		switch(cur_j["type"].get<int>()){
 			
@@ -784,19 +788,37 @@ void Object::fromJSON(json _j, Shader& _shader)
 				break;				
 			case FROM_POLAR_MESH_FILTER : 
 				printf("FROM_POLAR_MESH_FILTER detected \n");
+				p_from_polar = new FromPolarMeshFilter();	
+				p_from_polar->param_layout.fromJSON(json_vector);
+				mesh = p_from_polar->applyFilter(mesh);
+				
+				p_from_polar->setName(cur_j["name"]);
+				meshFilters.push_back(p_from_polar);					
 				break;	
 			case INFLATE_MESH_FILTER : 
 				printf("INFLATE_MESH_FILTER detected \n");
+				p_inflate = new InflateMeshFilter();	
+				p_inflate->param_layout.fromJSON(json_vector);
+				mesh = p_inflate->applyFilter(mesh);
+				
+				p_inflate->setName(cur_j["name"]);
+				meshFilters.push_back(p_inflate);				
 				break;	
 			case MIRROR_MESH_FILTER : 
 				printf("MIRROR_MESH_FILTER detected \n");
+				p_mirror = new MirrorMeshFilter();	
+				p_mirror->param_layout.fromJSON(json_vector);
+				mesh = p_mirror->applyFilter(mesh);
+				
+				p_mirror->setName(cur_j["name"]);
+				meshFilters.push_back(p_mirror);						
 				break;	
 			case SPHERIFY_MESH_FILTER : 
 				printf("SPHERIFY_MESH_FILTER detected \n");
 				p_spherify = new SpherifyMeshFilter();	
 				p_spherify->param_layout.fromJSON(json_vector);
 				mesh = p_spherify->applyFilter(mesh);
-				//~ p_spherify->need_update = true;
+				
 				p_spherify->setName(cur_j["name"]);
 				meshFilters.push_back(p_spherify);		
 					
@@ -806,16 +828,21 @@ void Object::fromJSON(json _j, Shader& _shader)
 				printf("TRANSFORM_MESH_FILTER detected \n");
 				p_transform = new TransformMeshFilter();
 				
-				
-				
 				p_transform->param_layout.fromJSON(json_vector);
 				p_transform->applyFilter(mesh);
+				p_transform->setName(cur_j["name"]);
 				meshFilters.push_back(p_transform);
 				printf("\tjust applied mesh Filter \n");
 				
 				break;	
 			case TWIST_MESH_FILTER : 
 				printf("TWIST_MESH_FILTER detected \n");
+				p_twist = new TwistMeshFilter();	
+				p_twist->param_layout.fromJSON(json_vector);
+				mesh = p_twist->applyFilter(mesh);
+				
+				p_twist->setName(cur_j["name"]);
+				meshFilters.push_back(p_twist);					
 				break;	
 				
 			default :

@@ -1237,16 +1237,16 @@ void Window::buildParamUi(BaseParam * param, std::function<void()> callback)
 			static int choice = 0;
 			if(ImGui::BeginCombo(
 					p_menu->getName().c_str(),
-					p_menu->getValue()[choice].c_str(),
+					p_menu->getLabels()[choice].c_str(),
 					0 )
 			)
 			{
-				for (int i = 0; i < p_menu->getValue().size(); i++)
+				for (int i = 0; i < p_menu->getLabels().size(); i++)
 				{
-					if(ImGui::Selectable(p_menu->getValue()[i].c_str(), choice == i))
+					if(ImGui::Selectable(p_menu->getLabels()[i].c_str(), choice == i))
 					{								
 						choice = i;
-						p_menu->current_choice = choice;
+						p_menu->setValue(choice);
 						
 						callback();
 					}

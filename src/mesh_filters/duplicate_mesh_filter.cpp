@@ -13,7 +13,10 @@ DuplicateMeshFilter::DuplicateMeshFilter()
 			std::vector<std::string>{
 					"Rot/Scale/Trans",
 					"Scale/Rotate/Trans",
-					"Scale/Trans/Rotate"});
+					"Scale/Trans/Rotate"},
+			0);
+			
+			
 	param_layout.push(p_menu);
 	
 	p_translate = new ParamVec3("translate",glm::vec3( 0.0f, 0.0f, 0.0f),"t_");

@@ -56,6 +56,7 @@ std::vector<json> ParamLayout::toJSON()
 		ParamBool * p_bool = nullptr;
 		ParamString * p_string = nullptr;
 		ParamAction * p_action = nullptr;
+		ParamMenu * p_menu = nullptr;
 
 		if(p_float = dynamic_cast<ParamFloat*>(p_parm)){
 
@@ -88,6 +89,10 @@ std::vector<json> ParamLayout::toJSON()
 		}else if(p_action = dynamic_cast<ParamAction*>(p_parm)){
 			
 			all_params.push_back(p_action->toJSON());
+			
+		}else if(p_menu = dynamic_cast<ParamMenu*>(p_parm)){
+			
+			all_params.push_back(p_menu->toJSON());
 			
 		}
 

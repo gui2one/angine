@@ -239,16 +239,21 @@ class ParamAction : public BaseParam
 class ParamMenu : public BaseParam
 {
 	public :
-		inline ParamMenu(std::string _name, std::vector<std::string> _value): BaseParam(){
+		inline ParamMenu(std::string _name, std::vector<std::string> _labels, int _value = 0): BaseParam(){
 			setType(PARAM_MENU);
 			setName(_name);
 			value = _value;
+			labels = _labels;
 		}
 	
-		std::vector<std::string> value;
+		int value;
+		std::vector<std::string> labels;
 		int current_choice = 0;
-		inline void setValue(std::vector<std::string> _val){ value = _val;}
-		inline std::vector<std::string> getValue(){ return value;}		
+		inline void setValue(int _val){ value = _val;}
+		inline int getValue(){ return value;}		
+		
+		inline void setLabels( std::vector<std::string> _labels){ labels = _labels; }
+		inline std::vector<std::string> getLabels(){ return labels;}		
 };
 
 #endif /* PARAM2_H */ 
