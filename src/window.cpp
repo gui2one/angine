@@ -147,7 +147,7 @@ Window::Window()
 	// timeline 
 	
 	time_line.start = 1;
-	time_line.end = 60;
+	time_line.end = 100;
 	time_line.frame_rate = 25.0;
 	
 
@@ -2192,7 +2192,10 @@ void Window::removeObject(Entity3D* obj)
 			cur_object_selected -= 1;	
 			
 		if( objects.size() == 0)
+		{
 			cur_object_selected = -1;
+			cur_unique_id = 0;
+		}
 			
 		//~ printf("Objects number is %d \n", objects.size());
 }
@@ -2216,15 +2219,21 @@ Entity3D Window::duplicateObject(Entity3D * obj)
 		//~ 
 		
 		new_object.setName("copied_object");
+		
+		new_object.setID( cur_unique_id++);
+		
+		
 		return new_object;
 	}else if(p_dummy = dynamic_cast<ObjectDummy*>(p)){
 		ObjectDummy dum = *(p_dummy);
 		printf("trying to copy a 'Dummy'\n");
 		//~ dum.init();
-		
+		dum.setID( cur_unique_id++);
+		cur_unique_id += 1;		
 		return dum;
 	}
 
+	
 	Entity3D null_entity;
 	
 	return null_entity;
@@ -2436,9 +2445,11 @@ void Window::saveToFile()
 	
 		Entity3D* curEntity = objects[i];
 		
+		curEntity->applyTransforms();
 		Object * p_object = nullptr;
 		ObjectDummy * p_dummy = nullptr;
 		if( p_object = dynamic_cast<Object *>(curEntity)){
+			
 			
 			json j = p_object->toJSON();	
 			
@@ -2472,6 +2483,9 @@ void Window::saveToFile()
 
 void Window::loadFromFile(std::string file_path)
 {
+	objects.clear();
+	cur_unique_id = 0;
+	
 	std::ifstream in_file(file_path);
 	std::string line;
 	std::string s;
@@ -2482,17 +2496,16 @@ void Window::loadFromFile(std::string file_path)
     while ( getline (in_file,line) )
     {
 		s += line;
-		//~ std::cout << line << '\n';
     }
     in_file.close();
   }	
   
   j = json::parse(s);
   
-  std::cout << j.dump(2).c_str();
-  
-  
-  std::cout << "\n";
+  //~ std::cout << j.dump(2).c_str();
+  //~ 
+  //~ 
+  //~ std::cout << "\n";
   
   
   for (int i = 0; i < j["entities"].size(); i++)
@@ -2502,7 +2515,7 @@ void Window::loadFromFile(std::string file_path)
 	  if( cur_j["type"].get<std::string>() == "OBJECT"){
 		  
 		
-		printf("building new OBJECT\n");
+		//~ printf("building new OBJECT\n");
 		Object * new_obj = new Object();
 		new_obj->fromJSON(cur_j, default_shader);
 		addObject(new_obj);
@@ -2510,10 +2523,24 @@ void Window::loadFromFile(std::string file_path)
 		  
 		  
 	  }else if( cur_j["type"].get<std::string>() == "OBJECT_DUMMY"){
-		  printf("building new OBJECT DUMMY\n");
+		  //~ printf("building new OBJECT DUMMY\n");
 		ObjectDummy * new_obj = new ObjectDummy();
 		new_obj->fromJSON(cur_j);
 		addObject(new_obj);
+	  }
+  }
+  
+  
+  // all entities are created, now I can deal with parenting
+  
+  for (int i = 0; i < objects.size(); i++)
+  {
+	  Entity3D * cur_entity = objects[i];
+	  json cur_j = j["entities"][i];
+	  if( cur_j["parent"].get<int>() != -1)
+	  {
+		  printf("parent ID is --> %d \n", cur_j["parent"].get<int>());
+		  cur_entity->setParent( objects[findObjectIndexByID( cur_j["parent"].get<int>())]);
 	  }
   }
   

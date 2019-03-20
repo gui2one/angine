@@ -34,7 +34,7 @@ class Entity3D
 		inline void resetLookAtTarget(){ look_at_target = nullptr;}
 		
 		inline void setID(int _id){	id = _id;}			
-		inline int getID(){	return id;}
+		inline int getID() const { return id;}
 		
 		
 		ParamLayout param_layout;
@@ -44,7 +44,7 @@ class Entity3D
 		ParamVec3 * p_scale;
 		
 		void setName(std::string str_name);
-		char name[100] = {'n','e','w','_','o','b','j','e','c','t'};
+		char name[100] = {'_'};
 		glm::vec4 color;
 		
 		

@@ -111,6 +111,7 @@ void ParamLayout::fromJSON(std::vector<json>& _json_vector)
 	
 	for (int i = 0; i < params.size(); i++)
 	{
+		printf("\tPARAM NAME --> %s\n", params[i]->getName().c_str());
 		params[i]->fromJSON( params_j[i]);
 
 	}	

@@ -19,13 +19,17 @@ Entity3D::Entity3D()
 Entity3D::Entity3D(const Entity3D& other){
 	
 	//~ printf("Entity3D COPY CONSTRUCTOR\n");
+	setID(other.getID());
+	
 	Entity3D * parent = other.parent;
 	Entity3D * look_at_target = other.look_at_target;
 	
-	transforms = other.transforms;	
+	//~ transforms = other.transforms;	
 	position = other.position;
 	rotation = other.rotation;
 	scale = other.scale;
+	
+	color = other.color;
 
 	p_pos = new ParamVec3(*other.p_pos);	
 	param_layout.push(p_pos);
@@ -41,8 +45,6 @@ Entity3D::Entity3D(const Entity3D& other){
 
 void Entity3D::setName(std::string str_name)
 {
-
-	
 	
 	for (int i = 0; i < str_name.size(); i++)
 	{
