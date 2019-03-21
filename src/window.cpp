@@ -2533,16 +2533,16 @@ void Window::loadFromFile(std::string file_path)
   
   // all entities are created, now I can deal with parenting
   
-  for (int i = 0; i < objects.size(); i++)
-  {
-	  Entity3D * cur_entity = objects[i];
-	  json cur_j = j["entities"][i];
-	  if( cur_j["parent"].get<int>() != -1)
-	  {
-		  printf("parent ID is --> %d \n", cur_j["parent"].get<int>());
-		  cur_entity->setParent( objects[findObjectIndexByID( cur_j["parent"].get<int>())]);
-	  }
-  }
+  //~ for (int i = 0; i < objects.size(); i++)
+  //~ {
+	  //~ Entity3D * cur_entity = objects[i];
+	  //~ json cur_j = j["entities"][i];
+	  //~ if( cur_j["parent"].get<int>() != -1)
+	  //~ {
+		  //~ printf("parent ID is --> %d \n", cur_j["parent"].get<int>());
+		  //~ cur_entity->setParent( objects[findObjectIndexByID( cur_j["parent"].get<int>())]);
+	  //~ }
+  //~ }
   
   
   evalKeyframes();

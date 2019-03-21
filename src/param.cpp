@@ -9,6 +9,8 @@ BaseParam::BaseParam(const BaseParam& other){
 	setName(other.getName());
 	std::vector<BaseKeyframe*> keyframes;
 	setInterpolationType( other.getInterpolationType());
+	
+	type = other.getType();
 	for (int i = 0; i < other.keyframes.size(); i++)
 	{
 		Keyframe<float>* p_key_float = nullptr;
@@ -166,6 +168,7 @@ void BaseParam::fromJSON(json & _json)
 						
 				if( p_float = dynamic_cast<ParamFloat*>(this))
 				{
+					printf("\t\tsetting float param !!!!\n");
 					try {
 						std::vector<json> keys_j = _json.at("keyframes");
 						

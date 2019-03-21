@@ -98,9 +98,7 @@ std::vector<json> ParamLayout::toJSON()
 
 		//~ printf("param to JSON\n");
 	}
-	
-	
-	
+		
 	return all_params;
 }
 
