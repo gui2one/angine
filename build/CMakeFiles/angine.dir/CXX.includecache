@@ -734,6 +734,22 @@ vendor/glm/gtc/type_ptr.hpp
 vendor/nlohmann/json.hpp
 /home/pi/projects/angine/src/vendor/nlohmann/json.hpp
 
+/home/pi/projects/angine/src/raycaster.cpp
+raycaster.h
+/home/pi/projects/angine/src/raycaster.h
+
+/home/pi/projects/angine/src/raycaster.h
+pch.h
+/home/pi/projects/angine/src/pch.h
+camera.h
+/home/pi/projects/angine/src/camera.h
+window.h
+/home/pi/projects/angine/src/window.h
+entity3d.h
+/home/pi/projects/angine/src/entity3d.h
+object.h
+/home/pi/projects/angine/src/object.h
+
 /home/pi/projects/angine/src/shader.cpp
 shader.h
 /home/pi/projects/angine/src/shader.h
@@ -2751,6 +2767,8 @@ unistd.h
 -
 sys/stat.h
 -
+raycaster.h
+/home/pi/projects/angine/src/raycaster.h
 
 /home/pi/projects/angine/src/window.h
 functional

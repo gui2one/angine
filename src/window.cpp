@@ -24,6 +24,9 @@
 #include <unistd.h>
 #include <sys/stat.h>
 
+#include "raycaster.h"
+
+
 
 
 static int ray_plane_intersect(glm::vec3 planeN, glm::vec3 planeP, glm::vec3 pointP, glm::vec3 rayDir, glm::vec3& hitP)
@@ -36,17 +39,17 @@ static int ray_plane_intersect(glm::vec3 planeN, glm::vec3 planeP, glm::vec3 poi
     return  K>= 0.0 && K <= 1.0;
 }
 
-static void vec_mult_by_matrix( glm::vec3 & _vec, glm::mat4 & _mat, bool invert = false){
-	
-	glm::vec4 vec4 = glm::vec4(_vec.x, _vec.y, _vec.z,1.0f);
-	glm::vec3 output;
-	if( invert){
-		_vec = vec4 * glm::inverse(_mat);
-	} else{
-		_vec = vec4 * _mat;
-	}
-
-}
+//~ static void vec_mult_by_matrix( glm::vec3 & _vec, glm::mat4 & _mat, bool invert = false){
+	//~ 
+	//~ glm::vec4 vec4 = glm::vec4(_vec.x, _vec.y, _vec.z,1.0f);
+	//~ glm::vec3 output;
+	//~ if( invert){
+		//~ _vec = vec4 * glm::inverse(_mat);
+	//~ } else{
+		//~ _vec = vec4 * _mat;
+	//~ }
+//~ 
+//~ }
 
 static std::vector<std::string> split(const std::string& str, std::string delimiter = " "){
 	
@@ -203,94 +206,84 @@ Window::Window()
 
 bool Window::mouseClickGizmo()
 {
-	double pos_x, pos_y;
-	glfwGetCursorPos(win, &pos_x, &pos_y);
-	if( cur_object_selected != -1){
-		
-		for (int i = 0; i < gizmos.size(); i++)
-		{
-			printf("click Gizmo !!!\n");
-			
-			glm::mat4 projection = camera.projection;
-			glm::mat4 view = glm::mat4(1.0f);
 
-			
-			
-			// not sure why I need this, but it gets rid off a nasty offset 
-			// found a solution here : https://stackoverflow.com/questions/48514387/can-anyone-explain-this-small-offset-from-ray-casting-by-mouse-click?rq=1
-			// but the guy says he forced projection[3][3] to be 0.0, I have to do 1.0f for this to work
-			
-			projection[3][3] = 1.0f; 
+	//~ double pos_x, pos_y;
+	//~ glfwGetCursorPos(win, &pos_x, &pos_y);
+	//~ if( cur_object_selected != -1){
+		//~ 
+		//~ for (int i = 0; i < gizmos.size(); i++)
+		//~ {
+			//~ printf("click Gizmo !!!\n");
 			//~ 
-			//~ /////
+			//~ glm::mat4 projection = camera.projection;
+			//~ // not sure why I need this, but it gets rid off a nasty offset 
+			//~ // found a solution here : https://stackoverflow.com/questions/48514387/can-anyone-explain-this-small-offset-from-ray-casting-by-mouse-click?rq=1
+			//~ // but the guy says he forced projection[3][3] to be 0.0, I have to do 1.0f for this to work			
+			//~ projection[3][3] = 1.0f; 		
+				//~ 
+			//~ glm::mat4 view = glm::mat4(1.0f);
+			//~ glm::vec3 up_vector = glm::vec3(0.0f,0.0f,1.0f);
+//~ 
+			//~ view *= glm::lookAt(
+									//~ camera.position, 
+									//~ camera.target_position, 
+									//~ glm::normalize(up_vector)
+								//~ );			
 			//~ 
+			//~ float x = (2.0f * pos_x) / width - 1.0f;
+			//~ float y = 1.0f - (2.0f * pos_y) / height;			
 			//~ 
-			glm::vec3 up_vector = glm::vec3(0.0f,0.0f,1.0f);
-
-			view *= glm::lookAt(
-									camera.position, 
-									camera.target_position, 
-									glm::normalize(up_vector)
-								);			
-			
-			float x = (2.0f * pos_x) / width - 1.0f;
-			float y = 1.0f - (2.0f * pos_y) / height;			
-			
-
-			glm::mat4 target_transforms = glm::mat4(1.0f);
-			gizmos[i]->target_object->applyTransforms();
-			target_transforms = gizmos[i]->target_object->transforms * target_transforms;			
-			gizmos[i]->target_object->applyParentsMatrices(target_transforms);
-			
-			glm::vec3 z_axis_2 = glm::vec3(0.0f, 0.0f, 1.0f);
-			vec_mult_by_matrix(z_axis_2, target_transforms, true);
-
-			glm::vec3 test = gizmos[i]->target_object->getWorldPosition();
-			printf("world pos test --> %.3f, %.3f, %.3f\n", test.x, test.y, test.z);
-
-			printf("z_axis_vec3 : %.3f, %.3f, %.3f \n", z_axis_2.x, z_axis_2.y, z_axis_2.z);
-			
-			
-			glm::vec3 planeN = glm::normalize(z_axis_2);
-			
-			glm::vec3 planeP = test;
-			glm::vec3 pointP = glm::vec3(x, y , 1.0f);
-			glm::vec3 rayDir = glm::vec3(0.0f, 0.0f , -1.0f);			
-								
-			glm::vec4 tempPointP = inverse(projection * view)* glm::vec4(pointP.x, pointP.y, pointP.z, 1.0f) ;
-			tempPointP /= tempPointP.w *0.5f;
-
-			glm::vec3 hitP = glm::vec3(0.0f);
-			int hit = ray_plane_intersect(planeN, planeP, camera.position, tempPointP, hitP);	
-			
-			glm::vec4 local_pos = glm::vec4(hitP.x, hitP.y, hitP.z, 1.0f);
-			
-			glm::vec3 local_pos_vec3 = glm::inverse(target_transforms) * local_pos ;
-			if(hit){
-				printf("------> gizmo hit <--------\n");
-			
-				printf("\tlocal_pos_vec3 : %.3f, %.3f, %.3f\n", local_pos_vec3.x, local_pos_vec3.y, local_pos_vec3.z);
-				if( fabs(local_pos_vec3.x) > fabs(local_pos_vec3.y)
-					&&  fabs(local_pos_vec3.y) < 0.1)
-				{
-					printf("local X : %.3f, local Y : %.3f\n", fabs(local_pos_vec3.x), fabs(local_pos_vec3.y));
-					printf("nearest is X axis\n");
-					return true;
-				} else if(fabs(local_pos_vec3.x) < fabs(local_pos_vec3.y)
-				&&  fabs(local_pos_vec3.x) < 0.1)
-				{
-					
-					printf("local X : %.3f, local Y : %.3f\n", fabs(local_pos_vec3.x), fabs(local_pos_vec3.y));
-					printf("nearest is Y axis\n");
-					return true;
-				}else{
-					return false;
-				}
-				
-				
-			}			
-		}
-	}
+//~ 
+			//~ glm::mat4 target_transforms = glm::mat4(1.0f);
+			//~ gizmos[i]->target_object->applyTransforms();
+			//~ target_transforms = gizmos[i]->target_object->transforms * target_transforms;			
+			//~ gizmos[i]->target_object->applyParentsMatrices(target_transforms);
+			//~ 
+			//~ glm::vec3 z_axis_2 = glm::vec3(0.0f, 0.0f, 1.0f);
+			//~ vec_mult_by_matrix(z_axis_2, target_transforms, true);
+//~ 
+			//~ glm::vec3 test = gizmos[i]->target_object->getWorldPosition();
+			//~ 
+			//~ glm::vec3 planeN = glm::normalize(z_axis_2);
+			//~ 
+			//~ glm::vec3 planeP = test;
+			//~ glm::vec3 pointP = glm::vec3(x, y , 1.0f);
+			//~ glm::vec3 rayDir = glm::vec3(0.0f, 0.0f , -1.0f);			
+								//~ 
+			//~ glm::vec4 tempPointP = inverse(projection * view)* glm::vec4(pointP.x, pointP.y, pointP.z, 1.0f) ;
+			//~ tempPointP /= tempPointP.w *0.5f;
+//~ 
+			//~ glm::vec3 hitP = glm::vec3(0.0f);
+			//~ int hit = ray_plane_intersect(planeN, planeP, camera.position, tempPointP, hitP);	
+			//~ 
+			//~ glm::vec4 local_pos = glm::vec4(hitP.x, hitP.y, hitP.z, 1.0f);
+			//~ 
+			//~ glm::vec3 local_pos_vec3 = glm::inverse(target_transforms) * local_pos ;
+			//~ if(hit){
+				//~ printf("------> gizmo hit <--------\n");
+			//~ 
+				//~ printf("\tlocal_pos_vec3 : %.3f, %.3f, %.3f\n", local_pos_vec3.x, local_pos_vec3.y, local_pos_vec3.z);
+				//~ if( fabs(local_pos_vec3.x) > fabs(local_pos_vec3.y)
+					//~ &&  fabs(local_pos_vec3.y) < 0.1)
+				//~ {
+					//~ printf("local X : %.3f, local Y : %.3f\n", fabs(local_pos_vec3.x), fabs(local_pos_vec3.y));
+					//~ printf("nearest is X axis\n");
+					//~ return true;
+				//~ } else if(fabs(local_pos_vec3.x) < fabs(local_pos_vec3.y)
+				//~ &&  fabs(local_pos_vec3.x) < 0.1)
+				//~ {
+					//~ 
+					//~ printf("local X : %.3f, local Y : %.3f\n", fabs(local_pos_vec3.x), fabs(local_pos_vec3.y));
+					//~ printf("nearest is Y axis\n");
+					//~ return true;
+				//~ }else{
+					//~ return false;
+				//~ }
+				//~ 
+				//~ 
+			//~ }			
+		//~ }
+	//~ }
 	
 	return false;
 	
@@ -298,76 +291,88 @@ bool Window::mouseClickGizmo()
 
 Entity3D* Window::mouseClickObject()
 {
+	
+	Raycaster raycaster;
+
+
+
+	std::vector<Entity3D*> result_objects;
+	raycaster.fromCamera(this, camera, objects, result_objects);
+	
+	if( result_objects.size() > 0){
+		cur_object_selected = findObjectIndexByID( result_objects[0]->getID());
+		return result_objects[0];
+	}
 	double pos_x, pos_y;
 	glfwGetCursorPos(win, &pos_x, &pos_y);
-	for (int i = 0; i < objects.size(); i++)
-	{
-		Entity3D * cur = objects[i];
-		
-		Object * p_object = nullptr;
-		if( p_object = dynamic_cast<Object *>(cur)){
-			
-			BoundingBox AABB = p_object->computeAABB();
-			
-			glm::vec3 bbox_pos = AABB.position;
-			glm::vec3 bbox_size = AABB.size;
-			glm::vec3 bbox_center = bbox_pos + glm::vec3(bbox_size.x/2.0f, bbox_size.y/2.0f, bbox_size.y/2.0f) ;	
-
-			
-			
-			float x = (2.0f * pos_x) / width - 1.0f;
-			float y = 1.0f - (2.0f * pos_y) / height;
-			glm::vec3 planeN = glm::normalize(p_object->position - camera.position);
-			glm::vec3 planeP = bbox_center;
-			glm::vec3 pointP = glm::vec3(x, y , 1.0f);
-			glm::vec3 rayDir = glm::vec3(0.0f, 0.0f , -1.0f);
-			
-			glm::mat4 projection = camera.projection;
-			glm::mat4 view = glm::mat4(1.0f);
-
-			
-			
-			// not sure why I need this, but it gets rid off a nasty offset 
-			// found a solution here : https://stackoverflow.com/questions/48514387/can-anyone-explain-this-small-offset-from-ray-casting-by-mouse-click?rq=1
-			// but the guy says he forced projection[3][3] to be 0.0, I have to do 1.0f for this to work
-			
-			projection[3][3] = 1.0f; 
-
-			glm::vec3 up_vector = glm::vec3(0.0f,0.0f,1.0f);
-
-			view *= glm::lookAt(
-									camera.position, 
-									camera.target_position, 
-									glm::normalize(up_vector)
-								);			
-								
-			glm::vec4 tempPointP = inverse(projection * view)* glm::vec4(pointP.x, pointP.y, pointP.z, 1.0f) ;
-			tempPointP /= tempPointP.w *0.5f;
-
-			glm::vec3 hitP = glm::vec3(0.0f);
-			int hit = ray_plane_intersect(planeN, planeP, camera.position, tempPointP, hitP);		
-			
-			if(hit)
-			{
-				if( hitP.x > bbox_pos.x && hitP.x < bbox_pos.x + bbox_size.x)
-				{
-					
-					if( hitP.y > bbox_pos.y && hitP.y < bbox_pos.y + bbox_size.y)
-					{
-						
-						if( hitP.z > bbox_pos.z && hitP.z < bbox_pos.z + bbox_size.z)
-						{					
-		
-							cur_object_selected = i;
-							return objects[i];
-						}
-					}
-				}
-				
-			}
-		}
-	}
-	
+	//~ for (int i = 0; i < objects.size(); i++)
+	//~ {
+		//~ Entity3D * cur = objects[i];
+		//~ 
+		//~ Object * p_object = nullptr;
+		//~ if( p_object = dynamic_cast<Object *>(cur)){
+			//~ 
+			//~ BoundingBox AABB = p_object->computeAABB();
+			//~ 
+			//~ glm::vec3 bbox_pos = AABB.position;
+			//~ glm::vec3 bbox_size = AABB.size;
+			//~ glm::vec3 bbox_center = bbox_pos + glm::vec3(bbox_size.x/2.0f, bbox_size.y/2.0f, bbox_size.y/2.0f) ;	
+//~ 
+			//~ 
+			//~ 
+			//~ float x = (2.0f * pos_x) / width - 1.0f;
+			//~ float y = 1.0f - (2.0f * pos_y) / height;
+			//~ glm::vec3 planeN = glm::normalize(p_object->position - camera.position);
+			//~ glm::vec3 planeP = bbox_center;
+			//~ glm::vec3 pointP = glm::vec3(x, y , 1.0f);
+			//~ glm::vec3 rayDir = glm::vec3(0.0f, 0.0f , -1.0f);
+			//~ 
+			//~ glm::mat4 projection = camera.projection;
+			//~ glm::mat4 view = glm::mat4(1.0f);
+//~ 
+			//~ 
+			//~ 
+			//~ // not sure why I need this, but it gets rid off a nasty offset 
+			//~ // found a solution here : https://stackoverflow.com/questions/48514387/can-anyone-explain-this-small-offset-from-ray-casting-by-mouse-click?rq=1
+			//~ // but the guy says he forced projection[3][3] to be 0.0, I have to do 1.0f for this to work
+			//~ 
+			//~ projection[3][3] = 1.0f; 
+//~ 
+			//~ glm::vec3 up_vector = glm::vec3(0.0f,0.0f,1.0f);
+//~ 
+			//~ view *= glm::lookAt(
+									//~ camera.position, 
+									//~ camera.target_position, 
+									//~ glm::normalize(up_vector)
+								//~ );			
+								//~ 
+			//~ glm::vec4 tempPointP = inverse(projection * view)* glm::vec4(pointP.x, pointP.y, pointP.z, 1.0f) ;
+			//~ tempPointP /= tempPointP.w *0.5f;
+//~ 
+			//~ glm::vec3 hitP = glm::vec3(0.0f);
+			//~ int hit = ray_plane_intersect(planeN, planeP, camera.position, tempPointP, hitP);		
+			//~ 
+			//~ if(hit)
+			//~ {
+				//~ if( hitP.x > bbox_pos.x && hitP.x < bbox_pos.x + bbox_size.x)
+				//~ {
+					//~ 
+					//~ if( hitP.y > bbox_pos.y && hitP.y < bbox_pos.y + bbox_size.y)
+					//~ {
+						//~ 
+						//~ if( hitP.z > bbox_pos.z && hitP.z < bbox_pos.z + bbox_size.z)
+						//~ {					
+		//~ 
+							//~ cur_object_selected = i;
+							//~ return objects[i];
+						//~ }
+					//~ }
+				//~ }
+				//~ 
+			//~ }
+		//~ }
+	//~ }
+	//~ 
 	printf("cur_object_selected is %d\n", cur_object_selected);
 	cur_object_selected = -1;
 	
@@ -519,6 +524,7 @@ void Window::mouse_button_callback(GLFWwindow* window, int button, int action, i
 		}
 		
 		if(button == GLFW_MOUSE_BUTTON_LEFT && action == GLFW_PRESS){
+			
 			bool is_gizmo = app->mouseClickGizmo();
 			
 			if(!is_gizmo)
@@ -885,11 +891,15 @@ void Window::objectListDialog()
 				object->mesh_generator->need_update = true;
 
 				addObject(object);
+				object->applyTransforms();
+				cur_object_selected = objects.size()-1;
 
 			}else if(p_dummy = dynamic_cast<ObjectDummy*>(objects[cur_object_selected])){
 				ObjectDummy * dummy = new ObjectDummy((const ObjectDummy&)*p_dummy);
 				dummy->init();
 				addObject(dummy);
+				dummy->applyTransforms();
+				cur_object_selected = objects.size()-1;
 				//~ printf("Dummy Name -> %s\n", dummy->name);
 			}
 				
@@ -2222,6 +2232,7 @@ Entity3D Window::duplicateObject(Entity3D * obj)
 		
 		new_object.setID( cur_unique_id++);
 		
+		cur_object_selected = objects.size();
 		
 		return new_object;
 	}else if(p_dummy = dynamic_cast<ObjectDummy*>(p)){
@@ -2257,19 +2268,19 @@ void Window::renderObjects()
 
 
 		
-		// draw world grid
-				point_shader.useProgram();
-				glUniformMatrix4fv(glGetUniformLocation(point_shader.m_id,"projection"), 1, GL_FALSE, glm::value_ptr(camera.projection));	
-				glUniformMatrix4fv(glGetUniformLocation(point_shader.m_id,"model"), 1, GL_FALSE, glm::value_ptr(model));	
-				glUniformMatrix4fv(glGetUniformLocation(point_shader.m_id,"view"), 1, GL_FALSE, glm::value_ptr(view));	
-										
-				GLuint COLOR_LOC = glGetUniformLocation(point_shader.m_id,"u_color");
-				glUniform4f(COLOR_LOC, 1.0, 1.0, 1.0, 0.5);	
-				
-				drawWorldGrid();
-				
-				glUseProgram(0);
-		////
+		//~ // draw world grid
+				//~ point_shader.useProgram();
+				//~ glUniformMatrix4fv(glGetUniformLocation(point_shader.m_id,"projection"), 1, GL_FALSE, glm::value_ptr(camera.projection));	
+				//~ glUniformMatrix4fv(glGetUniformLocation(point_shader.m_id,"model"), 1, GL_FALSE, glm::value_ptr(model));	
+				//~ glUniformMatrix4fv(glGetUniformLocation(point_shader.m_id,"view"), 1, GL_FALSE, glm::value_ptr(view));	
+										//~ 
+				//~ GLuint COLOR_LOC = glGetUniformLocation(point_shader.m_id,"u_color");
+				//~ glUniform4f(COLOR_LOC, 1.0, 1.0, 1.0, 0.5);	
+				//~ 
+				//~ drawWorldGrid();
+				//~ 
+				//~ glUseProgram(0);
+		//~ ////
 
 	
 	for (int i = 0; i < objects.size(); i++)
@@ -2533,16 +2544,17 @@ void Window::loadFromFile(std::string file_path)
   
   // all entities are created, now I can deal with parenting
   
-  //~ for (int i = 0; i < objects.size(); i++)
-  //~ {
-	  //~ Entity3D * cur_entity = objects[i];
-	  //~ json cur_j = j["entities"][i];
-	  //~ if( cur_j["parent"].get<int>() != -1)
-	  //~ {
+  for (int i = 0; i < objects.size(); i++)
+  {
+	  Entity3D * cur_entity = objects[i];
+	  json cur_j = j["entities"][i];
+	  printf("parent ID is --> %d \n", (cur_j["parent"].get<int>()));
+	  if( cur_j["parent"].get<int>() != -1)
+	  {
 		  //~ printf("parent ID is --> %d \n", cur_j["parent"].get<int>());
 		  //~ cur_entity->setParent( objects[findObjectIndexByID( cur_j["parent"].get<int>())]);
-	  //~ }
-  //~ }
+	  }
+  }
   
   
   evalKeyframes();

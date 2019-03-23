@@ -698,7 +698,7 @@ void Object::fromJSON(json _j, Shader& _shader)
 	
 
 	init();
-	printf("setting up transforms params \n");
+	//~ printf("setting up transforms params \n");
 	std::vector<json> trans_params_j = _j["transforms_params"];
 	param_layout.fromJSON(trans_params_j);		
 

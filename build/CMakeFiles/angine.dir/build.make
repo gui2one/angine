@@ -441,9 +441,33 @@ CMakeFiles/angine.dir/home/pi/projects/angine/src/texture.cpp.o.provides: CMakeF
 CMakeFiles/angine.dir/home/pi/projects/angine/src/texture.cpp.o.provides.build: CMakeFiles/angine.dir/home/pi/projects/angine/src/texture.cpp.o
 
 
+CMakeFiles/angine.dir/home/pi/projects/angine/src/raycaster.cpp.o: CMakeFiles/angine.dir/flags.make
+CMakeFiles/angine.dir/home/pi/projects/angine/src/raycaster.cpp.o: /home/pi/projects/angine/src/raycaster.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/pi/projects/angine/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_17) "Building CXX object CMakeFiles/angine.dir/home/pi/projects/angine/src/raycaster.cpp.o"
+	/usr/bin/c++   $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/angine.dir/home/pi/projects/angine/src/raycaster.cpp.o -c /home/pi/projects/angine/src/raycaster.cpp
+
+CMakeFiles/angine.dir/home/pi/projects/angine/src/raycaster.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/angine.dir/home/pi/projects/angine/src/raycaster.cpp.i"
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/pi/projects/angine/src/raycaster.cpp > CMakeFiles/angine.dir/home/pi/projects/angine/src/raycaster.cpp.i
+
+CMakeFiles/angine.dir/home/pi/projects/angine/src/raycaster.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/angine.dir/home/pi/projects/angine/src/raycaster.cpp.s"
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/pi/projects/angine/src/raycaster.cpp -o CMakeFiles/angine.dir/home/pi/projects/angine/src/raycaster.cpp.s
+
+CMakeFiles/angine.dir/home/pi/projects/angine/src/raycaster.cpp.o.requires:
+
+.PHONY : CMakeFiles/angine.dir/home/pi/projects/angine/src/raycaster.cpp.o.requires
+
+CMakeFiles/angine.dir/home/pi/projects/angine/src/raycaster.cpp.o.provides: CMakeFiles/angine.dir/home/pi/projects/angine/src/raycaster.cpp.o.requires
+	$(MAKE) -f CMakeFiles/angine.dir/build.make CMakeFiles/angine.dir/home/pi/projects/angine/src/raycaster.cpp.o.provides.build
+.PHONY : CMakeFiles/angine.dir/home/pi/projects/angine/src/raycaster.cpp.o.provides
+
+CMakeFiles/angine.dir/home/pi/projects/angine/src/raycaster.cpp.o.provides.build: CMakeFiles/angine.dir/home/pi/projects/angine/src/raycaster.cpp.o
+
+
 CMakeFiles/angine.dir/home/pi/projects/angine/src/entity3d.cpp.o: CMakeFiles/angine.dir/flags.make
 CMakeFiles/angine.dir/home/pi/projects/angine/src/entity3d.cpp.o: /home/pi/projects/angine/src/entity3d.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/pi/projects/angine/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_17) "Building CXX object CMakeFiles/angine.dir/home/pi/projects/angine/src/entity3d.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/pi/projects/angine/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_18) "Building CXX object CMakeFiles/angine.dir/home/pi/projects/angine/src/entity3d.cpp.o"
 	/usr/bin/c++   $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/angine.dir/home/pi/projects/angine/src/entity3d.cpp.o -c /home/pi/projects/angine/src/entity3d.cpp
 
 CMakeFiles/angine.dir/home/pi/projects/angine/src/entity3d.cpp.i: cmake_force
@@ -467,7 +491,7 @@ CMakeFiles/angine.dir/home/pi/projects/angine/src/entity3d.cpp.o.provides.build:
 
 CMakeFiles/angine.dir/home/pi/projects/angine/src/object.cpp.o: CMakeFiles/angine.dir/flags.make
 CMakeFiles/angine.dir/home/pi/projects/angine/src/object.cpp.o: /home/pi/projects/angine/src/object.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/pi/projects/angine/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_18) "Building CXX object CMakeFiles/angine.dir/home/pi/projects/angine/src/object.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/pi/projects/angine/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_19) "Building CXX object CMakeFiles/angine.dir/home/pi/projects/angine/src/object.cpp.o"
 	/usr/bin/c++   $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/angine.dir/home/pi/projects/angine/src/object.cpp.o -c /home/pi/projects/angine/src/object.cpp
 
 CMakeFiles/angine.dir/home/pi/projects/angine/src/object.cpp.i: cmake_force
@@ -491,7 +515,7 @@ CMakeFiles/angine.dir/home/pi/projects/angine/src/object.cpp.o.provides.build: C
 
 CMakeFiles/angine.dir/home/pi/projects/angine/src/object_dummy.cpp.o: CMakeFiles/angine.dir/flags.make
 CMakeFiles/angine.dir/home/pi/projects/angine/src/object_dummy.cpp.o: /home/pi/projects/angine/src/object_dummy.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/pi/projects/angine/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_19) "Building CXX object CMakeFiles/angine.dir/home/pi/projects/angine/src/object_dummy.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/pi/projects/angine/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_20) "Building CXX object CMakeFiles/angine.dir/home/pi/projects/angine/src/object_dummy.cpp.o"
 	/usr/bin/c++   $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/angine.dir/home/pi/projects/angine/src/object_dummy.cpp.o -c /home/pi/projects/angine/src/object_dummy.cpp
 
 CMakeFiles/angine.dir/home/pi/projects/angine/src/object_dummy.cpp.i: cmake_force
@@ -515,7 +539,7 @@ CMakeFiles/angine.dir/home/pi/projects/angine/src/object_dummy.cpp.o.provides.bu
 
 CMakeFiles/angine.dir/home/pi/projects/angine/src/object_light.cpp.o: CMakeFiles/angine.dir/flags.make
 CMakeFiles/angine.dir/home/pi/projects/angine/src/object_light.cpp.o: /home/pi/projects/angine/src/object_light.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/pi/projects/angine/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_20) "Building CXX object CMakeFiles/angine.dir/home/pi/projects/angine/src/object_light.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/pi/projects/angine/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_21) "Building CXX object CMakeFiles/angine.dir/home/pi/projects/angine/src/object_light.cpp.o"
 	/usr/bin/c++   $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/angine.dir/home/pi/projects/angine/src/object_light.cpp.o -c /home/pi/projects/angine/src/object_light.cpp
 
 CMakeFiles/angine.dir/home/pi/projects/angine/src/object_light.cpp.i: cmake_force
@@ -539,7 +563,7 @@ CMakeFiles/angine.dir/home/pi/projects/angine/src/object_light.cpp.o.provides.bu
 
 CMakeFiles/angine.dir/home/pi/projects/angine/src/animation/time_line.cpp.o: CMakeFiles/angine.dir/flags.make
 CMakeFiles/angine.dir/home/pi/projects/angine/src/animation/time_line.cpp.o: /home/pi/projects/angine/src/animation/time_line.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/pi/projects/angine/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_21) "Building CXX object CMakeFiles/angine.dir/home/pi/projects/angine/src/animation/time_line.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/pi/projects/angine/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_22) "Building CXX object CMakeFiles/angine.dir/home/pi/projects/angine/src/animation/time_line.cpp.o"
 	/usr/bin/c++   $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/angine.dir/home/pi/projects/angine/src/animation/time_line.cpp.o -c /home/pi/projects/angine/src/animation/time_line.cpp
 
 CMakeFiles/angine.dir/home/pi/projects/angine/src/animation/time_line.cpp.i: cmake_force
@@ -563,7 +587,7 @@ CMakeFiles/angine.dir/home/pi/projects/angine/src/animation/time_line.cpp.o.prov
 
 CMakeFiles/angine.dir/home/pi/projects/angine/src/animation/base_keyframe.cpp.o: CMakeFiles/angine.dir/flags.make
 CMakeFiles/angine.dir/home/pi/projects/angine/src/animation/base_keyframe.cpp.o: /home/pi/projects/angine/src/animation/base_keyframe.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/pi/projects/angine/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_22) "Building CXX object CMakeFiles/angine.dir/home/pi/projects/angine/src/animation/base_keyframe.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/pi/projects/angine/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_23) "Building CXX object CMakeFiles/angine.dir/home/pi/projects/angine/src/animation/base_keyframe.cpp.o"
 	/usr/bin/c++   $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/angine.dir/home/pi/projects/angine/src/animation/base_keyframe.cpp.o -c /home/pi/projects/angine/src/animation/base_keyframe.cpp
 
 CMakeFiles/angine.dir/home/pi/projects/angine/src/animation/base_keyframe.cpp.i: cmake_force
@@ -587,7 +611,7 @@ CMakeFiles/angine.dir/home/pi/projects/angine/src/animation/base_keyframe.cpp.o.
 
 CMakeFiles/angine.dir/home/pi/projects/angine/src/utils/objLoader.cpp.o: CMakeFiles/angine.dir/flags.make
 CMakeFiles/angine.dir/home/pi/projects/angine/src/utils/objLoader.cpp.o: /home/pi/projects/angine/src/utils/objLoader.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/pi/projects/angine/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_23) "Building CXX object CMakeFiles/angine.dir/home/pi/projects/angine/src/utils/objLoader.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/pi/projects/angine/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_24) "Building CXX object CMakeFiles/angine.dir/home/pi/projects/angine/src/utils/objLoader.cpp.o"
 	/usr/bin/c++   $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/angine.dir/home/pi/projects/angine/src/utils/objLoader.cpp.o -c /home/pi/projects/angine/src/utils/objLoader.cpp
 
 CMakeFiles/angine.dir/home/pi/projects/angine/src/utils/objLoader.cpp.i: cmake_force
@@ -611,7 +635,7 @@ CMakeFiles/angine.dir/home/pi/projects/angine/src/utils/objLoader.cpp.o.provides
 
 CMakeFiles/angine.dir/home/pi/projects/angine/src/gizmos/gizmo.cpp.o: CMakeFiles/angine.dir/flags.make
 CMakeFiles/angine.dir/home/pi/projects/angine/src/gizmos/gizmo.cpp.o: /home/pi/projects/angine/src/gizmos/gizmo.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/pi/projects/angine/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_24) "Building CXX object CMakeFiles/angine.dir/home/pi/projects/angine/src/gizmos/gizmo.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/pi/projects/angine/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_25) "Building CXX object CMakeFiles/angine.dir/home/pi/projects/angine/src/gizmos/gizmo.cpp.o"
 	/usr/bin/c++   $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/angine.dir/home/pi/projects/angine/src/gizmos/gizmo.cpp.o -c /home/pi/projects/angine/src/gizmos/gizmo.cpp
 
 CMakeFiles/angine.dir/home/pi/projects/angine/src/gizmos/gizmo.cpp.i: cmake_force
@@ -635,7 +659,7 @@ CMakeFiles/angine.dir/home/pi/projects/angine/src/gizmos/gizmo.cpp.o.provides.bu
 
 CMakeFiles/angine.dir/home/pi/projects/angine/src/mesh.cpp.o: CMakeFiles/angine.dir/flags.make
 CMakeFiles/angine.dir/home/pi/projects/angine/src/mesh.cpp.o: /home/pi/projects/angine/src/mesh.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/pi/projects/angine/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_25) "Building CXX object CMakeFiles/angine.dir/home/pi/projects/angine/src/mesh.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/pi/projects/angine/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_26) "Building CXX object CMakeFiles/angine.dir/home/pi/projects/angine/src/mesh.cpp.o"
 	/usr/bin/c++   $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/angine.dir/home/pi/projects/angine/src/mesh.cpp.o -c /home/pi/projects/angine/src/mesh.cpp
 
 CMakeFiles/angine.dir/home/pi/projects/angine/src/mesh.cpp.i: cmake_force
@@ -659,7 +683,7 @@ CMakeFiles/angine.dir/home/pi/projects/angine/src/mesh.cpp.o.provides.build: CMa
 
 CMakeFiles/angine.dir/home/pi/projects/angine/src/generators/mesh_generator.cpp.o: CMakeFiles/angine.dir/flags.make
 CMakeFiles/angine.dir/home/pi/projects/angine/src/generators/mesh_generator.cpp.o: /home/pi/projects/angine/src/generators/mesh_generator.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/pi/projects/angine/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_26) "Building CXX object CMakeFiles/angine.dir/home/pi/projects/angine/src/generators/mesh_generator.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/pi/projects/angine/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_27) "Building CXX object CMakeFiles/angine.dir/home/pi/projects/angine/src/generators/mesh_generator.cpp.o"
 	/usr/bin/c++   $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/angine.dir/home/pi/projects/angine/src/generators/mesh_generator.cpp.o -c /home/pi/projects/angine/src/generators/mesh_generator.cpp
 
 CMakeFiles/angine.dir/home/pi/projects/angine/src/generators/mesh_generator.cpp.i: cmake_force
@@ -683,7 +707,7 @@ CMakeFiles/angine.dir/home/pi/projects/angine/src/generators/mesh_generator.cpp.
 
 CMakeFiles/angine.dir/home/pi/projects/angine/src/generators/gridmesh.cpp.o: CMakeFiles/angine.dir/flags.make
 CMakeFiles/angine.dir/home/pi/projects/angine/src/generators/gridmesh.cpp.o: /home/pi/projects/angine/src/generators/gridmesh.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/pi/projects/angine/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_27) "Building CXX object CMakeFiles/angine.dir/home/pi/projects/angine/src/generators/gridmesh.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/pi/projects/angine/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_28) "Building CXX object CMakeFiles/angine.dir/home/pi/projects/angine/src/generators/gridmesh.cpp.o"
 	/usr/bin/c++   $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/angine.dir/home/pi/projects/angine/src/generators/gridmesh.cpp.o -c /home/pi/projects/angine/src/generators/gridmesh.cpp
 
 CMakeFiles/angine.dir/home/pi/projects/angine/src/generators/gridmesh.cpp.i: cmake_force
@@ -707,7 +731,7 @@ CMakeFiles/angine.dir/home/pi/projects/angine/src/generators/gridmesh.cpp.o.prov
 
 CMakeFiles/angine.dir/home/pi/projects/angine/src/generators/box_mesh.cpp.o: CMakeFiles/angine.dir/flags.make
 CMakeFiles/angine.dir/home/pi/projects/angine/src/generators/box_mesh.cpp.o: /home/pi/projects/angine/src/generators/box_mesh.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/pi/projects/angine/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_28) "Building CXX object CMakeFiles/angine.dir/home/pi/projects/angine/src/generators/box_mesh.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/pi/projects/angine/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_29) "Building CXX object CMakeFiles/angine.dir/home/pi/projects/angine/src/generators/box_mesh.cpp.o"
 	/usr/bin/c++   $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/angine.dir/home/pi/projects/angine/src/generators/box_mesh.cpp.o -c /home/pi/projects/angine/src/generators/box_mesh.cpp
 
 CMakeFiles/angine.dir/home/pi/projects/angine/src/generators/box_mesh.cpp.i: cmake_force
@@ -731,7 +755,7 @@ CMakeFiles/angine.dir/home/pi/projects/angine/src/generators/box_mesh.cpp.o.prov
 
 CMakeFiles/angine.dir/home/pi/projects/angine/src/generators/file_mesh.cpp.o: CMakeFiles/angine.dir/flags.make
 CMakeFiles/angine.dir/home/pi/projects/angine/src/generators/file_mesh.cpp.o: /home/pi/projects/angine/src/generators/file_mesh.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/pi/projects/angine/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_29) "Building CXX object CMakeFiles/angine.dir/home/pi/projects/angine/src/generators/file_mesh.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/pi/projects/angine/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_30) "Building CXX object CMakeFiles/angine.dir/home/pi/projects/angine/src/generators/file_mesh.cpp.o"
 	/usr/bin/c++   $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/angine.dir/home/pi/projects/angine/src/generators/file_mesh.cpp.o -c /home/pi/projects/angine/src/generators/file_mesh.cpp
 
 CMakeFiles/angine.dir/home/pi/projects/angine/src/generators/file_mesh.cpp.i: cmake_force
@@ -755,7 +779,7 @@ CMakeFiles/angine.dir/home/pi/projects/angine/src/generators/file_mesh.cpp.o.pro
 
 CMakeFiles/angine.dir/home/pi/projects/angine/src/generators/spheremesh.cpp.o: CMakeFiles/angine.dir/flags.make
 CMakeFiles/angine.dir/home/pi/projects/angine/src/generators/spheremesh.cpp.o: /home/pi/projects/angine/src/generators/spheremesh.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/pi/projects/angine/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_30) "Building CXX object CMakeFiles/angine.dir/home/pi/projects/angine/src/generators/spheremesh.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/pi/projects/angine/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_31) "Building CXX object CMakeFiles/angine.dir/home/pi/projects/angine/src/generators/spheremesh.cpp.o"
 	/usr/bin/c++   $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/angine.dir/home/pi/projects/angine/src/generators/spheremesh.cpp.o -c /home/pi/projects/angine/src/generators/spheremesh.cpp
 
 CMakeFiles/angine.dir/home/pi/projects/angine/src/generators/spheremesh.cpp.i: cmake_force
@@ -779,7 +803,7 @@ CMakeFiles/angine.dir/home/pi/projects/angine/src/generators/spheremesh.cpp.o.pr
 
 CMakeFiles/angine.dir/home/pi/projects/angine/src/generators/geosphere_mesh.cpp.o: CMakeFiles/angine.dir/flags.make
 CMakeFiles/angine.dir/home/pi/projects/angine/src/generators/geosphere_mesh.cpp.o: /home/pi/projects/angine/src/generators/geosphere_mesh.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/pi/projects/angine/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_31) "Building CXX object CMakeFiles/angine.dir/home/pi/projects/angine/src/generators/geosphere_mesh.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/pi/projects/angine/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_32) "Building CXX object CMakeFiles/angine.dir/home/pi/projects/angine/src/generators/geosphere_mesh.cpp.o"
 	/usr/bin/c++   $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/angine.dir/home/pi/projects/angine/src/generators/geosphere_mesh.cpp.o -c /home/pi/projects/angine/src/generators/geosphere_mesh.cpp
 
 CMakeFiles/angine.dir/home/pi/projects/angine/src/generators/geosphere_mesh.cpp.i: cmake_force
@@ -803,7 +827,7 @@ CMakeFiles/angine.dir/home/pi/projects/angine/src/generators/geosphere_mesh.cpp.
 
 CMakeFiles/angine.dir/home/pi/projects/angine/src/generators/cylinder_mesh.cpp.o: CMakeFiles/angine.dir/flags.make
 CMakeFiles/angine.dir/home/pi/projects/angine/src/generators/cylinder_mesh.cpp.o: /home/pi/projects/angine/src/generators/cylinder_mesh.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/pi/projects/angine/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_32) "Building CXX object CMakeFiles/angine.dir/home/pi/projects/angine/src/generators/cylinder_mesh.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/pi/projects/angine/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_33) "Building CXX object CMakeFiles/angine.dir/home/pi/projects/angine/src/generators/cylinder_mesh.cpp.o"
 	/usr/bin/c++   $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/angine.dir/home/pi/projects/angine/src/generators/cylinder_mesh.cpp.o -c /home/pi/projects/angine/src/generators/cylinder_mesh.cpp
 
 CMakeFiles/angine.dir/home/pi/projects/angine/src/generators/cylinder_mesh.cpp.i: cmake_force
@@ -827,7 +851,7 @@ CMakeFiles/angine.dir/home/pi/projects/angine/src/generators/cylinder_mesh.cpp.o
 
 CMakeFiles/angine.dir/home/pi/projects/angine/src/mesh_filters/mesh_filter.cpp.o: CMakeFiles/angine.dir/flags.make
 CMakeFiles/angine.dir/home/pi/projects/angine/src/mesh_filters/mesh_filter.cpp.o: /home/pi/projects/angine/src/mesh_filters/mesh_filter.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/pi/projects/angine/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_33) "Building CXX object CMakeFiles/angine.dir/home/pi/projects/angine/src/mesh_filters/mesh_filter.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/pi/projects/angine/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_34) "Building CXX object CMakeFiles/angine.dir/home/pi/projects/angine/src/mesh_filters/mesh_filter.cpp.o"
 	/usr/bin/c++   $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/angine.dir/home/pi/projects/angine/src/mesh_filters/mesh_filter.cpp.o -c /home/pi/projects/angine/src/mesh_filters/mesh_filter.cpp
 
 CMakeFiles/angine.dir/home/pi/projects/angine/src/mesh_filters/mesh_filter.cpp.i: cmake_force
@@ -851,7 +875,7 @@ CMakeFiles/angine.dir/home/pi/projects/angine/src/mesh_filters/mesh_filter.cpp.o
 
 CMakeFiles/angine.dir/home/pi/projects/angine/src/mesh_filters/transform_mesh_filter.cpp.o: CMakeFiles/angine.dir/flags.make
 CMakeFiles/angine.dir/home/pi/projects/angine/src/mesh_filters/transform_mesh_filter.cpp.o: /home/pi/projects/angine/src/mesh_filters/transform_mesh_filter.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/pi/projects/angine/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_34) "Building CXX object CMakeFiles/angine.dir/home/pi/projects/angine/src/mesh_filters/transform_mesh_filter.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/pi/projects/angine/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_35) "Building CXX object CMakeFiles/angine.dir/home/pi/projects/angine/src/mesh_filters/transform_mesh_filter.cpp.o"
 	/usr/bin/c++   $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/angine.dir/home/pi/projects/angine/src/mesh_filters/transform_mesh_filter.cpp.o -c /home/pi/projects/angine/src/mesh_filters/transform_mesh_filter.cpp
 
 CMakeFiles/angine.dir/home/pi/projects/angine/src/mesh_filters/transform_mesh_filter.cpp.i: cmake_force
@@ -875,7 +899,7 @@ CMakeFiles/angine.dir/home/pi/projects/angine/src/mesh_filters/transform_mesh_fi
 
 CMakeFiles/angine.dir/home/pi/projects/angine/src/mesh_filters/inflate_mesh_filter.cpp.o: CMakeFiles/angine.dir/flags.make
 CMakeFiles/angine.dir/home/pi/projects/angine/src/mesh_filters/inflate_mesh_filter.cpp.o: /home/pi/projects/angine/src/mesh_filters/inflate_mesh_filter.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/pi/projects/angine/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_35) "Building CXX object CMakeFiles/angine.dir/home/pi/projects/angine/src/mesh_filters/inflate_mesh_filter.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/pi/projects/angine/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_36) "Building CXX object CMakeFiles/angine.dir/home/pi/projects/angine/src/mesh_filters/inflate_mesh_filter.cpp.o"
 	/usr/bin/c++   $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/angine.dir/home/pi/projects/angine/src/mesh_filters/inflate_mesh_filter.cpp.o -c /home/pi/projects/angine/src/mesh_filters/inflate_mesh_filter.cpp
 
 CMakeFiles/angine.dir/home/pi/projects/angine/src/mesh_filters/inflate_mesh_filter.cpp.i: cmake_force
@@ -899,7 +923,7 @@ CMakeFiles/angine.dir/home/pi/projects/angine/src/mesh_filters/inflate_mesh_filt
 
 CMakeFiles/angine.dir/home/pi/projects/angine/src/mesh_filters/twist_mesh_filter.cpp.o: CMakeFiles/angine.dir/flags.make
 CMakeFiles/angine.dir/home/pi/projects/angine/src/mesh_filters/twist_mesh_filter.cpp.o: /home/pi/projects/angine/src/mesh_filters/twist_mesh_filter.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/pi/projects/angine/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_36) "Building CXX object CMakeFiles/angine.dir/home/pi/projects/angine/src/mesh_filters/twist_mesh_filter.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/pi/projects/angine/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_37) "Building CXX object CMakeFiles/angine.dir/home/pi/projects/angine/src/mesh_filters/twist_mesh_filter.cpp.o"
 	/usr/bin/c++   $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/angine.dir/home/pi/projects/angine/src/mesh_filters/twist_mesh_filter.cpp.o -c /home/pi/projects/angine/src/mesh_filters/twist_mesh_filter.cpp
 
 CMakeFiles/angine.dir/home/pi/projects/angine/src/mesh_filters/twist_mesh_filter.cpp.i: cmake_force
@@ -923,7 +947,7 @@ CMakeFiles/angine.dir/home/pi/projects/angine/src/mesh_filters/twist_mesh_filter
 
 CMakeFiles/angine.dir/home/pi/projects/angine/src/mesh_filters/compute_normals_mesh_filter.cpp.o: CMakeFiles/angine.dir/flags.make
 CMakeFiles/angine.dir/home/pi/projects/angine/src/mesh_filters/compute_normals_mesh_filter.cpp.o: /home/pi/projects/angine/src/mesh_filters/compute_normals_mesh_filter.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/pi/projects/angine/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_37) "Building CXX object CMakeFiles/angine.dir/home/pi/projects/angine/src/mesh_filters/compute_normals_mesh_filter.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/pi/projects/angine/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_38) "Building CXX object CMakeFiles/angine.dir/home/pi/projects/angine/src/mesh_filters/compute_normals_mesh_filter.cpp.o"
 	/usr/bin/c++   $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/angine.dir/home/pi/projects/angine/src/mesh_filters/compute_normals_mesh_filter.cpp.o -c /home/pi/projects/angine/src/mesh_filters/compute_normals_mesh_filter.cpp
 
 CMakeFiles/angine.dir/home/pi/projects/angine/src/mesh_filters/compute_normals_mesh_filter.cpp.i: cmake_force
@@ -947,7 +971,7 @@ CMakeFiles/angine.dir/home/pi/projects/angine/src/mesh_filters/compute_normals_m
 
 CMakeFiles/angine.dir/home/pi/projects/angine/src/mesh_filters/spherify_mesh_filter.cpp.o: CMakeFiles/angine.dir/flags.make
 CMakeFiles/angine.dir/home/pi/projects/angine/src/mesh_filters/spherify_mesh_filter.cpp.o: /home/pi/projects/angine/src/mesh_filters/spherify_mesh_filter.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/pi/projects/angine/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_38) "Building CXX object CMakeFiles/angine.dir/home/pi/projects/angine/src/mesh_filters/spherify_mesh_filter.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/pi/projects/angine/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_39) "Building CXX object CMakeFiles/angine.dir/home/pi/projects/angine/src/mesh_filters/spherify_mesh_filter.cpp.o"
 	/usr/bin/c++   $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/angine.dir/home/pi/projects/angine/src/mesh_filters/spherify_mesh_filter.cpp.o -c /home/pi/projects/angine/src/mesh_filters/spherify_mesh_filter.cpp
 
 CMakeFiles/angine.dir/home/pi/projects/angine/src/mesh_filters/spherify_mesh_filter.cpp.i: cmake_force
@@ -971,7 +995,7 @@ CMakeFiles/angine.dir/home/pi/projects/angine/src/mesh_filters/spherify_mesh_fil
 
 CMakeFiles/angine.dir/home/pi/projects/angine/src/mesh_filters/duplicate_mesh_filter.cpp.o: CMakeFiles/angine.dir/flags.make
 CMakeFiles/angine.dir/home/pi/projects/angine/src/mesh_filters/duplicate_mesh_filter.cpp.o: /home/pi/projects/angine/src/mesh_filters/duplicate_mesh_filter.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/pi/projects/angine/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_39) "Building CXX object CMakeFiles/angine.dir/home/pi/projects/angine/src/mesh_filters/duplicate_mesh_filter.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/pi/projects/angine/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_40) "Building CXX object CMakeFiles/angine.dir/home/pi/projects/angine/src/mesh_filters/duplicate_mesh_filter.cpp.o"
 	/usr/bin/c++   $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/angine.dir/home/pi/projects/angine/src/mesh_filters/duplicate_mesh_filter.cpp.o -c /home/pi/projects/angine/src/mesh_filters/duplicate_mesh_filter.cpp
 
 CMakeFiles/angine.dir/home/pi/projects/angine/src/mesh_filters/duplicate_mesh_filter.cpp.i: cmake_force
@@ -995,7 +1019,7 @@ CMakeFiles/angine.dir/home/pi/projects/angine/src/mesh_filters/duplicate_mesh_fi
 
 CMakeFiles/angine.dir/home/pi/projects/angine/src/mesh_filters/from_polar_mesh_filter.cpp.o: CMakeFiles/angine.dir/flags.make
 CMakeFiles/angine.dir/home/pi/projects/angine/src/mesh_filters/from_polar_mesh_filter.cpp.o: /home/pi/projects/angine/src/mesh_filters/from_polar_mesh_filter.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/pi/projects/angine/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_40) "Building CXX object CMakeFiles/angine.dir/home/pi/projects/angine/src/mesh_filters/from_polar_mesh_filter.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/pi/projects/angine/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_41) "Building CXX object CMakeFiles/angine.dir/home/pi/projects/angine/src/mesh_filters/from_polar_mesh_filter.cpp.o"
 	/usr/bin/c++   $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/angine.dir/home/pi/projects/angine/src/mesh_filters/from_polar_mesh_filter.cpp.o -c /home/pi/projects/angine/src/mesh_filters/from_polar_mesh_filter.cpp
 
 CMakeFiles/angine.dir/home/pi/projects/angine/src/mesh_filters/from_polar_mesh_filter.cpp.i: cmake_force
@@ -1019,7 +1043,7 @@ CMakeFiles/angine.dir/home/pi/projects/angine/src/mesh_filters/from_polar_mesh_f
 
 CMakeFiles/angine.dir/home/pi/projects/angine/src/mesh_filters/mirror_mesh_filter.cpp.o: CMakeFiles/angine.dir/flags.make
 CMakeFiles/angine.dir/home/pi/projects/angine/src/mesh_filters/mirror_mesh_filter.cpp.o: /home/pi/projects/angine/src/mesh_filters/mirror_mesh_filter.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/pi/projects/angine/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_41) "Building CXX object CMakeFiles/angine.dir/home/pi/projects/angine/src/mesh_filters/mirror_mesh_filter.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/pi/projects/angine/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_42) "Building CXX object CMakeFiles/angine.dir/home/pi/projects/angine/src/mesh_filters/mirror_mesh_filter.cpp.o"
 	/usr/bin/c++   $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/angine.dir/home/pi/projects/angine/src/mesh_filters/mirror_mesh_filter.cpp.o -c /home/pi/projects/angine/src/mesh_filters/mirror_mesh_filter.cpp
 
 CMakeFiles/angine.dir/home/pi/projects/angine/src/mesh_filters/mirror_mesh_filter.cpp.i: cmake_force
@@ -1059,6 +1083,7 @@ angine_OBJECTS = \
 "CMakeFiles/angine.dir/home/pi/projects/angine/src/camera.cpp.o" \
 "CMakeFiles/angine.dir/home/pi/projects/angine/src/shader.cpp.o" \
 "CMakeFiles/angine.dir/home/pi/projects/angine/src/texture.cpp.o" \
+"CMakeFiles/angine.dir/home/pi/projects/angine/src/raycaster.cpp.o" \
 "CMakeFiles/angine.dir/home/pi/projects/angine/src/entity3d.cpp.o" \
 "CMakeFiles/angine.dir/home/pi/projects/angine/src/object.cpp.o" \
 "CMakeFiles/angine.dir/home/pi/projects/angine/src/object_dummy.cpp.o" \
@@ -1104,6 +1129,7 @@ angine: CMakeFiles/angine.dir/home/pi/projects/angine/src/utils/mesh_utils.cpp.o
 angine: CMakeFiles/angine.dir/home/pi/projects/angine/src/camera.cpp.o
 angine: CMakeFiles/angine.dir/home/pi/projects/angine/src/shader.cpp.o
 angine: CMakeFiles/angine.dir/home/pi/projects/angine/src/texture.cpp.o
+angine: CMakeFiles/angine.dir/home/pi/projects/angine/src/raycaster.cpp.o
 angine: CMakeFiles/angine.dir/home/pi/projects/angine/src/entity3d.cpp.o
 angine: CMakeFiles/angine.dir/home/pi/projects/angine/src/object.cpp.o
 angine: CMakeFiles/angine.dir/home/pi/projects/angine/src/object_dummy.cpp.o
@@ -1133,7 +1159,7 @@ angine: CMakeFiles/angine.dir/build.make
 angine: libJSONLib.a
 angine: libPCHLib.a
 angine: CMakeFiles/angine.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/pi/projects/angine/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_42) "Linking CXX executable angine"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/pi/projects/angine/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_43) "Linking CXX executable angine"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/angine.dir/link.txt --verbose=$(VERBOSE)
 
 # Rule to build all files generated by this target.
@@ -1157,6 +1183,7 @@ CMakeFiles/angine.dir/requires: CMakeFiles/angine.dir/home/pi/projects/angine/sr
 CMakeFiles/angine.dir/requires: CMakeFiles/angine.dir/home/pi/projects/angine/src/camera.cpp.o.requires
 CMakeFiles/angine.dir/requires: CMakeFiles/angine.dir/home/pi/projects/angine/src/shader.cpp.o.requires
 CMakeFiles/angine.dir/requires: CMakeFiles/angine.dir/home/pi/projects/angine/src/texture.cpp.o.requires
+CMakeFiles/angine.dir/requires: CMakeFiles/angine.dir/home/pi/projects/angine/src/raycaster.cpp.o.requires
 CMakeFiles/angine.dir/requires: CMakeFiles/angine.dir/home/pi/projects/angine/src/entity3d.cpp.o.requires
 CMakeFiles/angine.dir/requires: CMakeFiles/angine.dir/home/pi/projects/angine/src/object.cpp.o.requires
 CMakeFiles/angine.dir/requires: CMakeFiles/angine.dir/home/pi/projects/angine/src/object_dummy.cpp.o.requires

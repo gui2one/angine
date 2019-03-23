@@ -54,6 +54,7 @@ add_executable(angine
 	../src/camera.cpp
 	../src/shader.cpp
 	../src/texture.cpp
+	../src/raycaster.cpp
 	
 	../src/entity3d.cpp
 	../src/object.cpp

@@ -959,6 +959,33 @@ home/pi/projects/angine/src/pch.cpp.s:
 	$(MAKE) -f CMakeFiles/PCHLib.dir/build.make CMakeFiles/PCHLib.dir/home/pi/projects/angine/src/pch.cpp.s
 .PHONY : home/pi/projects/angine/src/pch.cpp.s
 
+home/pi/projects/angine/src/raycaster.o: home/pi/projects/angine/src/raycaster.cpp.o
+
+.PHONY : home/pi/projects/angine/src/raycaster.o
+
+# target to build an object file
+home/pi/projects/angine/src/raycaster.cpp.o:
+	$(MAKE) -f CMakeFiles/angine.dir/build.make CMakeFiles/angine.dir/home/pi/projects/angine/src/raycaster.cpp.o
+.PHONY : home/pi/projects/angine/src/raycaster.cpp.o
+
+home/pi/projects/angine/src/raycaster.i: home/pi/projects/angine/src/raycaster.cpp.i
+
+.PHONY : home/pi/projects/angine/src/raycaster.i
+
+# target to preprocess a source file
+home/pi/projects/angine/src/raycaster.cpp.i:
+	$(MAKE) -f CMakeFiles/angine.dir/build.make CMakeFiles/angine.dir/home/pi/projects/angine/src/raycaster.cpp.i
+.PHONY : home/pi/projects/angine/src/raycaster.cpp.i
+
+home/pi/projects/angine/src/raycaster.s: home/pi/projects/angine/src/raycaster.cpp.s
+
+.PHONY : home/pi/projects/angine/src/raycaster.s
+
+# target to generate assembly for a file
+home/pi/projects/angine/src/raycaster.cpp.s:
+	$(MAKE) -f CMakeFiles/angine.dir/build.make CMakeFiles/angine.dir/home/pi/projects/angine/src/raycaster.cpp.s
+.PHONY : home/pi/projects/angine/src/raycaster.cpp.s
+
 home/pi/projects/angine/src/shader.o: home/pi/projects/angine/src/shader.cpp.o
 
 .PHONY : home/pi/projects/angine/src/shader.o
@@ -1411,6 +1438,9 @@ help:
 	@echo "... home/pi/projects/angine/src/pch.o"
 	@echo "... home/pi/projects/angine/src/pch.i"
 	@echo "... home/pi/projects/angine/src/pch.s"
+	@echo "... home/pi/projects/angine/src/raycaster.o"
+	@echo "... home/pi/projects/angine/src/raycaster.i"
+	@echo "... home/pi/projects/angine/src/raycaster.s"
 	@echo "... home/pi/projects/angine/src/shader.o"
 	@echo "... home/pi/projects/angine/src/shader.i"
 	@echo "... home/pi/projects/angine/src/shader.s"

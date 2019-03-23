@@ -15,6 +15,7 @@ file(REMOVE_RECURSE
   "CMakeFiles/angine.dir/home/pi/projects/angine/src/camera.cpp.o"
   "CMakeFiles/angine.dir/home/pi/projects/angine/src/shader.cpp.o"
   "CMakeFiles/angine.dir/home/pi/projects/angine/src/texture.cpp.o"
+  "CMakeFiles/angine.dir/home/pi/projects/angine/src/raycaster.cpp.o"
   "CMakeFiles/angine.dir/home/pi/projects/angine/src/entity3d.cpp.o"
   "CMakeFiles/angine.dir/home/pi/projects/angine/src/object.cpp.o"
   "CMakeFiles/angine.dir/home/pi/projects/angine/src/object_dummy.cpp.o"

@@ -168,7 +168,7 @@ void BaseParam::fromJSON(json & _json)
 						
 				if( p_float = dynamic_cast<ParamFloat*>(this))
 				{
-					printf("\t\tsetting float param !!!!\n");
+					//~ printf("\t\tsetting float param !!!!\n");
 					try {
 						std::vector<json> keys_j = _json.at("keyframes");
 						
@@ -281,7 +281,7 @@ void BaseParam::fromJSON(json & _json)
 				{
 
 					
-					printf("trying to set a BOOL value directly !!!!!! \n");
+					//~ printf("trying to set a BOOL value directly !!!!!! \n");
 					p_bool->setValue(_json["value"].get<bool>());					
 				}				
 				break;	
