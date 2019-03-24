@@ -157,7 +157,7 @@ static std::vector<int> check_triangles(Ray& ray, Object* object)
 
 
 
-bool Raycaster::fromCamera(
+bool Raycaster::intersectObjects(
 						Window* _window, 
 						Camera& _camera, 
 						std::vector<Entity3D*> _target_objects, 
@@ -175,63 +175,76 @@ bool Raycaster::fromCamera(
 	printf("cursor window pos : %.3f, %.3f \n", pos_x, pos_y);
 
 		
-		for (int i = 0; i < _target_objects.size(); i++)
-		{
-			Entity3D * cur = _target_objects[i];
+	for (int i = 0; i < _target_objects.size(); i++)
+	{
+		Entity3D * cur = _target_objects[i];
+		
+		Object * p_object = nullptr;
+		if( p_object = dynamic_cast<Object *>(cur)){
 			
-			Object * p_object = nullptr;
-			if( p_object = dynamic_cast<Object *>(cur)){
-				
-				BoundingBox AABB = p_object->computeAABB();
-				
-				glm::vec3 bbox_pos = AABB.position;
-				glm::vec3 bbox_size = AABB.size;
-				glm::vec3 bbox_center = bbox_pos + glm::vec3(bbox_size.x/2.0f, bbox_size.y/2.0f, bbox_size.y/2.0f) ;	
+			BoundingBox AABB = p_object->computeAABB();
+			
+			glm::vec3 bbox_pos = AABB.position;
+			glm::vec3 bbox_size = AABB.size;
+			glm::vec3 bbox_center = bbox_pos + glm::vec3(bbox_size.x/2.0f, bbox_size.y/2.0f, bbox_size.y/2.0f) ;	
 
-				
-				
-				float x = (2.0f * pos_x) / width - 1.0f;
-				float y = 1.0f - (2.0f * pos_y) / height;
-				
-				
-				glm::vec3 planeN = glm::normalize(p_object->position - _camera.position);
-				glm::vec3 planeP = bbox_center;
-				glm::vec3 pointP = glm::vec3(x, y , 1.0f);
+			
+			
+			float x = (2.0f * pos_x) / width - 1.0f;
+			float y = 1.0f - (2.0f * pos_y) / height;
+			
+			
+			glm::vec3 planeN = glm::normalize(p_object->position - _camera.position);
+			glm::vec3 planeP = bbox_center;
+			glm::vec3 pointP = glm::vec3(x, y , 1.0f);
 
-				glm::vec3 hitP = glm::vec3(0.0f);
-				
-				
-				Ray  ray = ray_from_camera(_window, x, y);
-				
-				int hit = ray_plane_intersect(planeN, planeP, ray.pos , ray.dir, hitP);		
-				
-				if(hit)
+			glm::vec3 hitP = glm::vec3(0.0f);
+			
+			
+			Ray  ray = ray_from_camera(_window, x, y);
+			
+			int hit = ray_plane_intersect(planeN, planeP, ray.pos , ray.dir, hitP);		
+			
+			if(hit)
+			{
+				if( hitP.x > bbox_pos.x && hitP.x < bbox_pos.x + bbox_size.x)
 				{
-					if( hitP.x > bbox_pos.x && hitP.x < bbox_pos.x + bbox_size.x)
+					
+					if( hitP.y > bbox_pos.y && hitP.y < bbox_pos.y + bbox_size.y)
 					{
 						
-						if( hitP.y > bbox_pos.y && hitP.y < bbox_pos.y + bbox_size.y)
-						{
+						if( hitP.z > bbox_pos.z && hitP.z < bbox_pos.z + bbox_size.z)
+						{	
+							std::vector<int> triangles_ids = check_triangles(ray, p_object);
 							
-							if( hitP.z > bbox_pos.z && hitP.z < bbox_pos.z + bbox_size.z)
-							{	
-								std::vector<int> triangles_ids = check_triangles(ray, p_object);
-								
-								if( triangles_ids.size() > 0){
-													
-									printf("hit object ID -> %d from Raycaster ----------------- !!!! yes \n", i);
-									_result_objects.push_back(p_object);
-								}
-								
-								//~ cur_object_selected = i;
-								//~ return _target_objects[i];
+							if( triangles_ids.size() > 0){
+												
+								printf("hit object ID -> %d from Raycaster ----------------- !!!! yes \n", i);
+								_result_objects.push_back(p_object);
 							}
+							
+							//~ cur_object_selected = i;
+							//~ return _target_objects[i];
 						}
 					}
-					
 				}
+				
 			}
 		}
+	}
+	
+	if( _result_objects.size() > 0 ){
+		
+		sort( _result_objects.begin(), _result_objects.end(), [_camera](Entity3D* obj1, Entity3D* obj2 ){
+			
+				float dist1 = glm::distance(obj1->position, _camera.position);
+				float dist2 = glm::distance(obj2->position, _camera.position);
+				return (dist1 < dist2);
+		} );
+		return true;
+	}
+		
+		
 
 	return false;
 }

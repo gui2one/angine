@@ -297,7 +297,7 @@ Entity3D* Window::mouseClickObject()
 
 
 	std::vector<Entity3D*> result_objects;
-	raycaster.fromCamera(this, camera, objects, result_objects);
+	raycaster.intersectObjects(this, camera, objects, result_objects);
 	
 	if( result_objects.size() > 0){
 		cur_object_selected = findObjectIndexByID( result_objects[0]->getID());

@@ -19,7 +19,7 @@ class Raycaster
 	public:
 		Raycaster();
 		
-		bool fromCamera(Window* _window, Camera& _camera, std::vector<Entity3D*> _target_objects, std::vector<Entity3D*>& _result_objects);
+		bool intersectObjects(Window* _window, Camera& _camera, std::vector<Entity3D*> _target_objects, std::vector<Entity3D*>& _result_objects);
 			
 	private:
 		/* add your private declarations */
