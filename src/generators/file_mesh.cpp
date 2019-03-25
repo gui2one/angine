@@ -9,10 +9,14 @@ FileMesh::FileMesh()
 	p_file_path = new ParamString("file_path", "/home/pi/projects/angine/src/res/obj/monkey.obj");
 	param_layout.push(p_file_path);
 	
+	//~ printf("\tONE -----------------\n");
+	
 	p_load_action = new ParamAction("Load File", [this](){
 		this->generate();
 		printf("Action !!!!\n");
 	});
+	
+	//~ printf("\tTWO -----------------\n");
 	
 	param_layout.push(p_load_action);
 }

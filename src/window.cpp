@@ -1065,7 +1065,7 @@ void Window::buildParamUi(BaseParam * param, std::function<void()> callback)
 		}else if(p_string = dynamic_cast<ParamString*>(param)){			
 			if(ImGui::InputText(p_string->getName().c_str(), (char*)p_string->value.c_str(), 200))
 			{
-				callback();	
+				//~ callback();	
 			}				
 		}else if(p_bool = dynamic_cast<ParamBool*>(param)){			
 			if(ImGui::CheckboxFlags(p_bool->getName().c_str(), (unsigned int*)&p_bool->value, 1))
