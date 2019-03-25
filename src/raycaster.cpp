@@ -3,7 +3,7 @@
 
 Raycaster::Raycaster()
 {
-	printf("I am a raycaster ....\n");
+	//~ printf("I am a raycaster ....\n");
 }
 
 static void vec_mult_by_matrix( glm::vec3 & _vec, glm::mat4 & _mat, bool invert = false){
@@ -101,7 +101,7 @@ static bool point_in_triangle(glm::vec3 bary)
 
 static std::vector<int> check_triangles(Ray& ray, Object* object)
 {
-	printf("object name --> %s\n", object->name);
+	//~ printf("object name --> %s\n", object->name);
 	
 	std::vector<int> triangles_ids;
 	
@@ -143,7 +143,7 @@ static std::vector<int> check_triangles(Ray& ray, Object* object)
 		if(hit)
 		{
 			if( point_in_triangle( cartesian_to_barycentric(hitP, vtx_a, vtx_b, vtx_c))){
-				//~ printf("just hit a fucking triangle !!!!! ID : %d\n", i/3);
+				
 				//~ printf("\thitP -> %.3f, %.3f, %.3f\n", hitP.x, hitP.y, hitP.z); 
 				
 				triangles_ids.push_back(i/3);
@@ -163,7 +163,7 @@ bool Raycaster::intersectObjects(
 						std::vector<Entity3D*> _target_objects, 
 						std::vector<Entity3D*>& _result_objects)
 {
-	printf("camera position : %.3f, %.3f, %.3f\n", _camera.position.x, _camera.position.y, _camera.position.z);
+	//~ printf("camera position : %.3f, %.3f, %.3f\n", _camera.position.x, _camera.position.y, _camera.position.z);
 	
 	double pos_x, pos_y;
 	glfwGetCursorPos(_window->win, &pos_x, &pos_y);
@@ -172,7 +172,7 @@ bool Raycaster::intersectObjects(
 	float height = _window->height;
 
 	
-	printf("cursor window pos : %.3f, %.3f \n", pos_x, pos_y);
+	//~ printf("cursor window pos : %.3f, %.3f \n", pos_x, pos_y);
 
 		
 	for (int i = 0; i < _target_objects.size(); i++)
@@ -219,7 +219,7 @@ bool Raycaster::intersectObjects(
 							
 							if( triangles_ids.size() > 0){
 												
-								printf("hit object ID -> %d from Raycaster ----------------- !!!! yes \n", i);
+								//~ printf("hit object ID -> %d from Raycaster ----------------- !!!! yes \n", i);
 								_result_objects.push_back(p_object);
 							}
 							
@@ -250,3 +250,106 @@ bool Raycaster::intersectObjects(
 }
 
 
+bool Raycaster::intersectGizmos(
+						Window* _window, 
+						Camera& _camera, 
+						std::vector<Gizmo*> _target_gizmos, 
+						std::vector<Gizmo*>& _result_gizmos)
+{
+	double pos_x, pos_y;
+	glfwGetCursorPos(_window->win, &pos_x, &pos_y);
+
+	float width = _window->width;
+	float height = _window->height;
+		
+	for (int i = 0; i < _target_gizmos.size(); i++)
+	{
+		
+		
+		//~ glm::mat4 projection = _camera.projection;
+		//~ // not sure why I need this, but it gets rid off a nasty offset 
+		//~ // found a solution here : https://stackoverflow.com/questions/48514387/can-anyone-explain-this-small-offset-from-ray-casting-by-mouse-click?rq=1
+		//~ // but the guy says he forced projection[3][3] to be 0.0, I have to do 1.0f for this to work			
+		//~ projection[3][3] = 1.0f; 		
+			//~ 
+		//~ glm::mat4 view = glm::mat4(1.0f);
+		//~ glm::vec3 up_vector = glm::vec3(0.0f,0.0f,1.0f);
+//~ 
+		//~ view *= glm::lookAt(
+								//~ _camera.position, 
+								//~ _camera.target_position, 
+								//~ glm::normalize(up_vector)
+							//~ );			
+		
+		float x = (2.0f * pos_x) / width - 1.0f;
+		float y = 1.0f - (2.0f * pos_y) / height;			
+		
+		Ray  ray = ray_from_camera(_window, x, y);
+		
+		glm::mat4 target_transforms = glm::mat4(1.0f);
+		
+		if( _target_gizmos[i]->target_object)
+		{
+			_target_gizmos[i]->target_object->applyTransforms();
+			
+			printf("click Gizmo !!!\n");
+			target_transforms = _target_gizmos[i]->target_object->transforms * target_transforms;			
+			_target_gizmos[i]->target_object->applyParentsMatrices(target_transforms);
+			
+			glm::vec3 z_axis_2 = glm::vec3(0.0f, 0.0f, 1.0f);
+			
+			// do not multiply by the whole matrix, remove positon and scale
+			
+			glm::mat4 clean_mat = glm::mat4(1.0f);
+			clean_mat[2][0] = target_transforms[2][0];
+			clean_mat[2][1] = target_transforms[2][1];
+			clean_mat[2][2] = target_transforms[2][2];
+			vec_mult_by_matrix(z_axis_2, clean_mat, false);
+
+			glm::vec3 test = _target_gizmos[i]->target_object->getWorldPosition();
+			
+			printf("test value === %.3f, %.3f, %.3f\n", test.x, test.y, test.z); 
+			glm::vec3 planeN = glm::normalize(z_axis_2);
+			
+			glm::vec3 planeP = test;
+			glm::vec3 pointP = glm::vec3(x, y , 1.0f);
+			glm::vec3 rayDir = glm::vec3(0.0f, 0.0f , -1.0f);			
+								
+			//~ glm::vec4 tempPointP = inverse(projection * view)* glm::vec4(pointP.x, pointP.y, pointP.z, 1.0f) ;
+			//~ tempPointP /= tempPointP.w *0.5f;
+
+			glm::vec3 hitP = glm::vec3(0.0f);
+			int hit = ray_plane_intersect(planeN, planeP, ray.pos, ray.dir, hitP);	
+			
+			glm::vec4 local_pos = glm::vec4(hitP.x, hitP.y, hitP.z, 1.0f);
+			
+			glm::vec3 local_pos_vec3 = glm::inverse(target_transforms) * local_pos ;
+			if(hit){
+				printf("------> gizmo hit <--------\n");
+			
+				printf("\tlocal_pos_vec3 : %.3f, %.3f, %.3f\n", local_pos_vec3.x, local_pos_vec3.y, local_pos_vec3.z);
+				if( fabs(local_pos_vec3.x) > fabs(local_pos_vec3.y)
+					&&  fabs(local_pos_vec3.y) < 0.1)
+				{
+					printf("local X : %.3f, local Y : %.3f\n", fabs(local_pos_vec3.x), fabs(local_pos_vec3.y));
+					printf("nearest is X axis\n");
+					return true;
+				} else if(fabs(local_pos_vec3.x) < fabs(local_pos_vec3.y)
+				&&  fabs(local_pos_vec3.x) < 0.1)
+				{
+					
+					printf("local X : %.3f, local Y : %.3f\n", fabs(local_pos_vec3.x), fabs(local_pos_vec3.y));
+					printf("nearest is Y axis\n");
+					return true;
+				}else{
+					return false;
+				}
+				
+				
+			}			
+		}
+	}
+	
+	
+	return false;
+}

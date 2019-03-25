@@ -206,86 +206,14 @@ Window::Window()
 
 bool Window::mouseClickGizmo()
 {
-
-	//~ double pos_x, pos_y;
-	//~ glfwGetCursorPos(win, &pos_x, &pos_y);
-	//~ if( cur_object_selected != -1){
-		//~ 
-		//~ for (int i = 0; i < gizmos.size(); i++)
-		//~ {
-			//~ printf("click Gizmo !!!\n");
-			//~ 
-			//~ glm::mat4 projection = camera.projection;
-			//~ // not sure why I need this, but it gets rid off a nasty offset 
-			//~ // found a solution here : https://stackoverflow.com/questions/48514387/can-anyone-explain-this-small-offset-from-ray-casting-by-mouse-click?rq=1
-			//~ // but the guy says he forced projection[3][3] to be 0.0, I have to do 1.0f for this to work			
-			//~ projection[3][3] = 1.0f; 		
-				//~ 
-			//~ glm::mat4 view = glm::mat4(1.0f);
-			//~ glm::vec3 up_vector = glm::vec3(0.0f,0.0f,1.0f);
-//~ 
-			//~ view *= glm::lookAt(
-									//~ camera.position, 
-									//~ camera.target_position, 
-									//~ glm::normalize(up_vector)
-								//~ );			
-			//~ 
-			//~ float x = (2.0f * pos_x) / width - 1.0f;
-			//~ float y = 1.0f - (2.0f * pos_y) / height;			
-			//~ 
-//~ 
-			//~ glm::mat4 target_transforms = glm::mat4(1.0f);
-			//~ gizmos[i]->target_object->applyTransforms();
-			//~ target_transforms = gizmos[i]->target_object->transforms * target_transforms;			
-			//~ gizmos[i]->target_object->applyParentsMatrices(target_transforms);
-			//~ 
-			//~ glm::vec3 z_axis_2 = glm::vec3(0.0f, 0.0f, 1.0f);
-			//~ vec_mult_by_matrix(z_axis_2, target_transforms, true);
-//~ 
-			//~ glm::vec3 test = gizmos[i]->target_object->getWorldPosition();
-			//~ 
-			//~ glm::vec3 planeN = glm::normalize(z_axis_2);
-			//~ 
-			//~ glm::vec3 planeP = test;
-			//~ glm::vec3 pointP = glm::vec3(x, y , 1.0f);
-			//~ glm::vec3 rayDir = glm::vec3(0.0f, 0.0f , -1.0f);			
-								//~ 
-			//~ glm::vec4 tempPointP = inverse(projection * view)* glm::vec4(pointP.x, pointP.y, pointP.z, 1.0f) ;
-			//~ tempPointP /= tempPointP.w *0.5f;
-//~ 
-			//~ glm::vec3 hitP = glm::vec3(0.0f);
-			//~ int hit = ray_plane_intersect(planeN, planeP, camera.position, tempPointP, hitP);	
-			//~ 
-			//~ glm::vec4 local_pos = glm::vec4(hitP.x, hitP.y, hitP.z, 1.0f);
-			//~ 
-			//~ glm::vec3 local_pos_vec3 = glm::inverse(target_transforms) * local_pos ;
-			//~ if(hit){
-				//~ printf("------> gizmo hit <--------\n");
-			//~ 
-				//~ printf("\tlocal_pos_vec3 : %.3f, %.3f, %.3f\n", local_pos_vec3.x, local_pos_vec3.y, local_pos_vec3.z);
-				//~ if( fabs(local_pos_vec3.x) > fabs(local_pos_vec3.y)
-					//~ &&  fabs(local_pos_vec3.y) < 0.1)
-				//~ {
-					//~ printf("local X : %.3f, local Y : %.3f\n", fabs(local_pos_vec3.x), fabs(local_pos_vec3.y));
-					//~ printf("nearest is X axis\n");
-					//~ return true;
-				//~ } else if(fabs(local_pos_vec3.x) < fabs(local_pos_vec3.y)
-				//~ &&  fabs(local_pos_vec3.x) < 0.1)
-				//~ {
-					//~ 
-					//~ printf("local X : %.3f, local Y : %.3f\n", fabs(local_pos_vec3.x), fabs(local_pos_vec3.y));
-					//~ printf("nearest is Y axis\n");
-					//~ return true;
-				//~ }else{
-					//~ return false;
-				//~ }
-				//~ 
-				//~ 
-			//~ }			
-		//~ }
-	//~ }
+	Raycaster raycaster;
 	
-	return false;
+	std::vector<Gizmo*> result_gizmos;
+	bool hit = raycaster.intersectGizmos(this, camera, gizmos, result_gizmos);
+	
+	
+	
+	return hit;
 	
 }
 
