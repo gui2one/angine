@@ -1,82 +1,7 @@
 {
     "entities": [
         {
-            "mesh_filters": [
-                {
-                    "name": "transform",
-                    "params": [
-                        {
-                            "name": "transform order",
-                            "type": 7,
-                            "value": 0
-                        },
-                        {
-                            "name": "translate",
-                            "type": 2,
-                            "value": [
-                                {
-                                    "name": "t__x",
-                                    "type": 1,
-                                    "value": 0.0
-                                },
-                                {
-                                    "name": "t__y",
-                                    "type": 1,
-                                    "value": 0.0
-                                },
-                                {
-                                    "name": "t__z",
-                                    "type": 1,
-                                    "value": 0.0
-                                }
-                            ]
-                        },
-                        {
-                            "name": "rotate",
-                            "type": 2,
-                            "value": [
-                                {
-                                    "name": "r__x",
-                                    "type": 1,
-                                    "value": 33.0
-                                },
-                                {
-                                    "name": "r__y",
-                                    "type": 1,
-                                    "value": 0.0
-                                },
-                                {
-                                    "name": "r__z",
-                                    "type": 1,
-                                    "value": 0.0
-                                }
-                            ]
-                        },
-                        {
-                            "name": "scale",
-                            "type": 2,
-                            "value": [
-                                {
-                                    "name": "s__x",
-                                    "type": 1,
-                                    "value": 1.0
-                                },
-                                {
-                                    "name": "s__y",
-                                    "type": 1,
-                                    "value": 1.0
-                                },
-                                {
-                                    "name": "s__z",
-                                    "type": 1,
-                                    "value": 1.0
-                                }
-                            ]
-                        }
-                    ],
-                    "type": 6
-                }
-            ],
+            "mesh_filters": [],
             "mesh_generator": {
                 "params": [
                     {
@@ -205,82 +130,7 @@
             "type": "OBJECT"
         },
         {
-            "mesh_filters": [
-                {
-                    "name": "transform",
-                    "params": [
-                        {
-                            "name": "transform order",
-                            "type": 7,
-                            "value": 0
-                        },
-                        {
-                            "name": "translate",
-                            "type": 2,
-                            "value": [
-                                {
-                                    "name": "t__x",
-                                    "type": 1,
-                                    "value": 0.0
-                                },
-                                {
-                                    "name": "t__y",
-                                    "type": 1,
-                                    "value": 0.0
-                                },
-                                {
-                                    "name": "t__z",
-                                    "type": 1,
-                                    "value": 0.0
-                                }
-                            ]
-                        },
-                        {
-                            "name": "rotate",
-                            "type": 2,
-                            "value": [
-                                {
-                                    "name": "r__x",
-                                    "type": 1,
-                                    "value": 33.0
-                                },
-                                {
-                                    "name": "r__y",
-                                    "type": 1,
-                                    "value": 0.0
-                                },
-                                {
-                                    "name": "r__z",
-                                    "type": 1,
-                                    "value": 0.0
-                                }
-                            ]
-                        },
-                        {
-                            "name": "scale",
-                            "type": 2,
-                            "value": [
-                                {
-                                    "name": "s__x",
-                                    "type": 1,
-                                    "value": 1.0
-                                },
-                                {
-                                    "name": "s__y",
-                                    "type": 1,
-                                    "value": 1.0
-                                },
-                                {
-                                    "name": "s__z",
-                                    "type": 1,
-                                    "value": 1.0
-                                }
-                            ]
-                        }
-                    ],
-                    "type": 1049924757
-                }
-            ],
+            "mesh_filters": [],
             "mesh_generator": {
                 "params": [
                     {
@@ -399,72 +249,9 @@
                     "name": "transform",
                     "params": [
                         {
-                            "name": "transform order",
-                            "type": 7,
-                            "value": 0
-                        },
-                        {
-                            "name": "translate",
-                            "type": 2,
-                            "value": [
-                                {
-                                    "name": "t__x",
-                                    "type": 1,
-                                    "value": 0.0
-                                },
-                                {
-                                    "name": "t__y",
-                                    "type": 1,
-                                    "value": 0.0
-                                },
-                                {
-                                    "name": "t__z",
-                                    "type": 1,
-                                    "value": 0.0
-                                }
-                            ]
-                        },
-                        {
-                            "name": "rotate",
-                            "type": 2,
-                            "value": [
-                                {
-                                    "name": "r__x",
-                                    "type": 1,
-                                    "value": 33.0
-                                },
-                                {
-                                    "name": "r__y",
-                                    "type": 1,
-                                    "value": 0.0
-                                },
-                                {
-                                    "name": "r__z",
-                                    "type": 1,
-                                    "value": 0.0
-                                }
-                            ]
-                        },
-                        {
-                            "name": "scale",
-                            "type": 2,
-                            "value": [
-                                {
-                                    "name": "s__x",
-                                    "type": 1,
-                                    "value": 1.0
-                                },
-                                {
-                                    "name": "s__y",
-                                    "type": 1,
-                                    "value": 1.0
-                                },
-                                {
-                                    "name": "s__z",
-                                    "type": 1,
-                                    "value": 1.0
-                                }
-                            ]
+                            "name": "Invert normals",
+                            "type": 5,
+                            "value": false
                         }
                     ],
                     "type": 0
@@ -539,6 +326,137 @@
                             "name": "t__z",
                             "type": 1,
                             "value": 0.0
+                        }
+                    ]
+                },
+                {
+                    "name": "rotation",
+                    "type": 2,
+                    "value": [
+                        {
+                            "name": "r__x",
+                            "type": 1,
+                            "value": 0.0
+                        },
+                        {
+                            "name": "r__y",
+                            "type": 1,
+                            "value": 0.0
+                        },
+                        {
+                            "name": "r__z",
+                            "type": 1,
+                            "value": 0.0
+                        }
+                    ]
+                },
+                {
+                    "name": "scale",
+                    "type": 2,
+                    "value": [
+                        {
+                            "name": "s__x",
+                            "type": 1,
+                            "value": 1.0
+                        },
+                        {
+                            "name": "s__y",
+                            "type": 1,
+                            "value": 1.0
+                        },
+                        {
+                            "name": "s__z",
+                            "type": 1,
+                            "value": 1.0
+                        }
+                    ]
+                }
+            ],
+            "type": "OBJECT"
+        },
+        {
+            "mesh_filters": [
+                {
+                    "name": "transform",
+                    "params": [
+                        {
+                            "name": "Invert normals",
+                            "type": 5,
+                            "value": false
+                        }
+                    ],
+                    "type": 37
+                }
+            ],
+            "mesh_generator": {
+                "params": [
+                    {
+                        "name": "file_path",
+                        "type": 3,
+                        "value": "/home/pi/projects/angine/src/res/obj/monkey.obj"
+                    },
+                    {
+                        "name": "Load File",
+                        "type": 6,
+                        "value": "action value"
+                    }
+                ],
+                "type": 5
+            },
+            "name": "copy_name__",
+            "parent": -1,
+            "position": [
+                3.0,
+                4.0,
+                -2.0
+            ],
+            "rotation": [
+                0.0,
+                0.0,
+                0.0
+            ],
+            "scale": [
+                1.0,
+                1.0,
+                1.0
+            ],
+            "transforms": [
+                1.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                1.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                1.0,
+                0.0,
+                3.0,
+                4.0,
+                -2.0,
+                1.0
+            ],
+            "transforms_params": [
+                {
+                    "name": "position",
+                    "type": 2,
+                    "value": [
+                        {
+                            "name": "t__x",
+                            "type": 1,
+                            "value": 3.0
+                        },
+                        {
+                            "name": "t__y",
+                            "type": 1,
+                            "value": 4.0
+                        },
+                        {
+                            "name": "t__z",
+                            "type": 1,
+                            "value": -2.0
                         }
                     ]
                 },

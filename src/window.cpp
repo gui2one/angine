@@ -39,18 +39,6 @@ static int ray_plane_intersect(glm::vec3 planeN, glm::vec3 planeP, glm::vec3 poi
     return  K>= 0.0 && K <= 1.0;
 }
 
-//~ static void vec_mult_by_matrix( glm::vec3 & _vec, glm::mat4 & _mat, bool invert = false){
-	//~ 
-	//~ glm::vec4 vec4 = glm::vec4(_vec.x, _vec.y, _vec.z,1.0f);
-	//~ glm::vec3 output;
-	//~ if( invert){
-		//~ _vec = vec4 * glm::inverse(_mat);
-	//~ } else{
-		//~ _vec = vec4 * _mat;
-	//~ }
-//~ 
-//~ }
-
 static std::vector<std::string> split(const std::string& str, std::string delimiter = " "){
 	
 	std::vector<std::string> tokens;
@@ -227,84 +215,19 @@ Entity3D* Window::mouseClickObject()
 	std::vector<Entity3D*> result_objects;
 	raycaster.intersectObjects(this, camera, objects, result_objects);
 	
+	
+	
 	if( result_objects.size() > 0){
 		cur_object_selected = findObjectIndexByID( result_objects[0]->getID());
 		return result_objects[0];
 	}
-	double pos_x, pos_y;
-	glfwGetCursorPos(win, &pos_x, &pos_y);
-	//~ for (int i = 0; i < objects.size(); i++)
-	//~ {
-		//~ Entity3D * cur = objects[i];
-		//~ 
-		//~ Object * p_object = nullptr;
-		//~ if( p_object = dynamic_cast<Object *>(cur)){
-			//~ 
-			//~ BoundingBox AABB = p_object->computeAABB();
-			//~ 
-			//~ glm::vec3 bbox_pos = AABB.position;
-			//~ glm::vec3 bbox_size = AABB.size;
-			//~ glm::vec3 bbox_center = bbox_pos + glm::vec3(bbox_size.x/2.0f, bbox_size.y/2.0f, bbox_size.y/2.0f) ;	
-//~ 
-			//~ 
-			//~ 
-			//~ float x = (2.0f * pos_x) / width - 1.0f;
-			//~ float y = 1.0f - (2.0f * pos_y) / height;
-			//~ glm::vec3 planeN = glm::normalize(p_object->position - camera.position);
-			//~ glm::vec3 planeP = bbox_center;
-			//~ glm::vec3 pointP = glm::vec3(x, y , 1.0f);
-			//~ glm::vec3 rayDir = glm::vec3(0.0f, 0.0f , -1.0f);
-			//~ 
-			//~ glm::mat4 projection = camera.projection;
-			//~ glm::mat4 view = glm::mat4(1.0f);
-//~ 
-			//~ 
-			//~ 
-			//~ // not sure why I need this, but it gets rid off a nasty offset 
-			//~ // found a solution here : https://stackoverflow.com/questions/48514387/can-anyone-explain-this-small-offset-from-ray-casting-by-mouse-click?rq=1
-			//~ // but the guy says he forced projection[3][3] to be 0.0, I have to do 1.0f for this to work
-			//~ 
-			//~ projection[3][3] = 1.0f; 
-//~ 
-			//~ glm::vec3 up_vector = glm::vec3(0.0f,0.0f,1.0f);
-//~ 
-			//~ view *= glm::lookAt(
-									//~ camera.position, 
-									//~ camera.target_position, 
-									//~ glm::normalize(up_vector)
-								//~ );			
-								//~ 
-			//~ glm::vec4 tempPointP = inverse(projection * view)* glm::vec4(pointP.x, pointP.y, pointP.z, 1.0f) ;
-			//~ tempPointP /= tempPointP.w *0.5f;
-//~ 
-			//~ glm::vec3 hitP = glm::vec3(0.0f);
-			//~ int hit = ray_plane_intersect(planeN, planeP, camera.position, tempPointP, hitP);		
-			//~ 
-			//~ if(hit)
-			//~ {
-				//~ if( hitP.x > bbox_pos.x && hitP.x < bbox_pos.x + bbox_size.x)
-				//~ {
-					//~ 
-					//~ if( hitP.y > bbox_pos.y && hitP.y < bbox_pos.y + bbox_size.y)
-					//~ {
-						//~ 
-						//~ if( hitP.z > bbox_pos.z && hitP.z < bbox_pos.z + bbox_size.z)
-						//~ {					
-		//~ 
-							//~ cur_object_selected = i;
-							//~ return objects[i];
-						//~ }
-					//~ }
-				//~ }
-				//~ 
-			//~ }
-		//~ }
-	//~ }
-	//~ 
-	printf("cur_object_selected is %d\n", cur_object_selected);
+	//~ double pos_x, pos_y;
+	//~ glfwGetCursorPos(win, &pos_x, &pos_y);
+
+	//~ printf("cur_object_selected is %d\n", cur_object_selected);
 	cur_object_selected = -1;
 	
-
+	return nullptr;
 	
 }
 
@@ -394,9 +317,7 @@ void Window::cursor_pos_callback(GLFWwindow* window, double xpos, double ypos)
 		
 		
 		double rot_speed = 0.01;
-		//~ printf("camera_u_pos : %.3f\n", app->camera_u_pos);
-		//~ printf("camera_v_pos : %.3f\n", app->camera_v_pos);
-		//~ printf("---------------------------\n");
+		
 		app->camera_u_pos -= app->mouse_delta_x * rot_speed;
 		
 
@@ -452,13 +373,17 @@ void Window::mouse_button_callback(GLFWwindow* window, int button, int action, i
 		}
 		
 		if(button == GLFW_MOUSE_BUTTON_LEFT && action == GLFW_PRESS){
-			
-			bool is_gizmo = app->mouseClickGizmo();
-			
-			if(!is_gizmo)
+			if( app->cur_object_selected != -1)
 			{
+				bool is_gizmo = app->mouseClickGizmo();
+				
+				if(!is_gizmo)
+				{
+					app->mouseClickObject();
+				}			
+			}else{
 				app->mouseClickObject();
-			}			
+			}
 		}
 	}
 }
@@ -646,9 +571,9 @@ void Window::buildObjectList()
 			
 			////	
 			
-			printf("Object name : %s\n", p_obj->name);
+			//~ printf("Object name : %s\n", p_obj->name);
 			while(p_obj->getParent() != nullptr){
-				printf("\tParent name : %s -- DEPTH --> %d\n", p_obj->getParent()->name, depths[i].second);
+				//~ printf("\tParent name : %s -- DEPTH --> %d\n", p_obj->getParent()->name, depths[i].second);
 				p_obj = (Object *)p_obj->getParent();
 				depths[i].second += 1;
 				
@@ -678,7 +603,7 @@ void Window::buildObjectList()
 		
 		std::vector<Entity3D*> parents;
 		
-		//~ printf("<<<<<<<<<<<<<< %s\n", cur->name);
+		
 		if(p_object = dynamic_cast<Object*>(p)){
 			
 			Object * cur = p_object;
@@ -687,10 +612,7 @@ void Window::buildObjectList()
 				
 				//insert in first place 
 				parents.insert(parents.begin(),(Entity3D*)cur->getParent());
-				
-				//~ parents.push_back((Object*)cur->getParent());
-				
-				
+
 				cur = (Object*)cur->getParent();
 
 			}
@@ -710,11 +632,11 @@ void Window::buildObjectList()
 			Object* obj = (Object*)(item.parents[pa]);
 			if(obj != nullptr){
 				
-			printf("\t\t parent %d : %s\n" , pa, obj->name);
+			//~ printf("\t\t parent %d : %s\n" , pa, obj->name);
 			//~ printf("\t\t parent %d \n" , pa);
 			
 			}else{
-				printf("\t\tnullptr !!!!!!\n");
+				//~ printf("\t\tnullptr !!!!!!\n");
 			}
 		}
 		
@@ -772,7 +694,7 @@ void Window::objectListDialog()
 	{
 		if(choice == 0)
 		{
-			printf("--- START add object \n");
+			//~ printf("--- START add object \n");
 			Object* obj = new Object();
 			
 			obj->init();
@@ -794,7 +716,7 @@ void Window::objectListDialog()
 			addObject(light);			
 		}
 		
-		printf("--- END add object \n");
+		//~ printf("--- END add object \n");
 		
 		cur_object_selected = objects.size()-1;
 	}
@@ -987,7 +909,7 @@ void Window::buildParamUiKeyframePopupEnd(BaseParam * param, std::function<void(
 			std::vector<BaseKeyframe*> keys = param->getKeyframes();
 			for (int i = 0; i < keys.size(); i++)
 			{
-				printf("key %d : %.3f \n", i, keys[i]->getFrame());
+				//~ printf("key %d : %.3f \n", i, keys[i]->getFrame());
 			}
 			
 		}
@@ -1068,7 +990,7 @@ void Window::buildParamUi(BaseParam * param, std::function<void()> callback)
 					Keyframe<float>* key_float = nullptr;
 					if(key_float = dynamic_cast<Keyframe<float> *>(cur_key))
 					{
-						printf("setting value for frame %d\n", time_line.current_frame);
+						//~ printf("setting value for frame %d\n", time_line.current_frame);
 						key_float->setValue(p_vec3->param_y->getValue());
 					}
 				}
@@ -1096,7 +1018,7 @@ void Window::buildParamUi(BaseParam * param, std::function<void()> callback)
 					Keyframe<float>* key_float = nullptr;
 					if(key_float = dynamic_cast<Keyframe<float> *>(cur_key))
 					{
-						printf("setting value for frame %d\n", time_line.current_frame);
+						//~ printf("setting value for frame %d\n", time_line.current_frame);
 						key_float->setValue(p_vec3->param_z->getValue());
 					}
 				}
@@ -1127,7 +1049,7 @@ void Window::buildParamUi(BaseParam * param, std::function<void()> callback)
 						Keyframe<float>* key_float = nullptr;
 						if(key_float = dynamic_cast<Keyframe<float> *>(cur_key))
 						{
-							printf("setting value for frame %d\n", time_line.current_frame);
+							//~ printf("setting value for frame %d\n", time_line.current_frame);
 							key_float->setValue(p_float->getValue());
 						}
 					}
@@ -1231,7 +1153,7 @@ void Window::objectPropertiesDialog()
 				}
 				
 				std::string s = j.dump(4);
-				printf("%s\n", s.c_str());
+				//~ printf("%s\n", s.c_str());
 			}		
 		}else if( p_dummy = dynamic_cast<ObjectDummy *>(curEntity)){
 			
@@ -1239,7 +1161,7 @@ void Window::objectPropertiesDialog()
 				json j = p_dummy->toJSON();
 				std::string s = j.dump(4);
 				
-				printf("%s\n", s.c_str());
+				//~ printf("%s\n", s.c_str());
 			}		
 		}
 		// current object name
@@ -1359,11 +1281,11 @@ void Window::objectPropertiesDialog()
 							{
 								if(ImGui::Selectable(objects[i]->name))
 								{
-									printf("Did I just choose a target ?\n");
+									//~ printf("Did I just choose a target ?\n");
 									objects[i]->applyTransforms();
 									curEntity->setLookAtTarget(objects[i]);
 									glm::vec3 t_pos = objects[i]->getWorldPosition();
-									printf("world pos : %.3f, %.3f, %.3f\n", t_pos.x, t_pos.y, t_pos.z);
+									//~ printf("world pos : %.3f, %.3f, %.3f\n", t_pos.x, t_pos.y, t_pos.z);
 								}
 							}
 						}
@@ -1672,7 +1594,7 @@ void Window::objectPropertiesDialog()
 					{
 						if( ImGui::Button("Reload Shader"))
 						{
-							printf("reloading shader now \n");
+							//~ printf("reloading shader now \n");
 							curObj->initShader();
 						}
 						
@@ -1999,13 +1921,13 @@ void Window::timeLineDialog()
 		if(ImGui::Button("P")){
 			
 			selected_key_id--;
-			printf("previous %d\n", selected_key_id);
+			//~ printf("previous %d\n", selected_key_id);
 		}
 		ImGui::SameLine();
 		if(ImGui::Button("N")){
 			
 			selected_key_id++;
-			printf("next %d\n", selected_key_id);
+			//~ printf("next %d\n", selected_key_id);
 		}	
 		
 	}
@@ -2116,7 +2038,7 @@ void Window::removeObject(Entity3D* obj)
 				
 				if(objects[i]->getParent()->getID() == obj->getID())
 				{
-					printf("got child !!!\n");
+					//~ printf("got child !!!\n");
 					objects[i]->resetParent();
 				}
 			}
@@ -2152,8 +2074,8 @@ Entity3D Window::duplicateObject(Entity3D * obj)
 		Object new_object = *(p_object);
 		
 		
-		printf("trying to copy an 'Object'\n");
-		printf("param layout size -> %d\n", new_object.param_layout.getSize());
+		//~ printf("trying to copy an 'Object'\n");
+		//~ printf("param layout size -> %d\n", new_object.param_layout.getSize());
 		//~ 
 		
 		new_object.setName("copied_object");
@@ -2165,7 +2087,7 @@ Entity3D Window::duplicateObject(Entity3D * obj)
 		return new_object;
 	}else if(p_dummy = dynamic_cast<ObjectDummy*>(p)){
 		ObjectDummy dum = *(p_dummy);
-		printf("trying to copy a 'Dummy'\n");
+		//~ printf("trying to copy a 'Dummy'\n");
 		//~ dum.init();
 		dum.setID( cur_unique_id++);
 		cur_unique_id += 1;		
@@ -2196,19 +2118,19 @@ void Window::renderObjects()
 
 
 		
-		//~ // draw world grid
-				//~ point_shader.useProgram();
-				//~ glUniformMatrix4fv(glGetUniformLocation(point_shader.m_id,"projection"), 1, GL_FALSE, glm::value_ptr(camera.projection));	
-				//~ glUniformMatrix4fv(glGetUniformLocation(point_shader.m_id,"model"), 1, GL_FALSE, glm::value_ptr(model));	
-				//~ glUniformMatrix4fv(glGetUniformLocation(point_shader.m_id,"view"), 1, GL_FALSE, glm::value_ptr(view));	
-										//~ 
-				//~ GLuint COLOR_LOC = glGetUniformLocation(point_shader.m_id,"u_color");
-				//~ glUniform4f(COLOR_LOC, 1.0, 1.0, 1.0, 0.5);	
-				//~ 
-				//~ drawWorldGrid();
-				//~ 
-				//~ glUseProgram(0);
-		//~ ////
+		// draw world grid
+				point_shader.useProgram();
+				glUniformMatrix4fv(glGetUniformLocation(point_shader.m_id,"projection"), 1, GL_FALSE, glm::value_ptr(camera.projection));	
+				glUniformMatrix4fv(glGetUniformLocation(point_shader.m_id,"model"), 1, GL_FALSE, glm::value_ptr(model));	
+				glUniformMatrix4fv(glGetUniformLocation(point_shader.m_id,"view"), 1, GL_FALSE, glm::value_ptr(view));	
+										
+				GLuint COLOR_LOC = glGetUniformLocation(point_shader.m_id,"u_color");
+				glUniform4f(COLOR_LOC, 1.0, 1.0, 1.0, 0.5);	
+				
+				drawWorldGrid();
+				
+				glUseProgram(0);
+		////
 
 	
 	for (int i = 0; i < objects.size(); i++)
@@ -2476,7 +2398,7 @@ void Window::loadFromFile(std::string file_path)
   {
 	  Entity3D * cur_entity = objects[i];
 	  json cur_j = j["entities"][i];
-	  printf("parent ID is --> %d \n", (cur_j["parent"].get<int>()));
+	  //~ printf("parent ID is --> %d \n", (cur_j["parent"].get<int>()));
 	  if( cur_j["parent"].get<int>() != -1)
 	  {
 		  //~ printf("parent ID is --> %d \n", cur_j["parent"].get<int>());

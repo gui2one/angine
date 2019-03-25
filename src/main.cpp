@@ -10,7 +10,7 @@ Application app ;
 int main()
 {
 
-	std::cout << "angine PROJECT\n";
+	//~ std::cout << "angine PROJECT\n";
 	
 	while(!app.window.shouldClose())
 	{		

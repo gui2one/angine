@@ -99,55 +99,51 @@ static bool point_in_triangle(glm::vec3 bary)
 	return result;
 }
 
+static bool ray_triangle_intersect(Ray& ray, glm::vec3 vtx_a, glm::vec3 vtx_b, glm::vec3 vtx_c)
+{
+		glm::vec3 plane_pos = (vtx_a + vtx_b + vtx_c);
+		plane_pos = plane_pos / 3.0f;
+
+		
+		
+		glm::vec3 plane_normal = glm::normalize(glm::cross( (vtx_b - vtx_a) , (vtx_c - vtx_a) ));
+		
+		glm::vec3 hitP = glm::vec3(0.0f);
+		int hit = ray_plane_intersect(plane_normal, plane_pos, ray.pos, ray.dir, hitP);	
+		
+		if( point_in_triangle( cartesian_to_barycentric(hitP, vtx_a, vtx_b, vtx_c)))
+		{
+			return true;
+		}	
+		
+		return false;	
+}
 static std::vector<int> check_triangles(Ray& ray, Object* object)
 {
-	//~ printf("object name --> %s\n", object->name);
-	
 	std::vector<int> triangles_ids;
 	
-	//~ object->applyTransforms();
-	
-	//~ printf("Object transforms : translates \n");
-	//~ printf("\t%.3f, %.3f, %.3f\n", object->transforms[3][0],object->transforms[3][1],object->transforms[3][2]);
 	for (int i = 0; i < object->mesh.indices.size(); i += 3)
 	{
 		//~ printf("triangle number %d\n", i / 3);
 		
 		// ray vs plane intersection first
 		
-		
-		
 		glm::vec3 vtx_a = object->mesh.vertices[object->mesh.indices[i]].position;
 		vec_mult_by_matrix(vtx_a, object->transforms);
-		//~ printf("vertex position -->  %.2f, %.2f, %.2f\n", vtx_a.x, vtx_a.y, vtx_a.z);
-		//~ printf("Object position -->  %.2f, %.2f, %.2f\n", object->position.x, object->position.y, object->position.z);
+
 		
 		glm::vec3 vtx_b = object->mesh.vertices[object->mesh.indices[i+1]].position;
 		vec_mult_by_matrix(vtx_b, object->transforms);
 		
 		glm::vec3 vtx_c = object->mesh.vertices[object->mesh.indices[i+2]].position;
 		vec_mult_by_matrix(vtx_c, object->transforms);
-		
-		glm::vec3 plane_pos = (vtx_a + vtx_b + vtx_c);
-		plane_pos = plane_pos / 3.0f;
-		//~ printf("--------------------------------\n");
-		//~ printf("plane pos -> %.3f, %.3f, %.3f\n", plane_pos.x, plane_pos.y, plane_pos.z );
-		
-		
-		glm::vec3 plane_normal = glm::normalize(glm::cross( (vtx_b - vtx_a) , (vtx_c - vtx_a) ));
-		//~ printf("plane normal -> %.3f, %.3f, %.3f\n", plane_normal.x, plane_normal.y, plane_normal.z );
-		
-		glm::vec3 hitP = glm::vec3(0.0f);
-		int hit = ray_plane_intersect(plane_normal, plane_pos, ray.pos, ray.dir, hitP);
+				
+		bool hit = ray_triangle_intersect(ray, vtx_a, vtx_b, vtx_c);
 		
 		if(hit)
-		{
-			if( point_in_triangle( cartesian_to_barycentric(hitP, vtx_a, vtx_b, vtx_c))){
-				
-				//~ printf("\thitP -> %.3f, %.3f, %.3f\n", hitP.x, hitP.y, hitP.z); 
-				
-				triangles_ids.push_back(i/3);
-			}
+		{				
+			//~ printf("hit triangle !! \n");			
+			triangles_ids.push_back(i/3);			
 		}
 	}
 	
@@ -155,7 +151,100 @@ static std::vector<int> check_triangles(Ray& ray, Object* object)
 	
 }
 
+bool Raycaster::intersectBoudingBox(
+						Window* _window, 
+						Camera& _camera, 
+						Entity3D* _target_object)
+{
+	
+	
+	double pos_x, pos_y;
+	glfwGetCursorPos(_window->win, &pos_x, &pos_y);
+	
+	float width = _window->width;
+	float height = _window->height;
+	
+	float x = (2.0f * pos_x) / width - 1.0f;
+	float y = 1.0f - (2.0f * pos_y) / height;	
+		
 
+		
+		
+	Object * p_object = nullptr;
+	
+	if( p_object = dynamic_cast<Object *>(_target_object)){
+		
+		BoundingBox AABB = p_object->computeAABB();
+		
+		glm::vec3 bbox_pos = AABB.position;
+		glm::vec3 bbox_size = AABB.size;
+		glm::vec3 bbox_center = bbox_pos + glm::vec3(bbox_size.x/2.0f, bbox_size.y/2.0f, bbox_size.y/2.0f) ;		
+		
+	
+		// build bbox out of triangles for intersection by ray
+		
+		std::vector<glm::vec3> bbox_vertices;
+		
+		bbox_vertices.push_back(bbox_pos);
+		bbox_vertices.push_back(bbox_pos + glm::vec3( bbox_size.x,        0.0f,        0.0f));
+		bbox_vertices.push_back(bbox_pos + glm::vec3(        0.0f,        0.0f, bbox_size.z));
+		bbox_vertices.push_back(bbox_pos + glm::vec3( bbox_size.x,        0.0f, bbox_size.z));
+		
+		bbox_vertices.push_back(bbox_pos + glm::vec3(         0.0, bbox_size.y,        0.0f));
+		bbox_vertices.push_back(bbox_pos + glm::vec3( bbox_size.x, bbox_size.y,        0.0f));
+		bbox_vertices.push_back(bbox_pos + glm::vec3(        0.0f, bbox_size.y, bbox_size.z));
+		bbox_vertices.push_back(bbox_pos + glm::vec3( bbox_size.x, bbox_size.y, bbox_size.z));
+		
+		
+		
+		std::vector<int> indices;
+					
+		indices.insert(indices.end(), {0, 2, 3});
+		indices.insert(indices.end(), {0, 3, 1});
+		
+		indices.insert(indices.end(), {1, 3, 7});
+		indices.insert(indices.end(), {1, 7, 5});
+		
+		indices.insert(indices.end(), {5, 7, 6});
+		indices.insert(indices.end(), {5, 6, 4});
+		
+		indices.insert(indices.end(), {4, 6, 2});
+		indices.insert(indices.end(), {4, 2, 0});
+		
+		indices.insert(indices.end(), {2, 6, 7});
+		indices.insert(indices.end(), {2, 7, 3});
+		
+		indices.insert(indices.end(), {0, 4, 5});
+		indices.insert(indices.end(), {0, 5, 1});
+		
+		
+		// now perform triangle intersection
+		
+		Ray ray = ray_from_camera(_window, x, y);
+		
+		for (int id = 0; id < indices.size()/3; id++)
+		{
+			glm::vec3 vtx_a = bbox_vertices[indices[(id*3) + 0]];
+			glm::vec3 vtx_b = bbox_vertices[indices[(id*3) + 1]];
+			glm::vec3 vtx_c = bbox_vertices[indices[(id*3) + 2]];
+			
+			bool hit = ray_triangle_intersect(ray , vtx_a, vtx_b, vtx_c);
+			
+			if(hit)
+			{
+				//~ printf(" just hit boudingox triangle !!! for fuck sake !!!\n");
+				return true;
+			}
+		}
+		
+	
+	}
+		
+		
+	
+	
+	return false;
+}
 
 bool Raycaster::intersectObjects(
 						Window* _window, 
@@ -171,7 +260,10 @@ bool Raycaster::intersectObjects(
 	float width = _window->width;
 	float height = _window->height;
 
+	float x = (2.0f * pos_x) / width - 1.0f;
+	float y = 1.0f - (2.0f * pos_y) / height;
 	
+	Ray  ray = ray_from_camera(_window, x, y);	
 	//~ printf("cursor window pos : %.3f, %.3f \n", pos_x, pos_y);
 
 		
@@ -182,54 +274,20 @@ bool Raycaster::intersectObjects(
 		Object * p_object = nullptr;
 		if( p_object = dynamic_cast<Object *>(cur)){
 			
-			BoundingBox AABB = p_object->computeAABB();
+			bool hit_bbox = intersectBoudingBox(_window, _camera, p_object);
 			
-			glm::vec3 bbox_pos = AABB.position;
-			glm::vec3 bbox_size = AABB.size;
-			glm::vec3 bbox_center = bbox_pos + glm::vec3(bbox_size.x/2.0f, bbox_size.y/2.0f, bbox_size.y/2.0f) ;	
-
-			
-			
-			float x = (2.0f * pos_x) / width - 1.0f;
-			float y = 1.0f - (2.0f * pos_y) / height;
-			
-			
-			glm::vec3 planeN = glm::normalize(p_object->position - _camera.position);
-			glm::vec3 planeP = bbox_center;
-			glm::vec3 pointP = glm::vec3(x, y , 1.0f);
-
-			glm::vec3 hitP = glm::vec3(0.0f);
-			
-			
-			Ray  ray = ray_from_camera(_window, x, y);
-			
-			int hit = ray_plane_intersect(planeN, planeP, ray.pos , ray.dir, hitP);		
-			
-			if(hit)
+			if( hit_bbox)
 			{
-				if( hitP.x > bbox_pos.x && hitP.x < bbox_pos.x + bbox_size.x)
-				{
+				std::vector<int> triangles_ids = check_triangles(ray, p_object);
+				if( triangles_ids.size() > 0){
+									
+					printf("hit object ID -> %d from Raycaster ----------------- !!!! yes \n", i);
 					
-					if( hitP.y > bbox_pos.y && hitP.y < bbox_pos.y + bbox_size.y)
-					{
-						
-						if( hitP.z > bbox_pos.z && hitP.z < bbox_pos.z + bbox_size.z)
-						{	
-							std::vector<int> triangles_ids = check_triangles(ray, p_object);
-							
-							if( triangles_ids.size() > 0){
-												
-								//~ printf("hit object ID -> %d from Raycaster ----------------- !!!! yes \n", i);
-								_result_objects.push_back(p_object);
-							}
-							
-							//~ cur_object_selected = i;
-							//~ return _target_objects[i];
-						}
-					}
-				}
-				
+					_result_objects.push_back(p_object);
+				}				
 			}
+			
+	
 		}
 	}
 	
