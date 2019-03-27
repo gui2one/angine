@@ -323,22 +323,6 @@ bool Raycaster::intersectGizmos(
 	for (int i = 0; i < _target_gizmos.size(); i++)
 	{
 		
-		
-		//~ glm::mat4 projection = _camera.projection;
-		//~ // not sure why I need this, but it gets rid off a nasty offset 
-		//~ // found a solution here : https://stackoverflow.com/questions/48514387/can-anyone-explain-this-small-offset-from-ray-casting-by-mouse-click?rq=1
-		//~ // but the guy says he forced projection[3][3] to be 0.0, I have to do 1.0f for this to work			
-		//~ projection[3][3] = 1.0f; 		
-			//~ 
-		//~ glm::mat4 view = glm::mat4(1.0f);
-		//~ glm::vec3 up_vector = glm::vec3(0.0f,0.0f,1.0f);
-//~ 
-		//~ view *= glm::lookAt(
-								//~ _camera.position, 
-								//~ _camera.target_position, 
-								//~ glm::normalize(up_vector)
-							//~ );			
-		
 		float x = (2.0f * pos_x) / width - 1.0f;
 		float y = 1.0f - (2.0f * pos_y) / height;			
 		
@@ -364,12 +348,12 @@ bool Raycaster::intersectGizmos(
 			clean_mat[2][2] = target_transforms[2][2];
 			vec_mult_by_matrix(z_axis_2, clean_mat, false);
 
-			glm::vec3 test = _target_gizmos[i]->target_object->getWorldPosition();
+			glm::vec3 world_pos = _target_gizmos[i]->target_object->getWorldPosition();
 			
-			printf("test value === %.3f, %.3f, %.3f\n", test.x, test.y, test.z); 
+			printf("world_pos value === %.3f, %.3f, %.3f\n", world_pos.x, world_pos.y, world_pos.z); 
 			glm::vec3 planeN = glm::normalize(z_axis_2);
 			
-			glm::vec3 planeP = test;
+			glm::vec3 planeP = world_pos;
 			glm::vec3 pointP = glm::vec3(x, y , 1.0f);
 			glm::vec3 rayDir = glm::vec3(0.0f, 0.0f , -1.0f);			
 								
@@ -385,15 +369,20 @@ bool Raycaster::intersectGizmos(
 			if(hit){
 				printf("------> gizmo hit <--------\n");
 			
+				float cam_dist = glm::distance( _camera.position, world_pos);
 				printf("\tlocal_pos_vec3 : %.3f, %.3f, %.3f\n", local_pos_vec3.x, local_pos_vec3.y, local_pos_vec3.z);
 				if( fabs(local_pos_vec3.x) > fabs(local_pos_vec3.y)
-					&&  fabs(local_pos_vec3.y) < 0.1)
+					&&  fabs(local_pos_vec3.y) < 0.1 
+					&&  local_pos_vec3.x < (_target_gizmos[i]->scale.x * cam_dist / 5.0f)
+					&&  local_pos_vec3.x > 0.0)
 				{
 					printf("local X : %.3f, local Y : %.3f\n", fabs(local_pos_vec3.x), fabs(local_pos_vec3.y));
 					printf("nearest is X axis\n");
 					return true;
 				} else if(fabs(local_pos_vec3.x) < fabs(local_pos_vec3.y)
-				&&  fabs(local_pos_vec3.x) < 0.1)
+				&&  fabs(local_pos_vec3.x) < 0.1
+				&&  local_pos_vec3.y < (_target_gizmos[i]->scale.y * cam_dist / 5.0f)
+				&&  local_pos_vec3.y > 0.0)
 				{
 					
 					printf("local X : %.3f, local Y : %.3f\n", fabs(local_pos_vec3.x), fabs(local_pos_vec3.y));
