@@ -3,6 +3,7 @@
 
 
 #include "../pch.h"
+#include "handle.h"
 #include "../mesh.h"
 #include "../entity3d.h"
 #include "../shader.h"
@@ -44,6 +45,8 @@ class Gizmo
 		
 		Entity3D* target_object = nullptr;
 		
+		
+		std::vector<Handle> handles;
 
 	private:
 

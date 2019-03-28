@@ -24,6 +24,7 @@ file(REMOVE_RECURSE
   "CMakeFiles/angine.dir/home/pi/projects/angine/src/animation/base_keyframe.cpp.o"
   "CMakeFiles/angine.dir/home/pi/projects/angine/src/utils/objLoader.cpp.o"
   "CMakeFiles/angine.dir/home/pi/projects/angine/src/gizmos/gizmo.cpp.o"
+  "CMakeFiles/angine.dir/home/pi/projects/angine/src/gizmos/handle.cpp.o"
   "CMakeFiles/angine.dir/home/pi/projects/angine/src/mesh.cpp.o"
   "CMakeFiles/angine.dir/home/pi/projects/angine/src/generators/mesh_generator.cpp.o"
   "CMakeFiles/angine.dir/home/pi/projects/angine/src/generators/gridmesh.cpp.o"

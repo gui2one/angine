@@ -500,6 +500,33 @@ home/pi/projects/angine/src/gizmos/gizmo.cpp.s:
 	$(MAKE) -f CMakeFiles/angine.dir/build.make CMakeFiles/angine.dir/home/pi/projects/angine/src/gizmos/gizmo.cpp.s
 .PHONY : home/pi/projects/angine/src/gizmos/gizmo.cpp.s
 
+home/pi/projects/angine/src/gizmos/handle.o: home/pi/projects/angine/src/gizmos/handle.cpp.o
+
+.PHONY : home/pi/projects/angine/src/gizmos/handle.o
+
+# target to build an object file
+home/pi/projects/angine/src/gizmos/handle.cpp.o:
+	$(MAKE) -f CMakeFiles/angine.dir/build.make CMakeFiles/angine.dir/home/pi/projects/angine/src/gizmos/handle.cpp.o
+.PHONY : home/pi/projects/angine/src/gizmos/handle.cpp.o
+
+home/pi/projects/angine/src/gizmos/handle.i: home/pi/projects/angine/src/gizmos/handle.cpp.i
+
+.PHONY : home/pi/projects/angine/src/gizmos/handle.i
+
+# target to preprocess a source file
+home/pi/projects/angine/src/gizmos/handle.cpp.i:
+	$(MAKE) -f CMakeFiles/angine.dir/build.make CMakeFiles/angine.dir/home/pi/projects/angine/src/gizmos/handle.cpp.i
+.PHONY : home/pi/projects/angine/src/gizmos/handle.cpp.i
+
+home/pi/projects/angine/src/gizmos/handle.s: home/pi/projects/angine/src/gizmos/handle.cpp.s
+
+.PHONY : home/pi/projects/angine/src/gizmos/handle.s
+
+# target to generate assembly for a file
+home/pi/projects/angine/src/gizmos/handle.cpp.s:
+	$(MAKE) -f CMakeFiles/angine.dir/build.make CMakeFiles/angine.dir/home/pi/projects/angine/src/gizmos/handle.cpp.s
+.PHONY : home/pi/projects/angine/src/gizmos/handle.cpp.s
+
 home/pi/projects/angine/src/main.o: home/pi/projects/angine/src/main.cpp.o
 
 .PHONY : home/pi/projects/angine/src/main.o
@@ -1387,6 +1414,9 @@ help:
 	@echo "... home/pi/projects/angine/src/gizmos/gizmo.o"
 	@echo "... home/pi/projects/angine/src/gizmos/gizmo.i"
 	@echo "... home/pi/projects/angine/src/gizmos/gizmo.s"
+	@echo "... home/pi/projects/angine/src/gizmos/handle.o"
+	@echo "... home/pi/projects/angine/src/gizmos/handle.i"
+	@echo "... home/pi/projects/angine/src/gizmos/handle.s"
 	@echo "... home/pi/projects/angine/src/main.o"
 	@echo "... home/pi/projects/angine/src/main.i"
 	@echo "... home/pi/projects/angine/src/main.s"

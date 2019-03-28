@@ -8,11 +8,16 @@ Gizmo::Gizmo()
 	rotation = glm::vec3(0.0f,0.0f,0.0f);
 	scale = glm::vec3(1.0f,1.0f,1.0f);	
 	
+	
+	Handle trans_1;// = new Handle();
+	trans_1.setName("first handle");
+	handles.push_back(trans_1);
 
 }
 
 // copy constructor
-Gizmo::Gizmo(const Gizmo& other){
+Gizmo::Gizmo(const Gizmo& other)
+{
 	
 	//~ printf("Gizmo COPY CONSTRUCTOR\n");
 
@@ -34,26 +39,25 @@ void Gizmo::buildVbo()
 	
 	MeshUtils utils;
 	mesh = utils.cylinderMesh(0.01, 1.0);
-	float vertices[18] = {
-		
-		0.0, 0.0, 0.0,
-		1.0, 0.0, 0.0,
-		1.0, 0.1, 0.0,
-		
-		0.0, 0.0, 0.0,
-		1.0, 0.1, 0.0,
-		0.0, 0.1, 0.0
-		};
-
-	unsigned int indices[6] = {
-		
-		0,1,2,
-		3,4,5
-	};
+	//~ float vertices[18] = {
+		//~ 
+		//~ 0.0, 0.0, 0.0,
+		//~ 1.0, 0.0, 0.0,
+		//~ 1.0, 0.1, 0.0,
+		//~ 
+		//~ 0.0, 0.0, 0.0,
+		//~ 1.0, 0.1, 0.0,
+		//~ 0.0, 0.1, 0.0
+		//~ };
+//~ 
+	//~ unsigned int indices[6] = {
+		//~ 
+		//~ 0,1,2,
+		//~ 3,4,5
+	//~ };
 	
 	for (int i = 0; i < mesh.vertices.size(); i++)
 	{
-		//~ int id = mesh.indices[i];
 		vertex_data.push_back( mesh.vertices[i].position.x);
 		vertex_data.push_back( mesh.vertices[i].position.y);
 		vertex_data.push_back( mesh.vertices[i].position.z);		
@@ -62,11 +66,6 @@ void Gizmo::buildVbo()
 		vertex_data.push_back( mesh.vertices[i].normal.y );
 		vertex_data.push_back( mesh.vertices[i].normal.z );
 
-		
-		//~ std::cout << "t__coord__x --> " << mesh.vertices[i].t_coords.x << "\n";
-		//~ std::cout << "t__coord__y --> " << mesh.vertices[i].t_coords.y << "\n";
-		//~ std::cout <<" ----- \n";
-		
 	}
 	
 	

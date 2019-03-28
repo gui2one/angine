@@ -339,6 +339,8 @@ gizmo.h
 /home/pi/projects/angine/src/gizmos/gizmo.h
 ../pch.h
 /home/pi/projects/angine/src/pch.h
+handle.h
+/home/pi/projects/angine/src/gizmos/handle.h
 ../mesh.h
 /home/pi/projects/angine/src/mesh.h
 ../entity3d.h
@@ -347,6 +349,16 @@ gizmo.h
 /home/pi/projects/angine/src/shader.h
 ../camera.h
 /home/pi/projects/angine/src/camera.h
+
+/home/pi/projects/angine/src/gizmos/handle.cpp
+handle.h
+/home/pi/projects/angine/src/gizmos/handle.h
+
+/home/pi/projects/angine/src/gizmos/handle.h
+../pch.h
+/home/pi/projects/angine/src/pch.h
+../param.h
+/home/pi/projects/angine/src/param.h
 
 /home/pi/projects/angine/src/include/assimp/./Compiler/poppack1.h
 

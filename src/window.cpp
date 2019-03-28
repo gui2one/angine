@@ -199,7 +199,10 @@ bool Window::mouseClickGizmo()
 	std::vector<Gizmo*> result_gizmos;
 	bool hit = raycaster.intersectGizmos(this, camera, gizmos, result_gizmos);
 	
-	
+	if( hit )
+	{
+		printf("handle name : %s\n", result_gizmos[0]->handles[0].getName().c_str());
+	}
 	
 	return hit;
 	
@@ -2162,7 +2165,7 @@ void Window::renderObjects()
 		
 
 		
-		Object      * curObj        = nullptr;
+		Object      * curObj   = nullptr;
 		ObjectDummy * curDummy = nullptr;
 		if( curObj = dynamic_cast<Object *>(objects[i]))
 		{			
@@ -2264,9 +2267,10 @@ void Window::renderObjects()
 	for (int i = 0; i < gizmos.size(); i++)
 	{
 		
-		if( cur_object_selected != -1){
+		if( cur_object_selected != -1)
+		{
 			
-			model = glm::mat4(1.0f);
+			//~ model = glm::mat4(1.0f);
 			
 			model = objects[cur_object_selected]->transforms * model;
 			
@@ -2289,6 +2293,8 @@ void Window::renderObjects()
 			gizmos[i]->draw(point_shader, camera);
 			
 			glUseProgram(0);
+			
+			//~ printf("rendered gizmo\n");
 		}
 	}
 	
@@ -2346,6 +2352,7 @@ void Window::loadFromFile(std::string file_path)
 {
 	objects.clear();
 	cur_unique_id = 0;
+	cur_object_selected = -1;
 	
 	std::ifstream in_file(file_path);
 	std::string line;

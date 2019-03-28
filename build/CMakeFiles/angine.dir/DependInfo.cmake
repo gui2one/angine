@@ -17,6 +17,7 @@ set(CMAKE_DEPENDS_CHECK_CXX
   "/home/pi/projects/angine/src/generators/mesh_generator.cpp" "/home/pi/projects/angine/build/CMakeFiles/angine.dir/home/pi/projects/angine/src/generators/mesh_generator.cpp.o"
   "/home/pi/projects/angine/src/generators/spheremesh.cpp" "/home/pi/projects/angine/build/CMakeFiles/angine.dir/home/pi/projects/angine/src/generators/spheremesh.cpp.o"
   "/home/pi/projects/angine/src/gizmos/gizmo.cpp" "/home/pi/projects/angine/build/CMakeFiles/angine.dir/home/pi/projects/angine/src/gizmos/gizmo.cpp.o"
+  "/home/pi/projects/angine/src/gizmos/handle.cpp" "/home/pi/projects/angine/build/CMakeFiles/angine.dir/home/pi/projects/angine/src/gizmos/handle.cpp.o"
   "/home/pi/projects/angine/src/main.cpp" "/home/pi/projects/angine/build/CMakeFiles/angine.dir/home/pi/projects/angine/src/main.cpp.o"
   "/home/pi/projects/angine/src/mesh.cpp" "/home/pi/projects/angine/build/CMakeFiles/angine.dir/home/pi/projects/angine/src/mesh.cpp.o"
   "/home/pi/projects/angine/src/mesh_filters/compute_normals_mesh_filter.cpp" "/home/pi/projects/angine/build/CMakeFiles/angine.dir/home/pi/projects/angine/src/mesh_filters/compute_normals_mesh_filter.cpp.o"

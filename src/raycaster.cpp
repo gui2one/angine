@@ -286,8 +286,6 @@ bool Raycaster::intersectObjects(
 					_result_objects.push_back(p_object);
 				}				
 			}
-			
-	
 		}
 	}
 	
@@ -319,14 +317,14 @@ bool Raycaster::intersectGizmos(
 
 	float width = _window->width;
 	float height = _window->height;
+	
+	float x = (2.0f * pos_x) / width - 1.0f;
+	float y = 1.0f - (2.0f * pos_y) / height;			
+	
+	Ray  ray = ray_from_camera(_window, x, y);	
 		
 	for (int i = 0; i < _target_gizmos.size(); i++)
 	{
-		
-		float x = (2.0f * pos_x) / width - 1.0f;
-		float y = 1.0f - (2.0f * pos_y) / height;			
-		
-		Ray  ray = ray_from_camera(_window, x, y);
 		
 		glm::mat4 target_transforms = glm::mat4(1.0f);
 		
@@ -368,7 +366,7 @@ bool Raycaster::intersectGizmos(
 			glm::vec3 local_pos_vec3 = glm::inverse(target_transforms) * local_pos ;
 			if(hit){
 				printf("------> gizmo hit <--------\n");
-			
+				_result_gizmos.push_back(_target_gizmos[i]);
 				float cam_dist = glm::distance( _camera.position, world_pos);
 				printf("\tlocal_pos_vec3 : %.3f, %.3f, %.3f\n", local_pos_vec3.x, local_pos_vec3.y, local_pos_vec3.z);
 				if( fabs(local_pos_vec3.x) > fabs(local_pos_vec3.y)
@@ -390,9 +388,7 @@ bool Raycaster::intersectGizmos(
 					return true;
 				}else{
 					return false;
-				}
-				
-				
+				}	
 			}			
 		}
 	}

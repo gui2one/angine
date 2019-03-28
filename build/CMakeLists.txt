@@ -67,6 +67,7 @@ add_executable(angine
 	../src/utils/objLoader.cpp
 	
 	../src/gizmos/gizmo.cpp
+	../src/gizmos/handle.cpp
 	
 	../src/mesh.cpp
 	../src/generators/mesh_generator.cpp

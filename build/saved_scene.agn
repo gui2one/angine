@@ -375,19 +375,7 @@
             "type": "OBJECT"
         },
         {
-            "mesh_filters": [
-                {
-                    "name": "transform",
-                    "params": [
-                        {
-                            "name": "Invert normals",
-                            "type": 5,
-                            "value": false
-                        }
-                    ],
-                    "type": 37
-                }
-            ],
+            "mesh_filters": [],
             "mesh_generator": {
                 "params": [
                     {
@@ -457,6 +445,120 @@
                             "name": "t__z",
                             "type": 1,
                             "value": -2.0
+                        }
+                    ]
+                },
+                {
+                    "name": "rotation",
+                    "type": 2,
+                    "value": [
+                        {
+                            "name": "r__x",
+                            "type": 1,
+                            "value": 0.0
+                        },
+                        {
+                            "name": "r__y",
+                            "type": 1,
+                            "value": 0.0
+                        },
+                        {
+                            "name": "r__z",
+                            "type": 1,
+                            "value": 0.0
+                        }
+                    ]
+                },
+                {
+                    "name": "scale",
+                    "type": 2,
+                    "value": [
+                        {
+                            "name": "s__x",
+                            "type": 1,
+                            "value": 1.0
+                        },
+                        {
+                            "name": "s__y",
+                            "type": 1,
+                            "value": 1.0
+                        },
+                        {
+                            "name": "s__z",
+                            "type": 1,
+                            "value": 1.0
+                        }
+                    ]
+                }
+            ],
+            "type": "OBJECT"
+        },
+        {
+            "mesh_filters": [],
+            "mesh_generator": {
+                "params": [
+                    {
+                        "name": "radius",
+                        "type": 1,
+                        "value": 0.5
+                    }
+                ],
+                "type": 1
+            },
+            "name": "copy_name___",
+            "parent": -1,
+            "position": [
+                -3.0,
+                0.0,
+                0.0
+            ],
+            "rotation": [
+                0.0,
+                0.0,
+                0.0
+            ],
+            "scale": [
+                1.0,
+                1.0,
+                1.0
+            ],
+            "transforms": [
+                1.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                1.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                1.0,
+                0.0,
+                -3.0,
+                0.0,
+                0.0,
+                1.0
+            ],
+            "transforms_params": [
+                {
+                    "name": "position",
+                    "type": 2,
+                    "value": [
+                        {
+                            "name": "t__x",
+                            "type": 1,
+                            "value": -3.0
+                        },
+                        {
+                            "name": "t__y",
+                            "type": 1,
+                            "value": 0.0
+                        },
+                        {
+                            "name": "t__z",
+                            "type": 1,
+                            "value": 0.0
                         }
                     ]
                 },
