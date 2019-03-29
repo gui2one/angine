@@ -2227,7 +2227,8 @@ void Window::renderObjects()
 				glUniformMatrix4fv(glGetUniformLocation(point_shader.m_id,"view"), 1, GL_FALSE, glm::value_ptr(view));					
 											
 				COLOR_LOC = glGetUniformLocation(point_shader.m_id,"u_color");
-				glUniform4f(COLOR_LOC, 1.0,0.0,0.0,1.0);			
+				glUniform4f(COLOR_LOC, 1.0,0.0,0.0,1.0);	
+						
 				curObj->drawPoints();
 				
 				glUseProgram(0);
@@ -2237,7 +2238,8 @@ void Window::renderObjects()
 			if(curObj->bDisplayNormals){
 											
 				COLOR_LOC = glGetUniformLocation(curObj->shader.m_id,"u_color");
-				glUniform4f(COLOR_LOC, 1.0,0.0,0.0,1.0);			
+				glUniform4f(COLOR_LOC, 1.0,0.0,0.0,1.0);	
+						
 				curObj->drawNormals();
 				
 				glUseProgram(0);
@@ -2252,7 +2254,8 @@ void Window::renderObjects()
 				glUniform4f(COLOR_LOC, 1.0,1.0,0.0,1.0);				
 				glUniformMatrix4fv(glGetUniformLocation(point_shader.m_id,"projection"), 1, GL_FALSE, glm::value_ptr(camera.projection));	
 				glUniformMatrix4fv(glGetUniformLocation(point_shader.m_id,"model"), 1, GL_FALSE, glm::value_ptr(model));	
-				glUniformMatrix4fv(glGetUniformLocation(point_shader.m_id,"view"), 1, GL_FALSE, glm::value_ptr(view));				
+				glUniformMatrix4fv(glGetUniformLocation(point_shader.m_id,"view"), 1, GL_FALSE, glm::value_ptr(view));			
+					
 				curObj->drawBoundingBox();
 				
 				glUseProgram(0);
@@ -2271,7 +2274,8 @@ void Window::renderObjects()
 			glUniformMatrix4fv(glGetUniformLocation(point_shader.m_id,"view"), 1, GL_FALSE, glm::value_ptr(view));
 			glUniform4f(
 				glGetUniformLocation(point_shader.m_id,"u_color"), 
-				1.0,1.0,0.0,1.0);				
+				1.0,1.0,0.0,1.0);			
+					
 			curDummy->draw();	
 			
 			glUseProgram(0);

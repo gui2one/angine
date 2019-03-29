@@ -5,17 +5,12 @@
             "mesh_generator": {
                 "params": [
                     {
-                        "name": "rows",
-                        "type": 4,
-                        "value": 2
-                    },
-                    {
-                        "name": "cols",
-                        "type": 4,
-                        "value": 2
-                    },
-                    {
                         "name": "width",
+                        "type": 1,
+                        "value": 1.0
+                    },
+                    {
+                        "name": "height",
                         "type": 1,
                         "value": 1.0
                     },
@@ -23,9 +18,24 @@
                         "name": "length",
                         "type": 1,
                         "value": 1.0
+                    },
+                    {
+                        "name": "segs_width",
+                        "type": 4,
+                        "value": 4
+                    },
+                    {
+                        "name": "segs_height",
+                        "type": 4,
+                        "value": 4
+                    },
+                    {
+                        "name": "segs_length",
+                        "type": 4,
+                        "value": 4
                     }
                 ],
-                "type": 2
+                "type": 3
             },
             "name": "box",
             "parent": -1,
