@@ -128,11 +128,11 @@ Window::Window()
 	ImGui_ImplOpenGL3_Init(glsl_version);
 	
 
-	initWorldGrid();
+	
 	
 
 	setCamPosFromPolar(camera_u_pos, camera_v_pos, camera_orbit_radius);
-
+	initWorldGrid();
 	// timeline 
 	
 	time_line.start = 1;
@@ -2034,7 +2034,9 @@ void Window::addObject(Entity3D* obj)
 }
 
 void Window::removeObject(Entity3D* obj)
-{
+{	
+	if(objects.size() > 0)
+	{
 		//// check for children and reset parent to nullptr if needed
 		for (int i = 0; i < objects.size(); i++)
 		{
@@ -2049,7 +2051,9 @@ void Window::removeObject(Entity3D* obj)
 		}
 		
 		int index_to_remove = findObjectIndexByID(obj->getID());
+		
 		delete obj;
+		
 		objects.erase(objects.begin() + index_to_remove);
 		
 		if(cur_object_selected > 0)
@@ -2060,7 +2064,7 @@ void Window::removeObject(Entity3D* obj)
 			cur_object_selected = -1;
 			cur_unique_id = 0;
 		}
-			
+	}	
 		//~ printf("Objects number is %d \n", objects.size());
 }
 
@@ -2123,25 +2127,25 @@ void Window::renderObjects()
 
 		
 		// draw world grid
-				point_shader.useProgram();
-				GLCall(
-					glUniformMatrix4fv(glGetUniformLocation(point_shader.m_id,"projection"), 1, GL_FALSE, glm::value_ptr(camera.projection))
-				);	
-				GLCall(
-					glUniformMatrix4fv(glGetUniformLocation(point_shader.m_id,"model"), 1, GL_FALSE, glm::value_ptr(model))
-				);	
-				GLCall(
-					glUniformMatrix4fv(glGetUniformLocation(point_shader.m_id,"view"), 1, GL_FALSE, glm::value_ptr(view))
-				);	
-										
-				GLuint COLOR_LOC = glGetUniformLocation(point_shader.m_id,"u_color");
-				GLCall(glUniform4f(COLOR_LOC, 1.0, 1.0, 1.0, 0.5));	
-				
-				GLCall(glPolygonMode( GL_FRONT_AND_BACK, GL_LINE ));
-				
-				drawWorldGrid();
-				
-				GLCall(glUseProgram(0));
+		point_shader.useProgram();
+		GLCall(
+			glUniformMatrix4fv(glGetUniformLocation(point_shader.m_id,"projection"), 1, GL_FALSE, glm::value_ptr(camera.projection))
+		);	
+		GLCall(
+			glUniformMatrix4fv(glGetUniformLocation(point_shader.m_id,"model"), 1, GL_FALSE, glm::value_ptr(model))
+		);	
+		GLCall(
+			glUniformMatrix4fv(glGetUniformLocation(point_shader.m_id,"view"), 1, GL_FALSE, glm::value_ptr(view))
+		);	
+								
+		GLuint COLOR_LOC = glGetUniformLocation(point_shader.m_id,"u_color");
+		GLCall(glUniform4f(COLOR_LOC, 1.0, 1.0, 1.0, 0.5));	
+		
+		GLCall(glPolygonMode( GL_FRONT_AND_BACK, GL_LINE ));
+		
+		drawWorldGrid();
+		
+		GLCall(glUseProgram(0));
 		////
 		
 
@@ -2267,7 +2271,7 @@ void Window::renderObjects()
 				
 				GLCall(glUniform4f(COLOR_LOC, 1.0,0.0,0.0,1.0));	
 						
-				curObj->drawPoints();
+					curObj->drawPoints();
 				
 				GLCall(glUseProgram(0));
 			}			
@@ -2278,7 +2282,7 @@ void Window::renderObjects()
 				COLOR_LOC = glGetUniformLocation(point_shader.m_id,"u_color");
 				GLCall(glUniform4f(COLOR_LOC, 0.0,1.0,0.0,1.0));	
 						
-				curObj->drawNormals();
+					curObj->drawNormals();
 				
 				GLCall(glUseProgram(0));
 			}
@@ -2339,18 +2343,22 @@ void Window::renderObjects()
 			gizmos[i]->target_object = objects[cur_object_selected];
 			gizmos[i]->transforms = model;
 			
-			point_shader.useProgram();
+			GLCall(point_shader.useProgram());
 			
-			glUniformMatrix4fv(glGetUniformLocation(point_shader.m_id,"projection"), 1, GL_FALSE, glm::value_ptr(camera.projection));	
-			//~ glUniformMatrix4fv(glGetUniformLocation(point_shader.m_id,"model"), 1, GL_FALSE, glm::value_ptr(model));	
-			glUniformMatrix4fv(glGetUniformLocation(point_shader.m_id,"view"), 1, GL_FALSE, glm::value_ptr(view));	
+			GLCall(
+				glUniformMatrix4fv(glGetUniformLocation(point_shader.m_id,"projection"), 1, GL_FALSE, glm::value_ptr(camera.projection))
+			);
+			
+			GLCall(
+				glUniformMatrix4fv(glGetUniformLocation(point_shader.m_id,"view"), 1, GL_FALSE, glm::value_ptr(view))
+			);
 									
 			//~ GLuint COLOR_LOC = glGetUniformLocation(point_shader.m_id,"u_color");
 			//~ 
 			//~ glUniform4f(COLOR_LOC, 1.0, 0.0, 0.0, 1.0);			
 			gizmos[i]->draw(point_shader, camera);
 			
-			glUseProgram(0);
+			GLCall(glUseProgram(0));
 			
 			//~ printf("rendered gizmo\n");
 		}
@@ -2408,9 +2416,23 @@ void Window::saveToFile()
 
 void Window::loadFromFile(std::string file_path)
 {
-	objects.clear();
+	//~ objects.clear();
+
+	for (int i = objects.size() -1; i >= 0; i--)
+	{
+		removeObject(objects[i]);
+	}
+	
 	cur_unique_id = 0;
 	cur_object_selected = -1;
+	
+	initWorldGrid();
+	
+	for (int i = 0; i < gizmos.size(); i++)
+	{
+		gizmos[i]->buildVbo();
+	}
+	
 	
 	std::ifstream in_file(file_path);
 	std::string line;

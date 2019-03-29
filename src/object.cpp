@@ -256,11 +256,6 @@ void Object::initShader()
 	shader.loadFragmentShaderSource("../src/res/shaders/basic_shader.frag");	
 	
 	shader.createShader();	
-
-		//~ lineShader.loadVertexShaderSource("../src/res/shaders/line_shader.vert");
-		//~ lineShader.loadFragmentShaderSource("../src/res/shaders/line_shader.frag");		
-		//~ lineShader.createShader();			
-	//~ printf("--- END shaders initialization \n");
 }
 
 void Object::buildTexture()
@@ -304,15 +299,8 @@ std::vector<uniform> Object::getShaderUniforms()
 void Object::buildVbo()
 {
 	
-	//~ printf("--- START VBO initialization \n");
-	
-	
-	
-	
-	
 	for (int i = 0; i < mesh.vertices.size(); i++)
 	{
-		//~ int id = mesh.indices[i];
 		vertex_data.push_back( mesh.vertices[i].position.x);
 		vertex_data.push_back( mesh.vertices[i].position.y);
 		vertex_data.push_back( mesh.vertices[i].position.z);
@@ -323,14 +311,8 @@ void Object::buildVbo()
 		
 		vertex_data.push_back( mesh.vertices[i].t_coords.x);
 		vertex_data.push_back( mesh.vertices[i].t_coords.y);
-		
-		//~ std::cout << "t__coord__x --> " << mesh.vertices[i].t_coords.x << "\n";
-		//~ std::cout << "t__coord__y --> " << mesh.vertices[i].t_coords.y << "\n";
-		//~ std::cout <<" ----- \n";
-		
 	}
-	
-	
+		
 	glDeleteBuffers(1, &m_vbo);
 	glGenBuffers(1, &m_vbo);
 	glBindBuffer(GL_ARRAY_BUFFER, m_vbo);

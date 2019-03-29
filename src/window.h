@@ -45,9 +45,11 @@ class Window
 		
 		Entity3D* mouseClickObject();
 		bool mouseClickGizmo();
+		
+		unsigned int world_grid_vbo, world_grid_ibo;
 		void initWorldGrid();
 		void drawWorldGrid();
-		unsigned int world_grid_vbo, world_grid_ibo;
+		
 		
 		TimeLine time_line;
 		bool right_mouse_button_down = false;	
