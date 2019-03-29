@@ -2169,28 +2169,34 @@ void Window::renderObjects()
 		ObjectDummy * curDummy = nullptr;
 		if( curObj = dynamic_cast<Object *>(objects[i]))
 		{			
-			curObj->shader.useProgram();	
+			if(curObj->bDisplayPolygons){
+				
+				curObj->shader.useProgram();	
 
-			glUniformMatrix4fv(glGetUniformLocation(curObj->shader.m_id,"projection"), 1, GL_FALSE, glm::value_ptr(camera.projection));	
-			glUniformMatrix4fv(glGetUniformLocation(curObj->shader.m_id,"model"), 1, GL_FALSE, glm::value_ptr(model));	
-			glUniformMatrix4fv(glGetUniformLocation(curObj->shader.m_id,"view"), 1, GL_FALSE, glm::value_ptr(view));	
-									
-			GLuint COLOR_LOC = glGetUniformLocation(curObj->shader.m_id,"u_color");
+				glUniformMatrix4fv(glGetUniformLocation(curObj->shader.m_id,"projection"), 1, GL_FALSE, glm::value_ptr(camera.projection));	
+				glUniformMatrix4fv(glGetUniformLocation(curObj->shader.m_id,"model"), 1, GL_FALSE, glm::value_ptr(model));	
+				glUniformMatrix4fv(glGetUniformLocation(curObj->shader.m_id,"view"), 1, GL_FALSE, glm::value_ptr(view));	
+										
+				GLuint COLOR_LOC = glGetUniformLocation(curObj->shader.m_id,"u_color");
 
-			if(cur_object_selected == i)
-				glUniform4f(COLOR_LOC, 1.0, 1.0, 0.2, 1.0);
-			else
-				glUniform4f(COLOR_LOC, curObj->color.x, curObj->color.y, curObj->color.z, curObj->color.w);
-			//~ curObj->texture.bind();
+				if(cur_object_selected == i)
+				{
+					glUniform4f(COLOR_LOC, 1.0, 1.0, 0.2, 1.0);
+				}else{
+					glUniform4f(COLOR_LOC, curObj->color.x, curObj->color.y, curObj->color.z, curObj->color.w);
+				}
+				//~ curObj->texture.bind();
+				
+				glUniform1i(glGetUniformLocation(curObj->shader.m_id, "u_tex"),0);
+
+				//~ if(cur_object_selected == i)
+					//~ drawSelGizmo();
 			
-			glUniform1i(glGetUniformLocation(curObj->shader.m_id, "u_tex"),0);
-
-			//~ if(cur_object_selected == i)
-				//~ drawSelGizmo();
-			
-			if(curObj->bDisplayPolygons){			
+						
 				glPolygonMode( GL_FRONT_AND_BACK, GL_FILL );
 				curObj->draw(curObj->getRenderMode());
+				
+				glUseProgram(0);
 			}
 				
 			if(curObj->bDisplayWireframe)
@@ -2210,6 +2216,8 @@ void Window::renderObjects()
 					curObj->draw(curObj->getRenderMode());				
 					
 				glPolygonMode( GL_FRONT_AND_BACK, GL_FILL );
+				
+				glUseProgram(0);
 			}
 			
 			if(curObj->bDisplayPoints){
@@ -2221,6 +2229,8 @@ void Window::renderObjects()
 				COLOR_LOC = glGetUniformLocation(point_shader.m_id,"u_color");
 				glUniform4f(COLOR_LOC, 1.0,0.0,0.0,1.0);			
 				curObj->drawPoints();
+				
+				glUseProgram(0);
 			}			
 			
 			
@@ -2229,6 +2239,8 @@ void Window::renderObjects()
 				COLOR_LOC = glGetUniformLocation(curObj->shader.m_id,"u_color");
 				glUniform4f(COLOR_LOC, 1.0,0.0,0.0,1.0);			
 				curObj->drawNormals();
+				
+				glUseProgram(0);
 			}
 			
 			if(curObj->bDisplayBoundingBox)
@@ -2242,7 +2254,11 @@ void Window::renderObjects()
 				glUniformMatrix4fv(glGetUniformLocation(point_shader.m_id,"model"), 1, GL_FALSE, glm::value_ptr(model));	
 				glUniformMatrix4fv(glGetUniformLocation(point_shader.m_id,"view"), 1, GL_FALSE, glm::value_ptr(view));				
 				curObj->drawBoundingBox();
+				
+				glUseProgram(0);
 			}
+			
+			
 			
 		}
 		 

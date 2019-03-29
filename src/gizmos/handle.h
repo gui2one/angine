@@ -25,4 +25,10 @@ class Handle
 		/* add your private declarations */
 };
 
+
+class TranslateHandle : public Handle
+{
+	public:
+		TranslateHandle();
+};
 #endif /* HANDLE_H */ 

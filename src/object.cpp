@@ -555,9 +555,9 @@ void Object::draw(GLuint mode)
 
 		//~ shader.useProgram();
 		
-		//~ glEnable(GL_TEXTURE_2D);
-		glDisable(GL_TEXTURE_2D);
-		texture.bind();
+		//~ glEnable(GL_TEXTURE_2D);		
+		//~ texture.bind();
+		
 		glUniform1i(glGetUniformLocation(shader.m_id,"u_tex"), 0);
 		
 		
@@ -577,13 +577,16 @@ void Object::draw(GLuint mode)
 			
 			glPointSize(3);
 			glDrawArrays(mode,0, mesh.vertices.size());		
-				
+			glBindBuffer(GL_ARRAY_BUFFER, 0);
+			
 		}else if( mode == GL_TRIANGLES){
 
 
 			glBindBuffer(GL_ELEMENT_ARRAY_BUFFER,m_ibo);
 			glDrawElements(mode, mesh.indices.size(), GL_UNSIGNED_INT, nullptr);
 			
+			glBindBuffer(GL_ELEMENT_ARRAY_BUFFER,0);
+			glBindBuffer(GL_ARRAY_BUFFER, 0);
 			//~ glPointSize(10);
 			//~ glDrawArrays(GL_POINTS,0, mesh.vertices.size());					
 			
@@ -592,13 +595,13 @@ void Object::draw(GLuint mode)
 		glDisableVertexAttribArray(0);
 		glDisableVertexAttribArray(1);
 		glDisableVertexAttribArray(2);
-		glBindBuffer(GL_ARRAY_BUFFER, 0);
-		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER,0);
+		
+
 		
 		
-		glUseProgram(0);
-		glDisable(GL_TEXTURE_2D);
-		texture.unbind();
+		//~ glUseProgram(0);
+		//~ glDisable(GL_TEXTURE_2D);
+		//~ texture.unbind();
 	
 		
 }

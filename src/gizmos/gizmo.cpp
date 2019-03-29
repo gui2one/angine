@@ -9,8 +9,8 @@ Gizmo::Gizmo()
 	scale = glm::vec3(1.0f,1.0f,1.0f);	
 	
 	
-	Handle trans_1;// = new Handle();
-	trans_1.setName("first handle");
+	TranslateHandle trans_1;// = new Handle();
+	//~ trans_1.setName("first handle");
 	handles.push_back(trans_1);
 
 }
