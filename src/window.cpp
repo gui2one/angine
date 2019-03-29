@@ -180,13 +180,13 @@ Window::Window()
 	addObject(obj);
 	
 	
-	ObjectDummy * dummy = new ObjectDummy();
-	dummy->setName("null_1");
-	dummy->init();
-	
-	dummy->p_pos->param_x->setValue(-1.5);
-	dummy->applyTransforms();
-	addObject(dummy);
+	//~ ObjectDummy * dummy = new ObjectDummy();
+	//~ dummy->setName("null_1");
+	//~ dummy->init();
+	//~ 
+	//~ dummy->p_pos->param_x->setValue(-1.5);
+	//~ dummy->applyTransforms();
+	//~ addObject(dummy);
 
 	evalKeyframes();
 
@@ -294,15 +294,18 @@ void Window::initWorldGrid()
 
 void Window::drawWorldGrid()
 {
+	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, world_grid_ibo);
 	glBindBuffer(GL_ARRAY_BUFFER, world_grid_vbo);
 	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(float) * 3, 0); 
+	
 	glEnableVertexAttribArray(0);
 	
-	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, world_grid_ibo);
+	
 	
 	glDrawElements(GL_LINES, 44, GL_UNSIGNED_INT, nullptr);
 	
 	glDisableVertexAttribArray(0);
+	
 	glBindBuffer(GL_ARRAY_BUFFER, 0);
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
 	
@@ -2194,6 +2197,7 @@ void Window::renderObjects()
 			
 						
 				glPolygonMode( GL_FRONT_AND_BACK, GL_FILL );
+				
 				curObj->draw(curObj->getRenderMode());
 				
 				glUseProgram(0);
@@ -2421,17 +2425,17 @@ void Window::loadFromFile(std::string file_path)
   
   // all entities are created, now I can deal with parenting
   
-  for (int i = 0; i < objects.size(); i++)
-  {
-	  Entity3D * cur_entity = objects[i];
-	  json cur_j = j["entities"][i];
+  //~ for (int i = 0; i < objects.size(); i++)
+  //~ {
+	  //~ Entity3D * cur_entity = objects[i];
+	  //~ json cur_j = j["entities"][i];
 	  //~ printf("parent ID is --> %d \n", (cur_j["parent"].get<int>()));
-	  if( cur_j["parent"].get<int>() != -1)
-	  {
+	  //~ if( cur_j["parent"].get<int>() != -1)
+	  //~ {
 		  //~ printf("parent ID is --> %d \n", cur_j["parent"].get<int>());
 		  //~ cur_entity->setParent( objects[findObjectIndexByID( cur_j["parent"].get<int>())]);
-	  }
-  }
+	  //~ }
+  //~ }
   
   
   evalKeyframes();

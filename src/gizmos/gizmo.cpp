@@ -138,6 +138,9 @@ void Gizmo::draw(Shader & _shader, Camera & camera){
 		glDisableVertexAttribArray(1);
 		
 
+		glBindBuffer(GL_ARRAY_BUFFER, 0);
+		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER,0);
+
 		// rotate to lay down Y Axis
 		model = glm::mat4(1.0f);
 		model = target_object->transforms * model;
