@@ -1,3 +1,6 @@
+#ifndef PCH_H
+#define PCH_H
+
 #include <string>
 #include <vector>
 #include <iostream>
@@ -30,3 +33,32 @@
 // for convenience
 using json = nlohmann::json;
 ////
+
+
+// opengl debugging
+
+#include <csignal>
+
+#define ASSERT(x) if(!(x)) std::raise(SIGINT);
+#define GLCall(x) GLClearError(); \
+	x;\
+	ASSERT(GLLogCall())
+
+
+static void GLClearError()
+{
+	while(glGetError() != GL_NO_ERROR);
+}
+
+static bool GLLogCall()
+{
+	while( GLenum error = glGetError()){
+		std::cout << "[OpenGL Error] (" << error << ")" << std::endl;
+		return false;
+	}
+	
+	return true;
+}
+
+#endif
+

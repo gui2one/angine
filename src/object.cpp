@@ -583,7 +583,7 @@ void Object::draw(GLuint mode)
 
 
 			glBindBuffer(GL_ELEMENT_ARRAY_BUFFER,m_ibo);
-			glDrawElements(mode, mesh.indices.size(), GL_UNSIGNED_INT, nullptr);
+			GLCall(glDrawElements(mode, mesh.indices.size(), GL_UNSIGNED_INT, nullptr));
 			
 			glBindBuffer(GL_ELEMENT_ARRAY_BUFFER,0);
 			glBindBuffer(GL_ARRAY_BUFFER, 0);
@@ -619,14 +619,14 @@ void Object::drawBoundingBox()
 		glDisableVertexAttribArray(0);		
 		glBindBuffer(GL_ARRAY_BUFFER, 0);	
 		
-		glUseProgram(0);	
+		//~ glUseProgram(0);
 }
 
 void Object::drawNormals()
 {
 			
-		shader.useProgram();
-		glUniform4f(glGetUniformLocation(shader.m_id,"u_color"), 0.0,1.0,0.5,1.0);
+		//~ shader.useProgram();
+		//~ glUniform4f(glGetUniformLocation(shader.m_id,"u_color"), 0.0,1.0,0.5,1.0);
 		glBindBuffer(GL_ARRAY_BUFFER, m_normals_vbo);
 		glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(float) * 3, 0); 					
 		glEnableVertexAttribArray(0);		
@@ -636,7 +636,7 @@ void Object::drawNormals()
 		glDisableVertexAttribArray(0);		
 		glBindBuffer(GL_ARRAY_BUFFER, 0);	
 		
-		glUseProgram(0);
+		//~ glUseProgram(0);
 }
 
 void Object::drawPoints()
@@ -652,7 +652,7 @@ void Object::drawPoints()
 		glDisableVertexAttribArray(0);		
 		glBindBuffer(GL_ARRAY_BUFFER, 0);	
 		
-		glUseProgram(0);	
+		//~ glUseProgram(0);	
 }
 
 json Object::toJSON()
@@ -660,6 +660,7 @@ json Object::toJSON()
 	json j;
 	j["type"] = "OBJECT";
 	j["name"] = name;
+	j["color"] = { color.x, color.y, color.z, color.w };
 	j["transforms"] = {
 		transforms[0][0], transforms[0][1],transforms[0][2],transforms[0][3],
 		transforms[1][0], transforms[1][1],transforms[1][2],transforms[1][3],
@@ -699,7 +700,12 @@ void Object::fromJSON(json _j, Shader& _shader)
 	//~ printf("OBJECT fromJSON function fired !!!! \n");
 	setName(_j["name"].get<std::string>());
 	
-
+	color = glm::vec4(
+		_j["color"][0].get<float>(), 
+		_j["color"][1].get<float>(), 
+		_j["color"][2].get<float>(), 
+		_j["color"][3].get<float>()
+	);
 	init();
 	//~ printf("setting up transforms params \n");
 	std::vector<json> trans_params_j = _j["transforms_params"];
@@ -869,6 +875,8 @@ void Object::fromJSON(json _j, Shader& _shader)
 	if(_j["mesh_filters"].size() > 0){
 		hasFilters = true;
 	}
+	
+	
 	
 }
 

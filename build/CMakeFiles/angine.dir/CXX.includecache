@@ -745,6 +745,8 @@ vendor/glm/gtc/type_ptr.hpp
 /home/pi/projects/angine/src/vendor/glm/gtc/type_ptr.hpp
 vendor/nlohmann/json.hpp
 /home/pi/projects/angine/src/vendor/nlohmann/json.hpp
+csignal
+-
 
 /home/pi/projects/angine/src/raycaster.cpp
 raycaster.h

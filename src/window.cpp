@@ -27,8 +27,6 @@
 #include "raycaster.h"
 
 
-
-
 static int ray_plane_intersect(glm::vec3 planeN, glm::vec3 planeP, glm::vec3 pointP, glm::vec3 rayDir, glm::vec3& hitP)
 {
     glm::vec3 W = planeP - pointP;
@@ -271,18 +269,18 @@ void Window::initWorldGrid()
 	}
 	
 
-	glDeleteBuffers(1, &world_grid_vbo);
-	glGenBuffers(1, &world_grid_vbo);
-	glBindBuffer(GL_ARRAY_BUFFER, world_grid_vbo);
-	glBufferData(GL_ARRAY_BUFFER, sizeof(float) * verts.size(), verts.data() ,GL_STATIC_DRAW);
-	glBindBuffer(GL_ARRAY_BUFFER, 0);
+	GLCall(glDeleteBuffers(1, &world_grid_vbo));
+	GLCall(glGenBuffers(1, &world_grid_vbo));
+	GLCall(glBindBuffer(GL_ARRAY_BUFFER, world_grid_vbo));
+	GLCall(glBufferData(GL_ARRAY_BUFFER, sizeof(float) * verts.size(), verts.data() ,GL_STATIC_DRAW));
+	GLCall(glBindBuffer(GL_ARRAY_BUFFER, 0));
 
 
-	glDeleteBuffers(1, &world_grid_ibo);
-	glGenBuffers(1, &world_grid_ibo);	
-	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, world_grid_ibo);
-	glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(unsigned int) * indices.size(), indices.data() ,GL_STATIC_DRAW);
-	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
+	GLCall(glDeleteBuffers(1, &world_grid_ibo));
+	GLCall(glGenBuffers(1, &world_grid_ibo));	
+	GLCall(glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, world_grid_ibo));
+	GLCall(glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(unsigned int) * indices.size(), indices.data() ,GL_STATIC_DRAW));
+	GLCall(glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0));
 	
 	
 	
@@ -294,20 +292,20 @@ void Window::initWorldGrid()
 
 void Window::drawWorldGrid()
 {
-	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, world_grid_ibo);
-	glBindBuffer(GL_ARRAY_BUFFER, world_grid_vbo);
-	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(float) * 3, 0); 
+	GLCall(glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, world_grid_ibo));
+	GLCall(glBindBuffer(GL_ARRAY_BUFFER, world_grid_vbo));
+	GLCall(glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(float) * 3, 0)); 
 	
-	glEnableVertexAttribArray(0);
+	GLCall(glEnableVertexAttribArray(0));
 	
 	
 	
-	glDrawElements(GL_LINES, 44, GL_UNSIGNED_INT, nullptr);
+	GLCall(glDrawElements(GL_LINES, 44, GL_UNSIGNED_INT, nullptr));
 	
-	glDisableVertexAttribArray(0);
+	GLCall(glDisableVertexAttribArray(0));
 	
-	glBindBuffer(GL_ARRAY_BUFFER, 0);
-	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
+	GLCall(glBindBuffer(GL_ARRAY_BUFFER, 0));
+	GLCall(glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0));
 	
 }
 
@@ -2126,17 +2124,27 @@ void Window::renderObjects()
 		
 		// draw world grid
 				point_shader.useProgram();
-				glUniformMatrix4fv(glGetUniformLocation(point_shader.m_id,"projection"), 1, GL_FALSE, glm::value_ptr(camera.projection));	
-				glUniformMatrix4fv(glGetUniformLocation(point_shader.m_id,"model"), 1, GL_FALSE, glm::value_ptr(model));	
-				glUniformMatrix4fv(glGetUniformLocation(point_shader.m_id,"view"), 1, GL_FALSE, glm::value_ptr(view));	
+				GLCall(
+					glUniformMatrix4fv(glGetUniformLocation(point_shader.m_id,"projection"), 1, GL_FALSE, glm::value_ptr(camera.projection))
+				);	
+				GLCall(
+					glUniformMatrix4fv(glGetUniformLocation(point_shader.m_id,"model"), 1, GL_FALSE, glm::value_ptr(model))
+				);	
+				GLCall(
+					glUniformMatrix4fv(glGetUniformLocation(point_shader.m_id,"view"), 1, GL_FALSE, glm::value_ptr(view))
+				);	
 										
 				GLuint COLOR_LOC = glGetUniformLocation(point_shader.m_id,"u_color");
-				glUniform4f(COLOR_LOC, 1.0, 1.0, 1.0, 0.5);	
+				GLCall(glUniform4f(COLOR_LOC, 1.0, 1.0, 1.0, 0.5));	
+				
+				GLCall(glPolygonMode( GL_FRONT_AND_BACK, GL_LINE ));
 				
 				drawWorldGrid();
 				
-				glUseProgram(0);
+				GLCall(glUseProgram(0));
 		////
+		
+
 
 	
 	for (int i = 0; i < objects.size(); i++)
@@ -2176,77 +2184,103 @@ void Window::renderObjects()
 				
 				curObj->shader.useProgram();	
 
-				glUniformMatrix4fv(glGetUniformLocation(curObj->shader.m_id,"projection"), 1, GL_FALSE, glm::value_ptr(camera.projection));	
-				glUniformMatrix4fv(glGetUniformLocation(curObj->shader.m_id,"model"), 1, GL_FALSE, glm::value_ptr(model));	
-				glUniformMatrix4fv(glGetUniformLocation(curObj->shader.m_id,"view"), 1, GL_FALSE, glm::value_ptr(view));	
+				GLCall(
+					glUniformMatrix4fv(glGetUniformLocation(curObj->shader.m_id,"projection"), 1, GL_FALSE, glm::value_ptr(camera.projection))
+				);	
+				GLCall(
+					glUniformMatrix4fv(glGetUniformLocation(curObj->shader.m_id,"model"), 1, GL_FALSE, glm::value_ptr(model))
+				);						
+				GLCall(
+					glUniformMatrix4fv(glGetUniformLocation(curObj->shader.m_id,"view"), 1, GL_FALSE, glm::value_ptr(view))
+				);	
 										
 				GLuint COLOR_LOC = glGetUniformLocation(curObj->shader.m_id,"u_color");
 
 				if(cur_object_selected == i)
 				{
-					glUniform4f(COLOR_LOC, 1.0, 1.0, 0.2, 1.0);
+					GLCall(glUniform4f(COLOR_LOC, 1.0, 1.0, 0.2, 1.0));
 				}else{
-					glUniform4f(COLOR_LOC, curObj->color.x, curObj->color.y, curObj->color.z, curObj->color.w);
+					GLCall(
+						glUniform4f(COLOR_LOC, curObj->color.x, curObj->color.y, curObj->color.z, curObj->color.w)
+					);
 				}
 				//~ curObj->texture.bind();
 				
-				glUniform1i(glGetUniformLocation(curObj->shader.m_id, "u_tex"),0);
+				GLCall(
+					glUniform1i(glGetUniformLocation(curObj->shader.m_id, "u_tex"),0)
+				);
 
 				//~ if(cur_object_selected == i)
 					//~ drawSelGizmo();
 			
 						
-				glPolygonMode( GL_FRONT_AND_BACK, GL_FILL );
+				GLCall(glPolygonMode( GL_FRONT_AND_BACK, GL_FILL ));
 				
 				curObj->draw(curObj->getRenderMode());
 				
-				glUseProgram(0);
+				GLCall(glUseProgram(0));
 			}
 				
 			if(curObj->bDisplayWireframe)
 			{
-				wireframe_shader.useProgram();
-				glUniformMatrix4fv(glGetUniformLocation(wireframe_shader.m_id,"projection"), 1, GL_FALSE, glm::value_ptr(camera.projection));	
-				glUniformMatrix4fv(glGetUniformLocation(wireframe_shader.m_id,"model"), 1, GL_FALSE, glm::value_ptr(model));	
-				glUniformMatrix4fv(glGetUniformLocation(wireframe_shader.m_id,"view"), 1, GL_FALSE, glm::value_ptr(view));					
+				GLCall(wireframe_shader.useProgram());
+				GLCall(
+					glUniformMatrix4fv(glGetUniformLocation(wireframe_shader.m_id,"projection"), 1, GL_FALSE, glm::value_ptr(camera.projection))
+				);	
+				GLCall(
+					glUniformMatrix4fv(glGetUniformLocation(wireframe_shader.m_id,"model"), 1, GL_FALSE, glm::value_ptr(model))
+				);	
+				GLCall(
+					glUniformMatrix4fv(glGetUniformLocation(wireframe_shader.m_id,"view"), 1, GL_FALSE, glm::value_ptr(view))
+				);
 
-				glUniform3f(glGetUniformLocation(wireframe_shader.m_id,"u_camera_pos"), camera.position.x, camera.position.y, camera.position.z);	
+				GLCall(
+					glUniform3f(glGetUniformLocation(wireframe_shader.m_id,"u_camera_pos"), camera.position.x, camera.position.y, camera.position.z)
+				);
 				COLOR_LOC = glGetUniformLocation(wireframe_shader.m_id,"u_color");
-				glPointSize(5);
-				glUniform4f(COLOR_LOC, 0.0,0.0,1.0,1.0);
 				
-				glPolygonMode( GL_FRONT_AND_BACK, GL_LINE );
+				GLCall(glPointSize(5));
+				GLCall(glUniform4f(COLOR_LOC, 0.0,0.0,1.0,1.0));
+				
+				GLCall(glPolygonMode( GL_FRONT_AND_BACK, GL_LINE ));
 				
 					curObj->draw(curObj->getRenderMode());				
 					
-				glPolygonMode( GL_FRONT_AND_BACK, GL_FILL );
+				GLCall(glPolygonMode( GL_FRONT_AND_BACK, GL_FILL ));
 				
-				glUseProgram(0);
+				GLCall(glUseProgram(0));
 			}
 			
 			if(curObj->bDisplayPoints){
-				point_shader.useProgram();
-				glUniformMatrix4fv(glGetUniformLocation(point_shader.m_id,"projection"), 1, GL_FALSE, glm::value_ptr(camera.projection));	
-				glUniformMatrix4fv(glGetUniformLocation(point_shader.m_id,"model"), 1, GL_FALSE, glm::value_ptr(model));	
-				glUniformMatrix4fv(glGetUniformLocation(point_shader.m_id,"view"), 1, GL_FALSE, glm::value_ptr(view));					
+				GLCall(point_shader.useProgram());
+				GLCall(
+					glUniformMatrix4fv(glGetUniformLocation(point_shader.m_id,"projection"), 1, GL_FALSE, glm::value_ptr(camera.projection))
+				);
+				GLCall(
+					glUniformMatrix4fv(glGetUniformLocation(point_shader.m_id,"model"), 1, GL_FALSE, glm::value_ptr(model))
+				);
+				GLCall(
+					glUniformMatrix4fv(glGetUniformLocation(point_shader.m_id,"view"), 1, GL_FALSE, glm::value_ptr(view))
+				);
 											
 				COLOR_LOC = glGetUniformLocation(point_shader.m_id,"u_color");
-				glUniform4f(COLOR_LOC, 1.0,0.0,0.0,1.0);	
+				
+				GLCall(glUniform4f(COLOR_LOC, 1.0,0.0,0.0,1.0));	
 						
 				curObj->drawPoints();
 				
-				glUseProgram(0);
+				GLCall(glUseProgram(0));
 			}			
 			
 			
 			if(curObj->bDisplayNormals){
-											
-				COLOR_LOC = glGetUniformLocation(curObj->shader.m_id,"u_color");
-				glUniform4f(COLOR_LOC, 1.0,0.0,0.0,1.0);	
+				GLCall(point_shader.useProgram());							
+				COLOR_LOC = glGetUniformLocation(point_shader.m_id,"u_color");
+				GLCall(glUniform4f(COLOR_LOC, 0.0,1.0,0.0,1.0));	
 						
 				curObj->drawNormals();
 				
-				glUseProgram(0);
+				GLCall(glUseProgram(0));
 			}
 			
 			if(curObj->bDisplayBoundingBox)
