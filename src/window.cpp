@@ -142,7 +142,7 @@ Window::Window()
 
 	// gizmo test
 	Gizmo * gizmo = new Gizmo();
-	gizmo->buildVbo();
+	//~ gizmo->buildVbo();
 	gizmos.push_back(gizmo);
 
 	// default first object
@@ -199,7 +199,7 @@ bool Window::mouseClickGizmo()
 	
 	if( hit )
 	{
-		printf("handle name : %s\n", result_gizmos[0]->handles[0].getName().c_str());
+		printf("handle name : %s\n", result_gizmos[0]->handles[0]->getName().c_str());
 	}
 	
 	return hit;
@@ -727,9 +727,10 @@ void Window::objectListDialog()
 	
 	if(ImGui::Button("Delete Object"))
 	{
-		if(objects.size() > 0)
+		if(objects.size() > 0 && cur_object_selected != -1)
+		{
 			removeObject(objects[cur_object_selected]);
-		
+		}
 	}
 	
 	if(ImGui::Button("Duplicate Object")){
@@ -940,14 +941,6 @@ void Window::buildParamUi(BaseParam * param, std::function<void()> callback)
 	ParamMenu    * p_menu   = nullptr;
 	ParamVec3    * p_vec3   = nullptr;
 	
-	//~ if(param->getNumKeyframes() > 0)
-	//~ {
-		//~ if(param->isKeyframe(time_line.current_frame))
-			//~ ImGui::PushStyleColor(ImGuiCol_Text, (ImVec4)ImColor(0.3f, 1.0f, 0.3f, 1.0f));
-		//~ else
-			//~ ImGui::PushStyleColor(ImGuiCol_Text, (ImVec4)ImColor(1.0f, 0.3f, 0.3f, 1.0f));
-	//~ }			
-	
 	if(p_vec3 = dynamic_cast<ParamVec3*>(param))
 	{
 		ImGui::Text(param->getName().c_str());
@@ -956,7 +949,7 @@ void Window::buildParamUi(BaseParam * param, std::function<void()> callback)
 		buildParamUiKeyframePopupBegin(p_vec3->param_x);
 		
 		
-		if(ImGui::DragFloat(p_vec3->param_x->getName().c_str(), &(p_vec3->param_x->value)))
+		if(ImGui::DragFloat(p_vec3->param_x->getName().c_str(), &(p_vec3->param_x->value), 0.05f))
 		{
 			if(p_vec3->param_x->isKeyframe(time_line.current_frame))
 			{
@@ -980,10 +973,8 @@ void Window::buildParamUi(BaseParam * param, std::function<void()> callback)
 		ImGui::NextColumn();
 		// Y
 		buildParamUiKeyframePopupBegin(p_vec3->param_y);
-		
-		//~ _name = p_vec3->getName();
-		//~ _name += p_vec3->param_y->getName();		
-		if(ImGui::DragFloat(p_vec3->param_y->getName().c_str(), &(p_vec3->param_y->value)))
+	
+		if(ImGui::DragFloat(p_vec3->param_y->getName().c_str(), &(p_vec3->param_y->value), 0.05f))
 		{
 			if(p_vec3->param_y->isKeyframe(time_line.current_frame))
 			{
@@ -1008,10 +999,8 @@ void Window::buildParamUi(BaseParam * param, std::function<void()> callback)
 		// Z	
 		ImGui::NextColumn();	
 		buildParamUiKeyframePopupBegin(p_vec3->param_z);
-		
-		//~ _name = p_vec3->getName();
-		//~ _name += p_vec3->param_z->getName();		
-		if(ImGui::DragFloat(p_vec3->param_z->getName().c_str(), &(p_vec3->param_z->value)))
+	
+		if(ImGui::DragFloat(p_vec3->param_z->getName().c_str(), &(p_vec3->param_z->value), 0.05f))
 		{
 			if(p_vec3->param_z->isKeyframe(time_line.current_frame))
 			{
@@ -1042,7 +1031,7 @@ void Window::buildParamUi(BaseParam * param, std::function<void()> callback)
 		
 		if(p_float = dynamic_cast<ParamFloat*>(param))
 		{
-			if(ImGui::DragFloat(p_float->getName().c_str(), &p_float->value))
+			if(ImGui::DragFloat(p_float->getName().c_str(), &p_float->value, 0.05f))
 			{
 				if(p_float->isKeyframe(time_line.current_frame))
 				{
@@ -1084,19 +1073,7 @@ void Window::buildParamUi(BaseParam * param, std::function<void()> callback)
 				p_action->value();
 				callback();
 			}				
-		}
-		//~ else if(p_vec3 = dynamic_cast<ParamVec3*>(param)){	
-			//~ 
-			//~ float vals[3] = {p_vec3->value.x, p_vec3->value.y, p_vec3->value.z};
-			//~ if(ImGui::DragFloat3(p_vec3->getName().c_str() , vals, 0.1f)){
-				//~ p_vec3->value.x = vals[0];
-				//~ p_vec3->value.y = vals[1];
-				//~ p_vec3->value.z = vals[2];
-				//~ 
-				//~ callback();
-			//~ }
-		//~ }
-		else if(p_menu = dynamic_cast<ParamMenu*>(param)){
+		}else if(p_menu = dynamic_cast<ParamMenu*>(param)){
 		
 			static int choice = 0;
 			if(ImGui::BeginCombo(
@@ -1142,32 +1119,7 @@ void Window::objectPropertiesDialog()
 		sprintf(text, "object %d", cur_object_selected);
 		Entity3D* curEntity = objects[cur_object_selected];
 		
-		Object * p_object = nullptr;
-		ObjectDummy * p_dummy = nullptr;
-		if( p_object = dynamic_cast<Object *>(curEntity)){
-			
-			if(ImGui::Button("to json")){
-				json j = p_object->toJSON();
-				
-				
-				
-				
-				if(p_object->has_generator){
-					j["mesh_generator"] = p_object->mesh_generator->toJSON();
-				}
-				
-				std::string s = j.dump(4);
-				//~ printf("%s\n", s.c_str());
-			}		
-		}else if( p_dummy = dynamic_cast<ObjectDummy *>(curEntity)){
-			
-			if(ImGui::Button("to json")){
-				json j = p_dummy->toJSON();
-				std::string s = j.dump(4);
-				
-				//~ printf("%s\n", s.c_str());
-			}		
-		}
+
 		// current object name
 		if( ImGui::InputText(":name" , curEntity->name,IM_ARRAYSIZE(curEntity->name)))
 		{
@@ -1326,7 +1278,7 @@ void Window::objectPropertiesDialog()
 								
 								static int choice = 0;						
 								
-								const char* items[] = {"Make a choice ","Sphere Mesh", "Geo Sphere Mesh",  "Grid Mesh", "Box Mesh", "File Mesh", "Cylinder Mesh"};
+								const char* items[] = {"Make a choice ","Sphere Mesh", "Geo Sphere Mesh",  "Grid Mesh", "Box Mesh", "Cylinder Mesh", "File Mesh"};
 								
 								static int combo_current_item = 0;
 								
@@ -1356,24 +1308,36 @@ void Window::objectPropertiesDialog()
 									
 								if(ImGui::Button("set"))
 								{
-									if(choice == 1){
+									if(choice == SPHERE_MESH_GENERATOR + 1){
+										
 										curObj->setGenerator<SphereMesh>();
 										curObj->mesh_generator->need_update = true;
-									}else if(choice == 2){
+										
+									}else if(choice == GEOSPHERE_MESH_GENERATOR + 1){
+										
 										curObj->setGenerator<GeoSphereMesh>();
 										curObj->mesh_generator->need_update = true;
-									}else if(choice == 3){
+										
+									}else if(choice == GRID_MESH_GENERATOR + 1){
+										
 										curObj->setGenerator<GridMesh>();
 										curObj->mesh_generator->need_update = true;
-									}else if(choice == 4){
+										
+									}else if(choice == BOX_MESH_GENERATOR + 1){
+										
 										curObj->setGenerator<BoxMesh>();
 										curObj->mesh_generator->need_update = true;
-									}else if(choice == 5){
+										
+									}else if(choice == FILE_MESH_GENERATOR + 1){
+										
 										curObj->setGenerator<FileMesh>();
-										curObj->mesh_generator->need_update = true;					
-									}else if(choice == 6){
+										curObj->mesh_generator->need_update = true;		
+													
+									}else if(choice == CYLINDER_MESH_GENERATOR + 1){
+										
 										curObj->setGenerator<CylinderMesh>();
-										curObj->mesh_generator->need_update = true;					
+										curObj->mesh_generator->need_update = true;		
+													
 									}
 								}
 								

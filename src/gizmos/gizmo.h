@@ -46,7 +46,7 @@ class Gizmo
 		Entity3D* target_object = nullptr;
 		
 		
-		std::vector<Handle> handles;
+		std::vector<Handle *> handles;
 
 	private:
 

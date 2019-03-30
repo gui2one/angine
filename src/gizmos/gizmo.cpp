@@ -9,10 +9,17 @@ Gizmo::Gizmo()
 	scale = glm::vec3(1.0f,1.0f,1.0f);	
 	
 	
-	TranslateHandle trans_1;// = new Handle();
-	//~ trans_1.setName("first handle");
-	handles.push_back(trans_1);
-
+	TranslateHandle * trans_x = new TranslateHandle();
+	trans_x->axis = 0;
+	handles.push_back(trans_x);
+	
+	TranslateHandle * trans_y = new TranslateHandle();
+	trans_y->axis = 1;
+	handles.push_back(trans_y);
+	
+	TranslateHandle * trans_z = new TranslateHandle();
+	trans_z->axis = 2;
+	handles.push_back(trans_z);
 }
 
 // copy constructor
@@ -36,173 +43,66 @@ void Gizmo::buildVbo()
 	
 	//~ printf("--- START VBO initialization \n");
 	
-	
-	MeshUtils utils;
-	mesh = utils.cylinderMesh(0.01, 1.0);
-	//~ float vertices[18] = {
-		//~ 
-		//~ 0.0, 0.0, 0.0,
-		//~ 1.0, 0.0, 0.0,
-		//~ 1.0, 0.1, 0.0,
-		//~ 
-		//~ 0.0, 0.0, 0.0,
-		//~ 1.0, 0.1, 0.0,
-		//~ 0.0, 0.1, 0.0
-		//~ };
-//~ 
-	//~ unsigned int indices[6] = {
-		//~ 
-		//~ 0,1,2,
-		//~ 3,4,5
-	//~ };
-	
-	for (int i = 0; i < mesh.vertices.size(); i++)
+	// build handles vbos
+	for (int i = 0; i < handles.size(); i++)
 	{
-		vertex_data.push_back( mesh.vertices[i].position.x);
-		vertex_data.push_back( mesh.vertices[i].position.y);
-		vertex_data.push_back( mesh.vertices[i].position.z);		
+
+
+		TranslateHandle * p_trans = nullptr;
 		
-		vertex_data.push_back( mesh.vertices[i].normal.x );
-		vertex_data.push_back( mesh.vertices[i].normal.y );
-		vertex_data.push_back( mesh.vertices[i].normal.z );
+		if( p_trans = dynamic_cast<TranslateHandle*>(handles[i])){
+			p_trans->buildVbo();
+		}
+		//~ handles[i].buildVbo();
 
 	}
-	
-	
-	glDeleteBuffers(1, &m_vbo);
-	glGenBuffers(1, &m_vbo);
-	glBindBuffer(GL_ARRAY_BUFFER, m_vbo);
-	glBufferData(GL_ARRAY_BUFFER, sizeof(float) * vertex_data.size(), vertex_data.data() ,GL_DYNAMIC_DRAW);
-	
-	vertex_data.clear();	
-	
-	glBindBuffer(GL_ARRAY_BUFFER,0);	
-	
-	glDeleteBuffers(1, &m_ibo);
-	glGenBuffers(1, &m_ibo);	
-	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, m_ibo);
-	glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(unsigned int) * mesh.indices.size(), mesh.indices.data() ,GL_DYNAMIC_DRAW);
-		
-	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
 
 
-
-	
-	glBindBuffer(GL_ARRAY_BUFFER,0);
-	
-
-	
 	//~ printf("--- END VBO initialization \n");
 }
 
 
 void Gizmo::draw(Shader & _shader, Camera & camera){
-	//~ shader.useProgram();
-		
+	
+	//~ printf("drawing Gizmo !!!!!\n");
+	//~ 
+	//~ printf("\tnum handles : %d\n", handles.size());
+	//~ printf("----------------------------\n");
+	
+	//~ _shader.useProgram();
+	
+	glm::mat4 model = glm::mat4(1.0f);
+	
+	model = target_object->transforms * model;
+	
+	target_object->applyParentsMatrices(model);
+	
+	glm::vec3 world_pos = glm::vec3( model[3][0], model[3][1], model[3][2]);
+	
+	float cam_distance = glm::distance(world_pos, camera.position);
+	//~ printf("cam distance -> %.3f \n", cam_distance);
+	float dist_square = cam_distance * cam_distance;
+	float scale = cam_distance * 0.2;
+	model = glm::scale(model, glm::vec3(scale, scale, scale));
+	// rotate to lay down X Axis
+	
 
-		glm::mat4 model = glm::mat4(1.0f);
-		
-		model = target_object->transforms * model;
-		
-		target_object->applyParentsMatrices(model);
-		
-		glm::vec3 world_pos = glm::vec3( model[3][0], model[3][1], model[3][2]);
-		
-		float cam_distance = glm::distance(world_pos, camera.position);
-		//~ printf("cam distance -> %.3f \n", cam_distance);
-		float dist_square = cam_distance * cam_distance;
-		float scale = cam_distance * 0.2;
-		model = glm::scale(model, glm::vec3(scale, scale, scale));
-		// rotate to lay down X Axis
-		model = glm::rotate(model, (float)(PI) * 0.5f, glm::vec3(0.0f, 1.0f, 0.0f));
-		
-		
-		glUniformMatrix4fv(glGetUniformLocation(_shader.m_id,"model"), 1, GL_FALSE, glm::value_ptr(model));	
-		GLuint COLOR_LOC = glGetUniformLocation(_shader.m_id,"u_color");		
-		glUniform4f(COLOR_LOC, 1.0, 0.0, 0.0, 1.0);			
-		
-		glBindBuffer(GL_ARRAY_BUFFER, m_vbo);
-		
-		glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(float) * 6, 0); 			
-		glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, sizeof(float) * 6, (const void *)(3 * sizeof(float))); 		
+	
+	
+
+	
+	TranslateHandle * p_translate = nullptr;
+	
+	for (int i = 0; i < handles.size(); i++)
+	{
+		if( p_translate = dynamic_cast<TranslateHandle*>(handles[i]))
+		{
 			
-		
-		
-		glEnableVertexAttribArray(0);// position
-		glEnableVertexAttribArray(1);// normal
+			p_translate->draw(_shader, camera, model);
+		}
+	}
+	
 
-			glBindBuffer(GL_ELEMENT_ARRAY_BUFFER,m_ibo);
-			glDrawElements(GL_TRIANGLES, mesh.indices.size(), GL_UNSIGNED_INT, nullptr);	
-		
-		glDisableVertexAttribArray(0);
-		glDisableVertexAttribArray(1);
-		
-
-		glBindBuffer(GL_ARRAY_BUFFER, 0);
-		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER,0);
-
-		// rotate to lay down Y Axis
-		model = glm::mat4(1.0f);
-		model = target_object->transforms * model;
-		target_object->applyParentsMatrices(model);
-		model = glm::scale(model, glm::vec3(scale, scale, scale));
-		model = glm::rotate(model, (float)(PI) * -0.5f, glm::vec3(1.0f, 0.0f, 0.0f));
-
-		glUniformMatrix4fv(glGetUniformLocation(_shader.m_id,"model"), 1, GL_FALSE, glm::value_ptr(model));	
-		COLOR_LOC = glGetUniformLocation(_shader.m_id,"u_color");		
-		glUniform4f(COLOR_LOC, 0.0, 1.0, 0.0, 1.0);			
-		
-		glBindBuffer(GL_ARRAY_BUFFER, m_vbo);
-		
-		glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(float) * 6, 0); 			
-		glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, sizeof(float) * 6, (const void *)(3 * sizeof(float))); 		
-			
-		
-		
-		glEnableVertexAttribArray(0);// position
-		glEnableVertexAttribArray(1);// normal
-
-			glBindBuffer(GL_ELEMENT_ARRAY_BUFFER,m_ibo);
-			glDrawElements(GL_TRIANGLES, mesh.indices.size(), GL_UNSIGNED_INT, nullptr);	
-		
-		glDisableVertexAttribArray(0);
-		glDisableVertexAttribArray(1);
-		
-		glBindBuffer(GL_ARRAY_BUFFER, 0);
-		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER,0);
-		
-		// rotate to lay down Z Axis : do not rotate, already in the right place
-		model = glm::mat4(1.0f);
-		
-		model = target_object->transforms * model;
-		target_object->applyParentsMatrices(model);
-		model = glm::scale(model, glm::vec3(scale, scale, scale));
-		//model = glm::rotate(model, (float)(PI) * -0.5f, glm::vec3(1.0f, 0.0f, 0.0f));
-
-		glUniformMatrix4fv(glGetUniformLocation(_shader.m_id,"model"), 1, GL_FALSE, glm::value_ptr(model));	
-		COLOR_LOC = glGetUniformLocation(_shader.m_id,"u_color");		
-		glUniform4f(COLOR_LOC, 0.0, 0.0, 1.0, 1.0);			
-		
-		glBindBuffer(GL_ARRAY_BUFFER, m_vbo);
-		
-		glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(float) * 6, 0); 			
-		glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, sizeof(float) * 6, (const void *)(3 * sizeof(float))); 		
-			
-		
-		
-		glEnableVertexAttribArray(0);// position
-		glEnableVertexAttribArray(1);// normal
-
-			glBindBuffer(GL_ELEMENT_ARRAY_BUFFER,m_ibo);
-			glDrawElements(GL_TRIANGLES, mesh.indices.size(), GL_UNSIGNED_INT, nullptr);	
-		
-		glDisableVertexAttribArray(0);
-		glDisableVertexAttribArray(1);
-		
-		glBindBuffer(GL_ARRAY_BUFFER, 0);
-		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER,0);		
-		
-		glUseProgram(0);
 
 		
 }

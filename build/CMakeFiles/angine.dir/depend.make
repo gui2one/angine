@@ -2879,10 +2879,14 @@ CMakeFiles/angine.dir/home/pi/projects/angine/src/gizmos/gizmo.cpp.o: /home/pi/p
 CMakeFiles/angine.dir/home/pi/projects/angine/src/gizmos/gizmo.cpp.o: /usr/local/include/GLFW/glfw3.h
 
 CMakeFiles/angine.dir/home/pi/projects/angine/src/gizmos/handle.cpp.o: /home/pi/projects/angine/src/animation/base_keyframe.h
+CMakeFiles/angine.dir/home/pi/projects/angine/src/gizmos/handle.cpp.o: /home/pi/projects/angine/src/camera.h
 CMakeFiles/angine.dir/home/pi/projects/angine/src/gizmos/handle.cpp.o: /home/pi/projects/angine/src/gizmos/handle.cpp
 CMakeFiles/angine.dir/home/pi/projects/angine/src/gizmos/handle.cpp.o: /home/pi/projects/angine/src/gizmos/handle.h
+CMakeFiles/angine.dir/home/pi/projects/angine/src/gizmos/handle.cpp.o: /home/pi/projects/angine/src/mesh.h
 CMakeFiles/angine.dir/home/pi/projects/angine/src/gizmos/handle.cpp.o: /home/pi/projects/angine/src/param.h
 CMakeFiles/angine.dir/home/pi/projects/angine/src/gizmos/handle.cpp.o: /home/pi/projects/angine/src/pch.h
+CMakeFiles/angine.dir/home/pi/projects/angine/src/gizmos/handle.cpp.o: /home/pi/projects/angine/src/shader.h
+CMakeFiles/angine.dir/home/pi/projects/angine/src/gizmos/handle.cpp.o: /home/pi/projects/angine/src/utils/mesh_utils.h
 CMakeFiles/angine.dir/home/pi/projects/angine/src/gizmos/handle.cpp.o: /home/pi/projects/angine/src/vendor/glm/./detail/setup.hpp
 CMakeFiles/angine.dir/home/pi/projects/angine/src/gizmos/handle.cpp.o: /home/pi/projects/angine/src/vendor/glm/./detail/type_mat2x2.hpp
 CMakeFiles/angine.dir/home/pi/projects/angine/src/gizmos/handle.cpp.o: /home/pi/projects/angine/src/vendor/glm/./detail/type_mat2x2.inl
@@ -3088,6 +3092,7 @@ CMakeFiles/angine.dir/home/pi/projects/angine/src/gizmos/handle.cpp.o: /home/pi/
 CMakeFiles/angine.dir/home/pi/projects/angine/src/gizmos/handle.cpp.o: /home/pi/projects/angine/src/vendor/glm/vector_relational.hpp
 CMakeFiles/angine.dir/home/pi/projects/angine/src/gizmos/handle.cpp.o: /home/pi/projects/angine/src/vendor/nlohmann/json.hpp
 CMakeFiles/angine.dir/home/pi/projects/angine/src/gizmos/handle.cpp.o: /home/pi/projects/angine/src/vendor/stb_image.h
+CMakeFiles/angine.dir/home/pi/projects/angine/src/gizmos/handle.cpp.o: /home/pi/projects/angine/src/vertex.h
 CMakeFiles/angine.dir/home/pi/projects/angine/src/gizmos/handle.cpp.o: /usr/local/include/GLFW/glfw3.h
 
 CMakeFiles/angine.dir/home/pi/projects/angine/src/main.cpp.o: ../src/include/assimp/color4.h

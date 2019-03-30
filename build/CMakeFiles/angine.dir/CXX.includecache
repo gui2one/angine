@@ -353,12 +353,20 @@ handle.h
 /home/pi/projects/angine/src/gizmos/handle.cpp
 handle.h
 /home/pi/projects/angine/src/gizmos/handle.h
+../utils/mesh_utils.h
+/home/pi/projects/angine/src/utils/mesh_utils.h
 
 /home/pi/projects/angine/src/gizmos/handle.h
 ../pch.h
 /home/pi/projects/angine/src/pch.h
 ../param.h
 /home/pi/projects/angine/src/param.h
+../mesh.h
+/home/pi/projects/angine/src/mesh.h
+../shader.h
+/home/pi/projects/angine/src/shader.h
+../camera.h
+/home/pi/projects/angine/src/camera.h
 
 /home/pi/projects/angine/src/include/assimp/./Compiler/poppack1.h
 
