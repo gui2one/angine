@@ -7,10 +7,15 @@ Entity3D::Entity3D()
 	rotation = glm::vec3(0.0f,0.0f,0.0f);
 	scale = glm::vec3(1.0f,1.0f,1.0f);	
 	
+	p_transform_order = new ParamMenu("transform order", {"Scale/Rot/Trans","Scale/Trans/Rot"});
+	param_layout.push(p_transform_order);
+	
 	p_pos = new ParamVec3("position", position, "t_");
 	param_layout.push(p_pos);
+	
 	p_rot = new ParamVec3("rotation", rotation, "r_");
 	param_layout.push(p_rot);
+	
 	p_scale = new ParamVec3("scale", scale,"s_");
 	param_layout.push(p_scale);
 }
@@ -25,12 +30,16 @@ Entity3D::Entity3D(const Entity3D& other){
 	Entity3D * look_at_target = other.look_at_target;
 	
 	//~ transforms = other.transforms;	
+	
 	position = other.position;
 	rotation = other.rotation;
 	scale = other.scale;
 	
 	color = other.color;
 
+	p_transform_order = new ParamMenu(*other.p_transform_order);
+	param_layout.push(p_transform_order);
+	
 	p_pos = new ParamVec3(*other.p_pos);	
 	param_layout.push(p_pos);
 	
@@ -58,11 +67,11 @@ void Entity3D::applyTransforms()
 	
 	glm::mat4 temp = glm::mat4(1.0f);
 	
-	temp = glm::translate(temp, p_pos->getValue());
+	
 	temp = glm::rotate(temp, glm::radians(p_rot->getValue().x), glm::vec3(1.0f, 0.0f, 0.0f));
 	temp = glm::rotate(temp, glm::radians(p_rot->getValue().y), glm::vec3(0.0f, 1.0f, 0.0f));
 	temp = glm::rotate(temp, glm::radians(p_rot->getValue().z), glm::vec3(0.0f, 0.0f, 1.0f));
-	
+	temp = glm::translate(temp, p_pos->getValue());
 	temp = glm::scale(temp , p_scale->getValue());
 	
 	transforms = temp;

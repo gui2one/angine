@@ -39,6 +39,8 @@ class Entity3D
 		
 		ParamLayout param_layout;
 		
+		ParamMenu * p_transform_order;
+		
 		ParamVec3 * p_pos;
 		ParamVec3 * p_rot;
 		ParamVec3 * p_scale;

@@ -281,7 +281,7 @@ bool Raycaster::intersectObjects(
 				std::vector<int> triangles_ids = check_triangles(ray, p_object);
 				if( triangles_ids.size() > 0){
 									
-					printf("hit object ID -> %d from Raycaster ----------------- !!!! yes \n", i);
+					//~ printf("hit object ID -> %d from Raycaster ----------------- !!!! yes \n", i);
 					
 					_result_objects.push_back(p_object);
 				}				
@@ -306,11 +306,10 @@ bool Raycaster::intersectObjects(
 }
 
 
-bool Raycaster::intersectGizmos(
+Gizmo * Raycaster::intersectGizmos(
 						Window* _window, 
 						Camera& _camera, 
-						std::vector<Gizmo*> _target_gizmos, 
-						std::vector<Gizmo*>& _result_gizmos)
+						std::vector<Gizmo*> _target_gizmos)
 {
 	double pos_x, pos_y;
 	glfwGetCursorPos(_window->win, &pos_x, &pos_y);
@@ -330,69 +329,81 @@ bool Raycaster::intersectGizmos(
 		
 		if( _target_gizmos[i]->target_object)
 		{
-			_target_gizmos[i]->target_object->applyTransforms();
+			TranslationGizmo * p_translation = nullptr;
 			
-			printf("click Gizmo !!!\n");
-			target_transforms = _target_gizmos[i]->target_object->transforms * target_transforms;			
-			_target_gizmos[i]->target_object->applyParentsMatrices(target_transforms);
-			
-			glm::vec3 z_axis_2 = glm::vec3(0.0f, 0.0f, 1.0f);
-			
-			// do not multiply by the whole matrix, remove positon and scale
-			
-			glm::mat4 clean_mat = glm::mat4(1.0f);
-			clean_mat[2][0] = target_transforms[2][0];
-			clean_mat[2][1] = target_transforms[2][1];
-			clean_mat[2][2] = target_transforms[2][2];
-			vec_mult_by_matrix(z_axis_2, clean_mat, false);
+			if( p_translation = dynamic_cast<TranslationGizmo*>(_target_gizmos[i]))
+			{	
+				p_translation->target_object->applyTransforms();
+				
+				target_transforms = p_translation->target_object->transforms * target_transforms;			
+				p_translation->target_object->applyParentsMatrices(target_transforms);
+				
+				glm::vec3 z_axis_2 = glm::vec3(0.0f, 0.0f, 1.0f);
+				
+				// do not multiply by the whole matrix, remove positon and scale
+				
+				glm::mat4 clean_mat = glm::mat4(1.0f);
+				clean_mat[2][0] = target_transforms[2][0];
+				clean_mat[2][1] = target_transforms[2][1];
+				clean_mat[2][2] = target_transforms[2][2];
+				vec_mult_by_matrix(z_axis_2, clean_mat, false);
 
-			glm::vec3 world_pos = _target_gizmos[i]->target_object->getWorldPosition();
-			
-			printf("world_pos value === %.3f, %.3f, %.3f\n", world_pos.x, world_pos.y, world_pos.z); 
-			glm::vec3 planeN = glm::normalize(z_axis_2);
-			
-			glm::vec3 planeP = world_pos;
-			glm::vec3 pointP = glm::vec3(x, y , 1.0f);
-			glm::vec3 rayDir = glm::vec3(0.0f, 0.0f , -1.0f);			
-								
-			//~ glm::vec4 tempPointP = inverse(projection * view)* glm::vec4(pointP.x, pointP.y, pointP.z, 1.0f) ;
-			//~ tempPointP /= tempPointP.w *0.5f;
+				glm::vec3 world_pos = p_translation->target_object->getWorldPosition();
+				
+				//~ printf("world_pos value === %.3f, %.3f, %.3f\n", world_pos.x, world_pos.y, world_pos.z); 
+				glm::vec3 planeN = glm::normalize(z_axis_2);
+				
+				glm::vec3 planeP = world_pos;
+				glm::vec3 pointP = glm::vec3(x, y , 1.0f);
+				glm::vec3 rayDir = glm::vec3(0.0f, 0.0f , -1.0f);			
+									
+				//~ glm::vec4 tempPointP = inverse(projection * view)* glm::vec4(pointP.x, pointP.y, pointP.z, 1.0f) ;
+				//~ tempPointP /= tempPointP.w *0.5f;
 
-			glm::vec3 hitP = glm::vec3(0.0f);
-			int hit = ray_plane_intersect(planeN, planeP, ray.pos, ray.dir, hitP);	
-			
-			glm::vec4 local_pos = glm::vec4(hitP.x, hitP.y, hitP.z, 1.0f);
-			
-			glm::vec3 local_pos_vec3 = glm::inverse(target_transforms) * local_pos ;
-			if(hit){
-				printf("------> gizmo hit <--------\n");
-				_result_gizmos.push_back(_target_gizmos[i]);
-				float cam_dist = glm::distance( _camera.position, world_pos);
-				printf("\tlocal_pos_vec3 : %.3f, %.3f, %.3f\n", local_pos_vec3.x, local_pos_vec3.y, local_pos_vec3.z);
-				if( fabs(local_pos_vec3.x) > fabs(local_pos_vec3.y)
-					&&  fabs(local_pos_vec3.y) < 0.1 
-					&&  local_pos_vec3.x < (_target_gizmos[i]->scale.x * cam_dist / 5.0f)
-					&&  local_pos_vec3.x > 0.0)
-				{
-					printf("local X : %.3f, local Y : %.3f\n", fabs(local_pos_vec3.x), fabs(local_pos_vec3.y));
-					printf("nearest is X axis\n");
-					return true;
-				} else if(fabs(local_pos_vec3.x) < fabs(local_pos_vec3.y)
-				&&  fabs(local_pos_vec3.x) < 0.1
-				&&  local_pos_vec3.y < (_target_gizmos[i]->scale.y * cam_dist / 5.0f)
-				&&  local_pos_vec3.y > 0.0)
-				{
+				glm::vec3 hitP = glm::vec3(0.0f);
+				int hit = ray_plane_intersect(planeN, planeP, ray.pos, ray.dir, hitP);	
+				
+				glm::vec4 local_pos = glm::vec4(hitP.x, hitP.y, hitP.z, 1.0f);
+				
+				glm::vec3 local_pos_vec3 = glm::inverse(target_transforms) * local_pos ;
+				if(hit){
+					//~ printf("------> gizmo hit <--------\n");
 					
-					printf("local X : %.3f, local Y : %.3f\n", fabs(local_pos_vec3.x), fabs(local_pos_vec3.y));
-					printf("nearest is Y axis\n");
-					return true;
-				}else{
-					return false;
-				}	
-			}			
+					float cam_dist = glm::distance( _camera.position, world_pos);
+					//~ printf("\tlocal_pos_vec3 : %.3f, %.3f, %.3f\n", local_pos_vec3.x, local_pos_vec3.y, local_pos_vec3.z);
+					if( fabs(local_pos_vec3.x) > fabs(local_pos_vec3.y)
+						&&  fabs(local_pos_vec3.y) < 0.1 
+						&&  local_pos_vec3.x < (p_translation->scale.x * cam_dist / 5.0f)
+						&&  local_pos_vec3.x > 0.0)
+					{
+						//~ printf("local X : %.3f, local Y : %.3f\n", fabs(local_pos_vec3.x), fabs(local_pos_vec3.y));
+						printf("nearest is X axis\n");
+						
+						//~ Handle * _result_handle = p_translation->handles[0];
+						//~ printf("Handle pointer --> %x\n", _result_handle);
+						p_translation->active_handle_id = 0;
+						return p_translation;
+					} else if(fabs(local_pos_vec3.x) < fabs(local_pos_vec3.y)
+					&&  fabs(local_pos_vec3.x) < 0.1
+					&&  local_pos_vec3.y < (p_translation->scale.y * cam_dist / 5.0f)
+					&&  local_pos_vec3.y > 0.0)
+					{
+						
+						//~ printf("local X : %.3f, local Y : %.3f\n", fabs(local_pos_vec3.x), fabs(local_pos_vec3.y));
+						printf("nearest is Y axis\n");
+						//~ Handle * _result_handle = p_translation->handles[1];
+						//~ printf("Handle pointer --> %x\n", _result_handle);
+						p_translation->active_handle_id = 1;
+						return p_translation;
+					}else{
+						return nullptr;
+					}	
+				}				
+			}
+			
 		}
 	}
 	
 	
-	return false;
+	return nullptr;
 }

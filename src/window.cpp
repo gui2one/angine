@@ -141,9 +141,9 @@ Window::Window()
 	
 
 	// gizmo test
-	Gizmo * gizmo = new Gizmo();
+	TranslationGizmo * translation_gizmo = new TranslationGizmo();
 	//~ gizmo->buildVbo();
-	gizmos.push_back(gizmo);
+	gizmos.push_back(translation_gizmo);
 
 	// default first object
 	Object* obj = new Object();
@@ -194,15 +194,28 @@ bool Window::mouseClickGizmo()
 {
 	Raycaster raycaster;
 	
-	std::vector<Gizmo*> result_gizmos;
-	bool hit = raycaster.intersectGizmos(this, camera, gizmos, result_gizmos);
+	current_gizmo = raycaster.intersectGizmos(this, camera, gizmos);
 	
-	if( hit )
+	if( current_gizmo )
 	{
-		printf("handle name : %s\n", result_gizmos[0]->handles[0]->getName().c_str());
+		printf("%x\n", current_gizmo->handles[current_gizmo->active_handle_id]);
+		
+		
+		ParamVec3 * p_vec3 = nullptr;
+		ParamFloat * p_float = nullptr;
+		
+		if( p_vec3 = dynamic_cast<ParamVec3*>(current_gizmo->handles[current_gizmo->active_handle_id]->getTargetParam()))
+		{
+			p_vec3->setValue( p_vec3->getValue() + glm::vec3(0.1,0.0,0.0));
+		}else if( p_float = dynamic_cast<ParamFloat*>(current_gizmo->handles[current_gizmo->active_handle_id]->getTargetParam()))
+		{
+			p_float->setValue( p_float->getValue() + 0.1);
+		}		
+		
+		//~ printf("handle name : %s\n", active_handle->getName().c_str());
 	}
 	
-	return hit;
+	return (current_gizmo->handles[current_gizmo->active_handle_id] != nullptr);
 	
 }
 
@@ -219,7 +232,25 @@ Entity3D* Window::mouseClickObject()
 	
 	
 	if( result_objects.size() > 0){
-		cur_object_selected = findObjectIndexByID( result_objects[0]->getID());
+		cur_object_selected = findObjectIndexByID( result_objects[0]->getID());		
+		
+		gizmos[0]->target_object = result_objects[0];
+		
+		gizmos[0]->handles[0]->setTargetParam(result_objects[0]->p_pos->param_x);
+		gizmos[0]->handles[1]->setTargetParam(result_objects[0]->p_pos->param_y);
+		gizmos[0]->handles[2]->setTargetParam(result_objects[0]->p_pos->param_z);
+		
+		//~ ParamVec3 * p_vec3 = nullptr;
+		//~ ParamFloat * p_float = nullptr;
+		//~ 
+		//~ if( p_vec3 = dynamic_cast<ParamVec3*>(gizmos[0]->handles[0]->getTargetParam()))
+		//~ {
+			//~ p_vec3->setValue( glm::vec3(1.0,0.0,0.0));
+		//~ }else if( p_float = dynamic_cast<ParamFloat*>(gizmos[0]->handles[0]->getTargetParam()))
+		//~ {
+			//~ p_float->setValue( -1.0);
+		//~ }
+		
 		return result_objects[0];
 	}
 	//~ double pos_x, pos_y;
@@ -335,6 +366,8 @@ void Window::cursor_pos_callback(GLFWwindow* window, double xpos, double ypos)
 		
 		app->setCamPosFromPolar(app->camera_u_pos, app->camera_v_pos, app->camera_orbit_radius);
 		
+	}else if(app->is_handle_clicked){
+		printf( "dragging handle \"%s\"\n" , app->current_gizmo->handles[app->current_gizmo->active_handle_id]->getName().c_str());
 	}
 	
 }
@@ -369,7 +402,9 @@ void Window::mouse_button_callback(GLFWwindow* window, int button, int action, i
 			
 			glfwGetCursorPos(window, &app->mouse_pos_x, &app->mouse_pos_y);
 			app->mouse_old_x = app->mouse_pos_x;
-			app->mouse_old_y = app->mouse_pos_y;			
+			app->mouse_old_y = app->mouse_pos_y;	
+			
+					
 			
 		}else if(button == GLFW_MOUSE_BUTTON_RIGHT && action == GLFW_RELEASE ){
 			
@@ -384,10 +419,15 @@ void Window::mouse_button_callback(GLFWwindow* window, int button, int action, i
 				if(!is_gizmo)
 				{
 					app->mouseClickObject();
+				}else{
+					app->is_handle_clicked = true;
 				}			
 			}else{
 				app->mouseClickObject();
 			}
+		}
+		if(button == GLFW_MOUSE_BUTTON_LEFT && action == GLFW_RELEASE){
+			app->is_handle_clicked = false;
 		}
 	}
 }
@@ -2243,6 +2283,15 @@ void Window::renderObjects()
 			
 			if(curObj->bDisplayNormals){
 				GLCall(point_shader.useProgram());							
+				GLCall(
+					glUniformMatrix4fv(glGetUniformLocation(point_shader.m_id,"projection"), 1, GL_FALSE, glm::value_ptr(camera.projection))
+				);
+				GLCall(
+					glUniformMatrix4fv(glGetUniformLocation(point_shader.m_id,"model"), 1, GL_FALSE, glm::value_ptr(model))
+				);
+				GLCall(
+					glUniformMatrix4fv(glGetUniformLocation(point_shader.m_id,"view"), 1, GL_FALSE, glm::value_ptr(view))
+				);				
 				COLOR_LOC = glGetUniformLocation(point_shader.m_id,"u_color");
 				GLCall(glUniform4f(COLOR_LOC, 0.0,1.0,0.0,1.0));	
 						
@@ -2304,7 +2353,7 @@ void Window::renderObjects()
 			objects[cur_object_selected]->applyParentsMatrices(model);
 			
 			
-			gizmos[i]->target_object = objects[cur_object_selected];
+			//~ gizmos[i]->target_object = objects[cur_object_selected];
 			gizmos[i]->transforms = model;
 			
 			GLCall(point_shader.useProgram());

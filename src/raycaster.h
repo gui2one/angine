@@ -21,7 +21,7 @@ class Raycaster
 		
 		bool intersectBoudingBox(	Window* _window, Camera& _camera, Entity3D* _target_object);
 		bool intersectObjects(Window* _window, Camera& _camera, std::vector<Entity3D*> _target_objects, std::vector<Entity3D*>& _result_objects);
-		bool intersectGizmos(Window* _window, Camera& _camera, std::vector<Gizmo*> _target_gizmos, std::vector<Gizmo*>& _result_gizmos);
+		Gizmo* intersectGizmos(Window* _window, Camera& _camera, std::vector<Gizmo*> _target_gizmos);
 			
 	private:
 		/* add your private declarations */

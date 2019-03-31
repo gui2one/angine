@@ -8,8 +8,10 @@ class MeshUtils
 	public:
 		MeshUtils();
 		
-		Mesh cylinderMesh(float radius, float height, int segs_height = 5 , int segs_radius = 6);
+		Mesh cylinderMesh(float radius, float height, int segs_height = 2 , int segs_radius = 6);
+		Mesh coneMesh(float radius1, float radius2, float height, int segs_height = 2 , int segs_radius = 6);
 			
+		Mesh merge(Mesh& mesh1, Mesh& mesh2);
 	private:
 		/* add your private declarations */
 };

@@ -22,6 +22,16 @@ class Handle
 			printf("Base Handle BuildVbo \n");
 		}	
 		
+		inline void setTargetParam(BaseParam* _param) 
+		{
+			target_param = _param;
+		}
+		
+		inline BaseParam* getTargetParam() const
+		{
+			return target_param;
+		}		
+		
 		inline void setName(std::string _name) 
 		{
 			name = _name;

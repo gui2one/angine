@@ -84,6 +84,12 @@ class Window
 		
 		
 		std::vector<Gizmo *> gizmos;
+		//~ Handle * current_handle = nullptr;
+		Gizmo * current_gizmo = nullptr;
+		
+		bool is_handle_clicked = false;
+		bool is_handle_dragged = false;
+		
 				
 		void renderObjects();
 		

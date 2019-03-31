@@ -19,24 +19,55 @@ void TranslateHandle::buildVbo()
 	//~ printf("Creating handle's Vertex Buffer Object\n");
 	
 	MeshUtils utils;
-	mesh = utils.cylinderMesh(0.01, 1.0);
-
 	
-
+	// make cylinder part
+	mesh = utils.cylinderMesh(0.01, 0.9);
+	//~ mesh = utils.coneMesh(0.05, 0.0, 1.0);
+	printf("num vertices before: %d\n", mesh.vertices.size());
+	printf("num indices before: %d\n", mesh.indices.size());
+	
+	Mesh cone_mesh = utils.coneMesh(0.05,0.01,0.1);
+	for (int i = 0; i < cone_mesh.vertices.size(); i++)
+	{		
+		cone_mesh.vertices[i].position.z += 0.9;
+	}
+	
+	// make conic part
+	Mesh merge_mesh = utils.merge(mesh, cone_mesh);	
+	
+	mesh = merge_mesh;
+	
+	printf("num vertices after: %d\n", mesh.vertices.size());
+	printf("num indices after: %d\n", mesh.indices.size());
+	printf("--------------------------------\n");
 	vertex_data.clear();	
 	
 	for (int i = 0; i < mesh.vertices.size(); i++)
 	{
-		vertex_data.push_back( mesh.vertices[i].position.x);
-		vertex_data.push_back( mesh.vertices[i].position.y);
-		vertex_data.push_back( mesh.vertices[i].position.z);		
+		vertex_data.insert( vertex_data.end(), 
+			{
+				mesh.vertices[i].position.x,
+				mesh.vertices[i].position.y,
+				mesh.vertices[i].position.z
+			});
 		
-		vertex_data.push_back( mesh.vertices[i].normal.x );
-		vertex_data.push_back( mesh.vertices[i].normal.y );
-		vertex_data.push_back( mesh.vertices[i].normal.z );
+		vertex_data.insert( vertex_data.end(), 
+			{
+				mesh.vertices[i].normal.x,
+				mesh.vertices[i].normal.y,
+				mesh.vertices[i].normal.z
+			});		
+
 
 	}
 	
+
+
+	
+
+	
+	
+
 	
 	glDeleteBuffers(1, &m_vbo);
 	glGenBuffers(1, &m_vbo);
@@ -44,11 +75,7 @@ void TranslateHandle::buildVbo()
 	printf("\tm_vbo %d\n", m_vbo);
 	glBindBuffer(GL_ARRAY_BUFFER, m_vbo);
 	glBufferData(GL_ARRAY_BUFFER, sizeof(float) * vertex_data.size(), vertex_data.data() ,GL_DYNAMIC_DRAW);
-	
-	
-	
-		
-	
+
 	
 	glDeleteBuffers(1, &m_ibo);
 	glGenBuffers(1, &m_ibo);	

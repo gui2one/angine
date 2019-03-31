@@ -24,7 +24,9 @@ class Gizmo
 		glm::vec3 rotation;
 		
 
-		void buildVbo();
+		virtual void buildVbo(){}
+		virtual void draw(Shader & _shader, Camera & camera){}
+		
 		Mesh mesh;
 		//~ Shader shader;
 		std::vector<float> vertex_data;
@@ -32,7 +34,7 @@ class Gizmo
 		unsigned int m_ibo, m_vbo;
 		glm::vec3 getWorldPosition();
 
-		void draw(Shader & _shader, Camera & camera);
+		
 		
 		inline void setID(int _id){	id = _id;}			
 		inline int getID(){	return id;}
@@ -47,6 +49,7 @@ class Gizmo
 		
 		
 		std::vector<Handle *> handles;
+		int active_handle_id = -1;
 
 	private:
 
@@ -54,4 +57,12 @@ class Gizmo
 		/* add your private declarations */
 };
 
+class TranslationGizmo : public Gizmo
+{
+	public :
+		TranslationGizmo();
+		void buildVbo() override;
+		void draw(Shader & _shader, Camera & camera) override;
+
+};
 #endif /* GIZMO_H */ 

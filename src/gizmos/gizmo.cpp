@@ -9,17 +9,7 @@ Gizmo::Gizmo()
 	scale = glm::vec3(1.0f,1.0f,1.0f);	
 	
 	
-	TranslateHandle * trans_x = new TranslateHandle();
-	trans_x->axis = 0;
-	handles.push_back(trans_x);
-	
-	TranslateHandle * trans_y = new TranslateHandle();
-	trans_y->axis = 1;
-	handles.push_back(trans_y);
-	
-	TranslateHandle * trans_z = new TranslateHandle();
-	trans_z->axis = 2;
-	handles.push_back(trans_z);
+
 }
 
 // copy constructor
@@ -33,15 +23,80 @@ Gizmo::Gizmo(const Gizmo& other)
 	position = other.position;
 	rotation = other.rotation;
 	scale = other.scale;
+	
+	TranslateHandle * trans_x = new TranslateHandle();
+	trans_x->axis = 0;
+	trans_x->setName("translate_x");
+	handles.push_back(trans_x);
+	
+	TranslateHandle * trans_y = new TranslateHandle();
+	trans_y->axis = 1;
+	trans_y->setName("translate_y");
+	handles.push_back(trans_y);
+	
+	TranslateHandle * trans_z = new TranslateHandle();
+	trans_z->axis = 2;
+	trans_z->setName("translate_z");
+	handles.push_back(trans_z);	
 
 	
 	setName("copy_name");
 }
 
-void Gizmo::buildVbo()
+
+
+void Gizmo::setName(std::string str_name)
+{
+
+	for (int i = 0; i < str_name.size(); i++)
+	{
+		name[i] = str_name[i];
+	}
+	
+}
+
+
+
+glm::vec3 Gizmo::getWorldPosition()
+{
+	glm::vec4 temp = glm::vec4(position.x, position.y, position.z,1.0f);
+	glm::mat4 temp_matrix = glm::mat4(1.0f);
+	
+	temp_matrix = transforms * temp_matrix;
+	temp = temp * temp_matrix;
+	//~ 
+	return glm::vec3(temp.x, temp.y, temp.z);
+	
+}
+
+
+Gizmo::~Gizmo()
 {
 	
-	//~ printf("--- START VBO initialization \n");
+}
+
+
+TranslationGizmo::TranslationGizmo() : Gizmo()
+{
+	TranslateHandle * trans_x = new TranslateHandle();
+	trans_x->axis = 0;
+	trans_x->setName("translate_x");
+	handles.push_back(trans_x);
+	
+	TranslateHandle * trans_y = new TranslateHandle();
+	trans_y->axis = 1;
+	trans_y->setName("translate_y");
+	handles.push_back(trans_y);
+	
+	TranslateHandle * trans_z = new TranslateHandle();
+	trans_z->axis = 2;
+	trans_z->setName("translate_z");
+	handles.push_back(trans_z);
+}
+
+
+void TranslationGizmo::buildVbo()
+{
 	
 	// build handles vbos
 	for (int i = 0; i < handles.size(); i++)
@@ -53,16 +108,14 @@ void Gizmo::buildVbo()
 		if( p_trans = dynamic_cast<TranslateHandle*>(handles[i])){
 			p_trans->buildVbo();
 		}
-		//~ handles[i].buildVbo();
 
 	}
 
 
-	//~ printf("--- END VBO initialization \n");
+
 }
 
-
-void Gizmo::draw(Shader & _shader, Camera & camera){
+void TranslationGizmo::draw(Shader & _shader, Camera & camera){
 	
 	//~ printf("drawing Gizmo !!!!!\n");
 	//~ 
@@ -106,33 +159,7 @@ void Gizmo::draw(Shader & _shader, Camera & camera){
 
 		
 }
-void Gizmo::setName(std::string str_name)
-{
-
-	for (int i = 0; i < str_name.size(); i++)
-	{
-		name[i] = str_name[i];
-	}
-	
-}
 
 
 
-glm::vec3 Gizmo::getWorldPosition()
-{
-	glm::vec4 temp = glm::vec4(position.x, position.y, position.z,1.0f);
-	glm::mat4 temp_matrix = glm::mat4(1.0f);
-	
-	temp_matrix = transforms * temp_matrix;
-	temp = temp * temp_matrix;
-	//~ 
-	return glm::vec3(temp.x, temp.y, temp.z);
-	
-}
-
-
-Gizmo::~Gizmo()
-{
-	
-}
 
