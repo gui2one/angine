@@ -190,16 +190,28 @@ Window::Window()
 
 }
 
+WindowRaycasterData Window::buildWindowRaycasterData()
+{
+	WindowRaycasterData data;
+	data.width = width;
+	data.height = height;	
+	return data;
+}
+
 bool Window::mouseClickGizmo()
 {
 	Raycaster raycaster;
+	DragHandleData temp_data;
+	current_gizmo = raycaster.intersectGizmos(this, camera, gizmos, temp_data);
 	
-	current_gizmo = raycaster.intersectGizmos(this, camera, gizmos);
+	//~ drag_data = temp_data;
 	
 	if( current_gizmo )
 	{
 		printf("%x\n", current_gizmo->handles[current_gizmo->active_handle_id]);
 		
+
+		buildWindowRaycasterData();
 		
 		ParamVec3 * p_vec3 = nullptr;
 		ParamFloat * p_float = nullptr;
@@ -366,7 +378,12 @@ void Window::cursor_pos_callback(GLFWwindow* window, double xpos, double ypos)
 		
 		app->setCamPosFromPolar(app->camera_u_pos, app->camera_v_pos, app->camera_orbit_radius);
 		
-	}else if(app->is_handle_clicked){
+	}else if(app->is_handle_clicked)
+	{
+		
+		//~ Raycaster raycaster;
+		//~ 
+		//~ raycaster.dragHandle(drag_data);
 		printf( "dragging handle \"%s\"\n" , app->current_gizmo->handles[app->current_gizmo->active_handle_id]->getName().c_str());
 	}
 	

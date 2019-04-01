@@ -70,6 +70,7 @@ add_executable(angine
 	../src/gizmos/handle.cpp
 	
 	../src/mesh.cpp
+	
 	../src/generators/mesh_generator.cpp
 	../src/generators/gridmesh.cpp
 	../src/generators/box_mesh.cpp

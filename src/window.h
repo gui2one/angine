@@ -25,9 +25,21 @@
 
 #include "vendor/nlohmann/json.hpp"
 
+//~ #include "raycaster.h"
+
+
 // for convenience
 using json = nlohmann::json;
 ////
+
+
+struct WindowRaycasterData{
+	float width;
+	float height;
+	float mouse_x;
+	float mouse_y;
+	//~ Camera& camera;
+};
 
 class Window
 {
@@ -87,6 +99,8 @@ class Window
 		//~ Handle * current_handle = nullptr;
 		Gizmo * current_gizmo = nullptr;
 		
+		//~ DragHandleData drag_data;
+		WindowRaycasterData buildWindowRaycasterData();
 		bool is_handle_clicked = false;
 		bool is_handle_dragged = false;
 		

@@ -309,7 +309,7 @@ bool Raycaster::intersectObjects(
 Gizmo * Raycaster::intersectGizmos(
 						Window* _window, 
 						Camera& _camera, 
-						std::vector<Gizmo*> _target_gizmos)
+						std::vector<Gizmo*> _target_gizmos, DragHandleData& _drag_data)
 {
 	double pos_x, pos_y;
 	glfwGetCursorPos(_window->win, &pos_x, &pos_y);
@@ -382,6 +382,12 @@ Gizmo * Raycaster::intersectGizmos(
 						//~ Handle * _result_handle = p_translation->handles[0];
 						//~ printf("Handle pointer --> %x\n", _result_handle);
 						p_translation->active_handle_id = 0;
+						
+						_drag_data.target_object = p_translation->target_object;
+						_drag_data.start_local_position = local_pos_vec3;
+						_drag_data.plane_position = planeP;
+						_drag_data.plane_normal = planeN;
+						
 						return p_translation;
 					} else if(fabs(local_pos_vec3.x) < fabs(local_pos_vec3.y)
 					&&  fabs(local_pos_vec3.x) < 0.1
@@ -406,4 +412,11 @@ Gizmo * Raycaster::intersectGizmos(
 	
 	
 	return nullptr;
+}
+
+
+
+void dragHandle(DragHandleData& _data)
+{
+	printf("dagHandle FUNCTION fired !!!\n");
 }
